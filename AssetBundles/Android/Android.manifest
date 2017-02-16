@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 290517708
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: ui
+      Dependencies: {}
+    Info_1:
+      Name: dice
+      Dependencies: {}
+    Info_2:
+      Name: card
+      Dependencies: {}
+    Info_3:
+      Name: emotions
+      Dependencies: {}
+    Info_4:
+      Name: prefabs
+      Dependencies:
+        Dependency_0: ui
+    Info_5:
+      Name: login
+      Dependencies:
+        Dependency_0: ui
+    Info_6:
+      Name: lobby
+      Dependencies:
+        Dependency_0: ui

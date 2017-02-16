@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3489e88097e751640a795213c50c0eb3
+timeCreated: 1487085842
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: UTM Americana
+  fontNames:
+  - UTM Americana
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

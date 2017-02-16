@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 54306225
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c90049f15d5a601c2a9c7bbd52c5358c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d24bf54f46935ed9e6cf78ac481bb9d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Res/Sprites/Dice/5.png
+- Assets/Res/Sprites/Dice/history/ls_6.png
+- Assets/Res/Sprites/Dice/history/ls_3.png
+- Assets/Res/Sprites/Dice/4.png
+- Assets/Res/Sprites/Dice/history/ls_2.png
+- Assets/Res/Sprites/Dice/history/ls_4.png
+- Assets/Res/Sprites/Dice/history/ls_5.png
+- Assets/Res/Sprites/Dice/1.png
+- Assets/Res/Sprites/Dice/2.png
+- Assets/Res/Sprites/Dice/dice.png
+- Assets/Res/Sprites/Dice/history/ls_1.png
+- Assets/Res/Sprites/Dice/6.png
+Dependencies: []

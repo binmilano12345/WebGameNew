@@ -1,0 +1,70 @@
+ManifestFileVersion: 0
+CRC: 3865727292
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 484db4141f20da0d124fc4fe2d27e67f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d24bf54f46935ed9e6cf78ac481bb9d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Res/Sprites/Card/card_25.png
+- Assets/Res/Sprites/Card/card_46.png
+- Assets/Res/Sprites/Card/card_18.png
+- Assets/Res/Sprites/Card/card_45.png
+- Assets/Res/Sprites/Card/card_27.png
+- Assets/Res/Sprites/Card/card_41.png
+- Assets/Res/Sprites/Card/card_19.png
+- Assets/Res/Sprites/Card/card_7.png
+- Assets/Res/Sprites/Card/card_36.png
+- Assets/Res/Sprites/Card/card_5.png
+- Assets/Res/Sprites/Card/card_34.png
+- Assets/Res/Sprites/Card/card_53.png
+- Assets/Res/Sprites/Card/card_30.png
+- Assets/Res/Sprites/Card/card_39.png
+- Assets/Res/Sprites/Card/card_8.png
+- Assets/Res/Sprites/Card/card_6.png
+- Assets/Res/Sprites/Card/card_20.png
+- Assets/Res/Sprites/Card/card_51.png
+- Assets/Res/Sprites/Card/card_14.png
+- Assets/Res/Sprites/Card/card_28.png
+- Assets/Res/Sprites/Card/card_21.png
+- Assets/Res/Sprites/Card/card_9.png
+- Assets/Res/Sprites/Card/card_10.png
+- Assets/Res/Sprites/Card/card_11.png
+- Assets/Res/Sprites/Card/card_29.png
+- Assets/Res/Sprites/Card/card_38.png
+- Assets/Res/Sprites/Card/card_37.png
+- Assets/Res/Sprites/Card/card_16.png
+- Assets/Res/Sprites/Card/card_31.png
+- Assets/Res/Sprites/Card/card_22.png
+- Assets/Res/Sprites/Card/card_17.png
+- Assets/Res/Sprites/Card/card_3.png
+- Assets/Res/Sprites/Card/card_47.png
+- Assets/Res/Sprites/Card/card_13.png
+- Assets/Res/Sprites/Card/card_52.png
+- Assets/Res/Sprites/Card/card_1.png
+- Assets/Res/Sprites/Card/card_33.png
+- Assets/Res/Sprites/Card/card_42.png
+- Assets/Res/Sprites/Card/card_43.png
+- Assets/Res/Sprites/Card/card_23.png
+- Assets/Res/Sprites/Card/card_48.png
+- Assets/Res/Sprites/Card/card_15.png
+- Assets/Res/Sprites/Card/card_49.png
+- Assets/Res/Sprites/Card/card_40.png
+- Assets/Res/Sprites/Card/card_44.png
+- Assets/Res/Sprites/Card/card_2.png
+- Assets/Res/Sprites/Card/card_12.png
+- Assets/Res/Sprites/Card/card_32.png
+- Assets/Res/Sprites/Card/card_50.png
+- Assets/Res/Sprites/Card/card_26.png
+- Assets/Res/Sprites/Card/card_4.png
+- Assets/Res/Sprites/Card/card_35.png
+- Assets/Res/Sprites/Card/card_24.png
+Dependencies: []

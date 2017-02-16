@@ -1,0 +1,87 @@
+ManifestFileVersion: 0
+CRC: 3789750469
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 50cfc1fee02b66216831a38f07abb6df
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d24bf54f46935ed9e6cf78ac481bb9d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Res/Sprites/IconBet/chonmuccuoc_5.png
+- Assets/Res/Sprites/Icon/logo_icon.png
+- Assets/Res/Sprites/Buttons/btn_cn.png
+- Assets/Res/Sprites/Icon/icon_gold.png
+- Assets/Res/Sprites/Bkg/bkg_inapp.png
+- Assets/Res/Sprites/Bkg/table_game.png
+- Assets/Res/Sprites/Icon/border_tange.png
+- Assets/Res/Sprites/Bkg/bkg_input_text.png
+- Assets/Res/Sprites/Buttons/btn_mang_1_on.png
+- Assets/Res/Sprites/Bkg/bg_mini_dice.png
+- Assets/Res/Sprites/Bkg/bkg_hu_off.png
+- Assets/Res/Sprites/Buttons/btn_dk.png
+- Assets/Res/Sprites/Bkg/bg.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_7.png
+- Assets/Res/Sprites/Icon/bg_loading.png
+- Assets/Res/Sprites/Buttons/btn_mang_1_off.png
+- Assets/Res/Sprites/KetBac/icon_100k.png
+- Assets/Res/Sprites/Buttons/btn_sliver.png
+- Assets/Res/Sprites/KetBac/icon_2m.png
+- Assets/Res/Sprites/Buttons/btn_yellow.png
+- Assets/Res/Sprites/Bkg/bg_avata_in_game.png
+- Assets/Res/Sprites/Bkg/bkg_game.png
+- Assets/Res/Sprites/Bkg/bkg_name.png
+- Assets/Res/Sprites/Bkg/bkg_header.png
+- Assets/Res/Sprites/Bkg/bkg_money.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_6.png
+- Assets/Res/Sprites/Bkg/bkg_line.png
+- Assets/Res/Sprites/Icon/time.png
+- Assets/Res/Sprites/Bkg/select_money.png
+- Assets/Res/Sprites/Icon/login_0005_fb.png
+- Assets/Res/Sprites/KetBac/icon_5m.png
+- Assets/Res/Sprites/Bkg/bkg_popup.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_1.png
+- Assets/Res/Sprites/Bkg/bkg_login.png
+- Assets/Res/Sprites/Bkg/bkg_2.png
+- Assets/Res/Sprites/KetBac/icon_200k.png
+- Assets/Res/Sprites/Buttons/btn_red.png
+- Assets/Res/Sprites/Buttons/btn_dn.png
+- Assets/Res/Sprites/KetBac/icon_1m.png
+- Assets/Res/Sprites/Buttons/btn_doi_thuong_2.png
+- Assets/Res/Sprites/Bkg/bkg_hu_on.png
+- Assets/Res/Sprites/Icon/icon_ban_be.png
+- Assets/Res/Sprites/Bkg/table_mini_dice.png
+- Assets/Res/Sprites/KetBac/icon_lock.png
+- Assets/Res/Sprites/XocDia/table.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_4.png
+- Assets/Res/Sprites/Bkg/bkg_black.png
+- Assets/Res/Sprites/XocDia/white.png
+- Assets/Res/Sprites/Buttons/btn_off.png
+- Assets/Res/Sprites/KetBac/khungthe.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_3.png
+- Assets/Res/Sprites/Icon/logo_girl.png
+- Assets/Res/Sprites/Bkg/bkg_input_1.png
+- Assets/Res/Sprites/Bkg/bg_chat_1.png
+- Assets/Res/Sprites/Buttons/btn_doi_thuong_1.png
+- Assets/Res/Sprites/Buttons/btn_add_select.png
+- Assets/Res/Sprites/Bkg/boder_avata.png
+- Assets/Res/Sprites/Buttons/btn_1.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_8.png
+- Assets/Res/Sprites/Bkg/bg_invite.png
+- Assets/Res/Sprites/Icon/icon_loading_progress.png
+- Assets/Res/Sprites/Buttons/btn_f5.png
+- Assets/Res/Sprites/Buttons/btn_add_1.png
+- Assets/Res/Sprites/KetBac/icon_500k.png
+- Assets/Res/Sprites/Bkg/bkg_footer.png
+- Assets/Res/Sprites/Buttons/btn_fb.png
+- Assets/Res/Sprites/Buttons/btn_green.png
+- Assets/Scripts/Demigiant/DOTweenPro Examples/Examples Assets/dotweenpro_logo.png
+- Assets/Res/Sprites/IconBet/chonmuccuoc_2.png
+- Assets/Res/Sprites/Bkg/bkg_left_payment.png
+Dependencies: []

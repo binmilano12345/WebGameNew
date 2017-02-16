@@ -1,0 +1,66 @@
+ManifestFileVersion: 0
+CRC: 1234530785
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 397d7c3846790cc9dc7c25f780f1524b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7cc49ad051d62776859643aa252808f6
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3c309b812c1fb674d9c3ec0a30e52198, type: 3}
+- Class: 114
+  Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 147255348ddd9fc4cba401ab2afb9f1b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6206c7877b32cc048964451739801fd1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6c53779c958dd8c47a24080b0f527483, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f7e440cd209687144adb3ff859608043, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 073996df54d242f41bc182bb9e11dfc2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/Res/Prefabs/UI/PanelLoad.prefab
+- Assets/Res/Prefabs/UI/Toast.prefab
+- Assets/Res/Prefabs/UI/PanelMessageSytem.prefab
+- Assets/Res/Prefabs/UI/Alert.prefab
+Dependencies:
+- D:/Workspace/WebGamePro/WebGame/AssetBundles/Android/ui
