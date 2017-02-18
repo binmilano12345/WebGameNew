@@ -184,7 +184,9 @@ namespace Us.Mobile.Utilites {
             }
             return long.Parse(cash);
         }
-
+        /// <summary>
+        /// format money to pattern #,###
+        /// </summary>
         public static string FormatMoneyNormal(long m) {
             //if (m <= 0) return "0";
             return m.ToString("0,0");

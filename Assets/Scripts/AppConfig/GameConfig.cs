@@ -14,7 +14,6 @@ namespace AppConfig {
         public const string Version = "1.0.0";
 
         public static int NUM_AVATA = 36;
-        public static int NUM_PLAYER = 0;
         public static string SMS_CHANGE_PASS_SYNTAX = "";
         public static string SMS_CHANGE_PASS_NUMBER = "";
         public static sbyte IsShowDoiThuong = 0;
@@ -25,8 +24,11 @@ namespace AppConfig {
         public static string Syntax10, Syntax15;
         public static string Port10 = "", Port15 = "";
 
+        public static string TXT_NOTI = "";
+
         public const int NUM_GAME = 10;
         public static GameID[] IdGame = new GameID[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
+        public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO"};
         public static GameID CurrentGameID;
     }
 
@@ -124,13 +126,14 @@ namespace AppConfig {
         public const string PRE_TOAST = "Toast";
         public const string PRE_ALERT = "Alert";
         public const string PRE_LOAD = "PanelLoad";
+        
+        public const string PRE_PLAYER = "Player";
 
-        public const string PRE_ITEM_BET = "ItemBet";
+        public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";
         public const string PRE_CARD = "card";
         public const string PRE_CHAT_TEXT = "ButtonChatText";
         public const string PRE_CHAT_SMILE = "ItemEmotion";
-        public const string PRE_PLAYER = "Player";
         public const string PRE_CHIP = "Chip";
         public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
         public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";

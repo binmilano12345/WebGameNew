@@ -255,7 +255,7 @@ public class LoadAssetBundle : MonoBehaviour {
     internal static void LoadScene(string sceneBundleName = "", string sceneName = "", UnityAction SceneLoadDoneCallback = null, float timedur = 0.01f) {
         //DialogEx.ShowLoading(true);
         if (!isLoading) {
-            //			PopupAndLoadingScript.instance.ShowLoading ();
+            PopupAndLoadingScript.instance.ShowLoading();
             if (SceneManager.GetSceneByName(sceneName) == null || !SceneManager.GetSceneByName(sceneName).isLoaded) {
 #if ASSET_BUNDLE
                 LoadAssetBundle.instance.StartCoroutine(LoadAssetBundle.instance.InitializeLevelAsync(sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));
@@ -276,7 +276,7 @@ public class LoadAssetBundle : MonoBehaviour {
 
     internal static void LoadSceneLienTuc(string sceneBundleName = "", string sceneName = "", UnityAction SceneLoadDoneCallback = null, float timedur = 0.01f) {
         //DialogEx.ShowLoading(true);
-        //			PopupAndLoadingScript.instance.ShowLoading ();
+        PopupAndLoadingScript.instance.ShowLoading();
         if (SceneManager.GetSceneByName(sceneName) == null || !SceneManager.GetSceneByName(sceneName).isLoaded) {
 #if ASSET_BUNDLE
             LoadAssetBundle.instance.StartCoroutine(LoadAssetBundle.instance.InitializeLevelAsync(sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));

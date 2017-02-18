@@ -7,12 +7,18 @@ using UnityEngine.UI;
 using Us.Mobile.Utilites;
 
 public class LobbyControl : MonoBehaviour {
+    public static LobbyControl instance;
     [SerializeField]
     Transform tf_parent;
     [SerializeField]
-    Text txt_name, txt_id, txt_money;
+    Text txt_name, txt_id, txt_money, txt_noti;
     [SerializeField]
     RawImage raw_avata;
+
+    void Awake() {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start() {
         StartCoroutine(Init());
@@ -20,6 +26,9 @@ public class LobbyControl : MonoBehaviour {
 
     IEnumerator Init() {
         yield return new WaitForEndOfFrame();
+        GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
+        GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
+        GameControl.instance.UnloadSubScene();
         InitIconGame();
         SetInfo();
     }
@@ -29,6 +38,21 @@ public class LobbyControl : MonoBehaviour {
         txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
         txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
         LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+
+        txt_noti.text = GameConfig.TXT_NOTI;
+        txt_noti.transform.localPosition = new Vector3(600, 0, 0);
+        float w = LayoutUtility.GetPreferredWidth(txt_noti.rectTransform);
+        float time = (1200 + w) / 100;
+        txt_noti.transform.DOLocalMoveX(-600 - w, time).SetLoops(-1).SetEase(Ease.Linear);
+    }
+
+    public void SetNoti() {
+        txt_noti.transform.DOKill();
+        txt_noti.text = GameConfig.TXT_NOTI;
+        txt_noti.transform.localPosition = new Vector3(600, 0, 0);
+        float w = LayoutUtility.GetPreferredWidth(txt_noti.rectTransform);
+        float time = (1200 + w) / 100;
+        txt_noti.transform.DOLocalMoveX(-600 - w, time).SetLoops(-1).SetEase(Ease.Linear);
     }
     List<GameObject> listGame = new List<GameObject>();
     void InitIconGame() {
@@ -56,9 +80,9 @@ public class LobbyControl : MonoBehaviour {
         }
     }
     void OnClickGame(GameObject obj) {
-        Debug.LogError(obj.name);
-        int gameID = int.Parse(obj.name);
-        SendData.onSendGameID((byte)gameID);
+        int index = int.Parse(obj.name);
+        SendData.onSendGameID((byte)GameConfig.IdGame[index]);
+        PopupAndLoadingScript.instance.ShowLoading();
     }
 
     public void OnClickBack() {

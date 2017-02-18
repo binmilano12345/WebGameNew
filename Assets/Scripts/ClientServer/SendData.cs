@@ -861,7 +861,7 @@ public class SendData {
     public static void onCreateTable(int gameid, int roomid, long money, int maxplayer, int choinhanh, String password) {
         Message msg = new Message(CMDClient.CMD_CREATE_TABLE);
         try {
-            GameConfig.NUM_PLAYER = maxplayer;
+            //GameConfig.NUM_PLAYER = maxplayer;
             msg.writer().WriteInt(gameid);
             msg.writer().WriteInt(roomid);
             msg.writer().WriteLong(money);

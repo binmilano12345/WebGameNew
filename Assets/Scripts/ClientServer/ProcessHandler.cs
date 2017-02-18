@@ -13,7 +13,7 @@ public class ProcessHandler : MessageHandler {
                         string a = message.reader().ReadUTF();
                         break;
                     case CMDClient.CMD_SERVER_MESSAGE:
-                        listenner.OnMessageServer(message);
+                        listenner.OnMessageServer(message.reader().ReadUTF());
                         break;
                     case CMDClient.CMD_LOGIN:
                         listenner.OnLogin(message);
@@ -55,14 +55,10 @@ public class ProcessHandler : MessageHandler {
                         listenner.OnJoinGame(message);
                         break;
                     case CMDClient.CMD_LIST_TABLE:
-                        //card = message.reader().readShort();
-                        //if (card == -1) {
-                        //    listenner.onJoinRoomFail(message.reader().readUTF());
-                        //} else {
-                        //    listenner.onListTable(card, message);
-                        //}
-
                         listenner.OnJoinRoom(message);
+                        break;
+                    case CMDClient.CMD_JOIN_TABLE_PLAY:
+                        listenner.OnJoinTablePlay(message);
                         break;
                 }
             });

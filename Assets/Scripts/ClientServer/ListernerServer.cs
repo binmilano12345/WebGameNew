@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using AppConfig;
-using ItemData;
+using DataBase;
 using System.Linq;
 
 public class ListernerServer : IChatListener {
@@ -71,9 +71,9 @@ public class ListernerServer : IChatListener {
 
         PopupAndLoadingScript.instance.HideLoading();
     }
-    public void OnMessageServer(Message message) {
-        string msg = message.reader().ReadUTF();
-        PopupAndLoadingScript.instance.messageSytem.OnShow(msg);
+    public void OnMessageServer(string message) {
+        //string msg = message.reader().ReadUTF();
+        PopupAndLoadingScript.instance.messageSytem.OnShow(message);
         PopupAndLoadingScript.instance.HideLoading();
     }
     public void OnPopupNotify(Message message) {//clam
@@ -244,8 +244,11 @@ public class ListernerServer : IChatListener {
         try {
             string content = message.reader().ReadUTF();
             if (!content.Equals("")) {
-                //Res.TXT_Noti = content;
-                PopupAndLoadingScript.instance.alert.SetAlert(content);
+                GameConfig.TXT_NOTI = content;
+                //PopupAndLoadingScript.instance.alert.SetAlert(content);
+                if (LobbyControl.instance != null) {
+                    LobbyControl.instance.SetNoti();
+                }
             }
             if (GameConfig.IsShowDoiThuong == 0) {
                 //mainGame.mainScreen.menu.textNoti
@@ -326,14 +329,12 @@ public class ListernerServer : IChatListener {
         //mainGame.mainScreen.room.rowChonMuccuoc.setChon(true);
         //mainGame.mainScreen.room.groupChonMucCuoc.btnChonmc
         //        .setText("Tất cả MC");
-        LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM);
         OnGameID(message);
         SendData.onJoinRoom(ClientConfig.UserInfo.UNAME, 0);
 
     }
     public void OnJoinRoom(Message message) {
         short status = message.reader().ReadShort();
-        Debug.LogError(status);
         if (status == -1) {//that bai
             message.reader().ReadUTF();
         } else {
@@ -397,6 +398,7 @@ public class ListernerServer : IChatListener {
         for (int i = 0; i < totalTB; i++) {
             try {
                 ItemTableData ctb = new ItemTableData();
+                ctb.TableName = "Bàn " + i;
                 ctb.Id = (message.reader().ReadShort());
                 ctb.Status = (message.reader().ReadByte());
                 ctb.NUser = (message.reader().ReadByte());
@@ -409,7 +411,6 @@ public class ListernerServer : IChatListener {
                 //    continue;
                 //}
                 listTable.Add(ctb);
-
             } catch (Exception ex) {
                 Debug.LogException(ex);
             }
@@ -417,9 +418,32 @@ public class ListernerServer : IChatListener {
 
         listTable.OrderBy(r => r.Money);
 
-        if (RoomControl.instance != null) {
-            RoomControl.instance.InitTable(listTable);
-        }
+        LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM, () => {
+            RoomControl.instance.CreateTable(listTable);
+        });
     }
 
+    public void OnJoinTablePlay(Message message) {
+        // check = SerializerHelper.readInt(message);
+        sbyte status = message.reader().ReadByte();
+
+        if (status == 1) {
+            sbyte numPlayer = message.reader().ReadByte();
+            //short idTable = message.reader().ReadShort();
+            //long betMoney = message.reader().ReadLong();
+            //long needMoney = message.reader().ReadLong();
+            //long maxMoney = message.reader().ReadLong();
+            GameControl.instance.SetCasino(numPlayer == 9 ? 1 : 0, () => {
+                GameControl.instance.currentCasino.OnJoinTablePlaySuccess(message);
+            });
+        } else {
+            if (status == -1) {
+                String a = message.reader().ReadUTF();
+                //onJoinTablePlayFail(a);
+            } else if (status == 0) {
+                message.reader().ReadInt();
+                OnMessageServer(message.reader().ReadUTF());
+            }
+        }
+    }
 }
