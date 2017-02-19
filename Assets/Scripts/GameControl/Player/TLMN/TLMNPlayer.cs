@@ -13,4 +13,8 @@ public class TLMNPlayer : BasePlayer {
     void Update() {
 
     }
+
+    public void SetNumCard(int numC) {
+
+    }
 }

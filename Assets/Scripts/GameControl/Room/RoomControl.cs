@@ -25,6 +25,7 @@ public class RoomControl : MonoBehaviour {
     void Start() {
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
+        GameControl.instance.UnloadScene(SceneName.GAME_TLMN);
         GameControl.instance.UnloadSubScene();
         SetInfo();
     }

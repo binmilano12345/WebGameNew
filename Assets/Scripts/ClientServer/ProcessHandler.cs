@@ -4,7 +4,6 @@ using System;
 using AppConfig;
 
 public class ProcessHandler : MessageHandler {
-
     protected override void serviceMessage(Message message, int messageId) {
         try {
             DoOnMainThread.ExecuteOnMainThread.Enqueue(() => {
@@ -57,8 +56,54 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_LIST_TABLE:
                         listenner.OnJoinRoom(message);
                         break;
+                    case CMDClient.CMD_UPDATE_ROOM:
+                        listenner.OnUpdateRoom(message);
+                        break;
                     case CMDClient.CMD_JOIN_TABLE_PLAY:
                         listenner.OnJoinTablePlay(message);
+                        break;
+                    case CMDClient.CMD_EXIT_TABLE:
+                        if (GameControl.instance.GetCurrentCasino() == null) {
+                            GameControl.instance.ListCMDID.Add(messageId);
+                            GameControl.instance.ListMsg.Add(message);
+                        } else
+                            listenner.OnUserExitTable(message);
+                        break;
+                    case CMDClient.CMD_INFOPLAYER_TBL:
+                        if (GameControl.instance.GetCurrentCasino() == null) {
+                            GameControl.instance.ListCMDID.Add(messageId);
+                            GameControl.instance.ListMsg.Add(message);
+                        } else
+                            listenner.InfoCardPlayerInTbl(message);
+                        break;
+                    case CMDClient.CMD_READY:
+                        listenner.OnReady(message);
+                        break;
+                    case CMDClient.CMD_START_GAME:
+                        int by = message.reader().ReadByte();
+                        if (by == 0) {
+                            string info = message.reader().ReadUTF();
+                            listenner.OnStartFail(info);
+                        } else if (by == 1) {
+                            listenner.OnStartSuccess(message);
+                        } else if (by == 2) {
+                            listenner.OnStartForView(message);
+                        }
+                        break;
+                    case CMDClient.CMD_SET_NEW_MASTER:
+                        listenner.OnSetNewMaster(message.reader().ReadUTF());
+                        break;
+                    case CMDClient.CMD_FIRE_CARD:
+                        listenner.OnFrieCard(message);
+                        break;
+                    case CMDClient.CMD_PASS:// bo luot
+                        listenner.OnNickSkip(message.reader().ReadUTF(), message.reader().ReadUTF());
+                        break;
+                    case CMDClient.CMD_GAMEOVER:
+                        listenner.OnFinishGame(message);
+                        break;
+                    case CMDClient.CMD_ALLCARD_FINISH:
+                        listenner.OnAllCardPlayerFinish(message);
                         break;
                 }
             });

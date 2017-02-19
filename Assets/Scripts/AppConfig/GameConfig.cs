@@ -30,6 +30,8 @@ namespace AppConfig {
         public static GameID[] IdGame = new GameID[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
         public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO"};
         public static GameID CurrentGameID;
+
+        public static int TimerTurnInGame = 0;
     }
 
     public class LinkFixed {
@@ -131,7 +133,7 @@ namespace AppConfig {
 
         public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";
-        public const string PRE_CARD = "card";
+        public const string PRE_CARD = "Card";
         public const string PRE_CHAT_TEXT = "ButtonChatText";
         public const string PRE_CHAT_SMILE = "ItemEmotion";
         public const string PRE_CHIP = "Chip";

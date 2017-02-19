@@ -20,6 +20,19 @@ interface IChatListener {
     void OnJoinRoom(Message message);
     void OnGameID(Message message);
     void OnListTable(int totalTB, Message message);
+    void OnUpdateRoom(Message message);
 
     void OnJoinTablePlay(Message message);
+    void OnUserExitTable(Message message);
+    void InfoCardPlayerInTbl(Message message);
+    void OnReady(Message message);
+    void OnStartFail(string info);
+    void OnStartSuccess(Message message);
+    void OnStartForView(Message message);
+    void OnSetNewMaster(string nick);
+    void OnNickSkip(string nick, string turnName);
+    void OnNickSkip(string nick, Message msg);
+    void OnFrieCard(Message message);
+    void OnFinishGame(Message message);
+    void OnAllCardPlayerFinish(Message message);
 }

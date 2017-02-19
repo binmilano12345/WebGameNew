@@ -37,11 +37,11 @@
     "popup_quittable": "Bạn có muốn thoát bàn chơi không?",
     "popup_quitacc_thoattk": "Bạn có muốn thoát tài khoản hiện tại không?",
     "popup_thich_thi_ra": "Vào bàn thất bại!",
-    "popup_tat_ca_san_sang": "Tất cả người chơi phải sẵn sàng!",
+    "popup_con_ng_san_sang": "Còn người chưa sẵn sàng.\nBạn có muốn bắt đầu không?",
     "popup_khong_de_trong": "Bạn không được để trống!",
     "popup_mail_admin": "Bạn nhận được thư hệ thống. Bạn có muốn xem ngay không?",
     "popup_mail_co_tien": "Bạn nhận được thư chuyển tiển. Bạn có muốn xem ngay không?",
-    "popup_nhan_tien": "Bạn vừa nhận được {0} Gold!",
+    "popup_chua_chon_bai": "Chưa chọn bài!",
 	
     "ingame_ready": "SẴN SÀNG",
     "ingame_start": "BẮT ĐẦU",

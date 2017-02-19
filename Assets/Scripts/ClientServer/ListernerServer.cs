@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using AppConfig;
 using DataBase;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class ListernerServer : IChatListener {
     //GameControl gameControl;
@@ -422,6 +423,38 @@ public class ListernerServer : IChatListener {
             RoomControl.instance.CreateTable(listTable);
         });
     }
+    public void OnUpdateRoom(Message message) {
+        short totalTB = message.reader().ReadShort();
+        List<ItemTableData> listTable = new List<ItemTableData>();
+        for (int i = 0; i < totalTB; i++) {
+            try {
+                ItemTableData ctb = new ItemTableData();
+                ctb.TableName = "Bàn " + i;
+                ctb.Id = (message.reader().ReadShort());
+                ctb.Status = (message.reader().ReadByte());
+                ctb.NUser = (message.reader().ReadByte());
+                ctb.IsLock = message.reader().ReadByte();
+                ctb.Money = message.reader().ReadLong();
+                ctb.NeedMoney = message.reader().ReadLong();
+                ctb.MaxMoney = message.reader().ReadLong();
+                ctb.MaxUser = (message.reader().ReadByte());
+
+                listTable.Add(ctb);
+            } catch (Exception ex) {
+                Debug.LogException(ex);
+            }
+        }
+
+        listTable.OrderBy(r => r.Money);
+        if (!SceneManager.GetSceneByName(SceneName.SCENE_ROOM).isLoaded) {
+            LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM, () => {
+                RoomControl.instance.CreateTable(listTable);
+            });
+        } else {
+            if (RoomControl.instance != null)
+                RoomControl.instance.CreateTable(listTable);
+        }
+    }
 
     public void OnJoinTablePlay(Message message) {
         // check = SerializerHelper.readInt(message);
@@ -429,16 +462,12 @@ public class ListernerServer : IChatListener {
 
         if (status == 1) {
             sbyte numPlayer = message.reader().ReadByte();
-            //short idTable = message.reader().ReadShort();
-            //long betMoney = message.reader().ReadLong();
-            //long needMoney = message.reader().ReadLong();
-            //long maxMoney = message.reader().ReadLong();
             GameControl.instance.SetCasino(numPlayer == 9 ? 1 : 0, () => {
-                GameControl.instance.currentCasino.OnJoinTablePlaySuccess(message);
+                GameControl.instance.GetCurrentCasino().OnJoinTablePlaySuccess(message);
             });
         } else {
             if (status == -1) {
-                String a = message.reader().ReadUTF();
+                string a = message.reader().ReadUTF();
                 //onJoinTablePlayFail(a);
             } else if (status == 0) {
                 message.reader().ReadInt();
@@ -446,4 +475,125 @@ public class ListernerServer : IChatListener {
             }
         }
     }
+    public void OnUserExitTable(Message message) {
+        int idTb = message.reader().ReadShort();
+        string master = message.reader().ReadUTF();
+        string nick = message.reader().ReadUTF();
+        GameControl.instance.GetCurrentCasino().OnUserExitTable(nick, master);
+    }
+    #region Bat dau van
+    public void InfoCardPlayerInTbl(Message message) {
+        GameControl.instance.GetCurrentCasino().InfoCardPlayerInTbl(message);
+    }
+    public void OnReady(Message message) {
+        try {
+            int totalReady = message.reader().ReadByte();
+            for (int i = 0; i < totalReady; i++) {
+                string nick = message.reader().ReadUTF();
+                bool ready = message.reader().ReadBoolean();
+
+                GameControl.instance.GetCurrentCasino().OnReady(nick, ready);
+            }
+        } catch (Exception ex) {
+            Debug.LogException(ex);
+        }
+    }
+
+    public void OnStartFail(string info) {
+        PopupAndLoadingScript.instance.messageSytem.OnShow(info);
+        if (GameControl.instance.GetCurrentCasino() is HasMasterCasino) {
+            ((HasMasterCasino)GameControl.instance.GetCurrentCasino()).SetActiveBatDauSanSang(true, false);
+        }
+    }
+
+    public void OnStartSuccess(Message message) {
+        try {
+            //int[] cardHand = new int[1];
+            int size = message.reader().ReadInt();
+            byte[] c = new byte[size];
+            message.reader().Read(c, 0, size);
+            int[] cardHand = new int[c.Length];
+            for (int i = 0; i < c.Length; i++) {
+                cardHand[i] = c[i];
+            }
+
+            int size1 = message.reader().ReadByte();
+            string[] playingName = new string[size1];
+            for (int i = 0; i < size1; i++) {
+                playingName[i] = message.reader().ReadUTF();
+            }
+
+            GameControl.instance.GetCurrentCasino().StartTableOk(cardHand, message, playingName);
+            //mainGame.mainScreen.curentCasino.isStart = true;
+            //mainGame.mainScreen.curentCasino.isPlaying = true;
+
+        } catch (Exception ex) {
+            Debug.LogException(ex);
+        }
+    }
+
+    public void OnStartForView(Message message) {
+        try {
+            int size = message.reader().ReadByte();
+            string[] playingName = new string[size];
+            for (int i = 0; i < size; i++) {
+                playingName[i] = message.reader().ReadUTF();
+            }
+            GameControl.instance.GetCurrentCasino().OnStartForView(playingName, message);
+        } catch (Exception ex) {
+            Debug.LogException(ex);
+        }
+    }
+
+    public void OnSetNewMaster(string nick) {
+        GameControl.instance.GetCurrentCasino().SetMaster(nick);
+    }
+
+    #endregion
+    #region TLMN
+    public void OnNickSkip(string nick, string turnName) {
+        GameControl.instance.GetCurrentCasino().OnNickSkip(nick, turnName);
+    }
+
+    public void OnNickSkip(string nick, Message msg) {
+        GameControl.instance.GetCurrentCasino().OnNickSkip(nick, msg);
+
+    }
+    public void OnFrieCard(Message message) {
+        int status = message.reader().ReadInt();
+        if (status == -1) {
+            //    listenner.onFireCardFail();
+            GameControl.instance.GetCurrentCasino().OnFireCardFail();
+        } else {
+            string nick = message.reader().ReadUTF();
+            int size = message.reader().ReadInt();
+            byte[] cardfire = new byte[size];
+            message.reader().Read(cardfire, 0, size);
+            int[] data = new int[cardfire.Length];
+            for (int i = 0; i < data.Length; i++) {
+                data[i] = cardfire[i];
+            }
+            //    listenner.onFireCard(nick, message.reader().readUTF(), data);
+            GameControl.instance.GetCurrentCasino().OnFireCard(nick, message.reader().ReadUTF(), data);
+        }
+    }
+    public void OnFinishGame(Message message) {
+        GameControl.instance.GetCurrentCasino().OnFinishGame(message);
+    }
+    public void OnAllCardPlayerFinish(Message message) {
+        try {
+            string nick = message.reader().ReadUTF();
+            int size = message.reader().ReadInt();
+            byte[] c = new byte[size];
+            message.reader().Read(c, 0, size);
+            int[] card = new int[c.Length];
+            for (int i = 0; i < c.Length; i++) {
+                card[i] = c[i];
+            }
+            GameControl.instance.GetCurrentCasino().AllCardFinish(nick, card);
+        } catch (Exception ex) {
+            Debug.LogException(ex);
+        }
+    }
+    #endregion
 }

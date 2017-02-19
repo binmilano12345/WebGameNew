@@ -1,4 +1,5 @@
 ﻿using AppConfig;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,11 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     Transform tf_parent;
 
-    public BaseCasino currentCasino;
-    public GameObject objPlayer;
+    BaseCasino currentCasino;
+    public GameObject objPlayer, objCard;
 
+    public List<int> ListCMDID = new List<int>();
+    public List<Message> ListMsg = new List<Message>();
     void Awake() {
         instance = this;
     }
@@ -27,6 +30,14 @@ public class GameControl : MonoBehaviour {
                 objPlayer.transform.SetParent(tf_parent.transform);
                 objPlayer.transform.localScale = Vector3.one;
                 objPlayer.gameObject.SetActive(false);
+            });
+        }
+        if (objCard == null) {
+            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (obj) => {
+                objCard = obj;
+                objCard.transform.SetParent(tf_parent.transform);
+                objCard.transform.localScale = Vector3.one;
+                objCard.gameObject.SetActive(false);
             });
         }
     }
@@ -52,13 +63,27 @@ public class GameControl : MonoBehaviour {
         }
         NetworkUtil.GI().close();
     }
-
+    public BaseCasino GetCurrentCasino() {
+        return currentCasino;
+    }
+    public void SetCurrentCasino(BaseCasino casino) {
+        currentCasino = casino;
+    }
     public void SetCasino(int type, UnityAction callback) {
         switch (GameConfig.CurrentGameID) {
             case GameID.TLMN:
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
-                    currentCasino = TLMNControl.instace;
-                    callback.Invoke();
+                    SetCurrentCasino(TLMNControl.instace);
+                    try {
+                        callback.Invoke();
+                        for (int i = 0; i < ListMsg.Count; i++) {
+                            ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+                        }
+                        ListCMDID.Clear();
+                        ListMsg.Clear();
+                    } catch (Exception e) {
+                        Debug.LogException(e);
+                    }
                 });
                 //        setStage(StateGame.TLMN);
                 //        curentCasino = (CasinoStage)currenStage;
@@ -118,6 +143,7 @@ public class GameControl : MonoBehaviour {
                 //        break;
         }
         InitCardType();
+
     }
 
     private void InitCardType() {

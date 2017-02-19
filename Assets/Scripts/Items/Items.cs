@@ -24,6 +24,7 @@ namespace DataBase {
         public bool IsReady { get; set; }
         public int Avata_Id { get; set; }
         public string Avata_Link { get; set; }
-        public int Sit { get; set; }
+        public int SitOnSever { get; set; }
+        public int SitOnClient { get; set; }
     }
 }

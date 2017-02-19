@@ -16,6 +16,14 @@ public abstract class MessageHandler {
             Debug.LogException(ex);
         }
     }
+    public void processMessage(int messageType, Message message) {
+        //int messageType = message.command;//lay cmd cho tung msg
+        try {
+            serviceMessage(message, messageType);
+        } catch (System.Exception ex) {
+            Debug.LogException(ex);
+        }
+    }
 
     public abstract void onConnectionFail();
 

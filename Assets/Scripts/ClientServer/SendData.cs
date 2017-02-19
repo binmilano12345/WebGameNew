@@ -206,7 +206,6 @@ public class SendData {
         } catch (Exception e) {
             Debug.LogException(e);
         }
-        // SerializerHelper.WriteInt(Integer.parseInt(tbid));
 
         NetworkUtil.GI().sendMessage(msg);
     }
