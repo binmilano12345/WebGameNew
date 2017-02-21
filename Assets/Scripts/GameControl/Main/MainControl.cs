@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainControl : MonoBehaviour {
+    void Start() {
+        GameControl.instance.UnloadSubScene();
+        GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
+        GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
+        GameControl.instance.UnloadGameScene();
+        GameControl.instance.UnloadSubScene();
+
+    }
     public void OnClick_LoginFacebook() {
     }
     public void OnClick_Login() {

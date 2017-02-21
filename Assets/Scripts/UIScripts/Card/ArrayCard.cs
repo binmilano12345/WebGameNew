@@ -244,7 +244,6 @@ public class ArrayCard : MonoBehaviour {
         }
     }
     void Anchor_Center(float disCard) {
-
         if (listCardHand.Count % 2 == 0) {
             for (int i = 0; i < listCardHand.Count; i++) {
                 listCardHand[i].transform.localPosition = new Vector3(
@@ -376,9 +375,9 @@ public class ArrayCard : MonoBehaviour {
         vtPosCenter = transform.InverseTransformPoint(vtScreen);
         vtPosCenter.z = 0; ;
         //		Debug.LogError ("from " + vtPosCenter);
-        if (isTao)
+        if (isTao) {
             SetPositionCardInArray();
-        else
+        } else
             SetLaiHetCardVeToaDo0();
         SetListIDCard(arrcard);
         for (int i = 0; i < listCardHand.Count; i++) {
@@ -482,6 +481,7 @@ public class ArrayCard : MonoBehaviour {
         } else {
             disCard = MaxWidth / dodai;
         }
+
         if (align_Anchor == Align_Anchor.RIGHT) {
             int j = arrCards.Length - 1;
             for (int i = listCardHand.Count - 1; i >= 0; i--) {
@@ -642,82 +642,6 @@ public class ArrayCard : MonoBehaviour {
         }
     }
 
-    #region Ta La
-
-    #region Set Position Card Danh Ra Va Card Ha Phom Tren Ban
-    public void SetPostionCardDanhRaVaCardHaPhomTrenBan() {
-        switch (align_Anchor) {
-            case Align_Anchor.LEFT:
-                SetLeft();
-                break;
-            case Align_Anchor.RIGHT:
-                SetRight();
-                break;
-            case Align_Anchor.CENTER:
-                SetCenter();
-                break;
-        }
-    }
-
-    void SetLeft() {
-        float distance = 30;
-        for (int i = 0; i < transform.childCount; i++) {
-            Transform child = transform.GetChild(i);
-            child.localPosition = new Vector3(i * distance, child.transform.localPosition.y, 0);
-            child.SetSiblingIndex(i);
-        }
-    }
-
-    void SetRight() {
-        float distance = 30;
-        for (int i = 0; i < transform.childCount; i++) {
-            Transform child = transform.GetChild(i);
-            child.localPosition = new Vector3(-(i * distance), child.localPosition.y, 0);
-            child.SetAsFirstSibling();
-        }
-    }
-
-    void SetCenter() {
-
-    }
-
-    #endregion
-
-    #region Set Lai Card Danh Sau Khi Reconnect
-    public void SetLaiCardDanhKhiKetNoiLai(int[] arrcard, Transform cardDanhRaTf) {
-        for (int i = 0; i < cardDanhRaTf.childCount; i++) {
-            Card c = cardDanhRaTf.GetChild(i).GetComponent<Card>();
-            if (i < arrcard.Length) {
-                c.SetCardWithId(arrcard[i]);
-                c.SetVisible(true);
-                c.SetTouched(false);
-                c.setSmall(true);
-            }
-        }
-    }
-    #endregion
-
-    #region Set Lai Card Ha Sau Khi Reconnect
-    public void SetLaiCardHaKhiKetNoiLai(int[] arrcard, Transform cardHaTf) {
-        for (int i = 0; i < cardHaTf.childCount; i++) {
-            Card c = cardHaTf.GetChild(i).GetComponent<Card>();
-            if (i < arrcard.Length) {
-                c.SetCardWithId(arrcard[i]);
-                c.SetVisible(true);
-                c.SetTouched(false);
-                c.setSmall(true);
-            }
-        }
-    }
-    #endregion
-
-    public void ClearCardTaLaKhiKetThucGame() {
-        for (int i = 0; i < transform.childCount; i++) {
-            Card card = transform.GetChild(i).GetComponent<Card>();
-            card.SetCardWithId(53);
-            card.SetVisible(false);
-        }
-    }
     public int[] GetCardChoose() {
         List<int> cardDanh = new List<int>();
         for (int i = 0; i < listCardHand.Count; i++) {
@@ -727,50 +651,4 @@ public class ArrayCard : MonoBehaviour {
         }
         return cardDanh.ToArray();
     }
-
-
-    #region Sap Xep Lai Card Hand Sau Khi Ha
-    public void SapXepLaiCardHandSauKhiHa() {
-        int j = 0;
-        float disCard;
-        if (MaxWidth >= listCardHand.Count * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / listCardHand.Count;
-        }
-        int countBat = 0;
-        for (int i = 0; i < listCardHand.Count; i++) {
-            Card card = listCardHand[i];
-            if (card.isBatHayChua) {
-                countBat++;
-                //				Debug.LogError ("Co " + countBat + " bat");
-            }
-        }
-        if (countBat % 2 == 0) {
-            for (int i = 0; i < listCardHand.Count; i++) {
-                Card card = listCardHand[i];
-                if (card.isBatHayChua) {
-                    Vector3 vt = new Vector3(-((int)countBat / 2 - 0.5f) * disCard + j * disCard, 0, 0);
-                    StartCoroutine(MoveTo(card, vt, 0.05f, j * 0.01f));
-                    j++;
-                }
-            }
-        } else {
-            for (int i = 0; i < listCardHand.Count; i++) {
-                Card card = listCardHand[i];
-                if (card.isBatHayChua) {
-                    Vector3 vt = new Vector3(-((int)countBat / 2) * disCard + j * disCard, 0, 0);
-                    StartCoroutine(MoveTo(card, vt, 0.05f, j * 0.01f));
-                    j++;
-                }
-            }
-        }
-    }
-
-    IEnumerator MoveTo(Card card, Vector3 to, float dur, float wait) {
-        yield return new WaitForSeconds(wait);
-        card.transform.DOLocalMove(to, dur);
-    }
-    #endregion
-    #endregion
 }

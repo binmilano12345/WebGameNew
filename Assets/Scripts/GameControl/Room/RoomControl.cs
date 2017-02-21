@@ -23,6 +23,7 @@ public class RoomControl : MonoBehaviour {
     }
 
     void Start() {
+        GameControl.instance.SetCurrentCasino(null);
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadScene(SceneName.GAME_TLMN);
@@ -61,6 +62,7 @@ public class RoomControl : MonoBehaviour {
         LoadAssetBundle.LoadScene(SceneName.SCENE_LOBBY, SceneName.SCENE_LOBBY);
     }
     public void OnClickSetting() {
+        LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
     }
     public void OnClickNap() {
     }

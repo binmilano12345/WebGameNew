@@ -26,7 +26,7 @@
 
     "reconect_cancel": "THOÁT",
     "reconect_retry": "Không thể kết nối tới server, Bạn có muốn thử lại?",
-	"reconect_disconnect": "Không thể kết nối tới server",
+	"reconect_disconnect": "Mất kết nối!",
     "recpnect_reconecting": "Đang kết nối lại...",
 
     "popup_tittle_thongbao": "THÔNG BÁO",
@@ -34,6 +34,7 @@
     "popup_cancel_huy": "HỦY",
     "popup_cancelall_huytatca": "HỦY TẤT CẢ",
     "popup_quitgame_thoatgame": "Bạn có muốn thoát game không?",
+    "popup_dang_ky_thanh_cong": "Chúc Mừng bạn đã đăng ký thành công!",
     "popup_quittable": "Bạn có muốn thoát bàn chơi không?",
     "popup_quitacc_thoattk": "Bạn có muốn thoát tài khoản hiện tại không?",
     "popup_thich_thi_ra": "Vào bàn thất bại!",
@@ -101,8 +102,9 @@
 	
     "setting_tile": "CÀI ĐẶT",
     "setting_amthanh": "Âm thanh",
-    "setting_nlmc": "Nhận lời mời",
+    "setting_nlmc": "Nhận lời mời chơi",
     "setting_rung": "Báo rung",
+    "setting_tu_dong_san_sang": "Tự động sẵn sàng",
     "setting_canhan": "Cá nhân",
     "setting_thoattk": "Thoát tài khoản",
     "setting_thoatgame": "Thoát game",

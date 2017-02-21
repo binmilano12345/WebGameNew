@@ -24,6 +24,7 @@ public abstract class BaseCasino : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
+        GameControl.instance.UnloadSubScene();
         for (int i = 1; i < tf_invite.Length; i++) {
             tf_invite[i].GetComponent<UIButton>()._onClick.AddListener(OnClickInvite);
         }
@@ -130,10 +131,6 @@ public abstract class BaseCasino : MonoBehaviour {
             }
             BasePlayer pl = GetPlayerWithName(nick);
             if (pl != null) {
-                if (pl.playerData.SitOnClient == 0) {
-                } else {
-                }
-
                 pl.SetEffect(dau + MoneyHelper.FormatMoneyNormal(money));
             }
             //if (getPlayer(nick) == 0) {
@@ -264,8 +261,8 @@ public abstract class BaseCasino : MonoBehaviour {
             }
             BasePlayer plMaster = GetPlayerWithName(master);
             if (plMaster != null) {
-                plMaster.playerData.IsMaster = true;
-                plMaster.SetMaster(true);
+                plMaster.IsMaster = true;
+                plMaster.SetShowMaster(true);
             }
         }
     }
@@ -284,43 +281,27 @@ public abstract class BaseCasino : MonoBehaviour {
             ListPlayer[i].IsPlaying = false;
         }
     }
-    internal void OnReady(string nick, bool ready) {
+    internal virtual void OnReady(string nick, bool ready) {
         BasePlayer pl = GetPlayerWithName(nick);
         if (pl != null) {
-            pl.SetReady(ready);
+            pl.IsReady = ready;
+            pl.SetShowReady(ready);
         }
     }
     internal virtual void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
         GameConfig.TimerTurnInGame = 20;
-        //isStart = true;
-        //disableAllBtnTable();
-        //chip_tong.setVisible(false);
-        //BaseInfo.gI().isFireCard = false;
-        for (int i = 0; i < ListPlayer.Count; i++) {
-            //if (players[i].getName().length() > 0) {
-            ListPlayer[i].SetReady(false);
-            //ListPlayer[i].resetData();
-            ListPlayer[i].IsPlaying = false;
-            //ListPlayer[i].clearActions();
-            //}
-        }
         for (int i = 0; i < nickPlay.Length; i++) {
             BasePlayer pl = GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
+                pl.IsReady = false;
+                pl.SetShowReady(false);
                 pl.IsPlaying = true;
             }
-            //if (nickPlay[i].equals(BaseInfo.gI().mainInfo.nick)) {
-            //    MainInfo.setPlayingUser(true);
-            //}
         }
-        //chip_tong.setMoneyChip(0);
-        //chip_tong.setVisible(false);
-        //chip_tong.image_chip1.setVisible(false);
-        //chip_tong.image_chip2.setVisible(false);
     }
     internal virtual void OnStartForView(string[] playingName, Message msg) {
         for (int i = 0; i < ListPlayer.Count; i++) {
-            ListPlayer[i].SetReady(false);
+            ListPlayer[i].SetShowReady(false);
             ListPlayer[i].IsPlaying = false;
         }
         for (int i = 0; i < playingName.Length; i++) {
@@ -333,7 +314,7 @@ public abstract class BaseCasino : MonoBehaviour {
             //}
         }
     }
-
+    internal virtual void OnStartFail() { }
     internal virtual void SetTurn(string nick, Message message) {
         if (string.IsNullOrEmpty(nick)) {
             return;
@@ -344,6 +325,9 @@ public abstract class BaseCasino : MonoBehaviour {
         BasePlayer plTurn = GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetTurn(GameConfig.TimerTurnInGame);
+        }
+        if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+            playerMe.CardHand.ResetCard();
         }
     }
     internal virtual void OnFireCard(string nick, string turnName, int[] card) {
@@ -388,30 +372,16 @@ public abstract class BaseCasino : MonoBehaviour {
     }
     internal virtual void SetMaster(string nick) {
         for (int i = 0; i < ListPlayer.Count; i++) {
-            ListPlayer[i].playerData.IsMaster = false;
-            ListPlayer[i].SetMaster(false);
+            ListPlayer[i].IsMaster = false;
+            ListPlayer[i].SetShowMaster(false);
         }
         BasePlayer plMaster = GetPlayerWithName(nick);
         if (plMaster != null) {
-            plMaster.playerData.IsMaster = true;
-            plMaster.SetMaster(true);
-            playerMe.SetReady(false);
+            plMaster.IsMaster = true;
+            plMaster.IsReady = true;
+            plMaster.SetShowMaster(true);
+            playerMe.SetShowReady(false);
         }
-        //for (int i = 0; i < nUsers; i++) {
-        //    if (players[i] != null) {
-        //        if (players[i].getName().equals(nick)) {
-        //            players[i].setMaster(true);
-        //            if (players[i].getName().equals(BaseInfo.gI().mainInfo.nick)) {
-        //                btnkhoa.setVisible(true);
-        //            } else {
-        //                btnkhoa.setVisible(false);
-        //            }
-        //            players[i].setReady(false);
-        //        } else {
-        //            players[i].setMaster(false);
-        //        }
-        //    }
-        //}
     }
     internal void OnUpdateMoneyTbl(Message message) {
         try {
@@ -421,15 +391,14 @@ public abstract class BaseCasino : MonoBehaviour {
                 long money = message.reader().ReadLong();
                 long folowMoney = message.reader().ReadLong();
                 bool isGetMoney = message.reader().ReadBoolean();
-                //int pos = getPlayer(name);
                 BasePlayer pl = GetPlayerWithName(name);
-                pl.setMoney(folowMoney);
+                pl.SetMoney(folowMoney);
                 if (!isGetMoney) {
-                    //addTweenFlyMoney(players[pos]);//sua
                     pl.SetEffect(MoneyHelper.FormatMoneyNormal(folowMoney));
                 }
                 if (name.Equals(ClientConfig.UserInfo.UNAME)) {
                     ClientConfig.UserInfo.CASH_FREE = money;
+                    pl.SetMoney(money);
                 }
             }
         } catch (Exception ex) {
@@ -467,6 +436,7 @@ public abstract class BaseCasino : MonoBehaviour {
         }
         j = tf_invite.Length - 1;
         for (int i = indexMe - 1; i >= 0; i--) {
+            if (j <= 0) break;
             ListPlayer[i].transform.localPosition = tf_invite[j].localPosition;
             tf_invite[j].gameObject.SetActive(false);
             ListPlayer[i].gameObject.SetActive(true);
@@ -479,13 +449,25 @@ public abstract class BaseCasino : MonoBehaviour {
         for (int i = 0; i < ListPlayer.Count; i++) {
             BasePlayer pl = ListPlayer[i];
             pl.CardHand.CardCount = 13;
-            pl.CardHand.Init();
             if (pl.playerData.SitOnClient == 0) {
+                pl.CardHand.isSmall = false;
+                pl.CardHand.isTouched = true;
                 pl.CardHand.align_Anchor = Align_Anchor.CENTER;
+                pl.CardHand.MaxWidth = 900;
+
+                pl.CardHand.Init();
             } else if (pl.playerData.SitOnClient == 1) {
+                pl.CardHand.isSmall = true;
+                pl.CardHand.isTouched = false;
                 pl.CardHand.align_Anchor = Align_Anchor.RIGHT;
+                pl.CardHand.MaxWidth = 500;
+                pl.CardHand.Init();
             } else {
+                pl.CardHand.isSmall = true;
+                pl.CardHand.isTouched = false;
                 pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+                pl.CardHand.MaxWidth = 500;
+                pl.CardHand.Init();
             }
 
             pl.CardHand.SetPositonCardHand();

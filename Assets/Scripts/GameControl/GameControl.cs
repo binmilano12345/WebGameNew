@@ -18,6 +18,8 @@ public class GameControl : MonoBehaviour {
     public List<Message> ListMsg = new List<Message>();
     void Awake() {
         instance = this;
+        Application.runInBackground = false;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     public void Init() {
@@ -48,7 +50,11 @@ public class GameControl : MonoBehaviour {
         UnloadScene(SceneName.SUB_LOGIN);
     }
     #endregion
-
+    #region Unload Game Scene
+    public void UnloadGameScene() {
+        UnloadScene(SceneName.GAME_TLMN);
+    }
+    #endregion
     #region Unload Scene
     public void UnloadScene(string name) {
         if (SceneManager.GetSceneByName(name).isLoaded)

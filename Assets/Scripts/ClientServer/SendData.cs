@@ -840,7 +840,7 @@ public class SendData {
         NetworkUtil.GI().sendMessage(msg);
     }
 
-    public static void onRegister(String username, String pass, String imei, bool isMayao) {
+    public static void onRegister(string username, string pass, string imei, bool isMayao) {
         Message msg = new Message(CMDClient.CMD_REGISTER);
         try {
             msg.writer().WriteInt((int)CMDClient.PROVIDER_ID);
@@ -855,6 +855,8 @@ public class SendData {
         //NetworkUtil.GI().connect(msg);//sua
 
         NetworkUtil.GI().sendMessage(msg);
+        ClientConfig.UserInfo.UNAME = username;
+        ClientConfig.UserInfo.PASSWORD = pass;
     }
 
     public static void onCreateTable(int gameid, int roomid, long money, int maxplayer, int choinhanh, String password) {

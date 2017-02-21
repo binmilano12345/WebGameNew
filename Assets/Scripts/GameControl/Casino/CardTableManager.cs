@@ -5,10 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
 
 public class CardTableManager : MonoBehaviour {
     List<Card> listCardTrenBan = new List<Card>();
-
+    [SerializeField]
+    Image effect_fire;
     public void SinhCardGiuaCMNBan(int[] cards, Transform tranformCuaCaiThangDanh) {
         //LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (objPre) => {
         if (GameControl.instance.objCard != null) {
@@ -92,19 +94,21 @@ public class CardTableManager : MonoBehaviour {
     void SapXepCardChinhCMNGiua(Card[] cards) {
         float disCard = 50.0f;
         float posY = UnityEngine.Random.Range(-30.0f, 30.0f);
+        effect_fire.transform.localPosition = new Vector3(0, posY, 0);
+        effect_fire.transform.SetAsLastSibling();
         if (cards.Length % 2 == 0) {
             for (int i = 0; i < cards.Length; i++) {
                 cards[i].transform.localPosition = new Vector3(
                     -((int)cards.Length / 2 - 0.5f)
                             * disCard + i * disCard, posY, 0);
-                //cards[i].transform.SetSiblingIndex(i);
+                cards[i].transform.SetAsLastSibling();
             }
         } else {
             for (int i = 0; i < cards.Length; i++) {
                 cards[i].transform.localPosition = new Vector3(
                     -((int)cards.Length / 2) * disCard
                             + i * disCard, posY, 0);
-                //cards[i].transform.SetSiblingIndex(i);
+                cards[i].transform.SetAsLastSibling();
             }
         }
     }
@@ -114,8 +118,8 @@ public class CardTableManager : MonoBehaviour {
         for (int i = 0; i < cards.Length; i++) {
             StartCoroutine(cards[i].MoveFrom(vt, 0.2f, 0));
         }
-        //yield return new WaitForSeconds(0.2f);
         SapXepCardChinhCMNGiua(cards);
+        StartCoroutine(ShowHideEffect(0.3f));
     }
 
     IEnumerator BayTuCardHandRaGiuaBan(Card[] cards, ArrayCard cardHand, UnityAction callBack) {
@@ -136,12 +140,20 @@ public class CardTableManager : MonoBehaviour {
         if (callBack != null) {
             callBack.Invoke();
         }
+        StartCoroutine(ShowHideEffect(0));
+    }
+
+    IEnumerator ShowHideEffect(float time) {
+        yield return new WaitForSeconds(time);
+        effect_fire.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        effect_fire.gameObject.SetActive(false);
     }
 
     public void UpHetCMNBaiXuong() {
         try {
             for (int i = 0; i < listCardTrenBan.Count; i++) {
-                listCardTrenBan[i].SetCardWithId(53);
+                listCardTrenBan[i].SetCardWithId(52);
             }
         } catch (Exception e) {
             Debug.LogException(e);

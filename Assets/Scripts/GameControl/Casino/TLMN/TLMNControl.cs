@@ -4,10 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TLMNControl : HasMasterCasino {
+public class TLMNControl : BaseCasino {
     public static TLMNControl instace;
     [SerializeField]
-    GameObject objDanh, objBoLuot;
+    GameObject objBatDau, objSanSang, objDanh, objBoLuot;
+    //[SerializeField]
+    //GameObject txt_wait;
+    string nickFire = "";
+    public CardTableManager cardTable;
     void Awake() {
         instace = this;
     }
@@ -16,18 +20,32 @@ public class TLMNControl : HasMasterCasino {
         base.Start();
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     internal void SetActiveButton(bool isBatDau, bool isSanSang, bool isDanh, bool isBoLuot) {
-        SetActiveBatDauSanSang(isBatDau, isSanSang);
+        objBatDau.SetActive(isBatDau);
+        objSanSang.SetActive(isSanSang);
         objDanh.SetActive(isDanh);
         objBoLuot.SetActive(isBoLuot);
     }
 
     #region Click
+    public void OnClickBatDau() {
+        bool isAllReady = true;
+        for (int i = 0; i < ListPlayer.Count; i++) {
+            if (!ListPlayer[i].IsReady) {
+                isAllReady = false;
+                break;
+            }
+        }
+
+        if (isAllReady) {
+            SendData.onStartGame();
+        } else {
+            PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("popup_con_ng_san_sang"));
+        }
+    }
+    public void OnClickSanSang() {
+        SendData.onReady(1);
+    }
     public void OnClickDanh() {
         int[] card = playerMe.CardHand.GetCardChoose();
         if (card == null || card.Length < 1) {
@@ -49,26 +67,6 @@ public class TLMNControl : HasMasterCasino {
         } else {
             SetActiveButton(false, true, false, false);
         }
-        //if (BaseInfo.gI().mainInfo.nick.equals(master)) {
-        //    btn_batdau.setVisible(true);
-        //    btnDatCuoc.setVisible(true);
-        //    btn_sansang.setVisible(false);
-
-        //    btnkhoa.setVisible(true);
-
-        //} else {
-        //    btnkhoa.setVisible(false);
-        //    if (!BaseInfo.gI().isView) {
-
-        //        btn_sansang.setVisible(true);
-
-        //    } else {
-        //        btn_sansang.setVisible(false);
-        //    }
-        //    btn_batdau.setVisible(false);
-        //    btnDatCuoc.setVisible(false);
-
-        //}
     }
     internal override void SetTurn(string nick, Message message) {
         base.SetTurn(nick, message);
@@ -78,40 +76,9 @@ public class TLMNControl : HasMasterCasino {
             } else {
                 SetActiveButton(false, false, false, false);
             }
-            //    if (nick.toLowerCase().equals(BaseInfo.gI().mainInfo.nick.toLowerCase())) {
-            //        btn_danhbai.setVisible(true);
-            //        if (tableArrCard != null) {
-            //            if (tableArrCard.length > 0) {
-            //                btn_boluot.setPosition(xbtn_boluot, ybtn_boluot);
-            //                btn_danhbai.setPosition(xbtn_danhbai, ybtn_danhbai);
-            //                btn_boluot.setVisible(true);
-            //            } else {
-            //                btn_danhbai.setPosition(xbtn_danhbai, ybtn_danhbai);
-            //                btn_boluot.setVisible(false);
-            //            }
-            //        } else {
-            //            btn_danhbai.setPosition(xbtn_danhbai, ybtn_danhbai);
-            //            btn_boluot.setVisible(false);
-            //        }
-            //    } else {
-            //        btn_danhbai.setVisible(false);
-            //        btn_boluot.setVisible(false);
-            //    }
-            //    turnName = nick;
-            //    if (turnName.equals(nickFire)) {
-            //        finishTurn = true;
-
-            //        tableArrCard1.setArrCard(new int[] { }, false, false, false);
-            //        tableArrCard2.setArrCard(new int[] { }, false, false, false);
-            //        tableArrCard = null;
-
-            //        btn_boluot.setVisible(false);
-            //        btn_danhbai.setPosition(xbtn_danhbai, ybtn_danhbai);
-
-            //        for (int i = 0; i < players.length; i++) {
-            //            players[i].cardHand.setAllMo(false);
-            //        }
-            //    }
+            if (nick.Equals(nickFire)) {
+                cardTable.UpHetCMNBaiXuong();
+            }
         } catch (Exception e) {
             Debug.LogException(e);
         }
@@ -119,27 +86,20 @@ public class TLMNControl : HasMasterCasino {
     internal override void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
         base.StartTableOk(cardHand, msg, nickPlay);
         for (int i = 0; i < nickPlay.Length; i++) {
-            Debug.LogError("Thang nay choi: " + nickPlay[i]);
-        }
-        //tableArrCard1.removeAllCard();
-        //tableArrCard2.removeAllCard();
-        //tableArrCard = null;
-        //players[0].setCardHand(cardHand, true, false, false);
-        for (int i = 0; i < ListPlayer.Count; i++) {
-            if (ListPlayer[i].IsPlaying && ListPlayer[i].playerData.SitOnClient == 0) {
-                ListPlayer[i].CardHand.ChiaBaiTienLen(cardHand, false);
+            cardTable.XoaHetCMNBaiTrenBan();
+            nickFire = "";
+            BasePlayer pl = GetPlayerWithName(nickPlay[i]);
+            if (pl != null) {
+                if (pl.playerData.SitOnClient == 0) {
+                    pl.CardHand.ChiaBaiTienLen(cardHand, true);
+                } else {
+                    pl.CardHand.ChiaBaiTienLen(cardHand, false);
+                }
             }
         }
-
-        //if (!BaseInfo.gI().isView) {
-        //    btn_danhbai.setVisible(true);
-        //    btn_boluot.setVisible(true);
-        //}
-
-        //if (players[0].isMaster()) {
-        //    btn_batdau.setVisible(false);
-        //    btnDatCuoc.setVisible(false);
-        //}
+    }
+    internal override void OnStartFail() {
+        SetActiveButton(true, false, false, false);
     }
     internal override void OnNickSkip(string nick, string turnname) {
         base.OnNickSkip(nick, turnname);
@@ -148,14 +108,6 @@ public class TLMNControl : HasMasterCasino {
     }
     internal override void OnFinishTurn() {
         base.OnFinishTurn();
-        //finishTurn = true;
-        //tableArrCard1.setArrCard(new int[] { }, false, false, false);
-        //tableArrCard2.setArrCard(new int[] { }, false, false, false);
-        //tableArrCard = null;
-        //btn_boluot.setVisible(false);
-        //for (int i = 0; i < players.length; i++) {
-        //    players[i].cardHand.setAllMo(false);
-        //}
         cardTable.UpHetCMNBaiXuong();
     }
     internal override void InfoCardPlayerInTbl(Message message, string turnName, int time, sbyte numP) {
@@ -234,11 +186,24 @@ public class TLMNControl : HasMasterCasino {
     internal override void OnJoinTableSuccess(Message message) {
         //resetData();
         base.OnJoinTableSuccess(message);
-        SetActiveButton(false, false, false, false);
+        if (isPlaying)
+            SetActiveButton(false, false, false, false);
+    }
+    internal override void OnReady(string nick, bool ready) {
+        base.OnReady(nick, ready);
+        if (nick.Equals(ClientConfig.UserInfo.UNAME) && !playerMe.IsMaster) {
+            if (ready)
+                SetActiveButton(false, false, false, false);
+            else
+                SetActiveButton(false, true, false, false);
+        }
+
+        Debug.LogError(ready + "     " + nick + " ==Ready== " + ClientConfig.UserInfo.UNAME);
     }
     internal override void OnJoinTablePlaySuccess(Message message) {
         base.OnJoinTablePlaySuccess(message);
-        SetActiveButton(false, false, false, false);
+        if (isPlaying)
+            SetActiveButton(false, false, false, false);
     }
     internal override void OnFireCardFail() {
         base.OnFireCardFail();
@@ -249,11 +214,14 @@ public class TLMNControl : HasMasterCasino {
     }
     internal override void OnFireCard(string nick, string turnName, int[] card) {
         base.OnFireCard(nick, turnName, card);
+        nickFire = nick;
         BasePlayer plTurn = GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetTurn(0);
             if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-                cardTable.MinhDanh(card, plTurn.CardHand, () => { });
+                cardTable.MinhDanh(card, plTurn.CardHand, () => {
+                    playerMe.CardHand.SapXepLaiBaiSauKhiDanh();
+                });
             } else {
                 cardTable.SinhCardGiuaCMNBan(card, plTurn.CardHand.transform);
             }
@@ -265,13 +233,13 @@ public class TLMNControl : HasMasterCasino {
         for (int i = 0; i < ListPlayer.Count; i++) {
             if (ListPlayer[i] != null) {
                 // tat ca nhung nguoi con lai khong phai chu ban
-                ListPlayer[i].SetMaster(false);
+                ListPlayer[i].SetShowMaster(false);
             }
         }
 
         BasePlayer pl = GetPlayerWithName(nick);
         if (pl != null) {
-            pl.SetMaster(true);
+            pl.SetShowMaster(true);
         }
         if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
             SetActiveButton(true, false, false, false);
@@ -294,8 +262,10 @@ public class TLMNControl : HasMasterCasino {
     }
     internal override void OnFinishGame(Message message) {
         base.OnFinishGame(message);
-        //btn_danhbai.setVisible(false);
-        //btn_boluot.setVisible(false);
-        SetActiveButton(false, true, false, false);
+        if (playerMe.IsMaster)
+            SetActiveButton(true, false, false, false);
+        else
+            SetActiveButton(false, true, false, false);
+        cardTable.XoaHetCMNBaiTrenBan();
     }
 }

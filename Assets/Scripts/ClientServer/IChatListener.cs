@@ -4,6 +4,7 @@ using System.Collections;
 interface IChatListener {
     void onDisConnect();
     void OnLogin(Message message);
+    void OnRegister(Message message);
     void OnMessageServer(string message);
     void OnPopupNotify(Message message);
     void OnProfile(Message message);
@@ -35,4 +36,5 @@ interface IChatListener {
     void OnFrieCard(Message message);
     void OnFinishGame(Message message);
     void OnAllCardPlayerFinish(Message message);
+    void OnFinishTurnTLMN(Message message);
 }

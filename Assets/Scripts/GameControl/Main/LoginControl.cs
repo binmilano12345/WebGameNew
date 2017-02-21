@@ -6,18 +6,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class LoginControl : MonoBehaviour {
+    public static LoginControl instance;
     [SerializeField]
     InputField ip_tk, ip_mk;
     [SerializeField]
     Toggle tg_ghi_nho_mk;
 
+    void Awake() {
+        instance = this;
+    }
+
     // Use this for initialization
     void Start() {
+        Init();
+    }
+    public void Init() {
         ip_tk.text = ClientConfig.UserInfo.UNAME;
         ip_mk.text = ClientConfig.UserInfo.PASSWORD;
         tg_ghi_nho_mk.isOn = ClientConfig.UserInfo.SAVE_PASS == 1;
     }
-
     #region Click    
     public void OnClick_Login() {
         string tk = ip_tk.text.Trim();
@@ -34,13 +41,7 @@ public class LoginControl : MonoBehaviour {
 
         PopupAndLoadingScript.instance.ShowLoading();
     }
-    //public void OnClick_Register() {
-    //    string tk = ip_tk.text.Trim();
-    //    string mk = ip_mk.text.Trim();
-    //    string imei = "352888065147086";
-    //    Debug.LogError(tk + "    " + mk);
-    //    SendData.doLogin(tk, mk, 4, imei, "", 1, tk, "", "", false);
-    //}
+
     public void OnClick_Ghi_Nho_Mk() {
         ClientConfig.UserInfo.SAVE_PASS = tg_ghi_nho_mk.isOn ? 1 : 0;
     }

@@ -24,32 +24,33 @@ public class BasePlayer : MonoBehaviour {
 
     public bool IsPlaying { get; set; }
     public bool IsReady { get; set; }
+    public bool IsMaster { get; set; }
 
     public void SetInfo() {
         txt_name.text = playerData.Name;
         txt_money.text = MoneyHelper.FormatMoneyNormal(playerData.Money);
-        SetMaster(playerData.IsMaster);
+        IsMaster = playerData.IsMaster;
+        IsReady = playerData.IsReady;
+        SetShowMaster(playerData.IsMaster);
         LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, playerData.Avata_Id + "");
-        SetMaster(playerData.IsMaster);
-        SetReady(playerData.IsReady);
+        if (IsMaster)
+            SetShowReady(false);
+        else
+            SetShowReady(playerData.IsReady);
     }
-
-    public void SetMaster(bool isMaster) {
+    public void SetShowMaster(bool isMaster) {
         master.SetActive(isMaster);
     }
-
-    public void SetReady(bool isReady) {
+    public void SetShowReady(bool isReady) {
         objReady.SetActive(isReady);
-        IsReady = isReady;
     }
-
     public void SetTurn(float time) {
         timeTurn.SetTime(time);
     }
-
     public void SetEffect(string msg) {
         txt_effect.text = msg;
         txt_effect.transform.DOKill();
+        txt_effect.transform.localPosition = Vector3.zero;
         Vector3 vt = txt_effect.transform.localPosition;
         vt.y -= 20;
         txt_effect.transform.localPosition = vt;
@@ -58,8 +59,7 @@ public class BasePlayer : MonoBehaviour {
             txt_effect.gameObject.SetActive(false);
         });
     }
-
-    public void setMoney(long money) {
-
+    public void SetMoney(long money) {
+        txt_money.text = MoneyHelper.FormatMoneyNormal(money);
     }
 }

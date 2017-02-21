@@ -23,18 +23,12 @@ public class ListernerServer : IChatListener {
     }
 
     public void onDisConnect() {
-        //    gameControl.panelWaiting.onHide();
         PopupAndLoadingScript.instance.HideLoading();
-        PopupAndLoadingScript.instance.messageSytem.OnShow("", delegate {
+        PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("reconect_disconnect"), delegate {
             NetworkUtil.GI().close();
             LoadAssetBundle.LoadScene(SceneName.SUB_LOGIN, SceneName.SUB_LOGIN);
         });
-        //    gameControl.panelMessageSytem.onShowDCN("Mất kết nối!", delegate {
-        //        gameControl.disableAllDialog();
-        //        gameControl.setStage(gameControl.login);
         Debug.Log("Mất kết nối!");
-        //        NetworkUtil.GI().close();
-        //    });
     }
 
     public void OnLogin(Message message) {
@@ -71,6 +65,20 @@ public class ListernerServer : IChatListener {
         #endregion
 
         PopupAndLoadingScript.instance.HideLoading();
+    }
+    public void OnRegister(Message message) {
+        int status = message.reader().ReadByte();
+        PopupAndLoadingScript.instance.HideLoading();
+        if (status == 0) {
+            PopupAndLoadingScript.instance.messageSytem.OnShow(message.reader().ReadUTF());
+        } else {
+            PopupAndLoadingScript.instance.toast.showToast(ClientConfig.Language.GetText("popup_dang_ky_thanh_cong"));
+            if (RegisterControl.instance != null)
+                RegisterControl.instance.OnHide();
+            LoadAssetBundle.LoadScene(SceneName.SUB_LOGIN, SceneName.SUB_LOGIN, () => {
+                LoginControl.instance.Init();
+            });
+        }
     }
     public void OnMessageServer(string message) {
         //string msg = message.reader().ReadUTF();
@@ -459,7 +467,6 @@ public class ListernerServer : IChatListener {
     public void OnJoinTablePlay(Message message) {
         // check = SerializerHelper.readInt(message);
         sbyte status = message.reader().ReadByte();
-
         if (status == 1) {
             sbyte numPlayer = message.reader().ReadByte();
             GameControl.instance.SetCasino(numPlayer == 9 ? 1 : 0, () => {
@@ -468,7 +475,8 @@ public class ListernerServer : IChatListener {
         } else {
             if (status == -1) {
                 string a = message.reader().ReadUTF();
-                //onJoinTablePlayFail(a);
+
+                OnMessageServer(a);
             } else if (status == 0) {
                 message.reader().ReadInt();
                 OnMessageServer(message.reader().ReadUTF());
@@ -487,6 +495,7 @@ public class ListernerServer : IChatListener {
     }
     public void OnReady(Message message) {
         try {
+            message.reader().ReadShort();// tbid
             int totalReady = message.reader().ReadByte();
             for (int i = 0; i < totalReady; i++) {
                 string nick = message.reader().ReadUTF();
@@ -501,9 +510,7 @@ public class ListernerServer : IChatListener {
 
     public void OnStartFail(string info) {
         PopupAndLoadingScript.instance.messageSytem.OnShow(info);
-        if (GameControl.instance.GetCurrentCasino() is HasMasterCasino) {
-            ((HasMasterCasino)GameControl.instance.GetCurrentCasino()).SetActiveBatDauSanSang(true, false);
-        }
+        GameControl.instance.GetCurrentCasino().OnStartFail();
     }
 
     public void OnStartSuccess(Message message) {
@@ -594,6 +601,9 @@ public class ListernerServer : IChatListener {
         } catch (Exception ex) {
             Debug.LogException(ex);
         }
+    }
+    public void OnFinishTurnTLMN(Message message) {
+        GameControl.instance.GetCurrentCasino().OnFinishTurn();
     }
     #endregion
 }

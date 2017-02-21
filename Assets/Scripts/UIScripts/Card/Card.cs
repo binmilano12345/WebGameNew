@@ -9,10 +9,10 @@ using AppConfig;
 
 public class Card : MonoBehaviour {
     #region CONST
-    public const float WIDTH = 88;
-    const float HEIGHT = 121;
+    public const float WIDTH = 100;
+    const float HEIGHT = 135;
     const float DISTANCE_HEIGHT = 50;
-    public const float RATE_SMALL = 0.5f;
+    public const float RATE_SMALL = 0.75f;
     #endregion
     #region VARIABLES
     private int id;
@@ -197,8 +197,9 @@ public class Card : MonoBehaviour {
         Vector3 vt = transform.localPosition;
         transform.localPosition = from;
         transform.localScale = new Vector3(1.4f, 1.4f, 1.4f);
-        //		transform.DOScale(1, dur);
-        transform.DOScale(.5f, dur);
+        setSmall(true);
+        transform.DOScale(1, dur);
+        //transform.DOScale(.5f, dur);
         transform.DOLocalMove(vt, dur);
     }
 }

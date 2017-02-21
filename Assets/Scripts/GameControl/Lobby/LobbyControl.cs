@@ -87,6 +87,7 @@ public class LobbyControl : MonoBehaviour {
 
     public void OnClickBack() {
         PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("popup_quitgame_thoatgame"), delegate {
+            NetworkUtil.GI().close();
             LoadAssetBundle.LoadScene(SceneName.SCENE_MAIN, SceneName.SCENE_MAIN);
         });
     }
