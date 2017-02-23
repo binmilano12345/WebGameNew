@@ -20,14 +20,26 @@ public class BasePlayer : MonoBehaviour {
     GameObject objReady;
     public ArrayCard CardHand;
 
+    [SerializeField]
+    ChatPlayer chatPlayer;
+    [SerializeField]
+    ChatActionViewScript chatAction;
+    [SerializeField]
+    GameObject objXoay;
+
     public PlayerData playerData { get; set; }
 
     public bool IsPlaying { get; set; }
     public bool IsReady { get; set; }
     public bool IsMaster { get; set; }
+    public string NamePlayer { get; set; }
 
     public void SetInfo() {
-        txt_name.text = playerData.Name;
+        if (playerData.Name.Length <= 6) {
+            txt_name.text = playerData.Name;
+        } else {
+            txt_name.text = playerData.Name.Substring(0, 6) + "..";
+        }
         txt_money.text = MoneyHelper.FormatMoneyNormal(playerData.Money);
         IsMaster = playerData.IsMaster;
         IsReady = playerData.IsReady;
@@ -61,5 +73,14 @@ public class BasePlayer : MonoBehaviour {
     }
     public void SetMoney(long money) {
         txt_money.text = MoneyHelper.FormatMoneyNormal(money);
+    }
+
+    public void ChatAction() {
+        if (NamePlayer.Equals(ClientConfig.UserInfo.UNAME)) return;
+        if (!chatAction.isShow()) {
+            chatAction.OnShowAction();
+        } else {
+            chatAction.OnHideAction();
+        }
     }
 }

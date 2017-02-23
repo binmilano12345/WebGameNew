@@ -41,16 +41,15 @@ public class Card : MonoBehaviour {
     #endregion
     #region ARRAY
     public static int[] LIENG_BACAY_PHOM_XITO = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-            25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
-            52 };
+            25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 };
 
     public static int[] GAME_CON_LAI = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
             25, 13, 14, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 26, 27, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51,
             39, 40, 52 };
-    public static int[] GAME_MAU_BINH = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1,15, 16,
-            17, 18, 19, 20, 21, 22, 23, 24, 25,26, 14,28, 29, 30, 31, 32, 33,
-            34, 35, 36, 37, 38,39, 27,41,  42, 43, 44, 45, 46, 47, 48, 49, 50,
-            51,52, 40, 53 };
+    //public static int[] GAME_MAU_BINH = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1,15, 16,
+    //        17, 18, 19, 20, 21, 22, 23, 24, 25,26, 14,28, 29, 30, 31, 32, 33,
+    //        34, 35, 36, 37, 38,39, 27,41,  42, 43, 44, 45, 46, 47, 48, 49, 50,
+    //        51,52, 40, 53 };
     #endregion
 
     public static int[] cardPaint = GAME_CON_LAI;
@@ -65,8 +64,8 @@ public class Card : MonoBehaviour {
     public static void setCardType(int type) {
         if (type == 0) {// phom
             cardPaint = LIENG_BACAY_PHOM_XITO;
-        } else if (type == 99) {
-            cardPaint = GAME_MAU_BINH;
+        //} else if (type == 99) {
+        //    cardPaint = GAME_MAU_BINH;
         } else {
             cardPaint = GAME_CON_LAI;
         }
@@ -77,13 +76,10 @@ public class Card : MonoBehaviour {
             _id = 52;
         }
         ID = _id;
-        //if (id == 13 || id == 26 || id == 39 || id == 52)
-        //    Debug.LogError("ID   " + _id + "    cardPaint[_id - 1]   " + cardPaint[_id - 1]);
         LoadAssetBundle.LoadSprite(img_card, "card", "bai" + cardPaint[_id]);
     }
 
     public void SetTouched(bool istouched) {
-        //GetComponent<Button>().enabled = istouched;
         img_card.raycastTarget = istouched;
     }
     public bool isDark;
@@ -100,12 +96,6 @@ public class Card : MonoBehaviour {
         gameObject.SetActive(isVisible);
     }
 
-    //	public void SetFadeColor(){
-    //		img_card.DOFade (0, 0.1f).OnComplete(()=>{
-    //			SetVisible(false);
-    //			SetDarkCard(false);
-    //		});
-    //	}
 
     public void setSmall(bool isSmall) {
         if (isSmall) {

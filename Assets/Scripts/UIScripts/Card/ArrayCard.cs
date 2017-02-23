@@ -59,6 +59,32 @@ public class ArrayCard : MonoBehaviour {
             //Debug.LogError("KHoi tao xong");
         }
     }
+    public void InitDemo(int[] arrcard) {
+        listCardHand = new List<Card>();
+        listIdCardHand = new List<int>();
+
+        LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (objPre) => {
+            for (int i = 0; i < arrcard.Length; i++) {
+                GameObject obj = Instantiate(objPre);
+                obj.transform.SetParent(transform);
+                obj.transform.localScale = Vector3.one;
+                obj.transform.localPosition = new Vector3(i * 60, 0, 0);
+                Card card = obj.GetComponent<Card>();
+                card.SetCardWithId(arrcard[i]);
+                card.setSmall(isSmall);
+                card.SetTouched(true);
+                if (i == 0) {
+                    w_card = card.W_Card;
+                    h_card = card.H_Card;
+                }
+                //card.SetVisible(false);
+                card.SetVisible(true);
+                listIdCardHand.Add(arrcard[i]);
+                listCardHand.Add(card);
+            }
+            Destroy(objPre);
+        });
+    }
 
     public void InitKhiVaoBanDangDanh() {
         listCardHand = new List<Card>();
@@ -368,33 +394,31 @@ public class ArrayCard : MonoBehaviour {
 
     //    public delegate void CallBackChiaBai();
     //	UnityAction callBackChiaBai;
-    public void ChiaBaiTienLen(int[] arrcard, bool isTao, UnityAction callBack = null) {
+    public void ChiaBai(int[] arrcard, bool isTao, UnityAction callBack = null) {
         //Camera ccc = GetCamera();
         //if (ccc != null) {
         Vector3 vtScreen = /*ccc.ScreenToWorldPoint*/(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         vtPosCenter = transform.InverseTransformPoint(vtScreen);
         vtPosCenter.z = 0; ;
-        //		Debug.LogError ("from " + vtPosCenter);
         if (isTao) {
             SetPositionCardInArray();
         } else
             SetLaiHetCardVeToaDo0();
         SetListIDCard(arrcard);
         for (int i = 0; i < listCardHand.Count; i++) {
-            //Card c = listCardHand[i];
-            listCardHand[i].SetVisible(false);
-            listCardHand[i].IsChoose = false;
+            Card c = listCardHand[i];
+            c.SetVisible(false);
+            c.IsChoose = false;
             if (i < arrcard.Length) {
                 if (isTao) {
-                    listCardHand[i].SetCardWithId(arrcard[i]);
+                    c.SetCardWithId(arrcard[i]);
                 } else {
-                    listCardHand[i].SetCardWithId(53);
-                    listCardHand[i].setSmall(true);
-                    listCardHand[i].SetVisible(false);
+                    c.setSmall(true);
+                    c.SetVisible(false);
                 }
-                StartCoroutine(listCardHand[i].MoveFrom(vtPosCenter, 0.5f, i * 0.1f));
+                StartCoroutine(c.MoveFrom(vtPosCenter, 0.5f, i * 0.1f));
             } else
-                listCardHand[i].SetVisible(false);
+                c.SetVisible(false);
         }
         if (callBack != null) {
             callBack();
@@ -610,23 +634,16 @@ public class ArrayCard : MonoBehaviour {
     }
     bool isSetInputChooseCard = false;
     public void SetInputChooseCard() {
-        //if (!isSetInputChooseCard) {
-        //    isSetInputChooseCard = true;
-        //    for (int i = 0; i < listCardHand.Count; i++) {
-        //        Card c = listCardHand[i];
-        //        c.setListenerClick(delegate {
-        //            switch ((GameConfig.GameID)int.Parse(ClientConfig.UserInfo.CURRENT_GAME_ID)) {
-        //                case GameConfig.GameID.TLMN:
-        //                    AutoChooseCard.ClickCard(c, listCardHand.ToArray());
-        //                    break;
-        //                case GameConfig.GameID.SAM:
-        //                    AutoChooseCardSam.ClickCard(c, listCardHand.ToArray());
-        //                    break;
-        //            }
-        //        });
-        //        c.isAuto = true;
-        //    }
-        //}
+        if (!isSetInputChooseCard) {
+            isSetInputChooseCard = true;
+            for (int i = 0; i < listCardHand.Count; i++) {
+                Card c = listCardHand[i];
+                c.setListenerClick(delegate {
+                    AutoChooseCard.ClickCard(c, listCardHand.ToArray());
+                });
+                c.isAuto = true;
+            }
+        }
     }
 
     public void SetAutoChooseCard(bool isAuto) {

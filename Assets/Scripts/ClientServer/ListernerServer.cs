@@ -26,7 +26,7 @@ public class ListernerServer : IChatListener {
         PopupAndLoadingScript.instance.HideLoading();
         PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("reconect_disconnect"), delegate {
             NetworkUtil.GI().close();
-            LoadAssetBundle.LoadScene(SceneName.SUB_LOGIN, SceneName.SUB_LOGIN);
+            LoadAssetBundle.LoadScene(SceneName.SCENE_MAIN, SceneName.SCENE_MAIN);
         });
         Debug.Log("Mất kết nối!");
     }

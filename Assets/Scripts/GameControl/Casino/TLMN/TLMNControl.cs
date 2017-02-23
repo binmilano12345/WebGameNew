@@ -12,6 +12,7 @@ public class TLMNControl : BaseCasino {
     //GameObject txt_wait;
     string nickFire = "";
     public CardTableManager cardTable;
+    List<int> ListCardOfMe = new List<int>();
     void Awake() {
         instace = this;
     }
@@ -53,6 +54,14 @@ public class TLMNControl : BaseCasino {
         } else {
             SetActiveButton(false, false, false, false);
             SendData.onFireCardTL(card);
+            string str = "";
+            string str1 = "";
+            for (int i = 0; i < card.Length; i++) {
+                str += "  " + AutoChooseCard.GetValue(card[i]);
+                str1 += "  " + card[i];
+            }
+
+            Debug.LogError("Danh " + str + "\n" + str1);
         }
     }
     public void OnClickBoLuot() {
@@ -70,8 +79,9 @@ public class TLMNControl : BaseCasino {
     }
     internal override void SetTurn(string nick, Message message) {
         base.SetTurn(nick, message);
+        //Debug.LogError("toi luot:  " + nick);
         try {
-            if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+            if (nick.Equals(ClientConfig.UserInfo.UNAME) || string.IsNullOrEmpty(nick)) {
                 SetActiveButton(false, false, true, true);
             } else {
                 SetActiveButton(false, false, false, false);
@@ -85,18 +95,29 @@ public class TLMNControl : BaseCasino {
     }
     internal override void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
         base.StartTableOk(cardHand, msg, nickPlay);
+        ListCardOfMe.Clear();
+        cardTable.XoaHetCMNBaiTrenBan();
+        nickFire = "";
+        Debug.LogError("So thang choi: " + nickPlay.Length);
         for (int i = 0; i < nickPlay.Length; i++) {
-            cardTable.XoaHetCMNBaiTrenBan();
-            nickFire = "";
             BasePlayer pl = GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
                 if (pl.playerData.SitOnClient == 0) {
-                    pl.CardHand.ChiaBaiTienLen(cardHand, true);
+                    pl.CardHand.ChiaBai(AutoChooseCard.SortArrCard(cardHand), true);
+                    ListCardOfMe.AddRange(cardHand);
                 } else {
-                    pl.CardHand.ChiaBaiTienLen(cardHand, false);
+                    pl.CardHand.ChiaBai(cardHand, false);
                 }
             }
         }
+        string str = "";
+        string str1 = "";
+        for (int i = 0; i < cardHand.Length; i++) {
+            str += "  " + AutoChooseCard.GetValue(cardHand[i]);
+            str1 += "  " + cardHand[i];
+        }
+
+        Debug.LogError("Chia bai:   " + str + "\n" + str1);
     }
     internal override void OnStartFail() {
         SetActiveButton(true, false, false, false);
@@ -105,6 +126,9 @@ public class TLMNControl : BaseCasino {
         base.OnNickSkip(nick, turnname);
         // players[getPlayer(nick)].cardHand.setAllMo(true);
         SetTurn(turnname, null);
+        if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+            playerMe.CardHand.ResetCard();
+        }
     }
     internal override void OnFinishTurn() {
         base.OnFinishTurn();
@@ -128,7 +152,6 @@ public class TLMNControl : BaseCasino {
                     pl.CardHand.SetActiveCardHand(true);
                     ((TLMNPlayer)pl).SetNumCard(numCard);
                 }
-                //        players[getPlayer(playingName[i])].setInfo(true, false, false, 0);
             }
             //GameConfig.TimerTurnInGame = time;
             BasePlayer plTurn = GetPlayerWithName(turnName);
@@ -197,8 +220,6 @@ public class TLMNControl : BaseCasino {
             else
                 SetActiveButton(false, true, false, false);
         }
-
-        Debug.LogError(ready + "     " + nick + " ==Ready== " + ClientConfig.UserInfo.UNAME);
     }
     internal override void OnJoinTablePlaySuccess(Message message) {
         base.OnJoinTablePlaySuccess(message);
@@ -209,21 +230,49 @@ public class TLMNControl : BaseCasino {
         base.OnFireCardFail();
         //btn_boluot.setVisible(boluot);
         //btn_danhbai.setVisible(true);
-
+        Debug.LogError("Danh bai loi");
         SetActiveButton(false, false, true, true);
     }
     internal override void OnFireCard(string nick, string turnName, int[] card) {
         base.OnFireCard(nick, turnName, card);
+        AutoChooseCard.CardTrenBan.Clear();
+        AutoChooseCard.CardTrenBan.AddRange(card);
         nickFire = nick;
         BasePlayer plTurn = GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetTurn(0);
             if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+                for (int i = 0; i < card.Length; i++) {
+                    ListCardOfMe.Remove(card[i]);
+                }
                 cardTable.MinhDanh(card, plTurn.CardHand, () => {
                     playerMe.CardHand.SapXepLaiBaiSauKhiDanh();
                 });
             } else {
                 cardTable.SinhCardGiuaCMNBan(card, plTurn.CardHand.transform);
+                int numC = ((TLMNPlayer)plTurn).NumCard - card.Length;
+                ((TLMNPlayer)plTurn).SetNumCard(numC);
+            }
+        } else {
+            cardTable.SinhCardGiuaCMNBan(card, playerMe.CardHand.transform);
+        }
+
+        if (turnName.ToLower().Equals(ClientConfig.UserInfo.UNAME.ToLower())) {
+            SetActiveButton(false, false, true, true);
+            if (AutoChooseCard.CardTrenBan.Count > 0) {
+                int[] result = AutoChooseCard.ChooseCard(ListCardOfMe.ToArray());
+                playerMe.CardHand.SetChooseCard(result);
+                //if (result == null) {//sua
+                //    playerMe.SetTurn(true, 5);
+                //    SetActiveButton(false, false, false, true);
+                //    Invoke("KhongDanhDuocThiBo", 5);
+                //} else {
+                //    if (result.Length <= 0) {
+                //        pl.SetTurn(true, 5);
+                //        SetActiveButton(false, false, false, true);
+                //        Invoke("KhongDanhDuocThiBo", 5);
+                //    }
+                //}
             }
         }
     }

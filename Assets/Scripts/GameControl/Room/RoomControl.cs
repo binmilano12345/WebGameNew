@@ -41,7 +41,6 @@ public class RoomControl : MonoBehaviour {
 
     public void CreateTable(List<ItemTableData> listTable) {
         this.listTable = listTable;
-
         LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ITEM_TABLE, (objPre) => {
             PopupAndLoadingScript.instance.HideLoading();
             myScrollView.OnStartFillItem(objPre, listTable.Count);

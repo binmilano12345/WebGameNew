@@ -78,6 +78,7 @@ public class GameControl : MonoBehaviour {
     public void SetCasino(int type, UnityAction callback) {
         switch (GameConfig.CurrentGameID) {
             case GameID.TLMN:
+                Card.setCardType(1);
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
                     SetCurrentCasino(TLMNControl.instace);
                     try {

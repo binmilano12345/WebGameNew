@@ -59,6 +59,12 @@
     "maingame_idban": "ID",
     "maingame_songuoi": "Số Người",
     "maingame_napxu": "Nạp xu",
+	
+    "room_ten_ban_choi": "Tên bàn chơi",
+    "room_muc_cuoc": "Mức cược",
+    "room_tien_can": "Tiền cần",
+    "room_so_nguoi": "Số người",
+
     "popup_taoban_header":  "TẠO BÀN",
     "popup_taoban_muccuoc": "MỨC CƯỢC",
     "iap_header": "NẠP TIỀN",
@@ -72,8 +78,6 @@
     "iap_noitem": "Hiện chưa có gói nạp nào trong danh sách",
 	"error_seri_code":"Số Seri hoặc Mã thẻ không hợp lệ",
 
-    "profile_msgaddfriend": "Bạn đã nhận được lời mời kết bạn từ",
-    "profile_msgokaddfriend": "đã chấp nhận lời mời kết bạn của Bạn",
     "invite_friend_header": "MỜI BẠN CHƠI",
     "invite_friend_all": "Tất cả",
     "invite_friend_banbe": "Bạn bè",

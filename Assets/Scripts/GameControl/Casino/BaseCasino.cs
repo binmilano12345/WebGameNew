@@ -456,6 +456,7 @@ public abstract class BaseCasino : MonoBehaviour {
                 pl.CardHand.MaxWidth = 900;
 
                 pl.CardHand.Init();
+                pl.CardHand.SetInputChooseCard();
             } else if (pl.playerData.SitOnClient == 1) {
                 pl.CardHand.isSmall = true;
                 pl.CardHand.isTouched = false;

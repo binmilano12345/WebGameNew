@@ -4,12 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MainControl : MonoBehaviour {
+    [SerializeField]
+    ArrayCard cardHand;
+
     void Start() {
         GameControl.instance.UnloadSubScene();
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadGameScene();
         GameControl.instance.UnloadSubScene();
+
+        //int[] cardH = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        //string msg = "";
+        //string[] chat = new string[] { "Bích", "Tép", "Rô", "Cơ" };
+        //for (int i = 0; i < cardH.Length; i++) {
+        //    msg += " " + AutoChooseCard.GetValue(cardH[i]) + " " + chat[AutoChooseCard.GetType(cardH[i])];
+        //}
+        //Debug.LogError(msg);
+        //cardHand.InitDemo(cardH);
 
     }
     public void OnClick_LoginFacebook() {
