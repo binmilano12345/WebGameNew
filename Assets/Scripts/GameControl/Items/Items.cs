@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace DataBase {
+    #region ItemTableData
     public class ItemTableData {
         public int Id;
         public int Status;
@@ -14,7 +15,8 @@ namespace DataBase {
         public long MaxMoney;
         public int IsLock = 0;
     }
-
+    #endregion
+    #region PlayerData
     public class PlayerData {
         public string Name { get; set; }
         public string DisplaName { get; set; }
@@ -27,4 +29,20 @@ namespace DataBase {
         public int SitOnSever { get; set; }
         public int SitOnClient { get; set; }
     }
+    #endregion
+    #region ItemRankData
+    public class ItemRankData {
+        public int Rank = 1;
+        public string Name = "";
+        public int Avata_Id = 0;
+        public long Money = 0;
+    }
+    #endregion
+    #region ItemRankData
+    public class ItemNotiData {
+        public int Id;
+        public string Title = "";
+        public string Content = "";
+    }
+    #endregion
 }

@@ -494,7 +494,7 @@ public abstract class BaseCasino : MonoBehaviour {
 
     }
     public void OnClickSetting() {
-
+        LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
     }
     #endregion
 }

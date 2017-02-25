@@ -79,7 +79,7 @@ public class TLMNControl : BaseCasino {
     }
     internal override void SetTurn(string nick, Message message) {
         base.SetTurn(nick, message);
-        //Debug.LogError("toi luot:  " + nick);
+        Debug.LogError("thang danh " + nick);
         try {
             if (nick.Equals(ClientConfig.UserInfo.UNAME) || string.IsNullOrEmpty(nick)) {
                 SetActiveButton(false, false, true, true);
@@ -88,6 +88,7 @@ public class TLMNControl : BaseCasino {
             }
             if (nick.Equals(nickFire)) {
                 cardTable.UpHetCMNBaiXuong();
+                AutoChooseCard.CardTrenBan.Clear();
             }
         } catch (Exception e) {
             Debug.LogException(e);
@@ -97,6 +98,7 @@ public class TLMNControl : BaseCasino {
         base.StartTableOk(cardHand, msg, nickPlay);
         ListCardOfMe.Clear();
         cardTable.XoaHetCMNBaiTrenBan();
+        AutoChooseCard.CardTrenBan.Clear();
         nickFire = "";
         Debug.LogError("So thang choi: " + nickPlay.Length);
         for (int i = 0; i < nickPlay.Length; i++) {
@@ -110,14 +112,6 @@ public class TLMNControl : BaseCasino {
                 }
             }
         }
-        string str = "";
-        string str1 = "";
-        for (int i = 0; i < cardHand.Length; i++) {
-            str += "  " + AutoChooseCard.GetValue(cardHand[i]);
-            str1 += "  " + cardHand[i];
-        }
-
-        Debug.LogError("Chia bai:   " + str + "\n" + str1);
     }
     internal override void OnStartFail() {
         SetActiveButton(true, false, false, false);
@@ -137,7 +131,6 @@ public class TLMNControl : BaseCasino {
     internal override void InfoCardPlayerInTbl(Message message, string turnName, int time, sbyte numP) {
         base.InfoCardPlayerInTbl(message, turnName, time, numP);
         try {
-            //    String playingName[] = new String[numP];
             for (int i = 0; i < numP; i++) {
                 string name = message.reader().ReadUTF();
                 sbyte numCard = message.reader().ReadByte();
@@ -153,12 +146,18 @@ public class TLMNControl : BaseCasino {
                     ((TLMNPlayer)pl).SetNumCard(numCard);
                 }
             }
-            //GameConfig.TimerTurnInGame = time;
+            GameConfig.TimerTurnInGame = time;
             BasePlayer plTurn = GetPlayerWithName(turnName);
             if (plTurn != null) {
                 plTurn.SetTurn(time);
             }
+            if (turnName.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton(false, false, true, true);
+            } else {
+                SetActiveButton(false, false, false, false);
+            }
         } catch (Exception e) {
+            Debug.LogException(e);
         }
     }
     internal override void OnInfome(Message message) {
@@ -228,10 +227,8 @@ public class TLMNControl : BaseCasino {
     }
     internal override void OnFireCardFail() {
         base.OnFireCardFail();
-        //btn_boluot.setVisible(boluot);
-        //btn_danhbai.setVisible(true);
-        Debug.LogError("Danh bai loi");
         SetActiveButton(false, false, true, true);
+        PopupAndLoadingScript.instance.toast.showToast(ClientConfig.Language.GetText("popup_danh_bai_loi"));
     }
     internal override void OnFireCard(string nick, string turnName, int[] card) {
         base.OnFireCard(nick, turnName, card);

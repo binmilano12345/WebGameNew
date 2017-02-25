@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DataBase;
 
 namespace AppConfig {
     public class GameConfig {
@@ -28,10 +29,12 @@ namespace AppConfig {
 
         public const int NUM_GAME = 10;
         public static GameID[] IdGame = new GameID[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
-        public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO"};
+        public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO" };
         public static GameID CurrentGameID;
 
         public static int TimerTurnInGame = 0;
+        public static List<ItemRankData> ListRank = new List<ItemRankData>();
+        public static List<ItemNotiData> ListNoti = new List<ItemNotiData>();
     }
 
     public class LinkFixed {
@@ -128,12 +131,15 @@ namespace AppConfig {
         public const string PRE_TOAST = "Toast";
         public const string PRE_ALERT = "Alert";
         public const string PRE_LOAD = "PanelLoad";
-        
+
         public const string PRE_PLAYER = "Player";
 
         public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";
+        public const string PRE_ITEM_RANK = "ItemRank";
+        public const string PRE_ITEM_NOTI = "ItemNoti"; 
         public const string PRE_CARD = "Card";
+
         public const string PRE_CHAT_TEXT = "ButtonChatText";
         public const string PRE_CHAT_SMILE = "ItemEmotion";
         public const string PRE_CHIP = "Chip";
@@ -146,7 +152,6 @@ namespace AppConfig {
         public const string PRE_ITEM_DOI_THUONG = "ItemDoiThuong";
         public const string PRE_ITEM_VALUE_GOLD = "ItemValueGold";//Chuyen gold
         public const string PRE_ITEM_SAFE_GOLD = "ItemSafeGold";//ket bac
-        public const string PRE_ITEM_RANK = "ItemRank";
         public const string PRE_ITEM_MAIL = "ItemMail";
     }
 
@@ -155,22 +160,24 @@ namespace AppConfig {
         public const string SCENE_LOBBY = "lobby";
         public const string SCENE_ROOM = "room";//chon muc cuoc va phong choi
 
-        public const string SUB_LOGIN = "login";
-        public const string SUB_REGISTER = "register";
-        public const string SUB_SETTING = "setting";
-        public const string SUB_TYPE_PLAY = "select_type_play";
+        public const string SUB_LOGIN = "sub_login";
+        public const string SUB_REGISTER = "sub_register";
+        public const string SUB_SETTING = "sub_setting";
+        public const string SUB_RANK = "sub_rank";
+        public const string SUB_NOTI = "sub_noti";
+
         public const string SUB_GOP_Y = "gopy";
         public const string SUB_MAIL = "mail";
         public const string SUB_INFO_PLAYER = "info_player";
         public const string SUB_BANK = "bank";
         public const string SUB_INVITE_FRIEND = "invite_friend";
-        public const string SUB_VUABAI = "vuabai";
         public const string SUB_CAOTHU = "caothu";
         public const string SUB_CHAT = "chat";
         public const string SUB_DOI_THUONG = "doithuong";
         public const string SUB_NAPTHE = "napthe";
 
         public const string GAME_TLMN = "tlmn";
+        public const string GAME_TLMN_SOLO = "tlmnsolo";
         public const string GAME_MINI_DICE = "mini_dice";
         public const string GAME_XOCDIA = "xocdia";
         public const string GAME_SAM = "sam";

@@ -11,84 +11,67 @@ public class CardTableManager : MonoBehaviour {
     List<Card> listCardTrenBan = new List<Card>();
     [SerializeField]
     Image effect_fire;
-    public void SinhCardGiuaCMNBan(int[] cards, Transform tranformCuaCaiThangDanh) {
-        //LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (objPre) => {
-        if (GameControl.instance.objCard != null) {
-            GameObject objPreCard = GameControl.instance.objCard;
-            Card[] hanLuonMangCard = new Card[cards.Length];
-            for (int i = 0; i < cards.Length; i++) {
-                GameObject card = Instantiate(objPreCard);
-                card.transform.SetParent(transform);
-                card.transform.localPosition = Vector3.zero;
-                card.transform.localScale = Vector3.zero;
-                card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
-                card.transform.SetAsLastSibling();
-                Card c = card.GetComponent<Card>();
-                c.setSmall(true);
-                c.SetTouched(false);
-                c.SetCardWithId(cards[i]);
-                hanLuonMangCard[i] = c;
-                listCardTrenBan.Add(c);
-            }
-            //SapXepCardChinhCMNGiua(hanLuonMangCard);
+    const int NUM_CARD = 20;
 
-            BayTuCaiThangDangDanhChoDenGiuaBan(hanLuonMangCard, tranformCuaCaiThangDanh);
-            //    Destroy(objPre);
-            //});
+    public void SinhCardGiuaCMNBan(int[] cards, Transform tranformCuaCaiThangDanh) {
+        Card[] hanLuonMangCard = new Card[cards.Length];
+        for (int i = 0; i < cards.Length; i++) {
+            GameObject card = GetCard();
+            card.transform.SetParent(transform);
+            card.transform.localPosition = Vector3.zero;
+            card.transform.localScale = Vector3.zero;
+            card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
+            card.transform.SetAsLastSibling();
+            Card c = card.GetComponent<Card>();
+            c.setSmall(true);
+            c.SetTouched(false);
+            c.SetCardWithId(cards[i]);
+            c.SetVisible(true);
+            hanLuonMangCard[i] = c;
         }
+        BayTuCaiThangDangDanhChoDenGiuaBan(hanLuonMangCard, tranformCuaCaiThangDanh);
     }
 
     public void MinhDanh(int[] cards, ArrayCard cardHand, UnityAction callBack) {
-        if (GameControl.instance.objCard != null) {
-            //LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (objPre) => {
-            GameObject objPreCard = GameControl.instance.objCard;
-            Card[] hanLuonMangCard = new Card[cards.Length];
-            for (int i = 0; i < cards.Length; i++) {
-                GameObject card = Instantiate(objPreCard);
-                card.transform.SetParent(transform);
-                card.transform.localPosition = Vector3.zero;
-                card.transform.localScale = Vector3.zero;
-                card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
-                card.transform.SetAsLastSibling();
-                Card c = card.GetComponent<Card>();
-                c.setSmall(false);
-                c.SetTouched(false);
-                c.SetCardWithId(cards[i]);
-                hanLuonMangCard[i] = c;
-                listCardTrenBan.Add(c);
-            }
-            StartCoroutine(BayTuCardHandRaGiuaBan(hanLuonMangCard, cardHand, callBack));
-            //    Destroy(objPre);
-            //});
+        Card[] hanLuonMangCard = new Card[cards.Length];
+        for (int i = 0; i < cards.Length; i++) {
+            GameObject card = GetCard();
+            card.transform.SetParent(transform);
+            card.transform.localPosition = Vector3.zero;
+            card.transform.localScale = Vector3.zero;
+            card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
+            card.transform.SetAsLastSibling();
+            Card c = card.GetComponent<Card>();
+            c.setSmall(false);
+            c.SetTouched(false);
+            c.SetCardWithId(cards[i]);
+            c.SetVisible(true);
+            hanLuonMangCard[i] = c;
+            listCardTrenBan.Add(c);
         }
+        StartCoroutine(BayTuCardHandRaGiuaBan(hanLuonMangCard, cardHand, callBack));
     }
 
     public void SinhCardKhiKetNoiLai(int[] cards) {
-        //Debug.LogError("                       SinhCardKhiKetNoiLai");
-        if (GameControl.instance.objCard != null) {
-            //GameObject objPreCard = PopupAndLoadingScript.instance.objCard;
-            //Debug.LogError("co null ko:  " + (PopupAndLoadingScript.instance.objCard == null));
-            Card[] hanLuonMangCard = new Card[cards.Length];
-            for (int i = 0; i < cards.Length; i++) {
-                GameObject card = Instantiate(GameControl.instance.objCard);
-                card.transform.SetParent(transform);
-                card.transform.localPosition = Vector3.zero;
-                card.transform.localScale = Vector3.one;
-                card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
-                card.transform.SetAsLastSibling();
-                Card c = card.GetComponent<Card>();
-                c.SetVisible(true);
-                c.setSmall(true);
-                c.SetTouched(false);
-                c.SetCardWithId(cards[i]);
-                hanLuonMangCard[i] = c;
-                listCardTrenBan.Add(c);
+        Card[] hanLuonMangCard = new Card[cards.Length];
+        for (int i = 0; i < cards.Length; i++) {
+            GameObject card = GetCard();
+            card.transform.SetParent(transform);
+            card.transform.localPosition = Vector3.zero;
+            card.transform.localScale = Vector3.one;
+            card.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(-10, 10)));
+            card.transform.SetAsLastSibling();
+            Card c = card.GetComponent<Card>();
+            c.SetVisible(true);
+            c.setSmall(true);
+            c.SetTouched(false);
+            c.SetCardWithId(cards[i]);
+            c.SetVisible(true);
+            hanLuonMangCard[i] = c;
+            listCardTrenBan.Add(c);
 
-                //Debug.LogError("Id card:      " + c.ID);
-            }
-            //Debug.LogError("Sinh dc tung nay bai: " + hanLuonMangCard.Length);
-            SapXepCardChinhCMNGiua(hanLuonMangCard);
         }
+        SapXepCardChinhCMNGiua(hanLuonMangCard);
     }
 
     void SapXepCardChinhCMNGiua(Card[] cards) {
@@ -131,7 +114,6 @@ public class CardTableManager : MonoBehaviour {
                 cccc.transform.DOScale(0, 0.1f).OnComplete(() => {
                     cccc.SetVisible(false);
                     cccc.transform.localScale = Vector3.one;
-                    //cardHand.listIdCardHand.Remove(cccc.ID);
                 });
             }
         }
@@ -161,9 +143,31 @@ public class CardTableManager : MonoBehaviour {
     }
 
     public void XoaHetCMNBaiTrenBan() {
+        //for (int i = 0; i < listCardTrenBan.Count; i++) {
+        //    Destroy(listCardTrenBan[i].gameObject);
+        //}
+        //listCardTrenBan.Clear();
         for (int i = 0; i < listCardTrenBan.Count; i++) {
-            Destroy(listCardTrenBan[i].gameObject);
+            listCardTrenBan[i].gameObject.SetActive(false);
+            listCardTrenBan[i].transform.SetParent(null);
         }
-        listCardTrenBan.Clear();
+    }
+
+    GameObject GetCard() {
+        if (listCardTrenBan.Count > NUM_CARD) {
+            for (int i = 0; i < listCardTrenBan.Count; i++) {
+                if (!listCardTrenBan[i].gameObject.activeSelf) {
+                    return listCardTrenBan[i].gameObject;
+                }
+            }
+            for (int i = 0; i < listCardTrenBan.Count; i++) {
+                if (listCardTrenBan[i].ID == 52) {
+                    return listCardTrenBan[i].gameObject;
+                }
+            }
+        }
+        GameObject obj = Instantiate(GameControl.instance.objCard);
+        listCardTrenBan.Add(obj.GetComponent<Card>());
+        return obj;
     }
 }

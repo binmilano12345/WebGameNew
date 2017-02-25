@@ -32,7 +32,7 @@ public class ListernerServer : IChatListener {
     }
 
     public void OnLogin(Message message) {
-        int b = message.reader().ReadByte();
+        sbyte b = message.reader().ReadByte();
         #region Dang nhap Thanh cong
         if (b == 1) {
             try {
@@ -86,14 +86,16 @@ public class ListernerServer : IChatListener {
         PopupAndLoadingScript.instance.HideLoading();
     }
     public void OnPopupNotify(Message message) {//clam
+        GameConfig.ListNoti.Clear();
         int size = message.reader().ReadInt();
         if (size != 0) {
             for (int i = 0; i < size; i++) {
-                int id = message.reader().ReadInt();
-                string title = message.reader().ReadUTF();
-                string content = message.reader().ReadUTF();
+                ItemNotiData item = new ItemNotiData();
+                item.Id = message.reader().ReadInt();
+                item.Title = message.reader().ReadUTF();
+                item.Content = message.reader().ReadUTF();
+                GameConfig.ListNoti.Add(item);
             }
-
         }
     }
     public void OnProfile(Message msg) {
@@ -209,18 +211,19 @@ public class ListernerServer : IChatListener {
     }
     public void OnTop(Message message) {
         try {
-            //mainGame.topGames.clear();
+            GameConfig.ListRank.Clear();
             int size = message.reader().ReadByte();
             for (int i = 0; i < size; i++) {
-                //TopGame topGame = new TopGame();
-                string displayname = message.reader().ReadUTF();
-                int idAvata = message.reader().ReadInt();
-                long money = message.reader().ReadLong();
-                //topGame.id = i + 1;
-                //mainGame.topGames.add(topGame);
+                ItemRankData item = new ItemRankData();
+                item.Rank = i + 1;
+                item.Name = message.reader().ReadUTF();
+                item.Avata_Id = message.reader().ReadInt();
+                if (item.Avata_Id < 0 || item.Avata_Id > GameConfig.NUM_AVATA) {
+                    item.Avata_Id = 0;
+                }
+                item.Money = message.reader().ReadLong();
+                GameConfig.ListRank.Add(item);
             }
-            //mainGame.mainScreen.menu.createTop(mainGame.topGames);
-
         } catch (Exception e) {
             Debug.LogException(e);
         }

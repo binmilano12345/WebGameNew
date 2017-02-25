@@ -29,6 +29,8 @@ public class LobbyControl : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
         GameControl.instance.UnloadSubScene();
+        if (GameConfig.ListNoti.Count > 0)
+            LoadAssetBundle.LoadScene(SceneName.SUB_NOTI, SceneName.SUB_NOTI);
         InitIconGame();
         SetInfo();
     }
@@ -84,11 +86,27 @@ public class LobbyControl : MonoBehaviour {
         SendData.onSendGameID((byte)GameConfig.IdGame[index]);
         PopupAndLoadingScript.instance.ShowLoading();
     }
-
+    #region Click
     public void OnClickBack() {
         PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("popup_quitgame_thoatgame"), delegate {
             NetworkUtil.GI().close();
             LoadAssetBundle.LoadScene(SceneName.SCENE_MAIN, SceneName.SCENE_MAIN);
         });
     }
+    public void OnClickRank() {
+        LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    }
+    public void OnClickNap() {
+        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    }
+    public void OnClickMail() {
+        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    }
+    public void OnClickHelp() {
+        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    }
+    public void OnClickMenu() {
+        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    }
+    #endregion
 }

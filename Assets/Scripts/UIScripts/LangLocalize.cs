@@ -11,8 +11,7 @@ using AppConfig;
 /// </summary>
 public class LangLocalize : MonoBehaviour {
     [SerializeField]
-    private string
-        key;
+    private string key;
     public string Key {
         get {
             return key;

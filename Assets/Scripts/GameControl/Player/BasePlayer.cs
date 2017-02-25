@@ -25,9 +25,15 @@ public class BasePlayer : MonoBehaviour {
     [SerializeField]
     ChatActionViewScript chatAction;
     [SerializeField]
-    GameObject objXoay;
+    GameObject objXoay, objEffectRank;
 
     public PlayerData playerData { get; set; }
+
+    void Init() {
+        objXoay.transform.DORotate(new Vector3(0, 0, 120), 0.4f).SetLoops(-1, LoopType.Yoyo);
+        objEffectRank.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.6f).SetLoops(-1, LoopType.Yoyo);
+        SetDisableEffectRank();
+    }
 
     public bool IsPlaying { get; set; }
     public bool IsReady { get; set; }
@@ -35,6 +41,8 @@ public class BasePlayer : MonoBehaviour {
     public string NamePlayer { get; set; }
 
     public void SetInfo() {
+        Init();
+        NamePlayer = playerData.Name;
         if (playerData.Name.Length <= 6) {
             txt_name.text = playerData.Name;
         } else {
@@ -82,5 +90,14 @@ public class BasePlayer : MonoBehaviour {
         } else {
             chatAction.OnHideAction();
         }
+    }
+
+    public void SetEnableEffectRank() {
+        objXoay.SetActive(true);
+        objEffectRank.SetActive(true);
+    }
+    public void SetDisableEffectRank() {
+        objXoay.SetActive(false);
+        objEffectRank.SetActive(false);
     }
 }

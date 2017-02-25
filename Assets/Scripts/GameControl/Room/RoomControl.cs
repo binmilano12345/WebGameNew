@@ -70,6 +70,7 @@ public class RoomControl : MonoBehaviour {
     public void OnClickHoTro() {
     }
     public void OnClickRank() {
+        LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
     }
     public void OnClickMenu() {
     }

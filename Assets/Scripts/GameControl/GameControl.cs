@@ -48,6 +48,8 @@ public class GameControl : MonoBehaviour {
     public void UnloadSubScene() {
         UnloadScene(SceneName.SUB_REGISTER);
         UnloadScene(SceneName.SUB_LOGIN);
+        UnloadScene(SceneName.SUB_RANK);
+        UnloadScene(SceneName.SUB_SETTING);
     }
     #endregion
     #region Unload Game Scene
@@ -92,62 +94,23 @@ public class GameControl : MonoBehaviour {
                         Debug.LogException(e);
                     }
                 });
-                //        setStage(StateGame.TLMN);
-                //        curentCasino = (CasinoStage)currenStage;
                 break;
-                //    case GameID.TLMNSL:
-                //        setStage(StateGame.TLMNSL);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    case GameID.LIENG:
-                //        if (type == 0) { // 5
-                //            setStage(StateGame.LIENG5);
-                //            curentCasino = (CasinoStage)currenStage;
-                //        } else { // 9
-                //                 // setStage(StateGame.LIENG9);
-                //                 // curentCasino = (CasinoStage) currenStage;
-                //        }
-                //        break;
-                //    case GameID.BACAY:
-                //        if (type == 0) { // 5
-                //            setStage(StateGame.BACAY5);
-                //            curentCasino = (CasinoStage)currenStage;
-                //        } else { // 9
-                //                 // setStage(StateGame.BACAY9);
-                //                 // curentCasino = (CasinoStage) currenStage;
-                //        }
-                //        break;
-                //    case GameID.PHOM:
-                //        setStage(StateGame.PHOM);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    case GameID.POKER:
-                //        if (type == 0) { // 5
-                //            setStage(StateGame.POKER5);
-                //            curentCasino = (CasinoStage)currenStage;
-                //        } else { // 9
-                //                 // setStage(StateGame.POKER9);
-                //                 // curentCasino = (CasinoStage) currenStage;
-                //        }
-                //        break;
-                //    case GameID.XITO:
-                //        setStage(StateGame.XITO);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    case GameID.MAUBINH:
-                //        setStage(StateGame.MAUBINH);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    case GameID.SAM:
-                //        setStage(StateGame.SAM);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    case GameID.XOCDIA:
-                //        setStage(StateGame.XOCDIA);
-                //        curentCasino = (CasinoStage)currenStage;
-                //        break;
-                //    default:
-                //        break;
+            case GameID.TLMNSL:
+                Card.setCardType(1);
+                LoadAssetBundle.LoadScene(SceneName.GAME_TLMN_SOLO, SceneName.GAME_TLMN_SOLO, () => {
+                    SetCurrentCasino(TLMNSoloControl.instace);
+                    try {
+                        callback.Invoke();
+                        for (int i = 0; i < ListMsg.Count; i++) {
+                            ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+                        }
+                        ListCMDID.Clear();
+                        ListMsg.Clear();
+                    } catch (Exception e) {
+                        Debug.LogException(e);
+                    }
+                });
+                break;
         }
         InitCardType();
 

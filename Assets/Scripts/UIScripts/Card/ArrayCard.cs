@@ -517,7 +517,7 @@ public class ArrayCard : MonoBehaviour {
                     card.SetCardWithId(arrCards[j]);
                     card.setSmall(true);
                     card.transform.localPosition = Vector3.zero;
-                    card.transform.DOLocalMoveX(-(dodai - 1 - i) * disCard, .8f);
+                    card.transform.DOLocalMoveX(-(dodai - 1 - i) * disCard, .1f);
                     j--;
                     card.transform.SetSiblingIndex(i);
                 }
@@ -532,7 +532,7 @@ public class ArrayCard : MonoBehaviour {
                     card.SetCardWithId(arrCards[i]);
                     card.setSmall(true);
                     card.transform.localPosition = Vector3.zero;
-                    card.transform.DOLocalMoveX(i * disCard, .8f);
+                    card.transform.DOLocalMoveX(i * disCard, .1f);
                     card.transform.SetSiblingIndex(i);
                 }
             }

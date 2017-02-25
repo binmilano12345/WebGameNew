@@ -12,8 +12,9 @@ public class TLMNPlayer : BasePlayer {
     public void SetNumCard(int numC) {
         NumCard = numC;
         if (NumCard > 0) {
-            txt_num_card.gameObject.SetActive(false);
+            txt_num_card.gameObject.SetActive(true);
             txt_num_card.text = NumCard + "";
+            txt_num_card.transform.SetAsLastSibling();
         } else {
             txt_num_card.gameObject.SetActive(false);
         }

@@ -1,4 +1,5 @@
 ﻿using AppConfig;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class MainControl : MonoBehaviour {
     [SerializeField]
     ArrayCard cardHand;
-
+    
     void Start() {
         GameControl.instance.UnloadSubScene();
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
@@ -22,7 +23,6 @@ public class MainControl : MonoBehaviour {
         //}
         //Debug.LogError(msg);
         //cardHand.InitDemo(cardH);
-
     }
     public void OnClick_LoginFacebook() {
     }
