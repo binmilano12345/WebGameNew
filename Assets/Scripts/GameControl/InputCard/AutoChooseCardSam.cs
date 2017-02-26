@@ -3,36 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-public enum TypeValueCard {
-    None,
-    Le,
-    Doi,
-    Sanh,
-    Xam,
-    BaDoiThong,
-    TuQuy,
-    BonDoiThong
-}
-public class AutoChooseCard {
+
+public class AutoChooseCardSam {
     static List<int> cardResult = new List<int>();
     public static List<int> CardTrenBan = new List<int>();
-    //public static TypeValueCard typeValueCard;
     public static int[] ChooseCard(int[] cardHand) {
         try {
             if (CardTrenBan.Count <= 0) { CardTrenBan.Clear(); return null; }
-            //List<int> listTempTamThoi = new List<int>();
 
             cardResult.Clear();
-
-            //listTempTamThoi.Clear();
-            //listTempTamThoi.AddRange(cardHandInput);
-            //listTempTamThoi.Sort();
-            //int[] cardHand = listTempTamThoi.ToArray();
             Array.Sort(cardHand);
-            //Array.Sort(cardTrenBanInput);
-
-            //CardTrenBan.Clear();
-            //CardTrenBan.AddRange(cardTrenBanInput);
             CardTrenBan.Sort();
 
             TypeValueCard typeValueCard = TypeValueCard.None;
@@ -81,14 +61,12 @@ public class AutoChooseCard {
         //CardTrenBan.Clear();
         return cardResult.ToArray();
     }
-    //TypeValueCard typeVaCurrent;
     static void AutoNhacCard(int idCardChoose, Card[] cardHandInput) {
         try {
             for (int i = 0; i < cardHandInput.Length; i++) {
                 Card card = cardHandInput[i];
                 if (card.IsChoose && card.ID == idCardChoose && card.isBatHayChua) {
                     card.IsChoose = false;
-                    //Debug.LogError("Bai da duoc chon thi ha xuong!");
                     return;
                 }
             }
@@ -97,7 +75,6 @@ public class AutoChooseCard {
                 Card card = cardHandInput[i];
                 if (card.IsChoose && GetValue(card.ID) == GetValue(idCardChoose) && card.isBatHayChua) {
                     GetCardByID(idCardChoose, cardHandInput).IsChoose = true;
-                    //Debug.LogError("Thang nay la thang thu 2");
                     return;
                 }
             }
@@ -113,15 +90,14 @@ public class AutoChooseCard {
             if (CardTrenBan.Count > 0) {
                 typeValueCard = GetTypeValueCard(CardTrenBan.ToArray());
             }
-            Debug.LogError("Kieu bai: " + typeValueCard);
+            //Debug.LogError("Kieu bai: " + typeValueCard);
             switch (typeValueCard) {
                 case TypeValueCard.Le:
-                    if (GetValue(CardTrenBan[0]) == 15) {
-                        if (GetValue(idCardChoose) != 15) {
+                    if (GetValue(CardTrenBan[0]) == 2) {
+                        if (GetValue(idCardChoose) != 2) {
                             bool isNhacChat2 = NhacTuQuy(idCardChoose, CardSang.ToArray());
                             if (!isNhacChat2) {
                                 isNhacChat2 = NhacBonDoiThongKhongChat(idCardChoose, CardSang.ToArray());
-                                //Debug.LogError("Nhac bon doi thong " + isNhacChat2);
                                 if (!isNhacChat2) {
                                     NhacBaDoiThongKhongChat(idCardChoose, CardSang.ToArray());
                                 }
@@ -134,9 +110,9 @@ public class AutoChooseCard {
                     }
                     break;
                 case TypeValueCard.Doi:
-                    if (GetValue(CardTrenBan[0]) == 15) {
+                    if (GetValue(CardTrenBan[0]) == 2) {
                         bool isDoi = false;
-                        if (GetValue(idCardChoose) == 15) {
+                        if (GetValue(idCardChoose) == 2) {
                             isDoi = NhacDoi(idCardChoose, CardSang.ToArray());
                         }
                         if (!isDoi) {
@@ -169,7 +145,6 @@ public class AutoChooseCard {
                     break;
                 default:
                     AutoNhac(idCardChoose, CardSang.ToArray());
-
                     break;
             }
         } catch (Exception e) {
@@ -223,7 +198,6 @@ public class AutoChooseCard {
     public static int GetValue(int id) {
         int vl = Card.cardPaint[id] % 13 + 1;
         if (vl == 1) vl = 14;
-        if (vl == 2) vl = 15;
         return vl;
     }
     /// <summary>
@@ -264,9 +238,6 @@ public class AutoChooseCard {
     }
     static TypeValueCard IsType4Con(int[] cardTrenBan) {
         if (GetValue(cardTrenBan[0]) == GetValue(cardTrenBan[1]) && GetValue(cardTrenBan[1]) == GetValue(cardTrenBan[2])) {
-            //if (GetValue(cardTrenBan[0]) == 15) {
-            //    return TypeValueCard.None;
-            //}
             return TypeValueCard.TuQuy;
         }
         return TypeValueCard.Sanh;
@@ -347,19 +318,14 @@ public class AutoChooseCard {
     #region Bat Le
     static List<int> BatLe(int[] cardTrenBan, int[] cardHand) {
         int giatri = GetValue(cardTrenBan[0]);
-        int chat = GetType(cardTrenBan[0]);
-        int temp = giatri * 10 + chat;
-
         List<int> listResult = new List<int>();
         for (int i = 0; i < cardHand.Length; i++) {
             int giatri2 = GetValue(cardHand[i]);
-            int chat2 = GetType(cardHand[i]);
-            if (giatri2 * 10 + chat2 > temp) {
+            if (giatri2 > giatri) {
                 listResult.Add(cardHand[i]);
             }
         }
-        if (giatri == 15) {//Neu la 2
-                           //            Debug.LogError("Co thang danh 2 " + chat);
+        if (giatri == 2) {//Neu la 2
             List<int> l3 = LayRaDoiThong(cardHand, 3);
             if (l3 != null) {
                 for (int i = 0; i < l3.Count; i++) {
@@ -385,23 +351,19 @@ public class AutoChooseCard {
     static List<int> BatDoi(int[] cardTrenBan, int[] cardHand) {
         List<int> listChon = new List<int>();
         int giatri = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
-        int chat = GetType(cardTrenBan[cardTrenBan.Length - 1]);
-        int diemtrenban = giatri * 10 + chat;
         List<int[]> listGroup = GetGroupInCardHand(cardHand);
         for (int i = 0; i < listGroup.Count; i++) {
             int[] demo = listGroup[i];
             int giatri2 = GetValue(demo[demo.Length - 1]);
-            int chat2 = GetType(demo[demo.Length - 1]);
-            int diemtrentay = giatri2 * 10 + chat2;
-            if (diemtrentay > diemtrenban) {
+            if (giatri2 > giatri) {
                 for (int j = 0; j < demo.Length; j++) {
                     listChon.Add(demo[j]);
                 }
             }
         }
-        if (giatri == 15) {//Neu la doi 2
-            List<int> l4 = AutoChooseCard.LayRaDoiThong(cardHand, 4);
-            List<int> ltu = AutoChooseCard.LayRaTuQuy(cardHand);
+        if (giatri == 2) {//Neu la doi 2
+            List<int> l4 = LayRaDoiThong(cardHand, 4);
+            List<int> ltu = LayRaTuQuy(cardHand);
             if (l4 != null)
                 for (int i = 0; i < l4.Count; i++) {
                     if (!listChon.Contains(l4[i])) {
@@ -422,16 +384,13 @@ public class AutoChooseCard {
     static List<int> BatXam(int[] cardTrenBan, int[] cardHand) {
         List<int> listChon = new List<int>();
         int giatri = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
-        int chat = GetType(cardTrenBan[cardTrenBan.Length - 1]);
-        int diemtrenban = giatri * 10 + chat;
 
         List<int[]> list = GetGroupInCardHand(cardHand);
         for (int i = 0; i < list.Count; i++) {
             int[] demo = list[i];
             if (demo.Length >= 3) {
                 int giatri2 = GetValue(demo[demo.Length - 1]);
-                int chat2 = GetType(demo[demo.Length - 1]);
-                if (giatri2 * 10 + chat2 > diemtrenban) {
+                if (giatri2 > giatri) {
                     for (int j = 0; j < demo.Length; j++) {
                         listChon.Add(demo[j]);
                     }
@@ -445,8 +404,6 @@ public class AutoChooseCard {
     static List<int> BatTuQuy(int[] cardTrenBan, int[] cardHand) {
         List<int> listChon = new List<int>();
         int giatri = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
-        int chat = GetType(cardTrenBan[cardTrenBan.Length - 1]);
-        int diemtrenban = giatri * 10 + chat;
 
         List<int[]> list = GetGroupInCardHand(cardHand);
 
@@ -454,8 +411,7 @@ public class AutoChooseCard {
             int[] demo = list[i];
             if (demo.Length >= 4) {
                 int giatri2 = GetValue(demo[demo.Length - 1]);
-                int chat2 = GetType(demo[demo.Length - 1]);
-                if (giatri2 * 10 + chat2 > diemtrenban) {
+                if (giatri2 > giatri) {
                     for (int j = 0; j < demo.Length; j++) {
                         listChon.Add(demo[j]);
                     }
@@ -468,11 +424,11 @@ public class AutoChooseCard {
     #region Bat Ba Doi Thong
     static List<int> BatBaDoiThong(int[] cardTrenBan, int[] cardHand) {
         List<int> listResult = new List<int>();
-        int diemtrenban = GetValue(cardTrenBan[cardTrenBan.Length - 1]) * 10 + GetType(cardTrenBan[cardTrenBan.Length - 1]);
+        int diemtrenban = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
 
         List<int> l3Thong = LayRaDoiThong(cardHand, 3);
         if (l3Thong != null) {
-            if (GetValue(l3Thong[l3Thong.Count - 1]) * 10 + GetType(l3Thong[l3Thong.Count - 1]) > diemtrenban || l3Thong.Count >= 8) {
+            if (GetValue(l3Thong[l3Thong.Count - 1]) > diemtrenban || l3Thong.Count >= 8) {
                 for (int i = 0; i < l3Thong.Count; i++) {
                     if (!listResult.Contains(l3Thong[i])) {
                         listResult.Add(l3Thong[i]);
@@ -495,11 +451,11 @@ public class AutoChooseCard {
     #region Bat Bon Doi Thong
     static List<int> BatBonDoiThong(int[] cardTrenBan, int[] cardHand) {
         List<int> listResult = new List<int>();
-        int diemtrenban = GetValue(cardTrenBan[cardTrenBan.Length - 1]) * 10 + GetType(cardTrenBan[cardTrenBan.Length - 1]);
+        int diemtrenban = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
 
         List<int> l4Thong = LayRaDoiThong(cardHand, 4);
         if (l4Thong != null) {
-            if (GetValue(l4Thong[l4Thong.Count - 1]) * 10 + GetType(l4Thong[l4Thong.Count - 1]) > diemtrenban) {
+            if (GetValue(l4Thong[l4Thong.Count - 1]) > diemtrenban) {
                 for (int i = 0; i < l4Thong.Count; i++) {
                     if (!listResult.Contains(l4Thong[i])) {
                         listResult.Add(l4Thong[i]);
@@ -517,10 +473,17 @@ public class AutoChooseCard {
         List<int> lSortValue = new List<int>();
         for (int i = 0; i < cardTrenTay.Length; i++) {
             int vl = GetValue(cardTrenTay[i]);
-            if (!lSortValue.Contains(vl) && vl != 15) {
+            if (vl == 14) {
+                if (!lSortValue.Contains(vl)) {
+                    lSortValue.Add(vl);
+                }
+                vl = 1;
+            }
+            if (!lSortValue.Contains(vl)) {
                 lSortValue.Add(vl);
             }
         }
+
         lSortValue.Sort();
         //End====Lay mang gia tri roi sap xep tang dan
         //Lay danh sach cac mang sanh
@@ -538,9 +501,10 @@ public class AutoChooseCard {
         for (int i = 0; i < listArr.Count; i++) {
             List<int> listtamThoi = new List<int>();
             for (int k = 0; k < listArr[i].Length; k++) {
+                if (listArr[i][k] == 1) listArr[i][k] = 14;
                 listtamThoi.AddRange(GetIDByValue(cardTrenTay, listArr[i][k]));
             }
-            if (listtamThoi.Count > 0)
+            if (listtamThoi.Count > 2)
                 listId.Add(listtamThoi.ToArray());
         }
         #endregion
@@ -554,13 +518,22 @@ public class AutoChooseCard {
         //End
 
         int DoDaiSanhTrenBan = cardTrenBan.Length;
-        int diemtrenbanMax = GetValue(cardTrenBan[cardTrenBan.Length - 1]) * 10 + GetType(cardTrenBan[cardTrenBan.Length - 1]);
+        int diemtrenbanMax = GetValue(cardTrenBan[cardTrenBan.Length - 1]);
+        if (diemtrenbanMax == 2) diemtrenbanMax = GetValue(cardTrenBan[cardTrenBan.Length - 2]);
+
         int giatritrenbanMin = GetValue(cardTrenBan[0]);
+        if (giatritrenbanMin == 14) giatritrenbanMin = GetValue(cardTrenBan[1]);
         //Lay mang gia tri roi sap xep tang dan
         List<int> lSortValue = new List<int>();
         for (int i = 0; i < cardTrenTay.Length; i++) {
             int vl = GetValue(cardTrenTay[i]);
-            if (!lSortValue.Contains(vl) && vl != 15) {
+            if (vl == 14) {
+                if (!lSortValue.Contains(vl)) {
+                    lSortValue.Add(vl);
+                }
+                vl = 1;
+            }
+            if (!lSortValue.Contains(vl)) {
                 lSortValue.Add(vl);
             }
         }
@@ -574,7 +547,7 @@ public class AutoChooseCard {
             int[] dm = GetSanhInArrValue(lSortValue.ToArray(), indexLength);
             indexLength += dm.Length;
             if (dm.Length >= DoDaiSanhTrenBan) {
-                int d = dm[dm.Length - 1] * 10 + dm[dm.Length - 1];
+                int d = dm[dm.Length - 1];
                 if (d > diemtrenbanMax)
                     listArr.Add(dm);
             }
@@ -585,6 +558,7 @@ public class AutoChooseCard {
         for (int i = 0; i < listArr.Count; i++) {
             List<int> listtamThoi = new List<int>();
             for (int k = 0; k < listArr[i].Length; k++) {
+                if (listArr[i][k] == 1) listArr[i][k] = 14;
                 listtamThoi.AddRange(GetIDByValue(cardTrenTay, listArr[i][k]));
             }
             if (listtamThoi.Count > 0)
@@ -635,17 +609,20 @@ public class AutoChooseCard {
     }
     static int[] LaySanhDatChuan(int[] sanhtrenban, int[] sanhTT) {
         List<int> lTemp = new List<int>();
-        int diemtrenbanMax = GetValue(sanhtrenban[sanhtrenban.Length - 1]) * 10 + GetType(sanhtrenban[sanhtrenban.Length - 1]);
+        int diemtrenbanMax = GetValue(sanhtrenban[sanhtrenban.Length - 1]);
+        if (diemtrenbanMax == 2) diemtrenbanMax = GetValue(sanhtrenban[sanhtrenban.Length - 2]);
         int giatritrenbanMin = GetValue(sanhtrenban[0]);
-        int thangCuoiCungCuaMangTT = sanhTT[sanhTT.Length - 1];
+        if (giatritrenbanMin == 14) giatritrenbanMin = GetValue(sanhtrenban[1]);
+        //int thangCuoiCungCuaMangTT = sanhTT[sanhTT.Length - 1];
+
         lTemp.AddRange(SortArrCard(sanhTT).ToList());
         for (int k = 0; k < sanhTT.Length; k++) {
-            if (GetValue(thangCuoiCungCuaMangTT) == GetValue(sanhTT[k])) {
-                int diemtrentaytamthoi = GetValue(sanhTT[k]) * 10 + GetType(sanhTT[k]);
-                if (diemtrentaytamthoi < diemtrenbanMax) {
-                    lTemp.Remove(sanhTT[k]);
-                }
-            }
+            //if (GetValue(thangCuoiCungCuaMangTT) == GetValue(sanhTT[k])) {
+            //    int diemtrentaytamthoi = GetValue(sanhTT[k]);
+            //    if (diemtrentaytamthoi < diemtrenbanMax) {
+            //        lTemp.Remove(sanhTT[k]);
+            //    }
+            //}
             if (GetValue(sanhTT[k]) < giatritrenbanMin) {
                 lTemp.Remove(sanhTT[k]);
             }
@@ -653,17 +630,18 @@ public class AutoChooseCard {
         List<int> lResult = new List<int>();
         int indexForced = 0;
         for (int i = lTemp.Count - 1; i >= 0; i--) {
-            if (GetValue(lTemp[i]) * 10 + GetType(lTemp[i]) > diemtrenbanMax) {
+            int vl = GetValue(lTemp[i]);
+            if (vl > diemtrenbanMax) {
                 indexForced = i;
                 lResult.Add(lTemp[i]);
             } else {
-                int[] dm = LaySanhChuanTheoDoDai(indexForced, lTemp, sanhtrenban.Length);
-                for (int j = 0; j < dm.Length; j++) {
-                    if (!lResult.Contains(dm[j])) {
-                        lResult.Add(dm[j]);
-                    }
-                }
                 break;
+            }
+        }
+        int[] dm = LaySanhChuanTheoDoDai(indexForced, lTemp, sanhtrenban.Length);
+        for (int j = 0; j < dm.Length; j++) {
+            if (!lResult.Contains(dm[j])) {
+                lResult.Add(dm[j]);
             }
         }
 
@@ -698,18 +676,7 @@ public class AutoChooseCard {
         try {
             //lay cac nhom roi Sap xep lai
             List<int[]> list = GetGroupInCardHand(SortArrCard(cardHand));
-            //        for (int i = 0; i < list.Count; i++) {
-            //            Debug.LogError("Trc khi sap xep: " + GetValue(list[i][0]));
-            //        }
-            //list.Sort(delegate (int[] arr1, int[] arr2) {
-            //    return arr1[0].CompareTo(arr2[0]);
-            //});
             list.OrderBy(r => r[0]).ThenBy(r2 => r2[0]);
-
-            //        Debug.LogError("Lay nhom " + list.Count);
-            //        for (int i = 0; i < list.Count; i++) {
-            //            Debug.LogError("Sau khi sap xep: " + GetValue(list[i][0]));
-            //        }
             if (list.Count < SoThong) return null;
 
             listResult.Clear();
@@ -719,22 +686,18 @@ public class AutoChooseCard {
                 }
                 int valueCuaThangTruoc = GetValue(list[i - 1][0]);
                 int valueCuaThangSau = GetValue(list[i][0]);
-                //Debug.LogError("valueCuaThangTruoc:   " + valueCuaThangTruoc);
-                //Debug.LogError("valueCuaThangSau:   " + valueCuaThangSau);
                 if ((valueCuaThangTruoc + 1) == valueCuaThangSau) {
                     for (int j = 0; j < list[i - 1].Length; j++) {
                         if (!listResult.Contains(list[i - 1][j])) {
                             listResult.Add(list[i - 1][j]);
-                            //Debug.LogError("Add thang bo me dau tien nay vao " + list[i - 1][j]);
                         }
                     }
 
-                    if (valueCuaThangSau != 15) {
+                    if (valueCuaThangSau != 2) {
                         coutThong++;
                         for (int j = 0; j < list[i].Length; j++) {
                             if (!listResult.Contains(list[i][j])) {
                                 listResult.Add(list[i][j]);
-                                //Debug.LogError("Add thang bo me tu thu hai nay vao " + list[i][j]);
                             }
                         }
                     }
@@ -755,7 +718,6 @@ public class AutoChooseCard {
         } catch (Exception e) {
             Debug.LogException(e);
         }
-        //        Debug.LogError("Lay ra so thang: " + listResult.Count);
         if (listResult.Count >= SoThong * 2 && coutThong >= SoThong)
             return listResult;
         return null;
@@ -922,17 +884,36 @@ public class AutoChooseCard {
                     break;
                 }
             }
+            if (MangNayNe.Count <= 0 || MangNayNe.Count <= 2) {
+                Card card = GetCardByID(id, cardHandInput);
+                if (card != null) {
+                    card.IsChoose = true;
+                }
+
+                return;
+            }
+            int tttt = MangNayNe[0];
+            for (int i = 1; i < MangNayNe.Count; i++) {
+                if (GetValue(tttt) == GetValue(MangNayNe[i])) {
+                    if (MangNayNe[i] != id) {
+                        MangNayNe.RemoveAt(i);
+                        i--;
+                    } else {
+                        MangNayNe.RemoveAt(tttt);
+                    }
+                } else {
+                    tttt = MangNayNe[i];
+                }
+            }
             int count = 0;
             int indexI = 0;
             for (int i = 0; i < MangNayNe.Count; i++) {
                 Card card = GetCardByID(MangNayNe[i], cardHandInput);
                 if (card != null) {
-                    //card.IsChoose = false;
                     if (card.ID == id) {
                         card.IsChoose = true;
                         count++;
                         indexI = i;
-                        //Debug.LogError("Nhac thang duoc chon " + GetValue(MangNayNe[i]) + " Count " + count);
                         break;
                     };
                 }
@@ -943,31 +924,22 @@ public class AutoChooseCard {
             int temp = id;
             for (int i = indexI + 1; i < MangNayNe.Count; i++) {
                 if (count >= lengthSanh) break;
-                if (GetValue(temp) == GetValue(MangNayNe[i]) - 1) {
-                    Card card = GetCardByID(MangNayNe[i], cardHandInput);
-                    if (card != null) {
-                        //card.IsChoose = true;
-                        CardNhac.Add(card);
-
-                        temp = MangNayNe[i];
-                        count++;
-                        //Debug.LogError("Nhac thang ben phai " + GetValue(MangNayNe[i]) + " Count " + count);
-                    }
+                Card card = GetCardByID(MangNayNe[i], cardHandInput);
+                if (card != null) {
+                    CardNhac.Add(card);
+                    temp = MangNayNe[i];
+                    count++;
                 }
             }
             if (count < lengthSanh) {
                 temp = id;
                 for (int i = indexI - 1; i >= 0; i--) {
                     if (count >= lengthSanh) break;
-                    if (GetValue(temp) == GetValue(MangNayNe[i]) + 1) {
-                        Card card = GetCardByID(MangNayNe[i], cardHandInput);
-                        if (card != null) {
-                            //card.IsChoose = true;
-                            CardNhac.Add(card);
-                            temp = MangNayNe[i];
-                            count++;
-                            //Debug.LogError("Nhac thang ben trai " + GetValue(MangNayNe[i]) + " Count " + count);
-                        }
+                    Card card = GetCardByID(MangNayNe[i], cardHandInput);
+                    if (card != null) {
+                        CardNhac.Add(card);
+                        temp = MangNayNe[i];
+                        count++;
                     }
                 }
             }
@@ -990,6 +962,7 @@ public class AutoChooseCard {
             }
 
             List<int[]> ListSanhGoiY = LayMangCacSanhTrenTay(llll.ToArray());
+
             List<int> MangNayNe = new List<int>();
             for (int i = 0; i < ListSanhGoiY.Count; i++) {
                 if (ListSanhGoiY[i].Contains(id)) {
@@ -997,7 +970,37 @@ public class AutoChooseCard {
                     break;
                 }
             }
-            //int count = 0;
+            if (MangNayNe.Count <= 0 || MangNayNe.Count <= 2) {
+                Card card = GetCardByID(id, cardHandInput);
+                if (card != null) {
+                    card.IsChoose = true;
+                }
+
+                return false;
+            }
+            //string msg = "";
+            //for (int i = 0; i < MangNayNe.Count; i++) {
+            //    msg += GetValue(MangNayNe[i]) + " ";
+            //}
+            //Debug.LogError(msg);
+            int tttt = MangNayNe[0];
+            for (int i = 1; i < MangNayNe.Count; i++) {
+                if (GetValue(tttt) == GetValue(MangNayNe[i])) {
+                    if (MangNayNe[i] != id) {
+                        MangNayNe.RemoveAt(i);
+                        i--;
+                    } else {
+                        MangNayNe.Remove(tttt);
+                    }
+                } else {
+                    tttt = MangNayNe[i];
+                }
+            }
+            //msg = "";
+            //for (int i = 0; i < MangNayNe.Count; i++) {
+            //    msg += GetValue(MangNayNe[i]) + " ";
+            //}
+            //Debug.LogError(msg);
             int indexI = 0;
             for (int i = 0; i < MangNayNe.Count; i++) {
                 Card card = GetCardByID(MangNayNe[i], cardHandInput);
@@ -1012,26 +1015,17 @@ public class AutoChooseCard {
             }
 
             if (MangNayNe.Count <= 2) return false;
-
             List<Card> CardNhac = new List<Card>();
-            int temp = id;
             for (int i = indexI + 1; i < MangNayNe.Count; i++) {
-                if (GetValue(temp) == GetValue(MangNayNe[i]) - 1) {
-                    Card card = GetCardByID(MangNayNe[i], cardHandInput);
-                    //card.IsChoose = true;
+                Card card = GetCardByID(MangNayNe[i], cardHandInput);
+                if (card != null)
                     CardNhac.Add(card);
-                    temp = MangNayNe[i];
-                }
             }
-            temp = id;
 
             for (int i = indexI - 1; i >= 0; i--) {
-                if (GetValue(temp) == GetValue(MangNayNe[i]) + 1) {
-                    Card card = GetCardByID(MangNayNe[i], cardHandInput);
-                    //card.IsChoose = true;
+                Card card = GetCardByID(MangNayNe[i], cardHandInput);
+                if (card != null)
                     CardNhac.Add(card);
-                    temp = MangNayNe[i];
-                }
             }
             if (CardNhac.Count >= 2) {
                 for (int i = 0; i < CardNhac.Count; i++) {
@@ -1057,7 +1051,7 @@ public class AutoChooseCard {
     static bool NhacBaDoiThong(int id, Card[] cardHand) {
         List<Card> ListThong = cardHand.ToList();
         for (int i = 0; i < ListThong.Count; i++) {
-            if (GetValue(ListThong[i].ID) == 15) {
+            if (GetValue(ListThong[i].ID) == 2) {
                 ListThong.RemoveAt(i);
             }
         }
@@ -1067,12 +1061,10 @@ public class AutoChooseCard {
         ListThong.OrderBy(r => GetValue(r.ID)).ThenBy(r2 => GetValue(r2.ID));
 
         int currentValue = GetValue(cardHand[0].ID);
-        //		Debug.LogError ("currentValue " + currentValue);
         List<int> listDoi = new List<int>();
         listDoi.Add(cardHand[0].ID);
         int count = 0;
 
-        //List<int> lResult = new List<int>();
         for (int i = 1; i < ListThong.Count; i++) {
             if (currentValue != GetValue(ListThong[i].ID)) {
                 currentValue = GetValue(ListThong[i].ID);
@@ -1182,7 +1174,7 @@ public class AutoChooseCard {
         ResetArrCard(cardHand);
         List<Card> ListThong = cardHand.ToList();
         for (int i = 0; i < ListThong.Count; i++) {
-            if (GetValue(ListThong[i].ID) == 15) {
+            if (GetValue(ListThong[i].ID) == 2) {
                 ListThong.RemoveAt(i);
             }
         }
@@ -1253,34 +1245,5 @@ public class AutoChooseCard {
         return NhacBonDoiThong(id, list.ToArray());
     }
     #endregion
-    #endregion
-
-    #region Lay Ra 5 Doi Thong
-    public static bool LayRaNamDoiThong(int[] cardHand) {
-        List<int> l5Thong = LayRaDoiThong(cardHand, 5);
-        if (l5Thong != null)
-            return true;
-        return false;
-    }
-    #endregion
-
-    #region Lay Ra 6 Doi Thong
-    public static bool LayRaSauDoiThong(int[] cardHand) {
-        List<int[]> list6Doi = GetGroupInCardHand(cardHand);
-        if (list6Doi.Count == 6)
-            return true;
-        return false;
-    }
-    #endregion
-
-    #region Lay Ra Tu Quy 2
-    public static bool LayRaTuQuyHai(int[] carhHand) {
-        List<int> listTuQuy = LayRaTuQuy(carhHand);
-        if (listTuQuy.Count > 0) {
-            if (GetValue(listTuQuy[0]) == 15)
-                return true;
-        }
-        return false;
-    }
     #endregion
 }

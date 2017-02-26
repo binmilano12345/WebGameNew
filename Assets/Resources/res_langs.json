@@ -45,6 +45,7 @@
     "popup_mail_co_tien": "Bạn nhận được thư chuyển tiển. Bạn có muốn xem ngay không?",
     "popup_chua_chon_bai": "Chưa chọn bài!",
     "popup_danh_bai_loi": "Đánh bài lỗi!",
+    "popup_invite_play": "{0} mời bạn chơi game {1} với mức cược {2}.",
 	
     "ingame_ready": "SẴN SÀNG",
     "ingame_start": "BẮT ĐẦU",
@@ -52,7 +53,7 @@
     "ingame_leave": "BỎ LƯỢT",
     "ingame_unready": "BỎ SẴN SÀNG",
 	"ingame_bao_sam":"BÁO SÂM",
-	"ingame_khong_sam":"KHÔNG SÂM",
+	"ingame_khong_sam":"BỎ QUA",
 	"ingame_bao_1_con":"BÁO",
 	
 	 "maingame_choingay": "CHƠI NGAY",
@@ -66,6 +67,8 @@
     "room_muc_cuoc": "Mức cược",
     "room_tien_can": "Tiền cần",
     "room_so_nguoi": "Số người",
+    "room_an_ban_full": "Ẩn bàn full",
+    "room_chon_muc_cuoc": "Chọn mức cược",
 	
     "lobby_nap": "Nạp",
     "lobby_mail": "Hòm thư",

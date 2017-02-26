@@ -7,7 +7,7 @@ using UnityEngine;
 public class MainControl : MonoBehaviour {
     [SerializeField]
     ArrayCard cardHand;
-    
+
     void Start() {
         GameControl.instance.UnloadSubScene();
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);

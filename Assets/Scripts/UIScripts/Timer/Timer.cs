@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
@@ -12,12 +13,16 @@ public class Timer : MonoBehaviour {
 
     Color m_FullTimeColor = Color.green;
     Color m_ZeroTimeColor = Color.red;
+
+    UnityAction CallBack;
     // Update is called once per frame
     void Update() {
         //if (isTurnTime) {
         if(timeCurrent > 0) {
             timeCurrent -= Time.deltaTime;
             if (timeCurrent <= 0) {
+                if (CallBack != null)
+                    CallBack.Invoke();
                 gameObject.SetActive(false);
                 return;
             }
@@ -29,7 +34,8 @@ public class Timer : MonoBehaviour {
         }
     }
 
-    public void SetTime(float time) {
+    public void SetTime(float time, UnityAction callback = null) {
+        CallBack = callback;
         if (time <= 0) {
             gameObject.SetActive(false);
         } else {
@@ -38,7 +44,6 @@ public class Timer : MonoBehaviour {
             float va = timeCurrent / time;
             img_time.fillAmount = va;
             img_time.color = Color.Lerp(m_ZeroTimeColor, m_FullTimeColor, va);
-            //isTurnTime = true;
             gameObject.SetActive(true);
         }
     }

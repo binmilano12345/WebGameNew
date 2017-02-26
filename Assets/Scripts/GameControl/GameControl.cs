@@ -11,9 +11,9 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     Transform tf_parent;
 
-    BaseCasino currentCasino;
-    public GameObject objPlayer, objCard;
-
+    public BaseCasino CurrentCasino;
+    public GameObject objPlayerTLMN, objPlayerSam, objCard;
+    public GameObject objPlayer;
     public List<int> ListCMDID = new List<int>();
     public List<Message> ListMsg = new List<Message>();
     void Awake() {
@@ -26,12 +26,20 @@ public class GameControl : MonoBehaviour {
         new ListernerServer();
         SendData.onGetPhoneCSKH();
         PopupAndLoadingScript.instance.LoadPopupAndLoading();
-        if (objPlayer == null) {
-            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER, (obj) => {
-                objPlayer = obj;
-                objPlayer.transform.SetParent(tf_parent.transform);
-                objPlayer.transform.localScale = Vector3.one;
-                objPlayer.gameObject.SetActive(false);
+        if (objPlayerTLMN == null) {
+            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_TLMN, (obj) => {
+                objPlayerTLMN = obj;
+                objPlayerTLMN.transform.SetParent(tf_parent.transform);
+                objPlayerTLMN.transform.localScale = Vector3.one;
+                objPlayerTLMN.gameObject.SetActive(false);
+            });
+        }
+        if (objPlayerSam == null) {
+            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_SAM, (obj) => {
+                objPlayerSam = obj;
+                objPlayerSam.transform.SetParent(tf_parent.transform);
+                objPlayerSam.transform.localScale = Vector3.one;
+                objPlayerSam.gameObject.SetActive(false);
             });
         }
         if (objCard == null) {
@@ -55,6 +63,7 @@ public class GameControl : MonoBehaviour {
     #region Unload Game Scene
     public void UnloadGameScene() {
         UnloadScene(SceneName.GAME_TLMN);
+        UnloadScene(SceneName.GAME_TLMN_SOLO);
     }
     #endregion
     #region Unload Scene
@@ -71,18 +80,14 @@ public class GameControl : MonoBehaviour {
         }
         NetworkUtil.GI().close();
     }
-    public BaseCasino GetCurrentCasino() {
-        return currentCasino;
-    }
-    public void SetCurrentCasino(BaseCasino casino) {
-        currentCasino = casino;
-    }
     public void SetCasino(int type, UnityAction callback) {
         switch (GameConfig.CurrentGameID) {
+            #region TLMN
             case GameID.TLMN:
                 Card.setCardType(1);
+                objPlayer = objPlayerTLMN;
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
-                    SetCurrentCasino(TLMNControl.instace);
+                    CurrentCasino = (TLMNControl.instace);
                     try {
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {
@@ -95,10 +100,13 @@ public class GameControl : MonoBehaviour {
                     }
                 });
                 break;
+            #endregion
+            #region TLMN SL
             case GameID.TLMNSL:
+                objPlayer = objPlayerTLMN;
                 Card.setCardType(1);
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN_SOLO, SceneName.GAME_TLMN_SOLO, () => {
-                    SetCurrentCasino(TLMNSoloControl.instace);
+                    CurrentCasino = (TLMNSoloControl.instace);
                     try {
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {
@@ -111,6 +119,26 @@ public class GameControl : MonoBehaviour {
                     }
                 });
                 break;
+            #endregion
+            #region SAM
+            case GameID.SAM:
+                objPlayer = objPlayerSam;
+                Card.setCardType(1);
+                LoadAssetBundle.LoadScene(SceneName.GAME_SAM, SceneName.GAME_SAM, () => {
+                    CurrentCasino = (SamControl.instace);
+                    try {
+                        callback.Invoke();
+                        for (int i = 0; i < ListMsg.Count; i++) {
+                            ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+                        }
+                        ListCMDID.Clear();
+                        ListMsg.Clear();
+                    } catch (Exception e) {
+                        Debug.LogException(e);
+                    }
+                });
+                break;
+                #endregion
         }
         InitCardType();
 
@@ -150,5 +178,4 @@ public class GameControl : MonoBehaviour {
         //        break;
         //}
     }
-
 }

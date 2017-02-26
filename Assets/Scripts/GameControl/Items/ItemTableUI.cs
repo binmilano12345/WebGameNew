@@ -9,12 +9,15 @@ public class ItemTableUI : MonoBehaviour {
     public ItemTableData itemData { get; set; }
     [SerializeField]
     Text txt_name, txt_bet, txt_need, txt_nuser;
+    [SerializeField]
+    GameObject obj_lock;
 
     public void SetUI() {
         txt_name.text = itemData.TableName;
         txt_bet.text = MoneyHelper.FormatMoneyNormal(itemData.Money);
         txt_need.text = MoneyHelper.FormatMoneyNormal(itemData.NeedMoney);
         txt_nuser.text = itemData.NUser + "/" + itemData.MaxUser;
+        obj_lock.SetActive(itemData.IsLock == 1);
     }
 
     public void OnClick() {

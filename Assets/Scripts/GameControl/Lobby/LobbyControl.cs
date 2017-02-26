@@ -83,6 +83,7 @@ public class LobbyControl : MonoBehaviour {
     }
     void OnClickGame(GameObject obj) {
         int index = int.Parse(obj.name);
+
         SendData.onSendGameID((byte)GameConfig.IdGame[index]);
         PopupAndLoadingScript.instance.ShowLoading();
     }

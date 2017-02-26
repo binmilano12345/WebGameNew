@@ -17,7 +17,7 @@ public class BasePlayer : MonoBehaviour {
     [SerializeField]
     Timer timeTurn;
     [SerializeField]
-    GameObject objReady;
+    Text txt_ready;
     public ArrayCard CardHand;
 
     [SerializeField]
@@ -62,7 +62,8 @@ public class BasePlayer : MonoBehaviour {
         master.SetActive(isMaster);
     }
     public void SetShowReady(bool isReady) {
-        objReady.SetActive(isReady);
+        txt_ready.text = ClientConfig.Language.GetText("ingame_ready");
+        txt_ready.gameObject.SetActive(isReady);
     }
     public void SetTurn(float time) {
         timeTurn.SetTime(time);
@@ -99,5 +100,8 @@ public class BasePlayer : MonoBehaviour {
     public void SetDisableEffectRank() {
         objXoay.SetActive(false);
         objEffectRank.SetActive(false);
+    }
+    public void SetTextBao() {
+        txt_ready.text = "Báo";
     }
 }

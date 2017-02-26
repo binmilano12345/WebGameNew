@@ -2,16 +2,17 @@
 using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
+using AppConfig;
 
 public class PanelMessageSytem : MonoBehaviour {
     public bool isShow { get; set; }
     [SerializeField]
     Text txt_content;
     [SerializeField]
-    GameObject btnOK, btnCancel, btnCancelAll;
+    GameObject btnOK, btnCancelAll;
     public delegate void CallBack();
     CallBack onClickOK, onClickQuit;
-    const float posXCenter = 0, posX = 120, posX3 = 190;
+    const float posXCenter = 0, posX = 120;
 
     [SerializeField]
     UIPopUp uipopup;
@@ -21,8 +22,7 @@ public class PanelMessageSytem : MonoBehaviour {
         onClickQuit = null;
 
         uipopup.dialogPopup.transform.DOKill();
-
-        btnCancel.SetActive(false);
+        
         btnCancelAll.SetActive(false);
         btnOK.SetActive(true);
         txt_content.text = mess;
@@ -30,23 +30,7 @@ public class PanelMessageSytem : MonoBehaviour {
 
         OnShow();
     }
-
-    public void OnShow2(string mess, CallBack clickOK) {
-        onClickOK = null;
-        onClickQuit = null;
-        uipopup.dialogPopup.transform.DOKill();
-
-        onClickOK = clickOK;
-
-        btnCancel.SetActive(false);
-        btnCancelAll.SetActive(false);
-        btnOK.SetActive(true);
-        txt_content.text = mess;
-        setPosBtn(btnOK, posXCenter);
-
-        OnShow();
-    }
-
+    
     public void OnShow(string mess, CallBack clickOK) {
         onClickOK = null;
         onClickQuit = null;
@@ -54,13 +38,11 @@ public class PanelMessageSytem : MonoBehaviour {
         onClickOK = clickOK;
 
         btnCancelAll.gameObject.SetActive(false);
-        btnCancel.gameObject.SetActive(true);
         btnOK.gameObject.SetActive(true);
 
         txt_content.text = mess;
         onClickOK = clickOK;
-        setPosBtn(btnOK, -posX);
-        setPosBtn(btnCancel, posX);
+        setPosBtn(btnOK, posXCenter);
 
         OnShow();
     }
@@ -75,12 +57,10 @@ public class PanelMessageSytem : MonoBehaviour {
         onClickQuit = clickQuit;
 
         btnCancelAll.gameObject.SetActive(false);
-        btnCancel.gameObject.SetActive(true);
         btnOK.gameObject.SetActive(true);
 
         txt_content.text = mess;
-        setPosBtn(btnOK, -posX);
-        setPosBtn(btnCancel, posX);
+        setPosBtn(btnOK, posXCenter);
 
         OnShow();
     }
@@ -92,14 +72,13 @@ public class PanelMessageSytem : MonoBehaviour {
         uipopup.dialogPopup.transform.DOKill();
 
         onClickOK = clickOK;
-
-        btnCancel.gameObject.SetActive(true);
+        
         btnOK.gameObject.SetActive(true);
         btnCancelAll.gameObject.SetActive(true);
 
         txt_content.text = mess;
-        setPosBtn(btnOK, posXCenter);
-        setPosBtn(btnCancel, -posX3);
+        setPosBtn(btnOK, posX);
+        setPosBtn(btnCancelAll, -posX);
 
         OnShow();
     }
@@ -141,6 +120,7 @@ public class PanelMessageSytem : MonoBehaviour {
     }
 
     public void OnClickCancelAll() {
-
+        SettingConfig.IsInvite = 0;
+        onHide();
     }
 }

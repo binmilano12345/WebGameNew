@@ -66,28 +66,28 @@ public class ProcessHandler : MessageHandler {
                         listenner.OnJoinTablePlay(message);
                         break;
                     case CMDClient.CMD_EXIT_TABLE:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnUserExitTable(message);
                         break;
                     case CMDClient.CMD_INFOPLAYER_TBL:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.InfoCardPlayerInTbl(message);
                         break;
                     case CMDClient.CMD_READY:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnReady(message);
                         break;
                     case CMDClient.CMD_START_GAME:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else {
@@ -103,46 +103,55 @@ public class ProcessHandler : MessageHandler {
                         }
                         break;
                     case CMDClient.CMD_SET_NEW_MASTER:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnSetNewMaster(message.reader().ReadUTF());
                         break;
                     case CMDClient.CMD_FIRE_CARD:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnFrieCard(message);
                         break;
                     case CMDClient.CMD_PASS:// bo luot
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnNickSkip(message.reader().ReadUTF(), message.reader().ReadUTF());
                         break;
                     case CMDClient.CMD_GAMEOVER:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnFinishGame(message);
                         break;
                     case CMDClient.CMD_ALLCARD_FINISH:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnAllCardPlayerFinish(message);
                         break;
                     case CMDClient.CMD_FINISHTURNTLMN:
-                        if (GameControl.instance.GetCurrentCasino() == null) {
+                        if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
                             GameControl.instance.ListMsg.Add(message);
                         } else
                             listenner.OnFinishTurnTLMN(message);
+                        break;
+                    case CMDClient.CMD_SET_TURN:
+                        listenner.OnSetTurn(message);
+                        break;
+                    case CMDClient.CMD_INVITE_FRIEND:// nhan loi moi tu a vao tbid
+                        listenner.OnInvite(message);
+                        break;
+                    case CMDClient.CMD_BAO_SAM:
+                        listenner.OnBaoSam(message);
                         break;
                 }
             });

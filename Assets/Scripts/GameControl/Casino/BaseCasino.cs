@@ -42,7 +42,7 @@ public abstract class BaseCasino : MonoBehaviour {
 
         txt_id_table.text = "Bàn " + idTable;
         txt_bet_table.text = "Mức cược " + "<color=yellow>" + betMoney + "</color>";
-        txt_game_name.text = GameConfig.GameName[(int)GameConfig.CurrentGameID];
+        txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
 
         //BaseInfo.gI().isView = false;
         //BaseInfo.gI().isOutTable = false;
@@ -250,7 +250,7 @@ public abstract class BaseCasino : MonoBehaviour {
     internal void OnUserExitTable(string nick, string master) {
         if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
             //LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM, () => {
-            GameControl.instance.SetCurrentCasino(null);
+            GameControl.instance.CurrentCasino =null ;
             //});
         } else {
             BasePlayer pl = GetPlayerWithName(nick);
@@ -443,9 +443,15 @@ public abstract class BaseCasino : MonoBehaviour {
             ListPlayer[i].playerData.SitOnClient = j;
             j--;
         }
-        InitPlayerTLMN();
+        switch (GameConfig.CurrentGameID) {
+            case GameID.TLMN:
+            case GameID.TLMNSL:
+            case GameID.SAM:
+                InitPlayerTLMN_SAM();
+                break;
+        }
     }
-    void InitPlayerTLMN() {
+    void InitPlayerTLMN_SAM() {
         for (int i = 0; i < ListPlayer.Count; i++) {
             BasePlayer pl = ListPlayer[i];
             pl.CardHand.CardCount = 13;

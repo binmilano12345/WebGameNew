@@ -2,7 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using DataBase;
-
+public enum TYPE_CARD {
+    MAU_THAU = 0,
+    DOI,
+    THU,
+    SAM_CO,
+    SANH,
+    THUNG,
+    CU_LU,
+    TU_QUY,
+    THUNG_PHA_SANH
+};
 namespace AppConfig {
     public class GameConfig {
         public const string IP = "game.atmdoithuong.com";
@@ -28,52 +38,53 @@ namespace AppConfig {
         public static string TXT_NOTI = "";
 
         public const int NUM_GAME = 10;
-        public static GameID[] IdGame = new GameID[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
+        public static int[] IdGame = new int[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
         public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO" };
-        public static GameID CurrentGameID;
+        public static int CurrentGameID;
 
         public static int TimerTurnInGame = 0;
         public static List<ItemRankData> ListRank = new List<ItemRankData>();
         public static List<ItemNotiData> ListNoti = new List<ItemNotiData>();
+        //public static Dictionary<int, string> GetGameById = new Dictionary<int, string>();
     }
 
     public class LinkFixed {
         public static string LinkForum = "";
     }
 
-    //public class GameID {
-    //    public const int PHOM = 0;
-    //    public const int TLMN = 1;
-    //    public const int XITO = 2;
-    //    public const int MAUBINH = 3;
-    //    public const int POKER = 8;
-    //    public const int SAM = 6;
-    //    public const int CHUONG = 7;
-    //    public const int BACAY = 4;
-    //    public const int LIENG = 5;
-    //    public const int RESET = -1;
-    //    public const int XOCDIA = 9;
-    //    public const int TAIXIU = 10;
-    //    public const int TLMNSL = 11;
-    //    public const int VONGQUAY = 12;
-    //}
-
-    public enum GameID {
-        PHOM = 0,
-        TLMN,
-        XITO,
-        MAUBINH,
-        BACAY,
-        LIENG,
-        SAM,
-        CHUONG,
-        POKER,
-        XOCDIA,
-        TAIXIU,
-        TLMNSL,
-        VONGQUAY,
-        RESET = -1
+    public class GameID {
+        public const int PHOM = 0;
+        public const int TLMN = 1;
+        public const int XITO = 2;
+        public const int MAUBINH = 3;
+        public const int POKER = 8;
+        public const int SAM = 6;
+        public const int CHUONG = 7;
+        public const int BACAY = 4;
+        public const int LIENG = 5;
+        public const int RESET = -1;
+        public const int XOCDIA = 9;
+        public const int TAIXIU = 10;
+        public const int TLMNSL = 11;
+        public const int VONGQUAY = 12;
     }
+
+    //public enum GameID {
+    //    PHOM = 0,
+    //    TLMN,
+    //    XITO,
+    //    MAUBINH,
+    //    BACAY,
+    //    LIENG,
+    //    SAM,
+    //    CHUONG,
+    //    POKER,
+    //    XOCDIA,
+    //    TAIXIU,
+    //    TLMNSL,
+    //    VONGQUAY,
+    //    RESET = -1
+    //}
 
     public class SettingConfig {
         private static int isSound;//0- tat, 1 - bat
@@ -85,12 +96,12 @@ namespace AppConfig {
                 PlayerPrefs.Save();
             }
         }
-        private static int isVibrate;//0- tat, 1 - bat
-        public static int IsVibrate {
-            get { return isVibrate; }
+        private static int isAutoReady;//0- tat, 1 - bat
+        public static int IsAutoReady {
+            get { return isAutoReady; }
             set {
-                isVibrate = value;
-                PlayerPrefs.SetInt("isVibrate", isVibrate);
+                isAutoReady = value;
+                PlayerPrefs.SetInt("isAutoReady", isAutoReady);
                 PlayerPrefs.Save();
             }
         }
@@ -105,7 +116,7 @@ namespace AppConfig {
         }
         public static void InitSetting() {
             SettingConfig.IsSound = PlayerPrefs.GetInt("isSound", 1);
-            SettingConfig.IsVibrate = PlayerPrefs.GetInt("isVibrate", 1);
+            SettingConfig.IsAutoReady = PlayerPrefs.GetInt("isAutoReady", 1);
             SettingConfig.IsInvite = PlayerPrefs.GetInt("isInvite", 1);
         }
     }
@@ -132,12 +143,13 @@ namespace AppConfig {
         public const string PRE_ALERT = "Alert";
         public const string PRE_LOAD = "PanelLoad";
 
-        public const string PRE_PLAYER = "Player";
+        public const string PRE_PLAYER_TLMN = "TLMNPlayer";
+        public const string PRE_PLAYER_SAM = "SamPlayer";
 
         public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";
         public const string PRE_ITEM_RANK = "ItemRank";
-        public const string PRE_ITEM_NOTI = "ItemNoti"; 
+        public const string PRE_ITEM_NOTI = "ItemNoti";
         public const string PRE_CARD = "Card";
 
         public const string PRE_CHAT_TEXT = "ButtonChatText";

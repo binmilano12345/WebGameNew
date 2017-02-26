@@ -636,12 +636,26 @@ public class ArrayCard : MonoBehaviour {
     public void SetInputChooseCard() {
         if (!isSetInputChooseCard) {
             isSetInputChooseCard = true;
-            for (int i = 0; i < listCardHand.Count; i++) {
-                Card c = listCardHand[i];
-                c.setListenerClick(delegate {
-                    AutoChooseCard.ClickCard(c, listCardHand.ToArray());
-                });
-                c.isAuto = true;
+            switch (GameConfig.CurrentGameID) {
+                case GameID.TLMN:
+                case GameID.TLMNSL:
+                    for (int i = 0; i < listCardHand.Count; i++) {
+                        Card c = listCardHand[i];
+                        c.setListenerClick(delegate {
+                            AutoChooseCard.ClickCard(c, listCardHand.ToArray());
+                        });
+                        c.isAuto = true;
+                    }
+                    break;
+                case GameID.SAM:
+                    for (int i = 0; i < listCardHand.Count; i++) {
+                        Card c = listCardHand[i];
+                        c.setListenerClick(delegate {
+                            AutoChooseCardSam.ClickCard(c, listCardHand.ToArray());
+                        });
+                        c.isAuto = true;
+                    }
+                    break;
             }
         }
     }

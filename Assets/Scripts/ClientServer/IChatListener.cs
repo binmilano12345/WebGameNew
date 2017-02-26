@@ -16,7 +16,7 @@ interface IChatListener {
     void OnGetAlertLink(Message message);
     void OnInfoSMS(Message message);
     void OnSMS9029(Message message);
-
+    void OnInvite(Message message);
     void OnJoinGame(Message message);
     void OnJoinRoom(Message message);
     void OnGameID(Message message);
@@ -37,4 +37,6 @@ interface IChatListener {
     void OnFinishGame(Message message);
     void OnAllCardPlayerFinish(Message message);
     void OnFinishTurnTLMN(Message message);
+    void OnSetTurn(Message message);
+    void OnBaoSam(Message message);
 }
