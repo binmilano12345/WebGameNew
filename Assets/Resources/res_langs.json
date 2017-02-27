@@ -46,6 +46,7 @@
     "popup_chua_chon_bai": "Chưa chọn bài!",
     "popup_danh_bai_loi": "Đánh bài lỗi!",
     "popup_invite_play": "{0} mời bạn chơi game {1} với mức cược {2}.",
+    "button_gui": "Gửi",
 	
     "ingame_ready": "SẴN SÀNG",
     "ingame_start": "BẮT ĐẦU",
@@ -88,7 +89,6 @@
     "iap_history_no_record": "Hiện chưa có lịch sử nạp tiền",
     "iap_noitem": "Hiện chưa có gói nạp nào trong danh sách",
 	"error_seri_code":"Số Seri hoặc Mã thẻ không hợp lệ",
-
 
     "changeavatarerr": "Quá trình tải ảnh lên thất bại, quý khách vui lòng thử lại.",
 	

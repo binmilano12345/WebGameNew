@@ -135,6 +135,7 @@ namespace AppConfig {
         public static string[] UI_GAME = new string[] { "ic_xocdia", "ic_TLMNdemla", "ic_TLMNsolo", "ic_maubinh", "ic_lieng", "ic_xito", "ic_poker", "ic_3cay", "ic_phom", "ic_sam" };
         public static string UI_XOC_DIA_ORANGE = "orange";
         public static string UI_XOC_DIA_WHITE = "white";
+        public static string[] UI_ANI_WIN = new string[] { "rank_u", "rank_win", "rank_thangtrang", "rank_mom", "rank_cong", "rank_lung" };
     }
 
     public class PrefabsName {
@@ -151,9 +152,9 @@ namespace AppConfig {
         public const string PRE_ITEM_RANK = "ItemRank";
         public const string PRE_ITEM_NOTI = "ItemNoti";
         public const string PRE_CARD = "Card";
-
         public const string PRE_CHAT_TEXT = "ButtonChatText";
-        public const string PRE_CHAT_SMILE = "ItemEmotion";
+        public const string PRE_CHAT_SMILE = "ButtonEmotion";
+
         public const string PRE_CHIP = "Chip";
         public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
         public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
@@ -177,6 +178,7 @@ namespace AppConfig {
         public const string SUB_SETTING = "sub_setting";
         public const string SUB_RANK = "sub_rank";
         public const string SUB_NOTI = "sub_noti";
+        public const string SUB_CHAT = "sub_chat";
 
         public const string SUB_GOP_Y = "gopy";
         public const string SUB_MAIL = "mail";
@@ -184,7 +186,6 @@ namespace AppConfig {
         public const string SUB_BANK = "bank";
         public const string SUB_INVITE_FRIEND = "invite_friend";
         public const string SUB_CAOTHU = "caothu";
-        public const string SUB_CHAT = "chat";
         public const string SUB_DOI_THUONG = "doithuong";
         public const string SUB_NAPTHE = "napthe";
 

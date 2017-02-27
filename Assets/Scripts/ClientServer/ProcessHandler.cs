@@ -86,6 +86,13 @@ public class ProcessHandler : MessageHandler {
                         } else
                             listenner.OnReady(message);
                         break;
+                    case CMDClient.CMD_CHAT_MSG:
+                        if (GameControl.instance.CurrentCasino == null) {
+                            GameControl.instance.ListCMDID.Add(messageId);
+                            GameControl.instance.ListMsg.Add(message);
+                        } else
+                            listenner.OnChat(message);
+                        break;
                     case CMDClient.CMD_START_GAME:
                         if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);

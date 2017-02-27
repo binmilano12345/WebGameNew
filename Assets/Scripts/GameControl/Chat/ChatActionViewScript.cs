@@ -59,6 +59,7 @@ public class ChatActionViewScript : MonoBehaviour {
         return gameObject.activeInHierarchy;
     }
     public void OnShowAction() {
+        Debug.LogError("Show len nao");
         gameObject.SetActive(true);
         switch (align) {
             case Align_Anchor.LEFT:
@@ -147,22 +148,22 @@ public class ChatActionViewScript : MonoBehaviour {
             }
         }
     }
-    Camera GetCamera() {
-        Camera ccc = null;
-        foreach (Camera c in Camera.allCameras) {
-            if (c.name.Equals("Camera")) {
-                ccc = c;
-                break;
-            }
-        }
-        return ccc;
-    }
+    //Camera GetCamera() {
+    //    Camera ccc = null;
+    //    foreach (Camera c in Camera.allCameras) {
+    //        if (c.name.Equals("Camera")) {
+    //            ccc = c;
+    //            break;
+    //        }
+    //    }
+    //    return ccc;
+    //}
     bool CheckTouchOut(UIButton rect) {
-        Camera ccc = GetCamera();
-        if (ccc != null) {
-            Vector3 vtScreen = ccc.ScreenToWorldPoint(Input.mousePosition);
-            return RectTransformUtility.RectangleContainsScreenPoint(rect.GetComponent<RectTransform>(), vtScreen);
-        }
-        return false;
+        //Camera ccc = GetCamera();
+        //if (ccc != null) {
+        Vector3 vtScreen = /*ccc.ScreenToWorldPoint*/(Input.mousePosition);
+        return RectTransformUtility.RectangleContainsScreenPoint(rect.GetComponent<RectTransform>(), vtScreen);
+        //}
+        //return false;
     }
 }

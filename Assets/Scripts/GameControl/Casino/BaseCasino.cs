@@ -25,6 +25,7 @@ public abstract class BaseCasino : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
         GameControl.instance.UnloadSubScene();
+        PopupAndLoadingScript.instance.OnHideAll();
         for (int i = 1; i < tf_invite.Length; i++) {
             tf_invite[i].GetComponent<UIButton>()._onClick.AddListener(OnClickInvite);
         }
@@ -34,6 +35,12 @@ public abstract class BaseCasino : MonoBehaviour {
         Debug.LogError("Hien moi ban");
     }
     #region Xu li trong game
+    internal void OnChat(string nick, string msg) {
+        BasePlayer pl = GetPlayerWithName(nick);
+        if(pl != null) {
+            pl.SetChat(msg);
+        }
+    }
     internal virtual void OnJoinTablePlaySuccess(Message message) {
         short idTable = message.reader().ReadShort();
         long betMoney = message.reader().ReadLong();
@@ -74,12 +81,11 @@ public abstract class BaseCasino : MonoBehaviour {
                 GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
                 objPlayer.transform.SetParent(tf_parent_player);
                 BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
-                plUI.playerData = pl;
+                plUI.SetInfo(pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
                 if (pl.Name.Equals(ClientConfig.UserInfo.UNAME)) {
                     playerMe = plUI;
                     indexMe = i;
                 }
-                plUI.SetInfo();
                 objPlayer.SetActive(false);
                 ListPlayer.Add(plUI);
             }
@@ -118,9 +124,6 @@ public abstract class BaseCasino : MonoBehaviour {
         //      }
         for (int i = 0; i < total; i++) {
             string nick = message.reader().ReadUTF();
-            //if (nick.equals(BaseInfo.gI().mainInfo.nick)) {
-            //    MainInfo.setPlayingUser(false);
-            //}
             int rank = message.reader().ReadByte();
             if (rank != 1 && rank != 5) {
             }
@@ -132,52 +135,14 @@ public abstract class BaseCasino : MonoBehaviour {
             BasePlayer pl = GetPlayerWithName(nick);
             if (pl != null) {
                 pl.SetEffect(dau + MoneyHelper.FormatMoneyNormal(money));
+                pl.SetRank(rank);
+                pl.IsReady = false;
             }
-            //if (getPlayer(nick) == 0) {
-            //    BaseInfo.gI().infoWin.add(new InfoWin(dau, nick, money, true));
-            //} else {
-            //    BaseInfo.gI().infoWin.add(new InfoWin(dau, nick, money, false));
-            //}
-            //nickFire = "";
-
-            //for (int j = 0; j < nUsers; j++) {
-            //    if (players[j].isPlaying() && players[j].getName().equals(nick)) {
-            //        players[j].setRank(rank);
-            //        players[j].setReady(false);
-            //        break;
-            //    }
-            //}
         }
-        //OnJoinTableSuccess(masterID);
-        //      for (int j = 0; j < nUsers; j++) {
-        //          if (players[j].isPlaying()) {
-        //              players[j].setPlaying(false);
-        //          } else {
-        //              players[j].diem = 555;
-        //          }
-        //          players[j].setTurn(false, 0);
-        //      }
-        //      BaseInfo.gI().media_countdown.pause();
-
-        //      if (!MainInfo.isAutoOutTable()
-        //              && BaseInfo.gI().isAutoReady
-        //              && !BaseInfo.gI().isView
-        //              && !BaseInfo.gI().checkHettien()
-        //              && (CasinoStage.this instanceof TLMNStage || CasinoStage.this instanceof PhomStage || CasinoStage.this instanceof XamStage)
-
-        //                  && !BaseInfo.gI().mainInfo.nick.equals(masterID)) {
-        //          btn_sansang.setVisible(false);
-        //          SendData.onReady(1);
-        //      }
-
-        //  } catch (Exception ex) {
-
-        //          ex.printStackTrace();
-        //}
     }
 
     //protected String[] luatchoi = new String[] { "TÁI GỬI", "KHÔNG TÁI GỬI" };
-    internal void SetLuatChoi(int rule) {
+    internal virtual void SetLuatChoi(int rule) {
 
         //if (screen.game.gameID == GameID.PHOM)
         //    luatChoi.setText(luatchoi[readByte]);
@@ -223,12 +188,11 @@ public abstract class BaseCasino : MonoBehaviour {
                 GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
                 objPlayer.transform.SetParent(tf_parent_player);
                 BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
-                plUI.playerData = pl;
+                plUI.SetInfo(pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
                 if (pl.Name.Equals(ClientConfig.UserInfo.UNAME)) {
                     playerMe = plUI;
                     indexMe = i;
                 }
-                plUI.SetInfo();
                 objPlayer.SetActive(false);
                 ListPlayer.Add(plUI);
                 OnJoinTableSuccess(master);
@@ -250,12 +214,12 @@ public abstract class BaseCasino : MonoBehaviour {
     internal void OnUserExitTable(string nick, string master) {
         if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
             //LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM, () => {
-            GameControl.instance.CurrentCasino =null ;
+            GameControl.instance.CurrentCasino = null;
             //});
         } else {
             BasePlayer pl = GetPlayerWithName(nick);
             if (pl != null) {
-                tf_invite[pl.playerData.SitOnClient].gameObject.SetActive(true);
+                tf_invite[pl.SitOnClient].gameObject.SetActive(true);
                 Destroy(pl.gameObject);
                 ListPlayer.Remove(pl);
             }
@@ -423,7 +387,7 @@ public abstract class BaseCasino : MonoBehaviour {
     void SortSitPlayer() {
         if (playerMe != null) {
             playerMe.transform.localPosition = tf_invite[0].localPosition;
-            playerMe.playerData.SitOnClient = 0;
+            playerMe.SitOnClient = 0;
             playerMe.gameObject.SetActive(true);
         }
         int j = 1;
@@ -431,7 +395,7 @@ public abstract class BaseCasino : MonoBehaviour {
             ListPlayer[i].transform.localPosition = tf_invite[j].localPosition;
             tf_invite[j].gameObject.SetActive(false);
             ListPlayer[i].gameObject.SetActive(true);
-            ListPlayer[i].playerData.SitOnClient = j;
+            ListPlayer[i].SitOnClient = j;
             j++;
         }
         j = tf_invite.Length - 1;
@@ -440,7 +404,7 @@ public abstract class BaseCasino : MonoBehaviour {
             ListPlayer[i].transform.localPosition = tf_invite[j].localPosition;
             tf_invite[j].gameObject.SetActive(false);
             ListPlayer[i].gameObject.SetActive(true);
-            ListPlayer[i].playerData.SitOnClient = j;
+            ListPlayer[i].SitOnClient = j;
             j--;
         }
         switch (GameConfig.CurrentGameID) {
@@ -455,35 +419,49 @@ public abstract class BaseCasino : MonoBehaviour {
         for (int i = 0; i < ListPlayer.Count; i++) {
             BasePlayer pl = ListPlayer[i];
             pl.CardHand.CardCount = 13;
-            if (pl.playerData.SitOnClient == 0) {
-                pl.CardHand.isSmall = false;
-                pl.CardHand.isTouched = true;
-                pl.CardHand.align_Anchor = Align_Anchor.CENTER;
-                pl.CardHand.MaxWidth = 900;
-
-                pl.CardHand.Init();
-                pl.CardHand.SetInputChooseCard();
-            } else if (pl.playerData.SitOnClient == 1) {
-                pl.CardHand.isSmall = true;
-                pl.CardHand.isTouched = false;
-                pl.CardHand.align_Anchor = Align_Anchor.RIGHT;
-                pl.CardHand.MaxWidth = 500;
-                pl.CardHand.Init();
-            } else {
-                pl.CardHand.isSmall = true;
-                pl.CardHand.isTouched = false;
-                pl.CardHand.align_Anchor = Align_Anchor.LEFT;
-                pl.CardHand.MaxWidth = 500;
-                pl.CardHand.Init();
+            switch (pl.SitOnClient) {
+                case 0:
+                    pl.CardHand.isSmall = false;
+                    pl.CardHand.isTouched = true;
+                    pl.CardHand.align_Anchor = Align_Anchor.CENTER;
+                    pl.CardHand.MaxWidth = 900;
+                    pl.CardHand.SetInputChooseCard();
+                    pl.SetPositionChatLeft(true);
+                    break;
+                case 1:
+                    pl.CardHand.isSmall = true;
+                    pl.CardHand.isTouched = false;
+                    pl.CardHand.align_Anchor = Align_Anchor.RIGHT;
+                    pl.CardHand.MaxWidth = 500;
+                    pl.SetPositionChatLeft(false);
+                    pl.SetPositionChatAction(Align_Anchor.RIGHT);
+                    break;
+                case 2:
+                    pl.CardHand.isSmall = true;
+                    pl.CardHand.isTouched = false;
+                    pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+                    pl.CardHand.MaxWidth = 500;
+                    pl.SetPositionChatLeft(true);
+                    pl.SetPositionChatAction(Align_Anchor.BOT);
+                    break;
+                case 3:
+                    pl.CardHand.isSmall = true;
+                    pl.CardHand.isTouched = false;
+                    pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+                    pl.CardHand.MaxWidth = 500;
+                    pl.SetPositionChatLeft(true);
+                    pl.SetPositionChatAction(Align_Anchor.LEFT);
+                    break;
             }
 
+            pl.CardHand.Init();
             pl.CardHand.SetPositonCardHand();
         }
     }
     #endregion
     internal BasePlayer GetPlayerWithName(string nick) {
         for (int i = 0; i < ListPlayer.Count; i++) {
-            if (ListPlayer[i].playerData.Name.Equals(nick)) {
+            if (ListPlayer[i].NamePlayer.Equals(nick)) {
                 return ListPlayer[i];
             }
         }
@@ -497,7 +475,7 @@ public abstract class BaseCasino : MonoBehaviour {
         });
     }
     public void OnClickChat() {
-
+        LoadAssetBundle.LoadScene(SceneName.SUB_CHAT, SceneName.SUB_CHAT);
     }
     public void OnClickSetting() {
         LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);

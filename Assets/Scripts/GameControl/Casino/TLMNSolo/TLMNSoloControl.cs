@@ -100,11 +100,10 @@ public class TLMNSoloControl : BaseCasino {
         cardTable.XoaHetCMNBaiTrenBan();
         AutoChooseCard.CardTrenBan.Clear();
         nickFire = "";
-        Debug.LogError("So thang choi: " + nickPlay.Length);
         for (int i = 0; i < nickPlay.Length; i++) {
             BasePlayer pl = GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
-                if (pl.playerData.SitOnClient == 0) {
+                if (pl.SitOnClient == 0) {
                     pl.CardHand.ChiaBai(AutoChooseCard.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {

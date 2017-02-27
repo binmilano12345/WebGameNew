@@ -14,6 +14,7 @@ public class MainControl : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadGameScene();
         GameControl.instance.UnloadSubScene();
+        PopupAndLoadingScript.instance.OnHideAll();
 
         //int[] cardH = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         //string msg = "";

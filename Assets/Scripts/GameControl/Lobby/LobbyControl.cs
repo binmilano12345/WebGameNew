@@ -31,6 +31,7 @@ public class LobbyControl : MonoBehaviour {
         GameControl.instance.UnloadSubScene();
         if (GameConfig.ListNoti.Count > 0)
             LoadAssetBundle.LoadScene(SceneName.SUB_NOTI, SceneName.SUB_NOTI);
+        PopupAndLoadingScript.instance.ShowTaiXiu();
         InitIconGame();
         SetInfo();
     }

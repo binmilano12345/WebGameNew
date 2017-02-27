@@ -22,6 +22,7 @@ interface IChatListener {
     void OnGameID(Message message);
     void OnListTable(int totalTB, Message message);
     void OnUpdateRoom(Message message);
+    void OnChat(Message message);
 
     void OnJoinTablePlay(Message message);
     void OnUserExitTable(Message message);

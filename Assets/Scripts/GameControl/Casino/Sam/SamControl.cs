@@ -111,7 +111,7 @@ public class SamControl : BaseCasino {
         for (int i = 0; i < nickPlay.Length; i++) {
             BasePlayer pl = GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
-                if (pl.playerData.SitOnClient == 0) {
+                if (pl.SitOnClient == 0) {
                     pl.CardHand.ChiaBai(AutoChooseCard.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {

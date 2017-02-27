@@ -79,7 +79,7 @@ public class TLMNControl : BaseCasino {
     }
     internal override void SetTurn(string nick, Message message) {
         base.SetTurn(nick, message);
-        Debug.LogError("thang danh " + nick);
+        //Debug.LogError("thang danh " + nick);
         try {
             if (nick.Equals(ClientConfig.UserInfo.UNAME) || string.IsNullOrEmpty(nick)) {
                 SetActiveButton(false, false, true, true);
@@ -104,7 +104,7 @@ public class TLMNControl : BaseCasino {
         for (int i = 0; i < nickPlay.Length; i++) {
             BasePlayer pl = GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
-                if (pl.playerData.SitOnClient == 0) {
+                if (pl.SitOnClient == 0) {
                     pl.CardHand.ChiaBai(AutoChooseCard.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {

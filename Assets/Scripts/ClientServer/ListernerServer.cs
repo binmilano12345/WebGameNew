@@ -485,7 +485,12 @@ public class ListernerServer : IChatListener {
                 RoomControl.instance.UpdateListTable(listTable);
         }
     }
-
+    public void OnChat(Message message) {
+        string nick = message.reader().ReadUTF();
+        string msg = message.reader().ReadUTF();
+        bool outttt = message.reader().ReadBoolean();
+        GameControl.instance.CurrentCasino.OnChat(nick, msg);
+    }
     public void OnJoinTablePlay(Message message) {
         // check = SerializerHelper.readInt(message);
         sbyte status = message.reader().ReadByte();

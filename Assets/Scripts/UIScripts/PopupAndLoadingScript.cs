@@ -12,11 +12,12 @@ public class PopupAndLoadingScript : MonoBehaviour {
     public GameObject objLoading;
     [HideInInspector]
     public Toast toast;
-    [HideInInspector]
-    public Alert alert;
+    //[HideInInspector]
+    //public Alert alert;
     [SerializeField]
     GameObject objParent;
-
+    [SerializeField]
+    GameObject btn_tai_xiu;
     void Awake() {
         instance = this;
     }
@@ -52,15 +53,15 @@ public class PopupAndLoadingScript : MonoBehaviour {
             });
         }
 
-        if (alert == null) {
-            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ALERT, (alertPre) => {
-                alert = alertPre.GetComponent<Alert>();
-                alert.transform.SetParent(objParent.transform);
-                alert.transform.localPosition = new Vector3(0, 200, 0);
-                alert.transform.localScale = Vector3.one;
-                alert.gameObject.SetActive(false);
-            });
-        }
+        //if (alert == null) {
+        //    LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ALERT, (alertPre) => {
+        //        alert = alertPre.GetComponent<Alert>();
+        //        alert.transform.SetParent(objParent.transform);
+        //        alert.transform.localPosition = new Vector3(0, 200, 0);
+        //        alert.transform.localScale = Vector3.one;
+        //        alert.gameObject.SetActive(false);
+        //    });
+        //}
     }
 
     public void ShowLoading() {
@@ -73,19 +74,28 @@ public class PopupAndLoadingScript : MonoBehaviour {
             objLoading.SetActive(false);
     }
 
+    public void ShowTaiXiu() {
+        if(btn_tai_xiu != null)
+        btn_tai_xiu.SetActive(true);
+    }
+    public void HideTaiXiu() {
+        if (btn_tai_xiu != null)
+            btn_tai_xiu.SetActive(false);
+    }
     public void OnHideAll() {
-        if (alert != null)
-            alert.SetAlert("");
+        //if (alert != null)
+        //    alert.SetAlert("");
 
         if (messageSytem != null)
             messageSytem.onHide();
 
         if (toast != null)
             toast.showToast("");
+        HideTaiXiu();
     }
 
     public void SetPositionAlert(float Height) {
         Height = (Screen.height * (Height + 25)) / 720;
-        alert.transform.localPosition = objParent.transform.InverseTransformPoint(new Vector3(Screen.width / 2, Screen.height - Height, 0));
+        //alert.transform.localPosition = objParent.transform.InverseTransformPoint(new Vector3(Screen.width / 2, Screen.height - Height, 0));
     }
 }

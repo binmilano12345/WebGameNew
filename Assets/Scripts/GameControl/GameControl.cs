@@ -11,10 +11,15 @@ public class GameControl : MonoBehaviour {
     [SerializeField]
     Transform tf_parent;
 
-    public BaseCasino CurrentCasino;
-    public GameObject objPlayerTLMN, objPlayerSam, objCard;
+    public BaseCasino CurrentCasino { get; set; }
+    public GameObject objPlayerTLMN { get; set; }
+    public GameObject objPlayerSam { get; set; }
+    public GameObject objCard { get; set; }
     public GameObject objPlayer;
+
+    [HideInInspector]
     public List<int> ListCMDID = new List<int>();
+    [HideInInspector]
     public List<Message> ListMsg = new List<Message>();
     void Awake() {
         instance = this;

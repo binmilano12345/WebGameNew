@@ -19,7 +19,7 @@ public class RoomControl : MonoBehaviour {
     [SerializeField]
     RawImage raw_avata;
 
-    bool isAnBanFull = false;
+    bool isAnBanFull = true;
     [SerializeField]
     GameObject obj_tick_ban_full;
     /// <summary>
@@ -39,6 +39,7 @@ public class RoomControl : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadScene(SceneName.GAME_TLMN);
         GameControl.instance.UnloadSubScene();
+        PopupAndLoadingScript.instance.ShowTaiXiu();
         SetInfo();
     }
 
@@ -54,6 +55,11 @@ public class RoomControl : MonoBehaviour {
     public void CreateTable(List<ItemTableData> listTable) {
         this.ListTable.Clear();
         this.ListTable.AddRange(listTable);
+
+        if (isAnBanFull) {
+            ListTable.RemoveAll(x => (x.NUser == x.MaxUser));
+        }
+
         myScrollView.ClearCells();
         if (Itemtable == null) {
             LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ITEM_TABLE, (objPre) => {
@@ -74,7 +80,7 @@ public class RoomControl : MonoBehaviour {
         this.ListTable.AddRange(listTable);
         PopupAndLoadingScript.instance.HideLoading();
         if (isAnBanFull) {
-            ListTable.RemoveAll(x => x.MaxUser == x.NUser);
+            ListTable.RemoveAll(x => (x.NUser == x.MaxUser));
         }
 
         List<ItemTableData> listTemp = new List<ItemTableData>();
@@ -83,38 +89,37 @@ public class RoomControl : MonoBehaviour {
         switch (Mathf.Abs(sorttype)) {
             case 1:
                 if (sorttype > 0) {
-                    ListTable.AddRange(listTemp.OrderBy(r => r.TableName));
+                    ListTable.AddRange(listTemp.OrderBy(r => r.TableName).ToList());
                 } else {
-                    ListTable.AddRange(listTemp.OrderByDescending(r => r.TableName));
+                    ListTable.AddRange(listTemp.OrderByDescending(r => r.TableName).ToList());
                 }
                 break;
             case 2:
                 if (sorttype > 0) {
-                    ListTable.AddRange(listTemp.OrderBy(r => r.Money));
+                    ListTable.AddRange(listTemp.OrderBy(r => r.Money).ToList());
                 } else {
-                    ListTable.AddRange(listTemp.OrderByDescending(r => r.Money));
+                    ListTable.AddRange(listTemp.OrderByDescending(r => r.Money).ToList());
                 }
                 break;
             case 3:
                 if (sorttype > 0) {
-                    ListTable.AddRange(listTemp.OrderBy(r => r.NeedMoney));
+                    ListTable.AddRange(listTemp.OrderBy(r => r.NeedMoney).ToList());
                 } else {
-                    ListTable.AddRange(listTemp.OrderByDescending(r => r.NeedMoney));
+                    ListTable.AddRange(listTemp.OrderByDescending(r => r.NeedMoney).ToList());
                 }
                 break;
             case 4:
                 if (sorttype > 0) {
-                    ListTable.AddRange(listTemp.OrderBy(r => r.NUser));
+                    ListTable.AddRange(listTemp.OrderBy(r => r.NUser).ToList());
                 } else {
-                    ListTable.AddRange(listTemp.OrderByDescending(r => r.NUser));
+                    ListTable.AddRange(listTemp.OrderByDescending(r => r.NUser).ToList());
                 }
                 break;
             default:
-                ListTable.AddRange(listTemp.OrderBy(r => r.TableName));
+                ListTable.AddRange(listTemp.OrderBy(r => r.TableName).ToList());
                 break;
         }
         myScrollView.ClearCells();
-        //myScrollView.totalCount = this.ListTable.Count;
 
         myScrollView.OnStartFillItem(Itemtable, listTable.Count);
         myScrollView.UpdateInfo = UpdateItemTable;
