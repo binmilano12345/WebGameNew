@@ -1,0 +1,77 @@
+ManifestFileVersion: 0
+CRC: 2748481873
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a9be62b6084577b24acf39c31c9bfae8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d24bf54f46935ed9e6cf78ac481bb9d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Res/Sprites/Avatas/51.png
+- Assets/Res/Sprites/Avatas/52.png
+- Assets/Res/Sprites/Avatas/12.png
+- Assets/Res/Sprites/Avatas/53.png
+- Assets/Res/Sprites/Avatas/39.png
+- Assets/Res/Sprites/Avatas/8.png
+- Assets/Res/Sprites/Avatas/14.png
+- Assets/Res/Sprites/Avatas/48.png
+- Assets/Res/Sprites/Avatas/31.png
+- Assets/Res/Sprites/Avatas/22.png
+- Assets/Res/Sprites/Avatas/44.png
+- Assets/Res/Sprites/Avatas/26.png
+- Assets/Res/Sprites/Avatas/42.png
+- Assets/Res/Sprites/Avatas/45.png
+- Assets/Res/Sprites/Avatas/36.png
+- Assets/Res/Sprites/Avatas/13.png
+- Assets/Res/Sprites/Avatas/33.png
+- Assets/Res/Sprites/Avatas/3.png
+- Assets/Res/Sprites/Avatas/56.png
+- Assets/Res/Sprites/Avatas/24.png
+- Assets/Res/Sprites/Avatas/2.png
+- Assets/Res/Sprites/Avatas/40.png
+- Assets/Res/Sprites/Avatas/27.png
+- Assets/Res/Sprites/Avatas/11.png
+- Assets/Res/Sprites/Avatas/5.png
+- Assets/Res/Sprites/Avatas/49.png
+- Assets/Res/Sprites/Avatas/25.png
+- Assets/Res/Sprites/Avatas/34.png
+- Assets/Res/Sprites/Avatas/55.png
+- Assets/Res/Sprites/Avatas/38.png
+- Assets/Res/Sprites/Avatas/37.png
+- Assets/Res/Sprites/Avatas/57.png
+- Assets/Res/Sprites/Avatas/41.png
+- Assets/Res/Sprites/Avatas/17.png
+- Assets/Res/Sprites/Avatas/43.png
+- Assets/Res/Sprites/Avatas/30.png
+- Assets/Res/Sprites/Avatas/16.png
+- Assets/Res/Sprites/Avatas/46.png
+- Assets/Res/Sprites/Avatas/20.png
+- Assets/Res/Sprites/Avatas/1.png
+- Assets/Res/Sprites/Avatas/4.png
+- Assets/Res/Sprites/Avatas/47.png
+- Assets/Res/Sprites/Avatas/58.png
+- Assets/Res/Sprites/Avatas/50.png
+- Assets/Res/Sprites/Avatas/19.png
+- Assets/Res/Sprites/Avatas/15.png
+- Assets/Res/Sprites/Avatas/6.png
+- Assets/Res/Sprites/Avatas/21.png
+- Assets/Res/Sprites/Avatas/7.png
+- Assets/Res/Sprites/Avatas/23.png
+- Assets/Res/Sprites/Avatas/9.png
+- Assets/Res/Sprites/Avatas/32.png
+- Assets/Res/Sprites/Avatas/54.png
+- Assets/Res/Sprites/Avatas/10.png
+- Assets/Res/Sprites/Avatas/0.png
+- Assets/Res/Sprites/Avatas/28.png
+- Assets/Res/Sprites/Avatas/29.png
+- Assets/Res/Sprites/Avatas/59.png
+- Assets/Res/Sprites/Avatas/18.png
+- Assets/Res/Sprites/Avatas/35.png
+Dependencies: []

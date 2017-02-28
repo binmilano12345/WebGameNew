@@ -78,8 +78,8 @@ public class LobbyControl : MonoBehaviour {
     IEnumerator RunEffectGame() {
         yield return new WaitForEndOfFrame();
         for (int i = 0; i < listGame.Count; i++) {
-            listGame[i].transform.DOScale(1, 0.2f);
-            yield return new WaitForSeconds(0.1f);
+            listGame[i].transform.DOScale(1, 0.1f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
     void OnClickGame(GameObject obj) {

@@ -165,7 +165,7 @@ public class BasePlayer : MonoBehaviour {
         chatPlayer.SetPosition(isLeft);
     }
     public void SetPositionChatAction(Align_Anchor align) {
-        chatAction.namePlayer = NamePlayer;
+        chatAction.NamePlayer = NamePlayer;
         chatAction.SetAnchor(align);
     }
     #endregion

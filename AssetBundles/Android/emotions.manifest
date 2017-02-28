@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3889459888
+CRC: 1069596636
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a10fb529fccf4a976257254d9143f8a6
+    Hash: 27b417ebc66c7c59254c96f8bca73828
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4d24bf54f46935ed9e6cf78ac481bb9d
@@ -14,16 +14,34 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 Assets:
-- Assets/Res/Sprites/Emotions/icon_4.png
-- Assets/Res/Sprites/Emotions/icon_11.png
-- Assets/Res/Sprites/Emotions/icon_10.png
-- Assets/Res/Sprites/Emotions/icon_7.png
-- Assets/Res/Sprites/Emotions/icon_12.png
-- Assets/Res/Sprites/Emotions/icon_9.png
-- Assets/Res/Sprites/Emotions/icon_5.png
-- Assets/Res/Sprites/Emotions/icon_8.png
-- Assets/Res/Sprites/Emotions/icon_6.png
-- Assets/Res/Sprites/Emotions/icon_1.png
-- Assets/Res/Sprites/Emotions/icon_3.png
-- Assets/Res/Sprites/Emotions/icon_2.png
+- Assets/Res/Sprites/Emotions/a6.png
+- Assets/Res/Sprites/Emotions/a16.png
+- Assets/Res/Sprites/Emotions/a1.png
+- Assets/Res/Sprites/Emotions/a21.png
+- Assets/Res/Sprites/Emotions/a15.png
+- Assets/Res/Sprites/Emotions/a9.png
+- Assets/Res/Sprites/Emotions/a30.png
+- Assets/Res/Sprites/Emotions/a29.png
+- Assets/Res/Sprites/Emotions/a2.png
+- Assets/Res/Sprites/Emotions/a14.png
+- Assets/Res/Sprites/Emotions/a19.png
+- Assets/Res/Sprites/Emotions/a28.png
+- Assets/Res/Sprites/Emotions/a12.png
+- Assets/Res/Sprites/Emotions/a23.png
+- Assets/Res/Sprites/Emotions/a24.png
+- Assets/Res/Sprites/Emotions/a3.png
+- Assets/Res/Sprites/Emotions/a10.png
+- Assets/Res/Sprites/Emotions/a20.png
+- Assets/Res/Sprites/Emotions/a7.png
+- Assets/Res/Sprites/Emotions/a25.png
+- Assets/Res/Sprites/Emotions/a17.png
+- Assets/Res/Sprites/Emotions/a18.png
+- Assets/Res/Sprites/Emotions/a4.png
+- Assets/Res/Sprites/Emotions/a13.png
+- Assets/Res/Sprites/Emotions/a8.png
+- Assets/Res/Sprites/Emotions/a5.png
+- Assets/Res/Sprites/Emotions/a26.png
+- Assets/Res/Sprites/Emotions/a27.png
+- Assets/Res/Sprites/Emotions/a11.png
+- Assets/Res/Sprites/Emotions/a22.png
 Dependencies: []

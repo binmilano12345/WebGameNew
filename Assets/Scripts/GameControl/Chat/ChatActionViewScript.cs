@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using AppConfig;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,8 +14,9 @@ public class ChatActionViewScript : MonoBehaviour {
     Vector3[] vt_left = new Vector3[] { new Vector3(0, 120, 0), new Vector3(-65, 110, 0), new Vector3(-110, 65, 0), new Vector3(-120, 0, 0) };
     Vector3[] vt_up = new Vector3[] { new Vector3(-120, 0, 0), new Vector3(-110, -65, 0), new Vector3(-65, -110, 0), new Vector3(0, -120, 0) };
 
-    void Awake() {
-    }
+    public string NamePlayer { get; set; }
+    public bool IsShowKick { get; set; }
+
     void Start() {
         StartCoroutine(Init());
     }
@@ -23,16 +25,15 @@ public class ChatActionViewScript : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         for (int i = 0; i < btn_actions.Length; i++) {
             UIButton btn = btn_actions[i];
-            btn.gameObject.name = "*f" + (i + 1);
+            btn.gameObject.name = "" + (i + 1);
             btn._onClick.AddListener(delegate {
                 OnClickAction(btn.gameObject);
             });
         }
     }
-    public string namePlayer { get; set; }
-    public bool IsShowKick { get; set; }
     void OnClickAction(GameObject obj) {
-        //Controller.OnHandleUIEvent("SendChatAction", new object[] { namePlayer, obj.name });
+        int index = int.Parse(obj.name);
+        //SendData.onUseItem(index, ClientConfig.UserInfo.UNAME, NamePlayer);//sua
         OnHideAction();
     }
     Align_Anchor align = Align_Anchor.NONE;
@@ -126,6 +127,7 @@ public class ChatActionViewScript : MonoBehaviour {
 
     public void OnClickKick() {
         //Controller.OnHandleUIEvent("SendKickPlayer", new object[] { namePlayer });
+        SendData.onKick(NamePlayer);
         OnHideAction();
     }
 

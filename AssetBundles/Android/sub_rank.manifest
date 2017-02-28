@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1755487024
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1190014056567e47ecf6fe72c8acbf49
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Scenes/SubScenes/sub_rank.unity
+Dependencies:
+- D:/Workspace/WebGamePro/WebGameNew/AssetBundles/Android/ui
+- D:/Workspace/WebGamePro/WebGameNew/AssetBundles/Android/fonts

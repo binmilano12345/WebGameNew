@@ -1,28 +1,114 @@
 ManifestFileVersion: 0
-CRC: 290517708
+CRC: 2019811320
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: ui
       Dependencies: {}
     Info_1:
-      Name: dice
-      Dependencies: {}
-    Info_2:
       Name: card
       Dependencies: {}
-    Info_3:
-      Name: emotions
-      Dependencies: {}
-    Info_4:
+    Info_2:
       Name: prefabs
       Dependencies:
         Dependency_0: ui
-    Info_5:
-      Name: login
-      Dependencies:
-        Dependency_0: ui
-    Info_6:
+        Dependency_1: card
+        Dependency_2: avatas
+        Dependency_3: icon_game
+        Dependency_4: emotions
+        Dependency_5: fonts
+    Info_3:
       Name: lobby
       Dependencies:
         Dependency_0: ui
+        Dependency_1: avatas
+        Dependency_2: fonts
+    Info_4:
+      Name: main
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_5:
+      Name: avatas
+      Dependencies: {}
+    Info_6:
+      Name: icon_game
+      Dependencies: {}
+    Info_7:
+      Name: room
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: avatas
+        Dependency_2: fonts
+    Info_8:
+      Name: tlmn
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_9:
+      Name: sub_rank
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_10:
+      Name: sub_setting
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_11:
+      Name: sub_register
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_12:
+      Name: sub_login
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_13:
+      Name: emotions
+      Dependencies: {}
+    Info_14:
+      Name: tlmnsolo
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_15:
+      Name: sub_noti
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_16:
+      Name: sam
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_17:
+      Name: sub_chat
+      Dependencies:
+        Dependency_0: ui
+        Dependency_1: fonts
+    Info_18:
+      Name: spine_handshake
+      Dependencies: {}
+    Info_19:
+      Name: spine_water
+      Dependencies: {}
+    Info_20:
+      Name: spine_kiss
+      Dependencies: {}
+    Info_21:
+      Name: spine_beer
+      Dependencies: {}
+    Info_22:
+      Name: spine_tomato
+      Dependencies: {}
+    Info_23:
+      Name: spine_boom
+      Dependencies: {}
+    Info_24:
+      Name: spine_flower
+      Dependencies: {}
+    Info_25:
+      Name: fonts
+      Dependencies: {}

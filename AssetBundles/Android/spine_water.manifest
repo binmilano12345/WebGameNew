@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2842619282
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fea468f3f05e061189f3381cc19d9738
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af260423008715260f7cd16109171ecf
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a6b194f808b1af6499c93410e504af42, type: 3}
+Assets:
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton_Material.mat
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton.png
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton_SkeletonData.asset
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton_Atlas.asset
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton.atlas.txt
+- Assets/Res/Sprites/Icons/ChatActions/Spines/water/spine/skeleton.json
+Dependencies: []

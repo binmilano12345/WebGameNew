@@ -23,7 +23,7 @@ public class MainControl : MonoBehaviour {
         //    msg += " " + AutoChooseCard.GetValue(cardH[i]) + " " + chat[AutoChooseCard.GetType(cardH[i])];
         //}
         //Debug.LogError(msg);
-        //cardHand.InitDemo(cardH);
+        //cardHand.InitDemo(cardH);L
     }
     public void OnClick_LoginFacebook() {
     }

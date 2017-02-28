@@ -332,7 +332,6 @@ public class NetworkUtil {
                 if (connected) {
                     if (messageHandler != null) {
                         messageHandler.onDisconnected();
-                        Debug.LogError("Chay vao day 1");
                     }
                     cleanNetwork();
                 }
@@ -341,7 +340,6 @@ public class NetworkUtil {
             if (connected) {
                 if (messageHandler != null) {
                     messageHandler.onDisconnected();
-                    Debug.LogError("Chay vao day 2");
                 }
                 cleanNetwork();
             }

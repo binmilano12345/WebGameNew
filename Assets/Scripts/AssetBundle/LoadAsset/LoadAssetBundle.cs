@@ -12,15 +12,18 @@ using AppConfig;
 
 public class LoadAssetBundle : MonoBehaviour {
     private static LoadAssetBundle instance;
-
-    public string sceneAssetBundle;
-    public string sceneName;
-    public string AssetBundleURL = "";
-    //public Text txtMsg;
-    //public Image image;
-    public Slider Progress;
-    //public Image imgTest;
-    private bool IsChecking = false;
+    [SerializeField]
+    string sceneAssetBundle;
+    [SerializeField]
+    string sceneName;
+    [SerializeField]
+    string AssetBundleURL = "";
+    [SerializeField]
+    Text txtMsg;
+    [SerializeField]
+    Slider Progress;
+    [SerializeField]
+    bool IsChecking = false;
 
 
     void Awake() {
@@ -237,7 +240,7 @@ public class LoadAssetBundle : MonoBehaviour {
                 //				if (Progress.value >= 1)
                 //					IsChecking = false;
             }
-            //txtMsg.text = "Đang tải " + (int)(progressValue * 100) + "%";
+            txtMsg.text = "Đang tải " + (int)(progressValue * 100) + "%";
             yield return new WaitForEndOfFrame();
         }
     }
