@@ -18,7 +18,6 @@ public class BasePlayer : MonoBehaviour {
     Timer timeTurn;
     [SerializeField]
     Text txt_ready;
-    public ArrayCard CardHand;
 
     [SerializeField]
     ChatPlayer chatPlayer;

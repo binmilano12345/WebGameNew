@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SamPlayer : BasePlayer {
+    public ArrayCard CardHand;
     [SerializeField]
     Text txt_num_card;
 

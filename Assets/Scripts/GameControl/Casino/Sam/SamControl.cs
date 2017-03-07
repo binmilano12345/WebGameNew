@@ -51,7 +51,7 @@ public class SamControl : BaseCasino {
         SendData.onReady(1);
     }
     public void OnClickDanh() {
-        int[] card = playerMe.CardHand.GetCardChoose();
+        int[] card = ((SamPlayer)playerMe).CardHand.GetCardChoose();
         if (card == null || card.Length < 1) {
             PopupAndLoadingScript.instance.toast.showToast(ClientConfig.Language.GetText("popup_chua_chon_bai"));
         } else {
@@ -109,13 +109,13 @@ public class SamControl : BaseCasino {
         AutoChooseCard.CardTrenBan.Clear();
         nickFire = "";
         for (int i = 0; i < nickPlay.Length; i++) {
-            BasePlayer pl = GetPlayerWithName(nickPlay[i]);
+            SamPlayer pl = (SamPlayer)GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
                 if (pl.SitOnClient == 0) {
-                    pl.CardHand.ChiaBai(AutoChooseCard.SortArrCard(cardHand), true);
+                    pl.CardHand.ChiaBaiTienLen(AutoChooseCard.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {
-                    pl.CardHand.ChiaBai(cardHand, false);
+                    pl.CardHand.ChiaBaiTienLen(cardHand, false);
                 }
             }
         }
@@ -127,7 +127,7 @@ public class SamControl : BaseCasino {
         base.OnNickSkip(nick, turnname);
         SetTurn(turnname, null);
         if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-            playerMe.CardHand.ResetCard();
+            ((SamPlayer)playerMe).CardHand.ResetCard();
         }
     }
     internal override void OnFinishTurn() {
@@ -140,7 +140,7 @@ public class SamControl : BaseCasino {
             for (int i = 0; i < numP; i++) {
                 string name = message.reader().ReadUTF();
                 sbyte numCard = message.reader().ReadByte();
-                BasePlayer pl = GetPlayerWithName(name);
+                SamPlayer pl = (SamPlayer)GetPlayerWithName(name);
                 if (pl != null) {
                     pl.IsPlaying = (true);
                     int[] temp = new int[numCard];
@@ -149,7 +149,7 @@ public class SamControl : BaseCasino {
                     }
                     pl.CardHand.SetCardWithId53();
                     pl.CardHand.SetActiveCardHand(true);
-                    ((SamPlayer)pl).SetNumCard(numCard);
+                    pl.SetNumCard(numCard);
                 }
             }
             GameConfig.TimerTurnInGame = time;
@@ -182,8 +182,8 @@ public class SamControl : BaseCasino {
             for (int i = 0; i < sizeCardHand; i++) {
                 cardHand[i] = message.reader().ReadByte();
             }
-            playerMe.CardHand.SetCardWithArrID(cardHand);
-            playerMe.CardHand.SetActiveCardHand(true);
+            ((SamPlayer)playerMe).CardHand.SetCardWithArrID(cardHand);
+            ((SamPlayer)playerMe).CardHand.SetActiveCardHand(true);
             //    players[0].setInfo(true, false, false, 0);
             //    players[0].setReady2(true);
 
@@ -243,7 +243,7 @@ public class SamControl : BaseCasino {
         AutoChooseCard.CardTrenBan.Clear();
         AutoChooseCard.CardTrenBan.AddRange(card);
         nickFire = nick;
-        BasePlayer plTurn = GetPlayerWithName(nick);
+        SamPlayer plTurn = (SamPlayer)GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetTurn(0);
             if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
@@ -251,22 +251,22 @@ public class SamControl : BaseCasino {
                     ListCardOfMe.Remove(card[i]);
                 }
                 cardTable.MinhDanh(card, plTurn.CardHand, () => {
-                    playerMe.CardHand.SapXepLaiBaiSauKhiDanh();
+                    ((SamPlayer)playerMe).CardHand.SortCardActive();
                 });
             } else {
                 cardTable.SinhCardGiuaCMNBan(card, plTurn.CardHand.transform);
-                int numC = ((SamPlayer)plTurn).NumCard - card.Length;
-                ((SamPlayer)plTurn).SetNumCard(numC);
+                int numC = plTurn.NumCard - card.Length;
+                plTurn.SetNumCard(numC);
             }
         } else {
-            cardTable.SinhCardGiuaCMNBan(card, playerMe.CardHand.transform);
+            cardTable.SinhCardGiuaCMNBan(card, ((SamPlayer)playerMe).CardHand.transform);
         }
 
         if (turnName.ToLower().Equals(ClientConfig.UserInfo.UNAME.ToLower())) {
             SetActiveButton(false, false, true, true);
             if (AutoChooseCard.CardTrenBan.Count > 0) {
                 int[] result = AutoChooseCard.ChooseCard(ListCardOfMe.ToArray());
-                playerMe.CardHand.SetChooseCard(result);
+                ((SamPlayer)playerMe).CardHand.SetChooseCard(result);
                 //if (result == null) {//sua
                 //    playerMe.SetTurn(true, 5);
                 //    SetActiveButton(false, false, false, true);
@@ -309,8 +309,8 @@ public class SamControl : BaseCasino {
         //tableArrCard = null;//sua
         for (int i = 0; i < ListPlayer.Count; i++) {
             if (ListPlayer[i].IsPlaying) {
-                ListPlayer[i].CardHand.SetCardWithId53();
-                ListPlayer[i].CardHand.SetActiveCardHand(true);
+                ((SamPlayer)ListPlayer[i]).CardHand.SetCardWithId53();
+                ((SamPlayer)ListPlayer[i]).CardHand.SetActiveCardHand(true);
             }
         }
     }

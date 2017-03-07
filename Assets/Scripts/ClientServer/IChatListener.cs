@@ -34,10 +34,16 @@ interface IChatListener {
     void OnSetNewMaster(string nick);
     void OnNickSkip(string nick, string turnName);
     void OnNickSkip(string nick, Message msg);
-    void OnFrieCard(Message message);
+    //void OnFrieCard(Message message);
     void OnFinishGame(Message message);
     void OnAllCardPlayerFinish(Message message);
     void OnFinishTurnTLMN(Message message);
     void OnSetTurn(Message message);
     void OnBaoSam(Message message);
+    void OnGetCardNocSuccess(Message message);
+    void OnEatCardSuccess(Message message);
+    void OnBalanceCard(Message message);
+    void OnDropPhomSuccess(Message message);
+    void OnAttachCard(Message message);
+    
 }

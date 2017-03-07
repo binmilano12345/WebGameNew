@@ -163,8 +163,6 @@ public class Card : MonoBehaviour {
     }
     public IEnumerator MoveFrom(Vector3 from, float dur, float wait, UnityAction callback = null) {
         yield return new WaitForSeconds(wait);
-        //GameControl.instance.sound.startchiabaiAudio();     
-        //		Debug.LogError ("from " + from);
         SetVisible(true);
         Vector3 vt = transform.localPosition;
         transform.localPosition = from;
@@ -188,5 +186,15 @@ public class Card : MonoBehaviour {
         transform.DOScale(1, dur);
         //transform.DOScale(.5f, dur);
         transform.DOLocalMove(vt, dur);
+    }
+
+    public void ResetCard(bool isBorder = false) {
+        SetDarkCard(false);
+        SetTouched(true);
+        IsChoose = false;
+        if (isBorder) {
+            //isCardAnnnnn = false;
+            //SetActiveBorder(false);
+        }
     }
 }

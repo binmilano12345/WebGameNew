@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -590,24 +588,6 @@ public class ListernerServer : IChatListener {
     public void OnNickSkip(string nick, Message msg) {
         GameControl.instance.CurrentCasino.OnNickSkip(nick, msg);
     }
-    public void OnFrieCard(Message message) {
-        int status = message.reader().ReadInt();
-        if (status == -1) {
-            //    listenner.onFireCardFail();
-            GameControl.instance.CurrentCasino.OnFireCardFail();
-        } else {
-            string nick = message.reader().ReadUTF();
-            int size = message.reader().ReadInt();
-            byte[] cardfire = new byte[size];
-            message.reader().Read(cardfire, 0, size);
-            int[] data = new int[cardfire.Length];
-            for (int i = 0; i < data.Length; i++) {
-                data[i] = cardfire[i];
-            }
-            //    listenner.onFireCard(nick, message.reader().readUTF(), data);
-            GameControl.instance.CurrentCasino.OnFireCard(nick, message.reader().ReadUTF(), data);
-        }
-    }
     public void OnFinishGame(Message message) {
         GameControl.instance.CurrentCasino.OnFinishGame(message);
     }
@@ -646,6 +626,64 @@ public class ListernerServer : IChatListener {
         } catch (Exception ex) {
             Debug.LogException(ex);
         }
+    }
+
+    #endregion
+
+    #region Phom
+    public void OnGetCardNocSuccess(Message message) {
+        int card = message.reader().ReadByte();
+        if (card != -1) {
+            string nick = message.reader().ReadUTF();
+            ((PhomControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
+        }
+    }
+    public void OnEatCardSuccess(Message message) {
+        int card = message.reader().ReadByte();
+        if (card != -1) {
+            string thangBiAn = message.reader().ReadUTF();
+            string thangAn = message.reader().ReadUTF();
+            ((PhomControl)GameControl.instance.CurrentCasino).OnEatCardSuccess(thangBiAn, thangAn, card);
+        }
+    }
+    public void OnBalanceCard(Message message) {
+        int card = message.reader().ReadByte();
+        string from = message.reader().ReadUTF();
+        string to = message.reader().ReadUTF();
+
+        ((PhomControl)GameControl.instance.CurrentCasino).OnBalanceCard(from, to, card);
+    }
+    public void OnDropPhomSuccess(Message message) {
+        int card = message.reader().ReadByte();
+        if (card != 0) {
+            string nn = message.reader().ReadUTF();
+            int size = message.reader().ReadInt();
+            sbyte[] arry = new sbyte[size];
+            for (int i = 0; i < size; i++) {
+                arry[i] = message.reader().ReadByte();
+            }
+
+            int[] cdp = new int[arry.Length];
+            for (int i = 0; i < arry.Length; i++) {
+                cdp[i] = arry[i];
+            }
+            ((PhomControl)GameControl.instance.CurrentCasino).onDropPhomSuccess(nn, cdp);
+        }
+    }
+    public void OnAttachCard(Message message) {
+        string fromplayer = message.reader().ReadUTF();
+        string toplayer = message.reader().ReadUTF();
+        int sizePhomGui = message.reader().ReadInt();
+        int[] phomgui = new int[sizePhomGui];
+        for (int i = 0; i < sizePhomGui; i++) {
+            phomgui[i] = message.reader().ReadByte();
+        }
+        int sizeCardGui = message.reader().ReadInt();
+        int[] cardgui = new int[sizeCardGui];
+        for (int i = 0; i < sizeCardGui; i++) {
+            cardgui[i] = message.reader().ReadByte();
+        }
+            ((PhomControl)GameControl.instance.CurrentCasino).OnAttachCard(fromplayer, toplayer, phomgui, cardgui);
     }
     #endregion
 }

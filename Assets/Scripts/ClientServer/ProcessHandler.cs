@@ -116,20 +116,6 @@ public class ProcessHandler : MessageHandler {
                         } else
                             listenner.OnSetNewMaster(message.reader().ReadUTF());
                         break;
-                    case CMDClient.CMD_FIRE_CARD:
-                        if (GameControl.instance.CurrentCasino == null) {
-                            GameControl.instance.ListCMDID.Add(messageId);
-                            GameControl.instance.ListMsg.Add(message);
-                        } else
-                            listenner.OnFrieCard(message);
-                        break;
-                    case CMDClient.CMD_PASS:// bo luot
-                        if (GameControl.instance.CurrentCasino == null) {
-                            GameControl.instance.ListCMDID.Add(messageId);
-                            GameControl.instance.ListMsg.Add(message);
-                        } else
-                            listenner.OnNickSkip(message.reader().ReadUTF(), message.reader().ReadUTF());
-                        break;
                     case CMDClient.CMD_GAMEOVER:
                         if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
@@ -159,6 +145,11 @@ public class ProcessHandler : MessageHandler {
                         break;
                     case CMDClient.CMD_BAO_SAM:
                         listenner.OnBaoSam(message);
+                        break;
+                    default:
+                        if (secondHandler != null) {
+                            secondHandler.processMessage(message);
+                        }
                         break;
                 }
             });

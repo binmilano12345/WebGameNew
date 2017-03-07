@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TLMNPlayer : BasePlayer {
-
+    public ArrayCard CardHand;
     [SerializeField]
     Text txt_num_card;
 

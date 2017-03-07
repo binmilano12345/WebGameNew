@@ -105,7 +105,7 @@ public class LobbyControl : MonoBehaviour {
         //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
     }
     public void OnClickHelp() {
-        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+        LoadAssetBundle.LoadScene(SceneName.SUB_HELP, SceneName.SUB_HELP);
     }
     public void OnClickMenu() {
         //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);

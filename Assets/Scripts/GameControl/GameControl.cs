@@ -91,6 +91,7 @@ public class GameControl : MonoBehaviour {
             case GameID.TLMN:
                 Card.setCardType(1);
                 objPlayer = objPlayerTLMN;
+                ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
                     CurrentCasino = (TLMNControl.instace);
                     try {
@@ -108,8 +109,9 @@ public class GameControl : MonoBehaviour {
             #endregion
             #region TLMN SL
             case GameID.TLMNSL:
-                objPlayer = objPlayerTLMN;
                 Card.setCardType(1);
+                objPlayer = objPlayerTLMN;
+                ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN_SOLO, SceneName.GAME_TLMN_SOLO, () => {
                     CurrentCasino = (TLMNSoloControl.instace);
                     try {
@@ -129,8 +131,29 @@ public class GameControl : MonoBehaviour {
             case GameID.SAM:
                 objPlayer = objPlayerSam;
                 Card.setCardType(1);
+                ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_SAM, SceneName.GAME_SAM, () => {
                     CurrentCasino = (SamControl.instace);
+                    try {
+                        callback.Invoke();
+                        for (int i = 0; i < ListMsg.Count; i++) {
+                            ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+                        }
+                        ListCMDID.Clear();
+                        ListMsg.Clear();
+                    } catch (Exception e) {
+                        Debug.LogException(e);
+                    }
+                });
+                break;
+            #endregion
+            #region PHOM
+            case GameID.PHOM:
+                Card.setCardType(0);
+                objPlayer = objPlayerTLMN;
+                ProcessHandler.setSecondHandler(PHandler.getInstance());
+                LoadAssetBundle.LoadScene(SceneName.GAME_PHOM, SceneName.GAME_PHOM, () => {
+                    CurrentCasino = (PhomControl.instace);
                     try {
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {

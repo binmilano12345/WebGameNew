@@ -37,7 +37,7 @@ public abstract class BaseCasino : MonoBehaviour {
     #region Xu li trong game
     internal void OnChat(string nick, string msg) {
         BasePlayer pl = GetPlayerWithName(nick);
-        if(pl != null) {
+        if (pl != null) {
             pl.SetChat(msg);
         }
     }
@@ -117,11 +117,6 @@ public abstract class BaseCasino : MonoBehaviour {
     internal virtual void OnFinishGame(Message message) {
         isPlaying = false;
         int total = message.reader().ReadByte();
-        //      BaseInfo.gI().infoWin.clear();
-        //      for (int i = 0; i < nUsers; i++) {
-        //          players[i].setSoChip(0);
-        //          players[i].setTurn(false, 0);
-        //      }
         for (int i = 0; i < total; i++) {
             string nick = message.reader().ReadUTF();
             int rank = message.reader().ReadByte();
@@ -290,40 +285,19 @@ public abstract class BaseCasino : MonoBehaviour {
         if (plTurn != null) {
             plTurn.SetTurn(GameConfig.TimerTurnInGame);
         }
-        if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-            playerMe.CardHand.ResetCard();
-        }
     }
     internal virtual void OnFireCard(string nick, string turnName, int[] card) {
-        //nickFire = nick;
-        //finishTurn = false;
-        //if (CasinoStage.this instanceof TLMNStage) {
-        //    // players[getPlayer(nick)].cardHand.onfireCard(card,getPlayer(nick));
-        //    players[getPlayer(nick)].cardHand.onfireCard(card);
-        //} else {
-        //    players[getPlayer(nick)].cardHand.onfireCard(card);
-        //}sua
         BasePlayer plTurn = GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetTurn(0);
         }
-        //if (getPlayer(nick) != 0) {
-        //    int sobai = Integer.parseInt(players[getPlayer(nick)].lbl_SoBai.getText().toString()) - card.length;
-        //    if (sobai < 0) {
-        //        sobai = 0;
-        //    }
-        //    players[getPlayer(nick)].setSobai(sobai);
-        //}
         SetTurn(turnName, null);
     }
     internal virtual void OnNickSkip(string nick, string turnname2) {
-        //players[getPlayer(nick)].setAction(Res.AC_BOLUOT);
-
         BasePlayer plTurn = GetPlayerWithName(nick);
         if (plTurn != null) {
             plTurn.SetEffect(ClientConfig.Language.GetText("ingame_leave"));
             plTurn.SetTurn(0);
-            //BaseInfo.gI().media_countdown.pause();
         }
     }
     internal void OnNickSkip(string nick, Message msg) {
@@ -370,15 +344,7 @@ public abstract class BaseCasino : MonoBehaviour {
         }
 
     }
-    public void AllCardFinish(string nick, int[] card) {
-        card = RTL.sort(card);
-        BasePlayer pl = GetPlayerWithName(nick);
-        if (pl != null) {
-            pl.CardHand.SetCardKhiKetThucGame(card);
-        }
-        //if (players[getPlayer(nick)].isPlaying()) {
-        //    players[getPlayer(nick)].setCardHandInFinishGame(card);
-        //}
+    internal virtual void AllCardFinish(string nick, int[] card) {
 
     }
     #endregion
@@ -417,7 +383,7 @@ public abstract class BaseCasino : MonoBehaviour {
     }
     void InitPlayerTLMN_SAM() {
         for (int i = 0; i < ListPlayer.Count; i++) {
-            BasePlayer pl = ListPlayer[i];
+            TLMNPlayer pl = (TLMNPlayer)ListPlayer[i];
             pl.CardHand.CardCount = 13;
             switch (pl.SitOnClient) {
                 case 0:

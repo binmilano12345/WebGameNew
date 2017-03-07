@@ -179,8 +179,8 @@ namespace AppConfig {
         public const string SUB_RANK = "sub_rank";
         public const string SUB_NOTI = "sub_noti";
         public const string SUB_CHAT = "sub_chat";
+        public const string SUB_HELP = "sub_help";
 
-        public const string SUB_GOP_Y = "gopy";
         public const string SUB_MAIL = "mail";
         public const string SUB_INFO_PLAYER = "info_player";
         public const string SUB_BANK = "bank";
@@ -191,9 +191,8 @@ namespace AppConfig {
 
         public const string GAME_TLMN = "tlmn";
         public const string GAME_TLMN_SOLO = "tlmnsolo";
-        public const string GAME_MINI_DICE = "mini_dice";
-        public const string GAME_XOCDIA = "xocdia";
         public const string GAME_SAM = "sam";
+        public const string GAME_PHOM = "phom";
     }
 
     public class CMDClient {

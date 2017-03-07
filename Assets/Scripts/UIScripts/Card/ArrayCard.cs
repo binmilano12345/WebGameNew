@@ -25,14 +25,18 @@ public class ArrayCard : MonoBehaviour {
     [HideInInspector]
     public List<Card> listCardHand;
     public List<int> listIdCardHand;
-    Vector3 vtPosCenter;
+    public Vector3 vtPosCenter;
     float w_card, h_card;
-
+    Camera cameraInGame;// { get; set; }
     public void Init() {
         listCardHand = new List<Card>();
         listIdCardHand = new List<int>();
+        if (cameraInGame == null) {
+            cameraInGame = GetCamera();
+        }
 
-        //Debug.LogError(vtPosCenter);
+        vtPosCenter = cameraInGame.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
         if (GameControl.instance.objCard != null) {
             GameObject objCard = GameControl.instance.objCard;
             for (int i = 0; i < CardCount; i++) {
@@ -44,6 +48,7 @@ public class ArrayCard : MonoBehaviour {
                 card.SetCardWithId(53);
                 card.setSmall(isSmall);
                 card.SetTouched(isTouched);
+                card.SetIsCardMauBinh();
                 if (i == 0) {
                     w_card = card.W_Card;
                     h_card = card.H_Card;
@@ -51,15 +56,11 @@ public class ArrayCard : MonoBehaviour {
                 card.SetVisible(false);
                 listCardHand.Add(card);
             }
-            //if (gameObject.transform.parent.name.Equals (ClientConfig.UserInfo.UNAME))
-            //	SetPositionCardInArray ();
-            //else
-            //	SetLaiHetCardVeToaDo0 ();
-
-            //Debug.LogError("KHoi tao xong");
         }
     }
+
     public void InitDemo(int[] arrcard) {
+        if (arrcard == null || arrcard.Length <= 0) return;
         listCardHand = new List<Card>();
         listIdCardHand = new List<int>();
 
@@ -83,14 +84,21 @@ public class ArrayCard : MonoBehaviour {
                 listCardHand.Add(card);
             }
             Destroy(objPre);
+            //SetCardKhiKetThucGame(arrcard);
         });
+
+
     }
 
     public void InitKhiVaoBanDangDanh() {
         listCardHand = new List<Card>();
         listIdCardHand = new List<int>();
+        if (cameraInGame == null) {
+            cameraInGame = GetCamera();
+        }
 
-        //        Debug.LogError(vtPosCenter);
+        vtPosCenter = cameraInGame.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
         if (GameControl.instance.objCard != null) {
             GameObject objCard = GameControl.instance.objCard;
             for (int i = 0; i < CardCount; i++) {
@@ -109,25 +117,27 @@ public class ArrayCard : MonoBehaviour {
                 card.SetVisible(true);
                 listCardHand.Add(card);
             }
-            //if (gameObject.transform.parent.name.Equals (ClientConfig.UserInfo.UNAME))
-            //	SetPositionCardInArray ();
-            //else
-            //	SetLaiHetCardVeToaDo0 ();
         }
+    }
 
-        listCardHand = new List<Card>();
-        listIdCardHand = new List<int>();
+    public Card AddAndGetCardOnArray() {
+        GameObject obj = Instantiate(GameControl.instance.objCard);
+        obj.transform.SetParent(transform);
+        obj.transform.localScale = Vector3.one;
+        obj.transform.localPosition = Vector3.zero;
+        Card card = obj.GetComponent<Card>();
+        card.SetCardWithId(53);
+        card.setSmall(isSmall);
+        card.SetTouched(isTouched);
+        card.SetIsCardMauBinh();
 
-        //        Debug.LogError(vtPosCenter);
+        card.SetVisible(false);
+        listCardHand.Add(card);
+        return card;
     }
 
     public void SetPositionCardInArray() {
-        float disCard;
-        if (MaxWidth >= listCardHand.Count * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / listCardHand.Count;
-        }
+        float disCard = GetDistanceCard();
         switch (align_Anchor) {
             case Align_Anchor.LEFT:
                 Anchor_Left(disCard);
@@ -150,17 +160,24 @@ public class ArrayCard : MonoBehaviour {
                         Card c = listCardHand[k];
                         if (c == listCardHand[listCardHand.Count - 1]) {
                             c.SetCardWithId(53);
+                            c.IsChoose = false;
                             c.SetVisible(false);
                         } else {
                             if (listCardHand[k + 1].ID != 53) {
                                 c.SetCardWithId(listCardHand[k + 1].ID);
                                 c.SetVisible(true);
+                                listCardHand[k + 1].SetCardWithId(53);
+                                //listCardHand[k + 1].SetActiveBorder(false);
+                                listCardHand[k + 1].IsChoose = false;
+                                listCardHand[k + 1].SetVisible(false);
                             } else {
                                 for (int l = k + 1; l < listCardHand.Count; l++) {
                                     if (listCardHand[l].ID != 53) {
                                         c.SetCardWithId(listCardHand[l].ID);
                                         c.SetVisible(true);
                                         listCardHand[l].SetCardWithId(53);
+                                        //listCardHand[l].SetActiveBorder(false);
+                                        listCardHand[l].IsChoose = false;
                                         listCardHand[l].SetVisible(false);
                                         break;
                                     }
@@ -177,17 +194,23 @@ public class ArrayCard : MonoBehaviour {
                             Card c = listCardHand[k];
                             if (c == listCardHand[listCardHand.Count - 1]) {
                                 c.SetCardWithId(53);
+                                c.IsChoose = false;
                                 c.SetVisible(false);
                             } else {
                                 if (listCardHand[k + 1].ID != 53) {
                                     c.SetCardWithId(listCardHand[k + 1].ID);
                                     c.SetVisible(true);
+                                    listCardHand[k + 1].SetCardWithId(53);
+                                    //listCardHand[k + 1].SetActiveBorder(false);
+                                    listCardHand[k + 1].SetVisible(false);
+
                                 } else {
                                     for (int l = k + 1; l < listCardHand.Count; l++) {
                                         if (listCardHand[l].ID != 53) {
                                             c.SetCardWithId(listCardHand[l].ID);
                                             c.SetVisible(true);
                                             listCardHand[l].SetCardWithId(53);
+                                            //listCardHand[l].SetActiveBorder(false);
                                             listCardHand[l].SetVisible(false);
                                             break;
                                         }
@@ -200,62 +223,58 @@ public class ArrayCard : MonoBehaviour {
                 }
             }
         }
+
     }
 
     public void SetPositonCardHand() {
         switch (align_Anchor) {
             case Align_Anchor.LEFT:
-                transform.localPosition = new Vector3(120, 0, 0);
+                Vector3 vtl = transform.localPosition;
+                vtl.x = 120;//  = new Vector3(120, 0, 0);
+                transform.localPosition = vtl;
                 break;
             case Align_Anchor.RIGHT:
-                transform.localPosition = new Vector3(-120, 0, 0);
+                //transform.localPosition = new Vector3(-120, 0, 0);
+
+                Vector3 vtr = transform.localPosition;
+                vtr.x = -120;
+                transform.localPosition = vtr;
                 break;
             case Align_Anchor.CENTER:
-                //Camera ccc = GetCamera();
+                float vty = transform.localPosition.y;
+                if (cameraInGame != null) {
+                    Vector3 vtScreen = cameraInGame.ScreenToWorldPoint(new Vector3(Screen.width / 2, 0, 0));
+                    Vector3 vt = transform.parent.transform.InverseTransformPoint(vtScreen);
 
-                //if (ccc != null) {
-                Vector3 vtScreen =/* ccc.ScreenToWorldPoint*/(new Vector3(Screen.width / 2, 0, 0));
-                Vector3 vt = transform.parent.transform.InverseTransformPoint(vtScreen);
-                vt.y = 0;
-                vt.z = 0;
-                transform.localPosition = vt;
-                //}
+                    vt.y = vty;
+                    vt.z = 0;
+                    transform.localPosition = vt;
+                }
                 break;
         }
     }
+
 
     public void SetPositonCardHandTaLa() {
-        switch (align_Anchor) {
-            case Align_Anchor.LEFT:
-                transform.localPosition = new Vector3(120, 0, 0);
-                break;
-            case Align_Anchor.RIGHT:
-                transform.localPosition = new Vector3(-120, 0, 0);
-                break;
-            case Align_Anchor.CENTER:
-                //Camera ccc = GetCamera();
-
-                //if (ccc != null) {
-                Vector3 vtScreen = /*ccc.ScreenToWorldPoint*/(new Vector3(Screen.width / 2, 0, 0));
-                Vector3 vt = transform.parent.transform.InverseTransformPoint(vtScreen);
-                vt.y = -32.51f;
-                vt.z = 0;
-                vt.x += 100;
-                transform.localPosition = vt;
-                //}
-                break;
-        }
+        float vty = transform.localPosition.y;
+        Vector3 vt = transform.parent.transform.InverseTransformPoint(vtPosCenter);
+        vt.y = vty;
+        vt.z = 0;
+        vt.x += 100;
+        //Debug.LogError(vt);
+        transform.localPosition = vt;
     }
-    //Camera GetCamera() {
-    //    Camera ccc = null;
-    //    foreach (Camera c in Camera.allCameras) {
-    //        if (c.name.Equals("Camera")) {
-    //            ccc = c;
-    //            break;
-    //        }
-    //    }
-    //    return ccc;
-    //}
+
+    Camera GetCamera() {
+        Camera ccc = null;
+        foreach (Camera c in Camera.allCameras) {
+            if (c.name.Equals("Camera")) {
+                ccc = c;
+                break;
+            }
+        }
+        return ccc;
+    }
     #region ANCHOR
     void Anchor_Left(float disCard) {
         for (int i = 0; i < listCardHand.Count; i++) {
@@ -288,81 +307,83 @@ public class ArrayCard : MonoBehaviour {
 
     }
 
-    void Anchoir_Left_Card_Enable() {
-        int j = 0;
-        float disCard;
-        if (MaxWidth >= listCardHand.Count * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / listCardHand.Count;
-        }
+    void Anchoir_Left_Card_Enable(bool isEffect = true) {
+        float disCard = GetDistanceCard();
+        List<Card> list = new List<Card>();
         for (int i = 0; i < listCardHand.Count; i++) {
             Card card = listCardHand[i];
             if (card.isBatHayChua) {
-                //card.transform.localPosition = new Vector3(j * disCard, 0, 0);
-                StartCoroutine(card.MoveTo(new Vector3(j * disCard, 0, 0), 0.1f, j * 0.05f));
-                //card.transform.SetSiblingIndex(i);
-                j++;
+                list.Add(card);
+                card.transform.SetSiblingIndex(i);
             }
         }
+        for (int i = 0; i < list.Count; i++) {
+            if (isEffect)
+                StartCoroutine(list[i].MoveTo(new Vector3(i * disCard, 0, 0), 0.1f, i * 0.05f));
+            else
+                list[i].transform.localPosition = new Vector3(i * disCard, 0, 0);
+        }
     }
-
-    void Anchoir_Right_Card_Enable() {
-        //for (int i = listCardHand.Count - 1; i >= 0; i--) {
-        //    listCardHand[i].transform.localPosition = new Vector3(-(listCardHand.Count - 1 - i) * disCard, 0, 0);
+    void Anchoir_Right_Card_Enable(bool isEffect = true) {
+        float disCard;
+        if (MaxWidth >= CardCount * w_card) {
+            disCard = w_card;
+        } else {
+            disCard = MaxWidth / CardCount;
+        }
+        List<Card> list = new List<Card>();
+        for (int i = 0; i < listCardHand.Count; i++) {
+            Card card = listCardHand[i];
+            if (card.isBatHayChua) {
+                list.Add(card);
+                card.transform.SetAsFirstSibling();// (listCardHand.Count - 1 - i);
+            }
+        }
+        //Debug.LogError("Lisst   " + list.Count);
+        //int j = 0;
+        //for (int i = 0; i < list.Count; i++) {
+        //    Card card = list[i];
+        //    if (card.isBatHayChua) {
+        //        StartCoroutine(card.MoveTo(new Vector3(-(j - i) * disCard, 0, 0), 0.1f, i * 0.05f));
+        //    }
         //}
-
-        int j = listCardHand.Count - 1;
-        float disCard;
-        if (MaxWidth >= listCardHand.Count * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / listCardHand.Count;
-        }
-        //for (int i = 0; i < listCardHand.Count; i++) {
-        for (int i = listCardHand.Count - 1; i >= 0; i--) {
-            Card card = listCardHand[i];
-            if (card.isBatHayChua) {
-                //StartCoroutine(card.MoveTo(new Vector3(j * disCard, 0, 0), 0.1f, j * 0.05f));
-                //j--;
-
-                StartCoroutine(card.MoveTo(new Vector3(-(j - i) * disCard, 0, 0), 0.1f, i * 0.05f));
-            }
+        for (int i = 0; i < list.Count; i++) {
+            if (isEffect)
+                StartCoroutine(list[i].MoveTo(new Vector3(-i * disCard, 0, 0), 0.1f, i * 0.05f));
+            else
+                list[i].transform.localPosition = new Vector3(-i * disCard, 0, 0);
         }
     }
-    void Anchoir_Center_Card_Enable() {
-        int j = 0;
-        float disCard;
+    void Anchoir_Center_Card_Enable(bool isEffect = true) {
+        float disCard = GetDistanceCard();
 
-        if (MaxWidth >= listCardHand.Count * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / listCardHand.Count;
-        }
-        int countBat = 0;
+        List<Card> list = new List<Card>();
         for (int i = 0; i < listCardHand.Count; i++) {
             Card card = listCardHand[i];
             if (card.isBatHayChua) {
-                countBat++;
+                list.Add(card);
+                card.transform.SetSiblingIndex(i);
             }
         }
-        if (countBat % 2 == 0) {
-            for (int i = 0; i < listCardHand.Count; i++) {
-                Card card = listCardHand[i];
-                if (card.isBatHayChua) {
-                    Vector3 vt = new Vector3(-((int)countBat / 2 - 0.5f) * disCard + j * disCard, 0, 0);
-                    StartCoroutine(card.MoveTo(vt, 0.05f, j * 0.01f));
-                    j++;
-                }
+        if (list.Count % 2 == 0) {
+            for (int i = 0; i < list.Count; i++) {
+                Card card = list[i];
+                Vector3 vt = new Vector3(-((int)list.Count / 2 - 0.5f) * disCard + i * disCard, 0, 0);
+                if (isEffect)
+                    StartCoroutine(card.MoveTo(vt, 0.05f, i * 0.01f));
+                else
+                    card.transform.localPosition = vt;
+
             }
         } else {
-            for (int i = 0; i < listCardHand.Count; i++) {
-                Card card = listCardHand[i];
-                if (card.isBatHayChua) {
-                    Vector3 vt = new Vector3(-((int)countBat / 2) * disCard + j * disCard, 0, 0);
-                    StartCoroutine(card.MoveTo(vt, 0.05f, j * 0.01f));
-                    j++;
-                }
+            for (int i = 0; i < list.Count; i++) {
+                Card card = list[i];
+                Vector3 vt = new Vector3(-((int)list.Count / 2) * disCard + i * disCard, 0, 0);
+                if (isEffect)
+                    StartCoroutine(card.MoveTo(vt, 0.05f, i * 0.01f));
+                else
+                    card.transform.localPosition = vt;
+
             }
         }
 
@@ -392,48 +413,85 @@ public class ArrayCard : MonoBehaviour {
             listCardHand.Add(card);
     }
 
-    //    public delegate void CallBackChiaBai();
-    //	UnityAction callBackChiaBai;
-    public void ChiaBai(int[] arrcard, bool isTao, UnityAction callBack = null) {
-        //Camera ccc = GetCamera();
-        //if (ccc != null) {
-        Vector3 vtScreen = /*ccc.ScreenToWorldPoint*/(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        vtPosCenter = transform.InverseTransformPoint(vtScreen);
-        vtPosCenter.z = 0; ;
-        if (isTao) {
+    public void AddIdToList(int id) {
+        listIdCardHand.Add(id);
+    }
+    public void RemoveIdFromList(int id) {
+        listIdCardHand.Remove(id);
+    }
+
+    //public void ChiaBaiPoker(int[] arrcard, bool isTao, UnityAction callBack = null) {
+    //    Vector3 vt = transform.InverseTransformPoint(vtPosCenter);
+    //    if (isTao)
+    //        SetPositionCardInArray();
+    //    else
+    //        SetLaiHetCardVeToaDo0();
+    //    SetListIDCard(arrcard);
+    //    for (int i = 0; i < listCardHand.Count; i++) {
+    //        //Card c = listCardHand[i];
+    //        listCardHand[i].SetVisible(false);
+    //        listCardHand[i].IsChoose = false;
+    //        if (i < arrcard.Length) {
+    //            if (isTao) {
+    //                listCardHand[i].SetActiveBorder(false);
+    //                listCardHand[i].LatBaiLen(arrcard[i]);
+    //            } else {
+    //                listCardHand[i].SetCardWithId(53);
+    //                listCardHand[i].setSmall(true);
+    //                listCardHand[i].SetVisible(false);
+    //                listCardHand[i].SetActiveBorder(false);
+    //            }
+    //            StartCoroutine(listCardHand[i].MoveFrom(vt, 1f, i * 0.1f));
+    //        } else
+    //            listCardHand[i].SetVisible(false);
+    //    }
+    //    if (callBack != null) {
+    //        callBack();
+    //        callBack = null;
+    //    }
+    //    StartCoroutine(ShowCardKhiChiaXong());
+    //}
+
+    public void ChiaBaiTienLen(int[] arrcard, bool isTao, UnityAction callBack = null) {
+        Vector3 vt = transform.InverseTransformPoint(vtPosCenter);
+        if (isTao)
             SetPositionCardInArray();
-        } else
+        else
             SetLaiHetCardVeToaDo0();
         SetListIDCard(arrcard);
         for (int i = 0; i < listCardHand.Count; i++) {
-            Card c = listCardHand[i];
-            c.SetVisible(false);
-            c.IsChoose = false;
+            listCardHand[i].SetVisible(false);
+            listCardHand[i].IsChoose = false;
             if (i < arrcard.Length) {
                 if (isTao) {
-                    c.SetCardWithId(arrcard[i]);
+                    listCardHand[i].name = "" + i;
+                    listCardHand[i].SetCardWithId(arrcard[i]);
+                    //listCardHand[i].SetActiveBorder(false);
                 } else {
-                    c.setSmall(true);
-                    c.SetVisible(false);
+                    listCardHand[i].SetCardWithId(53);
+                    listCardHand[i].setSmall(true);
+                    listCardHand[i].SetVisible(false);
+                    //listCardHand[i].SetActiveBorder(false);
                 }
-                StartCoroutine(c.MoveFrom(vtPosCenter, 0.5f, i * 0.1f));
+                StartCoroutine(listCardHand[i].MoveFrom(vt, 0.5f, i * 0.1f));
             } else
-                c.SetVisible(false);
+                listCardHand[i].SetVisible(false);
         }
         if (callBack != null) {
             callBack();
             callBack = null;
         }
         StartCoroutine(ShowCardKhiChiaXong());
-        //}
+
     }
 
     IEnumerator ShowCardKhiChiaXong() {
         yield return new WaitForSeconds(listCardHand.Count * 0.1f + 1);
         for (int i = 0; i < listCardHand.Count; i++) {
             Card card = listCardHand[i];
-            if (card.ID != 53)
-                listCardHand[i].SetVisible(true);
+            if (card.ID != 53) {
+                card.SetVisible(true);
+            }
         }
     }
 
@@ -459,7 +517,7 @@ public class ArrayCard : MonoBehaviour {
             }
         }
         if (isTao)
-            SapXepLaiBaiSauKhiDanh();
+            SortCardActive();
     }
 
     public Card GetCardbyIDCard(int id) {
@@ -470,6 +528,7 @@ public class ArrayCard : MonoBehaviour {
                 }
             }
         } catch (Exception e) {
+            Debug.LogException(e);
         }
 
         return null;
@@ -498,13 +557,7 @@ public class ArrayCard : MonoBehaviour {
     }
 
     public void SetCardKhiKetThucGame(int[] arrCards, int sitNumer = -1) {
-        float disCard;
-        int dodai = listCardHand.Count;
-        if (MaxWidth >= dodai * w_card) {
-            disCard = w_card;
-        } else {
-            disCard = MaxWidth / dodai;
-        }
+        float disCard = GetDistanceCard();
 
         if (align_Anchor == Align_Anchor.RIGHT) {
             int j = arrCards.Length - 1;
@@ -517,7 +570,7 @@ public class ArrayCard : MonoBehaviour {
                     card.SetCardWithId(arrCards[j]);
                     card.setSmall(true);
                     card.transform.localPosition = Vector3.zero;
-                    card.transform.DOLocalMoveX(-(dodai - 1 - i) * disCard, .1f);
+                    card.transform.DOLocalMoveX(-(CardCount - 1 - i) * disCard, .1f);
                     j--;
                     card.transform.SetSiblingIndex(i);
                 }
@@ -548,12 +601,25 @@ public class ArrayCard : MonoBehaviour {
             Anchoir_Center_Card_Enable();
         }
     }
-
     public void SetCardWithArrID(int[] arrCards, bool isSort = true) {
         for (int i = 0; i < listCardHand.Count; i++) {
             Card card = listCardHand[i];
             if (i < arrCards.Length) {
                 card.SetCardWithId(arrCards[i]);
+            }
+        }
+        if (isSort) {
+            SetPositionCardInArray();
+        }
+    }
+    public void SetActiveCardWithArrID(int[] arrCards, bool isSort = true) {
+        for (int i = 0; i < listCardHand.Count; i++) {
+            Card card = listCardHand[i];
+            if (i < arrCards.Length) {
+                card.SetVisible(true);
+                card.SetCardWithId(arrCards[i]);
+            } else {
+                card.SetVisible(false);
             }
         }
         if (isSort) {
@@ -582,17 +648,21 @@ public class ArrayCard : MonoBehaviour {
         }
     }
 
-    public void ResetCard() {
+    public void ResetCard(bool isBorder = false) {
         for (int i = 0; i < listCardHand.Count; i++) {
             listCardHand[i].SetDarkCard(false);
             listCardHand[i].SetTouched(true);
             listCardHand[i].IsChoose = false;
+            if (isBorder) {
+                //listCardHand[i].isCardAnnnnn = false;
+                //listCardHand[i].SetActiveBorder(false);
+            }
         }
     }
 
     public void SetCardWithId53() {
         for (int i = 0; i < listCardHand.Count; i++) {
-            listCardHand[i].SetCardWithId(52);
+            listCardHand[i].SetCardWithId(53);
         }
     }
 
@@ -602,19 +672,50 @@ public class ArrayCard : MonoBehaviour {
         }
     }
 
-    public void SapXepLaiBaiSauKhiDanh() {
-        //        Debug.LogError("Anchor " + align_Anchor);
+    public void SortCardActive(bool isEffect = true) {
         switch (align_Anchor) {
             case Align_Anchor.LEFT:
-                Anchoir_Left_Card_Enable();
+                Anchoir_Left_Card_Enable(isEffect);
                 break;
             case Align_Anchor.RIGHT:
-                Anchoir_Right_Card_Enable();
+                Anchoir_Right_Card_Enable(isEffect);
                 break;
             case Align_Anchor.CENTER:
-                Anchoir_Center_Card_Enable();
+                Anchoir_Center_Card_Enable(isEffect);
                 break;
         }
+    }
+    /// <summary>
+    /// Tra ve gia tri tao do cua la bai vua them vao
+    /// </summary>
+    public Vector3 GetPositonCardActive() {
+        Vector3 vt = Vector3.zero;
+        float disCard = GetDistanceCard();
+
+        int count = 0;
+        for (int i = 0; i < listCardHand.Count; i++) {
+            Card card = listCardHand[i];
+            if (card.isBatHayChua) {
+                count++;
+            }
+        }
+
+        switch (align_Anchor) {
+            case Align_Anchor.LEFT:
+                vt = new Vector3(count * disCard, 0, 0);
+                break;
+            case Align_Anchor.RIGHT:
+                vt = new Vector3(-count * disCard, 0, 0);
+                break;
+            case Align_Anchor.CENTER:
+                if (count % 2 == 0) {
+                    vt = new Vector3(-((int)count / 2 - 0.5f) * disCard + count * disCard, 0, 0);
+                } else {
+                    vt = new Vector3(-((int)count / 2) * disCard + count * disCard, 0, 0);
+                }
+                break;
+        }
+        return vt;
     }
 
     public void SetActiveCardHand(bool isActive = false) {
@@ -659,27 +760,33 @@ public class ArrayCard : MonoBehaviour {
             }
         }
     }
-
     public void SetAutoChooseCard(bool isAuto) {
         for (int i = 0; i < listCardHand.Count; i++) {
             Card c = listCardHand[i];
             c.isAuto = isAuto;
         }
     }
-
-    public void SetIsCardMauBinh(bool isMauBinh) {
+    public void SetIsCardDragDrop(bool isMauBinh) {
         for (int i = 0; i < listCardHand.Count; i++) {
             listCardHand[i].SetIsCardMauBinh(isMauBinh);
         }
     }
 
     public int[] GetCardChoose() {
-        List<int> cardDanh = new List<int>();
+        List<int> list = new List<int>();
         for (int i = 0; i < listCardHand.Count; i++) {
-            if (listCardHand[i].IsChoose && listCardHand[i].isBatHayChua) {
-                cardDanh.Add(listCardHand[i].ID);
+            if (listCardHand[i].isBatHayChua && listCardHand[i].IsChoose && listCardHand[i].ID != 52) {
+                list.Add(listCardHand[i].ID);
             }
         }
-        return cardDanh.ToArray();
+        return list.ToArray();
+    }
+
+    float GetDistanceCard() {
+        if (MaxWidth >= CardCount * w_card) {
+            return w_card;
+        } else {
+            return (MaxWidth / CardCount);
+        }
     }
 }
