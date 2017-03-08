@@ -69,23 +69,6 @@ namespace AppConfig {
         public const int VONGQUAY = 12;
     }
 
-    //public enum GameID {
-    //    PHOM = 0,
-    //    TLMN,
-    //    XITO,
-    //    MAUBINH,
-    //    BACAY,
-    //    LIENG,
-    //    SAM,
-    //    CHUONG,
-    //    POKER,
-    //    XOCDIA,
-    //    TAIXIU,
-    //    TLMNSL,
-    //    VONGQUAY,
-    //    RESET = -1
-    //}
-
     public class SettingConfig {
         private static int isSound;//0- tat, 1 - bat
         public static int IsSound {
@@ -146,6 +129,7 @@ namespace AppConfig {
 
         public const string PRE_PLAYER_TLMN = "TLMNPlayer";
         public const string PRE_PLAYER_SAM = "SamPlayer";
+        public const string PRE_PLAYER_PHOM = "PhomPlayer";
 
         public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";

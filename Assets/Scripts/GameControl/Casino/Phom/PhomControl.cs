@@ -72,13 +72,13 @@ public class PhomControl : BaseCasino {
         SendData.onFireCard(cards[0]);//sua
     }
     public void OnClickBoc() {
-        SendData.onSendSkipTurn();
+        SendData.onGetCardNoc();
     }
 
     public void OnClickHaPhom() {
         //int[][] phom = RTL.checkPhom(arr, eatArr);
         //if (phom == null) {
-        //    SendData.onHaPhom(null);//tu dong ha
+        SendData.onHaPhom(null);//tu dong ha
         //} else {
         //    SendData.onHaPhom(phom);//ha thu cong
         //    btn_ha_phom.setVisible(false);
@@ -90,6 +90,9 @@ public class PhomControl : BaseCasino {
     }
     public void OnClickRule() {
         SendData.onChangeRuleTbl();
+    }
+    public void OnClickSortCard() {
+        ((PhomPlayer)playerMe).cardTaLaManager.SortCard(ListIdCardAn);
     }
     #endregion
 
@@ -191,10 +194,10 @@ public class PhomControl : BaseCasino {
     }
     internal void OnBalanceCard(string tenThangGuiBai, string guiDenThangNay, int card) {
         try {
-            //PhomPlayer plTuThangNay = (PhomPlayer)GetPlayerWithName(tenThangGuiBai);
-            //PhomPlayer plDenThangNay = (PhomPlayer)GetPlayerWithName(guiDenThangNay);
-            //if (plTuThangNay != null && plDenThangNay != null)
-            //    plDenThangNay.cardTaLaManager.GuiBai(new int[] { card }, plTuThangNay, tenThangGuiBai.Equals(ClientConfig.UserInfo.UNAME));
+            PhomPlayer plTuThangNay = (PhomPlayer)GetPlayerWithName(tenThangGuiBai);
+            PhomPlayer plDenThangNay = (PhomPlayer)GetPlayerWithName(guiDenThangNay);
+            if (plTuThangNay != null && plDenThangNay != null)
+                plDenThangNay.cardTaLaManager.ChuyenBai(card, plTuThangNay);
         } catch (Exception e) {
             Debug.LogException(e);
         }
@@ -213,7 +216,7 @@ public class PhomControl : BaseCasino {
         //    cardDrop[i].removeAllCard();
         //}
     }
-    internal void onDropPhomSuccess(string nick, int[] arrayPhom) {
+    internal void OnDropPhomSuccess(string nick, int[] arrayPhom) {
         PhomPlayer pl = (PhomPlayer)GetPlayerWithName(nick);
         if (pl != null) {
             pl.cardTaLaManager.HaBai(arrayPhom, nick.Equals(ClientConfig.UserInfo.UNAME), ListIdCardAn);
@@ -230,16 +233,10 @@ public class PhomControl : BaseCasino {
             Debug.LogException(e);
         }
     }
-    //========================================================================================================
-    internal override void OnStartFail() {
-        SetActiveButton(true, false, false, false, false, false, false);
-    }
-    internal override void OnFinishTurn() {
-        base.OnFinishTurn();
-    }
-    internal override void InfoCardPlayerInTbl(Message message, string turnName, int time, sbyte numP) {//nghi da
+    internal override void InfoCardPlayerInTbl(Message message, string turnName, int time, sbyte numP) {
         base.InfoCardPlayerInTbl(message, turnName, time, numP);
         try {
+            int numCardNoc = 0;
             for (int i = 0; i < numP; i++) {
                 string name = message.reader().ReadUTF();
                 PhomPlayer pl = (PhomPlayer)GetPlayerWithName(name);
@@ -249,11 +246,36 @@ public class PhomControl : BaseCasino {
                     for (int j = 0; j < temp.Length; j++) {
                         temp[j] = 52;
                     }
-                    //pl.cardTaLaManager.SetCardWithId53();//sua
                     pl.cardTaLaManager.SetChiaBai(temp, false);
+
+                    int sizeCardAn = message.reader().ReadByte();
+                    for (int j = 0; j < sizeCardAn; j++) {
+                        pl.cardTaLaManager.SetCardAn(message.reader().ReadInt(), j);
+                    }
+                    int sizeRub = message.reader().ReadInt();
+                    int[] cardDanh = new int[sizeRub];
+                    for (int j = 0; j < sizeRub; j++) {
+                        cardDanh[j] = message.reader().ReadInt();
+                    }
+                    pl.cardTaLaManager.ArrayCardFire.SetActiveCardWithArrID(cardDanh);
+
+                    numCardNoc += sizeRub;
+
+                    int sizePhom = message.reader().ReadByte();
+                    if (sizePhom > 0) {
+                        int[] phom = new int[sizePhom];
+                        for (int j = 0; j < sizePhom; j++) {
+                            phom[j] = message.reader().ReadByte();
+                        }
+
+                        pl.cardTaLaManager.ArrayCardPhom[0].SetActiveCardWithArrID(phom);//sua
+                    }
                 }
             }
+            SetNumCardLoc(numP * 4 - numCardNoc);
+
             GameConfig.TimerTurnInGame = time;
+            //SetTurn(turnName, null);
             BasePlayer plTurn = GetPlayerWithName(turnName);
             if (plTurn != null) {
                 plTurn.SetTurn(time);
@@ -267,9 +289,17 @@ public class PhomControl : BaseCasino {
             Debug.LogException(e);
         }
     }
-    /*internal override void OnInfome(Message message) {
+    internal override void AllCardFinish(string nick, int[] card) {
+        base.AllCardFinish(nick, card);
+        PhomPlayer pl = (PhomPlayer)GetPlayerWithName(nick);
+        if (pl != null) {
+            pl.cardTaLaManager.SetCardKhiHetGame(card);
+        }
+    }
+    internal override void OnInfome(Message message) {
         base.OnInfome(message);
         try {
+            bool bocbai = false, anbai = false, haphom = false, danhbai = false;
             GameConfig.TimerTurnInGame = 20;
             playerMe.IsPlaying = (true);
             int sizeCardHand = message.reader().ReadByte();
@@ -277,68 +307,114 @@ public class PhomControl : BaseCasino {
             for (int i = 0; i < sizeCardHand; i++) {
                 cardHand[i] = message.reader().ReadByte();
             }
-            playerMe.CardHand.SetCardWithArrID(cardHand);
-            playerMe.CardHand.SetActiveCardHand(true);
+
+           ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardHand.SetActiveCardWithArrID(cardHand);
 
             int sizeCardFire = message.reader().ReadByte();
-            if (sizeCardFire > 0) {
-                int[] cardFire = new int[sizeCardFire];
-                for (int i = 0; i < sizeCardFire; i++) {
-                    cardFire[i] = message.reader().ReadByte();
-                }
+            int[] cardFire = new int[sizeCardFire];
+            for (int i = 0; i < sizeCardFire; i++) {
+                cardFire[i] = message.reader().ReadByte();
             }
+             ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardFire.SetActiveCardWithArrID(cardFire);
+
+            int sizeCardPhom = message.reader().ReadByte();
+            if (sizeCardPhom > 0) {
+                int[] cardPhom = new int[sizeCardPhom];
+                for (int i = 0; i < sizeCardFire; i++) {
+                    cardPhom[i] = message.reader().ReadByte();
+                }
+             ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardPhom[0].SetActiveCardWithArrID(cardPhom);//sua
+            }
+
             string turnName = message.reader().ReadUTF();
             int turnTime = message.reader().ReadInt();
-            BasePlayer plTurn = GetPlayerWithName(turnName);
+
+            PhomPlayer plTurn = (PhomPlayer)GetPlayerWithName(turnName);
             if (plTurn != null) {
                 plTurn.SetTurn(turnTime);
             }
 
             if (turnName.Equals(ClientConfig.UserInfo.UNAME)) {
-                SetActiveButton(false, false, true, sizeCardFire > 0);
-            } else {
-                SetActiveButton(false, false, false, false);
+                if (plTurn.cardTaLaManager.NumCardFire() >= 4) {
+                    haphom = true;
+                } else {
+                    int[] cardMe = plTurn.cardTaLaManager.GetCardIdCardHand();
+                    if (cardMe.Length < 10) {
+                        bocbai = true;
+                    } else {
+                        danhbai = true;
+                    }
+                    int[] cardPhom = AutoChooseCardTaLa.GetPhomAnDuoc(cardMe, cardDanhTruocDo, ListIdCardAn.ToArray());
+
+                    if (cardPhom != null) {
+                        anbai = true;
+                        bocbai = true;
+                    }
+                }
+                //    SetActiveButton(false, false, true, sizeCardFire > 0);
+                //} else {
+                //    SetActiveButton(false, false, false, false);
+            }
+
+            SetActiveButton(false, false, danhbai, bocbai, anbai, haphom, false);
+        } catch (Exception e) {
+            Debug.LogException(e);
+        }
+    }
+    internal override void OnStartForView(string[] playingName, Message msg) {
+        base.OnStartForView(playingName, msg);
+        SetActiveButton(false, false, false, false, false, false, false);
+        for (int i = 0; i < ListPlayer.Count; i++) {
+            PhomPlayer pl = (PhomPlayer)ListPlayer[i];
+            if (pl.IsPlaying) {
+                pl.cardTaLaManager.ArrayCardHand.SetCardWithId53();
+            }
+        }
+    }
+    internal void OnPhomha(Message message) {
+        try {
+            int len = message.reader().ReadInt();
+            for (int i = 0; i < len; i++) {
+                int len2 = message.reader().ReadInt();
+                int[] phom = new int[len2];
+                for (int j = 0; j < len2; j++) {
+                    phom[j] = message.reader().ReadInt();
+                }
+                ((PhomPlayer)playerMe).cardTaLaManager.HaBai(phom, true, ListIdCardAn);
             }
         } catch (Exception e) {
             Debug.LogException(e);
         }
     }
+    internal override void OnStartFail() {
+        SetActiveButton(true, false, false, false, false, false, false);
+    }
+
     internal override void OnJoinTableSuccess(Message message) {
         base.OnJoinTableSuccess(message);
         if (isPlaying)
-            SetActiveButton(false, false, false, false);
+            SetActiveButton(false, false, false, false, false, false, false);
     }
     internal override void OnReady(string nick, bool ready) {
         base.OnReady(nick, ready);
         if (nick.Equals(ClientConfig.UserInfo.UNAME) && !playerMe.IsMaster) {
             if (ready)
-                SetActiveButton(false, false, false, false);
+                SetActiveButton(false, false, false, false, false, false, false);
             else
-                SetActiveButton(false, true, false, false);
+                SetActiveButton(false, true, false, false, false, false, false);
         }
     }
     internal override void OnJoinTablePlaySuccess(Message message) {
         base.OnJoinTablePlaySuccess(message);
         if (isPlaying)
-            SetActiveButton(false, false, false, false);
+            SetActiveButton(false, false, false, false, false, false, false);
     }
     internal override void OnFireCardFail() {
         base.OnFireCardFail();
-        SetActiveButton(false, false, true, true);
+        SetActiveButton(false, false, true, false, false, false, false);
         PopupAndLoadingScript.instance.toast.showToast(ClientConfig.Language.GetText("popup_danh_bai_loi"));
     }
-    
-    internal override void OnStartForView(string[] playingName, Message msg) {
-        base.OnStartForView(playingName, msg);
-        SetActiveButton(false, false, false, false);
-        for (int i = 0; i < ListPlayer.Count; i++) {
-            if (ListPlayer[i].IsPlaying) {
-                ListPlayer[i].CardHand.SetCardWithId53();
-                ListPlayer[i].CardHand.SetActiveCardHand(true);
-            }
-        }
-    }
-    */
+
     public void SetNumCardLoc(int NumCard) {
         if (NumCard <= 0) {
             objBoc.SetActive(false);

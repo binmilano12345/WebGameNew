@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour {
     public BaseCasino CurrentCasino { get; set; }
     public GameObject objPlayerTLMN { get; set; }
     public GameObject objPlayerSam { get; set; }
+    public GameObject objPlayerPhom { get; set; }
     public GameObject objCard { get; set; }
     public GameObject objPlayer;
 
@@ -45,6 +46,14 @@ public class GameControl : MonoBehaviour {
                 objPlayerSam.transform.SetParent(tf_parent.transform);
                 objPlayerSam.transform.localScale = Vector3.one;
                 objPlayerSam.gameObject.SetActive(false);
+            });
+        }
+        if (objPlayerPhom == null) {
+            LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_PHOM, (obj) => {
+                objPlayerPhom = obj;
+                objPlayerPhom.transform.SetParent(tf_parent.transform);
+                objPlayerPhom.transform.localScale = Vector3.one;
+                objPlayerPhom.gameObject.SetActive(false);
             });
         }
         if (objCard == null) {
@@ -150,7 +159,7 @@ public class GameControl : MonoBehaviour {
             #region PHOM
             case GameID.PHOM:
                 Card.setCardType(0);
-                objPlayer = objPlayerTLMN;
+                objPlayer = objPlayerPhom;
                 ProcessHandler.setSecondHandler(PHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_PHOM, SceneName.GAME_PHOM, () => {
                     CurrentCasino = (PhomControl.instace);

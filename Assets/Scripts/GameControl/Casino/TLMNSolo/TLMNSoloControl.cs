@@ -313,4 +313,11 @@ public class TLMNSoloControl : BaseCasino {
             SetActiveButton(false, true, false, false);
         cardTable.XoaHetCMNBaiTrenBan();
     }
+    internal override void AllCardFinish(string nick, int[] card) {
+        base.AllCardFinish(nick, card);
+        TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName(nick);
+        if (pl != null) {
+            pl.CardHand.SetCardKhiKetThucGame(AutoChooseCard.SortArrCard(card));
+        }
+    }
 }

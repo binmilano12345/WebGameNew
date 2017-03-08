@@ -45,5 +45,5 @@ interface IChatListener {
     void OnBalanceCard(Message message);
     void OnDropPhomSuccess(Message message);
     void OnAttachCard(Message message);
-    
+    void OnPhomha(Message message);
 }

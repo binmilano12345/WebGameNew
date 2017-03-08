@@ -48,6 +48,14 @@ public class PHandler : MessageHandler {
                 case CMDClient.CMD_GUI_CARD:
                     listenner.OnAttachCard(message);
                     break;
+                //case CMDClient.CMD_U:
+                //    // SerializerHelper.readInt(message);
+                //    message.reader().readByte();
+                //    listenner.onInfoU(message.reader().readUTF());
+                //    break;
+                case CMDClient.CMD_PHOM_HA:
+                    listenner.OnPhomha(message);
+                    break;
                 default:
                     Debug.Log("Khong vao cau lenh naooooooooooooo ");
                     break;

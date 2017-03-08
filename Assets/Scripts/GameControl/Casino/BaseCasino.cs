@@ -51,19 +51,13 @@ public abstract class BaseCasino : MonoBehaviour {
         txt_bet_table.text = "Mức cược " + "<color=yellow>" + betMoney + "</color>";
         txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
 
-        //BaseInfo.gI().isView = false;
-        //BaseInfo.gI().isOutTable = false;
-        //BaseInfo.gI().startVaobanAudio();
         try {
             int luatPhom = message.reader().ReadByte();
             SetLuatChoi(luatPhom);
             string master = message.reader().ReadUTF();
-            //    masterID = master;
             int len = message.reader().ReadByte();
             GameConfig.TimerTurnInGame = message.reader().ReadInt();
             isPlaying = message.reader().ReadBoolean();
-            //    PlayerInfo[] pl = new PlayerInfo[len];
-            //    int indexmy = 0;
             for (int i = 0; i < len; i++) {
                 PlayerData pl = new PlayerData();
                 pl.Name = message.reader().ReadUTF();
@@ -91,14 +85,6 @@ public abstract class BaseCasino : MonoBehaviour {
             }
 
             OnJoinTableSuccess(master);
-            //    if (!isPlaying
-            //            && BaseInfo.gI().isAutoReady
-            //            && !BaseInfo.gI().mainInfo.nick.equals(master)
-            //            && !BaseInfo.gI().checkHettien()
-            //            && (CasinoStage.this instanceof TLMNStage || CasinoStage.this instanceof PhomStage || CasinoStage.this instanceof XamStage)) {
-            //        btn_sansang.setVisible(false);
-            //        SendData.onReady(1);// san sang }
-            //    }
             SortSitPlayer();
         } catch (Exception e) {
             Debug.LogException(e);

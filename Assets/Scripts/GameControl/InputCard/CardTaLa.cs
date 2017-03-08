@@ -459,11 +459,7 @@ public class CardTaLa : MonoBehaviour {
         return numC;
     }
     //demo
-    public void SetCardPhom(int[] phom1, int[] phom2, int[] phom3, int[] phomAn) {
-        List<int> l = new List<int>();
-        l.AddRange(phomAn);
-        HaBai(phom1, false, l);
-        HaBai(phom2, false, l);
-        //HaBai(phom3, false, l);
+    public void SetCardAn(int cardAn, int indexPhom) {
+        ArrayCardPhom[indexPhom].SetActiveCardWithArrID(new int[] { cardAn });
     }
 }

@@ -667,7 +667,7 @@ public class ListernerServer : IChatListener {
             for (int i = 0; i < arry.Length; i++) {
                 cdp[i] = arry[i];
             }
-            ((PhomControl)GameControl.instance.CurrentCasino).onDropPhomSuccess(nn, cdp);
+            ((PhomControl)GameControl.instance.CurrentCasino).OnDropPhomSuccess(nn, cdp);
         }
     }
     public void OnAttachCard(Message message) {
@@ -684,6 +684,9 @@ public class ListernerServer : IChatListener {
             cardgui[i] = message.reader().ReadByte();
         }
             ((PhomControl)GameControl.instance.CurrentCasino).OnAttachCard(fromplayer, toplayer, phomgui, cardgui);
+    }
+    public void OnPhomha(Message message) {
+        ((PhomControl)GameControl.instance.CurrentCasino).OnPhomha(message);
     }
     #endregion
 }
