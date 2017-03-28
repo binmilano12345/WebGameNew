@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using UnityEngine.EventSystems;
 
-public class PhomControl : BaseCasino {
+public class PhomControl : BaseCasino, IHasChanged {
     public static PhomControl instace;
     [SerializeField]
     GameObject objBatDau, objSanSang, objDanh, objBoc, objAn, objHaPhom, objXepBai;
@@ -23,7 +25,9 @@ public class PhomControl : BaseCasino {
     public new void Start() {
         base.Start();
     }
-
+    /// <summary>
+    /// 1-isBatDau, 2-isSanSang, 3-isDanh, 4-isBocBai, 5-isAnBai, 6-isHaBai, 7-isXepBai
+    /// </summary>
     internal void SetActiveButton(bool isBatDau, bool isSanSang, bool isDanh, bool isBoc, bool isAn, bool isHaPhom, bool isXepBai) {
         objBatDau.SetActive(isBatDau);
         objSanSang.SetActive(isSanSang);
@@ -72,6 +76,7 @@ public class PhomControl : BaseCasino {
         SendData.onFireCard(cards[0]);//sua
     }
     public void OnClickBoc() {
+        Debug.LogError("=======================OnClickBoc");
         SendData.onGetCardNoc();
     }
 
@@ -166,21 +171,51 @@ public class PhomControl : BaseCasino {
     }
     internal override void OnFireCard(string nick, string turnName, int[] card) {
         base.OnFireCard(nick, turnName, card);
-        PhomPlayer plTurn = (PhomPlayer)GetPlayerWithName(nick);
+        PhomPlayer plFire = (PhomPlayer)GetPlayerWithName(nick);
         cardDanhTruocDo = card[0];
+        if (plFire != null) {
+            plFire.SetTurn(0, false);
+            plFire.cardTaLaManager.OnFireCard(card[0], nick.Equals(ClientConfig.UserInfo.UNAME));
+
+        }
+
+        PhomPlayer plTurn = (PhomPlayer)GetPlayerWithName(turnName);
+        bool issMe = turnName.Equals(ClientConfig.UserInfo.UNAME);
         if (plTurn != null) {
-            plTurn.SetTurn(0);
-            plTurn.cardTaLaManager.OnFireCard(card[0], nick.Equals(ClientConfig.UserInfo.UNAME));
-            //SetActiveButton(false, false, false, false, false, false, true);
+            Debug.LogError("GameControl.instance.TimerTurnInGame   " + GameControl.instance.TimerTurnInGame);
+            plTurn.SetTurn();
+            if (issMe) {
+                int[] arr = AutoChooseCardTaLa.GetPhomAnDuoc(plTurn.cardTaLaManager.GetCardIdCardHand(), cardDanhTruocDo, ListIdCardAn.ToArray());
+                if (arr != null && arr.Length > 0) {
+                    plTurn.cardTaLaManager.ArrayCardHand.SetChooseCard(arr);
+                    SetActiveButton(false, false, false, true, true, false, true);
+                }
+            }
+            if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton(false, false, false, false, false, false, true);
+            }
         }
     }
     //Boc bai
     internal void OnGetCardNocSuccess(string nick, int card) {
+        totalCardNoc--;
+        SetNumCardLoc(totalCardNoc);
         PhomPlayer pl = (PhomPlayer)GetPlayerWithName(nick);
+        bool issMe = nick.Equals(ClientConfig.UserInfo.UNAME);
         if (pl != null) {
-            pl.cardTaLaManager.BocBai(card, nick.Equals(ClientConfig.UserInfo.UNAME));
-            totalCardNoc--;
-            SetNumCardLoc(totalCardNoc);
+            pl.cardTaLaManager.BocBai(card, issMe, () => {
+                if (issMe) {
+                    if (pl.cardTaLaManager.NumCardFire() >= 3) {
+                        int[] arrr = AutoChooseCardTaLa.GetPhomTrenTayOneArray(pl.cardTaLaManager.GetCardIdCardHand());
+                        if (arrr.Length <= 0) {
+                            SetActiveButton(false, false, true, false, false, false, false);
+                        } else
+                            SetActiveButton(false, false, false, false, false, true, false);
+                    } else {
+                        SetActiveButton(false, false, true, false, false, false, true);
+                    }
+                }
+            });
         }
     }
     internal void OnEatCardSuccess(string thangBiAn, string thangAn, int card) {
@@ -189,15 +224,37 @@ public class PhomControl : BaseCasino {
         PhomPlayer plThangAn = (PhomPlayer)GetPlayerWithName(thangAn);
 
         cardAn = plThangBiAn.cardTaLaManager.ArrayCardFire.GetCardbyIDCard(card);
-        if (cardAn != null)
-            plThangAn.cardTaLaManager.SetEatCard(card, thangAn.Equals(ClientConfig.UserInfo.UNAME), cardAn);
+        if (cardAn != null) {
+            bool isTao = thangAn.Equals(ClientConfig.UserInfo.UNAME);
+            if (plThangAn != null) {
+                plThangAn.cardTaLaManager.SetEatCard(card, isTao, cardAn, () => {
+                    if (isTao) {
+                        plThangAn.cardTaLaManager.ArrayCardHand.ResetCard();
+                        ListIdCardAn.Add(card);
+                        if (plThangAn.cardTaLaManager.NumCardFire() >= 3) {
+                            SetActiveButton(false, false, false, false, false, true, false);
+                        } else
+                            SetActiveButton(false, false, true, false, false, false, true);
+                    }
+                });
+            }
+        }
     }
+    //chuyen bai
     internal void OnBalanceCard(string tenThangGuiBai, string guiDenThangNay, int card) {
         try {
             PhomPlayer plTuThangNay = (PhomPlayer)GetPlayerWithName(tenThangGuiBai);
             PhomPlayer plDenThangNay = (PhomPlayer)GetPlayerWithName(guiDenThangNay);
-            if (plTuThangNay != null && plDenThangNay != null)
-                plDenThangNay.cardTaLaManager.ChuyenBai(card, plTuThangNay);
+            if (plTuThangNay != null && plDenThangNay != null) {
+                plDenThangNay.cardTaLaManager.ChuyenBai(card, plTuThangNay, () => {
+                    if (tenThangGuiBai.Equals(ClientConfig.UserInfo.UNAME) && plTuThangNay.IsTurn) {
+                        if (plTuThangNay.cardTaLaManager.NumCardFire() >= 3) {
+                            SetActiveButton(false, false, false, false, false, true, false);
+                        } else
+                            SetActiveButton(false, false, true, false, false, false, true);
+                    }
+                });
+            }
         } catch (Exception e) {
             Debug.LogException(e);
         }
@@ -219,7 +276,19 @@ public class PhomControl : BaseCasino {
     internal void OnDropPhomSuccess(string nick, int[] arrayPhom) {
         PhomPlayer pl = (PhomPlayer)GetPlayerWithName(nick);
         if (pl != null) {
-            pl.cardTaLaManager.HaBai(arrayPhom, nick.Equals(ClientConfig.UserInfo.UNAME), ListIdCardAn);
+            bool isMe = nick.Equals(ClientConfig.UserInfo.UNAME);
+            List<int[]> phommm = AutoChooseCardTaLa.GetPhomTrenTayMultiArray(arrayPhom);
+            for (int i = 0; i < phommm.Count; i++) {
+                pl.cardTaLaManager.HaBai(phommm[i], isMe, ListIdCardAn);
+            }
+
+            //if (isMe) {
+            //    int[] p = AutoChooseCardTaLa.GetPhomTrenTayOneArray(pl.cardTaLaManager.GetCardIdCardHand());
+            //    if (p.Length <= 0)
+            //        SetActiveButton(false, false, true, false, false, false, false, true);
+            //    else
+            //        SetActiveButton(false, false, true, false, false, true, false, true);
+            //}
         }
     }
     //Gui bai
@@ -248,7 +317,7 @@ public class PhomControl : BaseCasino {
                     }
                     pl.cardTaLaManager.SetChiaBai(temp, false);
 
-                    int sizeCardAn = message.reader().ReadByte();
+                    int sizeCardAn = message.reader().ReadInt();
                     for (int j = 0; j < sizeCardAn; j++) {
                         pl.cardTaLaManager.SetCardAn(message.reader().ReadInt(), j);
                     }
@@ -274,7 +343,7 @@ public class PhomControl : BaseCasino {
             }
             SetNumCardLoc(numP * 4 - numCardNoc);
 
-            GameConfig.TimerTurnInGame = time;
+            GameControl.instance.TimerTurnInGame = time;
             //SetTurn(turnName, null);
             BasePlayer plTurn = GetPlayerWithName(turnName);
             if (plTurn != null) {
@@ -300,7 +369,7 @@ public class PhomControl : BaseCasino {
         base.OnInfome(message);
         try {
             bool bocbai = false, anbai = false, haphom = false, danhbai = false;
-            GameConfig.TimerTurnInGame = 20;
+            GameControl.instance.TimerTurnInGame = 20;
             playerMe.IsPlaying = (true);
             int sizeCardHand = message.reader().ReadByte();
             int[] cardHand = new int[sizeCardHand];
@@ -423,6 +492,76 @@ public class PhomControl : BaseCasino {
             txt_num_card_boc.transform.parent.gameObject.SetActive(true);
             totalCardNoc = NumCard;
             txt_num_card_boc.text = "" + NumCard;
+        }
+    }
+
+
+    #region IHasChanged
+    [SerializeField]
+    Card card_show_mb;
+    //tha
+    public void HasDrop() {
+    }
+
+    public void HasDrop(Card idDrag, Card idDrop) {
+        card_show_mb.SetVisible(false);
+        List<Card> list = ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardHand.listCardHand;
+        int count = list.Count(c => c.isBatHayChua);
+        int indexDrag = list.FindIndex(c => c.ID == idDrag.ID);
+        int indexDrop = list.FindIndex(c => c.ID == idDrop.ID);
+        Card temp = new Card();
+        temp = idDrag;
+        if (indexDrag < indexDrop) {
+            if (indexDrag >= count - 1) {
+                list.Remove(idDrag);
+                list.Add(temp);
+            } else {
+                list.Insert(indexDrop + 1, temp);
+                list.Remove(idDrag);
+            }
+        } else {
+            list.Remove(idDrag);
+            list.Insert(indexDrop, temp);
+        }
+        ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardHand.SortCardActive(true, 0.2f);
+    }
+
+    //keo
+    public void HasBeginDrag(int id) {
+        card_show_mb.SetVisible(true);
+        card_show_mb.SetCardWithId(id);
+    }
+    //dang keo
+    public void HasDrag(Vector3 vtPos) {
+        //Debug.LogError(vtPos);
+        card_show_mb.transform.position = vtPos;
+    }
+    //ko keo nua
+    public void HasEndDrag() {
+        card_show_mb.SetVisible(false);
+    }
+    #endregion
+
+    public void Demo() {
+        int[] ccccH = new int[] { 1, 2, 4, 6, 7, 8, 33, 44, 34 };
+        int[] ccccF = new int[] { 11, 12, 13, 14 };
+        int[] ccccP1 = new int[] { 1, 2, 4 };
+        int[] ccccP2 = new int[] { 6, 7, 8 };
+        int[] ccccP3 = new int[] { 33, 44, 34 };
+        int[] ccccPAn = new int[] { 23, 02, 17 };
+
+        ((PhomPlayer)playerMe).cardTaLaManager.SetChiaBai(ccccH, true);
+        ((PhomPlayer)playerMe).cardTaLaManager.ArrayCardFire.SetActiveCardWithArrID(ccccF);
+        ((PhomPlayer)playerMe).cardTaLaManager.SetCardPhom(ccccP1, ccccP2, ccccP3, ccccPAn, true);
+
+        for (int i = 1; i < ListPlayer.Count; i++) {
+            PhomPlayer pl = (PhomPlayer)ListPlayer[i];
+            if (pl != null) {
+                pl.cardTaLaManager.SetChiaBai(ccccH, false, () => {
+                    pl.cardTaLaManager.ArrayCardFire.SetActiveCardWithArrID(ccccF);
+                    pl.cardTaLaManager.SetCardPhom(ccccP1, ccccP2, ccccP3, ccccPAn, false);
+                });
+            }
         }
     }
 }

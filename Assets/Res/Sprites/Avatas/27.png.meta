@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 83fd20171fe49514db9a1680986ccb11
-timeCreated: 1487002456
+guid: a8ce07a3939a7404e93d63a6dcf2b976
+timeCreated: 1490608462
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -66,6 +66,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
@@ -86,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Avata
+  spritePackingTag: Avatas
   userData: 
   assetBundleName: avatas
   assetBundleVariant: 

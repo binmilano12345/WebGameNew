@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport
+END
+NotifyCollectionChangedEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedEventArgs.cs
+END
+AddingNewEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/AddingNewEventArgs.cs
+END
+NotifyCollectionChangedAction.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedAction.cs.meta
+END
+NotifyCollectionChangedEventHandler.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedEventHandler.cs.meta
+END
+PropertyChangingEventHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/PropertyChangingEventHandler.cs
+END
+INotifyPropertyChanging.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/INotifyPropertyChanging.cs
+END
+AddingNewEventHandler.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/AddingNewEventHandler.cs.meta
+END
+PropertyChangingEventArgs.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/PropertyChangingEventArgs.cs.meta
+END
+NotifyCollectionChangedAction.cs
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedAction.cs
+END
+INotifyCollectionChanged.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/INotifyCollectionChanged.cs.meta
+END
+NotifyCollectionChangedEventHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedEventHandler.cs
+END
+AddingNewEventHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/AddingNewEventHandler.cs
+END
+PropertyChangingEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/PropertyChangingEventArgs.cs
+END
+NotifyCollectionChangedEventArgs.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/NotifyCollectionChangedEventArgs.cs.meta
+END
+AddingNewEventArgs.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/AddingNewEventArgs.cs.meta
+END
+INotifyCollectionChanged.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/INotifyCollectionChanged.cs
+END
+PropertyChangingEventHandler.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/PropertyChangingEventHandler.cs.meta
+END
+INotifyPropertyChanging.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport/INotifyPropertyChanging.cs.meta
+END

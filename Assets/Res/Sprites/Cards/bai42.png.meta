@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e40d3815a7be1b74793a6af95a2e0126
-timeCreated: 1487002528
+guid: c0f7fed23d0d942f896b109de7a86036
+timeCreated: 1490608463
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -66,6 +66,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
@@ -88,5 +96,5 @@ TextureImporter:
     outline: []
   spritePackingTag: Cards
   userData: 
-  assetBundleName: card
+  assetBundleName: cards
   assetBundleVariant: 

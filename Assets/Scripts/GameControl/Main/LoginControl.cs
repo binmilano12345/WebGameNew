@@ -19,6 +19,7 @@ public class LoginControl : MonoBehaviour {
     // Use this for initialization
     void Start() {
         Init();
+        GameControl.instance.IsShowNoti = true;
     }
     public void Init() {
         ip_tk.text = ClientConfig.UserInfo.UNAME;

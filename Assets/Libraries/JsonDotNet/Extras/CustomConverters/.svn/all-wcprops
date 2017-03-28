@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters
+END
+Matrix4x4Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Matrix4x4Converter.cs
+END
+Vector2Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector2Converter.cs
+END
+Vector3Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector3Converter.cs
+END
+Vector4Converter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector4Converter.cs
+END
+Matrix4x4Converter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Matrix4x4Converter.cs.meta
+END
+Vector2Converter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector2Converter.cs.meta
+END
+Vector3Converter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector3Converter.cs.meta
+END
+Vector4Converter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Extras/CustomConverters/Vector4Converter.cs.meta
+END

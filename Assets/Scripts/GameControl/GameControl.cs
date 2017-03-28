@@ -1,4 +1,5 @@
 ﻿using AppConfig;
+using DataBase;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,12 @@ public class GameControl : MonoBehaviour {
     public List<int> ListCMDID = new List<int>();
     [HideInInspector]
     public List<Message> ListMsg = new List<Message>();
+
+    public List<ItemRankData> ListRank = new List<ItemRankData>();
+    public List<ItemNotiData> ListNoti = new List<ItemNotiData>();
+    public bool IsShowNoti = true;
+
+    public int TimerTurnInGame = 0;
     void Awake() {
         instance = this;
         Application.runInBackground = false;
@@ -78,6 +85,8 @@ public class GameControl : MonoBehaviour {
     public void UnloadGameScene() {
         UnloadScene(SceneName.GAME_TLMN);
         UnloadScene(SceneName.GAME_TLMN_SOLO);
+        UnloadScene(SceneName.GAME_SAM);
+        UnloadScene(SceneName.GAME_PHOM);
     }
     #endregion
     #region Unload Scene
@@ -102,9 +111,11 @@ public class GameControl : MonoBehaviour {
                 objPlayer = objPlayerTLMN;
                 ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
+				TLMNControl.instace.UnloadSceneGame ();
                     CurrentCasino = (TLMNControl.instace);
                     try {
                         callback.Invoke();
+					Debug.LogError ("so luong: " + ListMsg.Count);
                         for (int i = 0; i < ListMsg.Count; i++) {
                             ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
                         }
@@ -176,43 +187,45 @@ public class GameControl : MonoBehaviour {
                 });
                 break;
                 #endregion
+			#region MAU BINH
+		case GameID.MAUBINH:
+			Card.setCardType(0);
+			objPlayer = objPlayerPhom;
+			ProcessHandler.setSecondHandler(PHandler.getInstance());
+			LoadAssetBundle.LoadScene(SceneName.GAME_MAUBINH, SceneName.GAME_MAUBINH, () => {
+				CurrentCasino = (PhomControl.instace);
+				try {
+					callback.Invoke();
+					for (int i = 0; i < ListMsg.Count; i++) {
+						ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+					}
+					ListCMDID.Clear();
+					ListMsg.Clear();
+				} catch (Exception e) {
+					Debug.LogException(e);
+				}
+			});
+			break;
+			#endregion
         }
-        InitCardType();
-
+//        InitCardType();
     }
 
-    private void InitCardType() {
-        //switch (gameID) {
-        //    case GameID.TLMN:
-        //        Card.setCardType(1);
-        //        break;
-        //    case GameID.TLMNSL:
-        //        Card.setCardType(1);
-        //        break;
-        //    case GameID.LIENG:
-        //        Card.setCardType(0);
-        //        break;
-        //    case GameID.BACAY:
-        //        Card.setCardType(0);
-        //        break;
-        //    case GameID.PHOM:
-        //        Card.setCardType(0);
-        //        break;
-        //    case GameID.POKER:
-        //        Card.setCardType(1);
-        //        break;
-        //    case GameID.XITO:
-        //        Card.setCardType(0);
-        //        break;
-        //    case GameID.MAUBINH:
-        //        Card.setCardType(1);
-        //        break;
-        //    case GameID.SAM:
-        //        Card.setCardType(1);
-        //        break;
-        //    default:
-        //        Card.setCardType(1);
-        //        break;
-        //}
-    }
+//    private void InitCardType() {
+//        switch (gameID) {
+//		case GameID.TLMN:
+//		case GameID.TLMNSL:
+//		case GameID.MAUBINH:
+//		case GameID.SAM:
+//		case GameID.POKER:
+//                Card.setCardType(1);
+//                break;
+//		case GameID.BACAY:
+//		case GameID.PHOM:
+//		case GameID.XITO:
+//		case GameID.LIENG:
+//                Card.setCardType(0);
+//                break;
+//        }
+//    }
 }

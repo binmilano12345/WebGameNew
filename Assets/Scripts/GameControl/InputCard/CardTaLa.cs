@@ -14,7 +14,10 @@ public class CardTaLa : MonoBehaviour {
 
     int indexPhomHa = 0;
     int indexPhomAn = 0;
+    bool isInit = false;
     public void Init(bool isTao) {
+        if (isInit) return;
+        isInit = true;
         ArrayCardHand.CardCount = 10;
         if (isTao) {
             ArrayCardHand.MaxWidth = 10 * 60;
@@ -27,7 +30,6 @@ public class CardTaLa : MonoBehaviour {
         }
 
         ArrayCardHand.Init();
-        ArrayCardHand.SetPositionCardInArray();
         for (int i = 0; i < ArrayCardPhom.Length; i++) {
             ArrayCardPhom[i].CardCount = 10;
             ArrayCardPhom[i].MaxWidth = 10 * 40;
@@ -35,7 +37,6 @@ public class CardTaLa : MonoBehaviour {
             ArrayCardPhom[i].isTouched = false;
 
             ArrayCardPhom[i].Init();
-            ArrayCardPhom[i].SetPositionCardInArray();
         }
 
         ArrayCardFire.CardCount = 4;
@@ -44,7 +45,6 @@ public class CardTaLa : MonoBehaviour {
         ArrayCardFire.isTouched = false;
 
         ArrayCardFire.Init();
-        ArrayCardFire.SetPositionCardInArray();
     }
 
     public void SetChiaBai(int[] arrCard, bool isTao, UnityAction callback = null) {
@@ -67,6 +67,7 @@ public class CardTaLa : MonoBehaviour {
         ArrayCardFire.SetCardWithId53();
 
         ArrayCardHand.ChiaBaiTienLen(arrCard, isTao, callback);
+        isSortOderBy = 1;
         indexPhomHa = 0;
         indexPhomAn = 0;
     }
@@ -98,19 +99,22 @@ public class CardTaLa : MonoBehaviour {
             cardchuanbidanh.SetVisible(false);
         }
     }
-    public void SetEatCard(int idCardEat, bool isTao, Card cardAnCuaThangkhac) {
+    public void SetEatCard(int idCardEat, bool isTao, Card cardAnCuaThangkhac, UnityAction callback = null) {
         if (isTao) {
             Card cAn = GetCardOnArrayCard(ArrayCardHand);
+            cAn.transform.localPosition = ArrayCardHand.GetPositonCardActive();
             cAn.ResetCard(true);
             cAn.SetCardWithId(idCardEat);
 
             Vector3 vtFrom = ArrayCardHand.transform.InverseTransformPoint(cardAnCuaThangkhac.transform.position);
             cardAnCuaThangkhac.SetVisible(false);
             StartCoroutine(cAn.MoveFrom(vtFrom, CONST_DUR, 0, () => {
-                //cAn.isCardAnnnnn = true;
-                //cAn.SetActiveBorder(true);
+                cAn.SetActiveBorder(true);
                 ArrayCardHand.SortCardActive();
                 isSortOderBy = 1;
+                if (callback != null) {
+                    callback.Invoke();
+                }
             }));
         } else {
             ArrayCard arr = ArrayCardPhom[indexPhomAn];
@@ -123,6 +127,7 @@ public class CardTaLa : MonoBehaviour {
             StartCoroutine(cAn.MoveFrom(vtFrom, CONST_DUR, 0, () => {
                 arr.SortCardActive();
             }));
+            CardAn.Add(idCardEat);
         }
         indexPhomAn++;
     }
@@ -137,32 +142,35 @@ public class CardTaLa : MonoBehaviour {
         return 4;
     }
 
-    public void BocBai(int idCard, bool isTao) {
+    public void BocBai(int idCard, bool isTao, UnityAction callback = null) {
         //if (isTao) {
         Card c = GetCardOnArrayCard(ArrayCardHand);
-        if (isTao)
+        if (isTao) {
             c.SetCardWithId(idCard);
-        else
+            c.transform.localPosition = ArrayCardHand.GetPositonCardActive();
+        } else
             c.SetCardWithId(53);
-        Vector3 vt = ArrayCardHand.transform.InverseTransformPoint(ArrayCardHand.vtPosCenter);
+        Vector3 vt = ArrayCardHand.vtPosCenter;
         StartCoroutine(c.MoveFrom(vt, CONST_DUR, 0, () => {
             if (isTao) {
                 c.ResetCard(true);
-                //c.transform.SetAsLastSibling();
                 ArrayCardHand.ResetCard();
                 ArrayCardHand.SortCardActive();
                 isSortOderBy = 1;
             }
+            if (callback != null) {
+                callback.Invoke();
+            }
         }));
         //}
     }
-    public void ChuyenBai(int idCard, PhomPlayer playerTu) {
+    public void ChuyenBai(int idCard, PhomPlayer playerTu, UnityAction callback = null) {
         Card cTu = playerTu.cardTaLaManager.ArrayCardFire.GetCardbyIDCard(idCard);
         Card cDen = GetCardOnArrayCard(ArrayCardFire);
         cDen.SetCardWithId(cTu.ID);
 
         Vector3 vtFrom = ArrayCardFire.transform.InverseTransformPoint(cTu.transform.position);
-        StartCoroutine(cDen.MoveFrom(vtFrom, CONST_DUR, 0));
+        StartCoroutine(cDen.MoveFrom(vtFrom, CONST_DUR, 0, callback));
         cTu.SetVisible(false);
     }
     public void GuiBai(int[] idCards, PhomPlayer playerTu, bool isTao) {
@@ -200,20 +208,43 @@ public class CardTaLa : MonoBehaviour {
             StartCoroutine(cDen.MoveFrom(vtFrom, CONST_DUR, 0, () => {
                 arr.SortCardActive();
                 cDen.setSmall(true);
+                SortCardPhom(arr);
             }));
             yield return new WaitForSeconds(0.2f);
         }
+        if (isTao) {
+            yield return new WaitForSeconds(0.2f);
+            playerTu.cardTaLaManager.ArrayCardHand.SortCardActive();
+        }
     }
+
+    void SortCardPhom(ArrayCard arrC) {
+        List<int> Phom1 = new List<int>();
+        for (int i = 0; i < arrC.listCardHand.Count; i++) {
+            Card c = arrC.listCardHand[i];
+            if (c.isBatHayChua) {
+                Phom1.Add(c.ID);
+            }
+        }
+
+        int[] arr = Phom1.OrderBy(x => AutoChooseCardTaLa.GetValue(x)).ThenBy(x => AutoChooseCardTaLa.GetType(x)).ToArray();
+        arrC.SetCardKhiKetThucGame(arr);
+    }
+
     public void SetCardKhiHetGame(int[] arrCards) {
         ArrayCardHand.ResetCard(true);
         int[] temp = arrCards.Except(CardPhom).ToArray();
         ArrayCardHand.SetCardKhiKetThucGame(temp);
+        ArrayCardFire.SetActiveCardHand();
     }
     List<int> CardPhom = new List<int>();
-    public void HaBai(int[] idCards, bool isTao, List<int> CardAn) {
+    List<int> CardAn = new List<int>();
+    public void HaBai(int[] idCards, bool isTao, List<int> CardAnMe) {
         CardPhom.Clear();
         CardPhom.AddRange(idCards);
         if (isTao) {
+            this.CardAn.Clear();
+            this.CardAn.AddRange(CardAnMe);
             ArrayCard arr = ArrayCardPhom[indexPhomHa];
             for (int i = 0; i < arr.listCardHand.Count; i++) {
                 Card cc = arr.listCardHand[i];
@@ -232,9 +263,8 @@ public class CardTaLa : MonoBehaviour {
                             ArrayCardHand.SortCardActive();
                         }));
                     }
-                    cc.SetVisible(true);
                     if (CardAn.Contains(cc.ID)) {
-                        //cc.SetActiveBorder(true);
+                        cc.SetActiveBorder(true);
                     }
                 } else {
                     cc.SetVisible(false);
@@ -246,20 +276,15 @@ public class CardTaLa : MonoBehaviour {
                 Card cc = arr.listCardHand[i];
                 cc.ResetCard(true);
                 if (i < idCards.Length) {
-                    //cc.SetVisible(true);
-                    cc.transform.localPosition = arr.GetPositonCardActive();
                     cc.SetCardWithId(idCards[i]);
                     Vector3 vt = arr.transform.InverseTransformPoint(ArrayCardHand.transform.position);
-                    if (i == idCards.Length - 1) {
-                        StartCoroutine(cc.MoveFrom(vt, CONST_DUR, 0, () => {
-                            arr.SortCardActive();
-                        }));
-                    } else {
+                    if (i < idCards.Length - 1) {
                         StartCoroutine(cc.MoveFrom(vt, CONST_DUR, 0));
+                    } else {
+                        StartCoroutine(cc.MoveFrom(vt, CONST_DUR, 0, () => {
+                            arr.SortCardActive(true);
+                        }));
                     }
-                    //if (CardAn.Contains(cc.ID)) {
-                    //    cc.SetActiveBorder(true);
-                    //}
                 } else {
                     cc.SetVisible(false);
                 }
@@ -295,11 +320,9 @@ public class CardTaLa : MonoBehaviour {
 
                 c.SetCardWithId(arrSorted[j]);
                 if (CardAn.Contains(c.ID)) {
-                    //c.isCardAnnnnn = true;
-                    //c.SetActiveBorder(true);
+                    c.SetActiveBorder(true);
                 } else {
-                    //c.isCardAnnnnn = false;
-                    //c.SetActiveBorder(false);
+                    c.SetActiveBorder(false);
                 }
                 c.transform.localPosition = oldPos;
                 c.transform.DOLocalMoveX(newPos.x, 0.2f);
@@ -312,7 +335,7 @@ public class CardTaLa : MonoBehaviour {
         StartCoroutine(ChoXepLai());
     }
     IEnumerator ChoXepLai() {
-        yield return new WaitForSeconds(0.22f);
+        yield return new WaitForSeconds(0.21f);
         ArrayCardHand.SortCardActive();
     }
     #endregion
@@ -393,7 +416,7 @@ public class CardTaLa : MonoBehaviour {
         //ArrayCardHand.transform.localPosition = vtPos;
 
         Vector3 vtPos = ArrayCardPhom[0].transform.localPosition;
-        vtPos.x = -230;
+        vtPos.x = -180;
         vtPos.y = -40;
         ArrayCardPhom[0].transform.localPosition = vtPos;
         vtPos.y = 0;
@@ -404,7 +427,6 @@ public class CardTaLa : MonoBehaviour {
         vtPos = ArrayCardFire.transform.localPosition;
         vtPos.y = 150;
         ArrayCardFire.transform.localPosition = vtPos;
-
     }
     void SetDefaultPosition_1_3(bool isOne) {
         Vector3 vtPos = ArrayCardPhom[0].transform.localPosition;
@@ -433,7 +455,7 @@ public class CardTaLa : MonoBehaviour {
 
         vtPos = ArrayCardFire.transform.localPosition;
         vtPos.x = 0;
-        vtPos.y = -150;
+        vtPos.y = -125;
         ArrayCardFire.transform.localPosition = vtPos;
     }
     #endregion
@@ -459,6 +481,14 @@ public class CardTaLa : MonoBehaviour {
         return numC;
     }
     //demo
+    public void SetCardPhom(int[] phom1, int[] phom2, int[] phom3, int[] phomAn, bool isMe) {
+        List<int> l = new List<int>();
+        l.AddRange(phomAn);
+        indexPhomHa = 0;
+        HaBai(phom1, isMe, l);
+        HaBai(phom2, isMe, l);
+        HaBai(phom3, isMe, l);
+    }
     public void SetCardAn(int cardAn, int indexPhom) {
         ArrayCardPhom[indexPhom].SetActiveCardWithArrID(new int[] { cardAn });
     }

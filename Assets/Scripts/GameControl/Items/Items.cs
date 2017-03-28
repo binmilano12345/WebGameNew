@@ -38,11 +38,19 @@ namespace DataBase {
         public long Money = 0;
     }
     #endregion
-    #region ItemRankData
+    #region ItemNotiData
     public class ItemNotiData {
         public int Id;
         public string Title = "";
         public string Content = "";
+    }
+    #endregion
+
+    #region ItemInviteData
+    public class ItemInviteData {
+        public string Name = "";
+        public string Dispayname = "";
+        public long Money;
     }
     #endregion
 }

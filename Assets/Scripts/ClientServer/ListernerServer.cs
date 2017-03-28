@@ -13,6 +13,9 @@ public class ListernerServer : IChatListener {
     public void initConnect() {
         NetworkUtil.GI().registerHandler(ProcessHandler.getInstance());
         ProcessHandler.setListenner(this);
+        PHandler.setListenner(this);
+        TLMNHandler.setListenner(this);
+        XiToHandler.setListenner(this);
     }
 
     public ListernerServer(/*GameControl gameControl*/) {
@@ -84,7 +87,7 @@ public class ListernerServer : IChatListener {
         PopupAndLoadingScript.instance.HideLoading();
     }
     public void OnPopupNotify(Message message) {//clam
-        GameConfig.ListNoti.Clear();
+        GameControl.instance.ListNoti.Clear();
         int size = message.reader().ReadInt();
         if (size != 0) {
             for (int i = 0; i < size; i++) {
@@ -92,7 +95,7 @@ public class ListernerServer : IChatListener {
                 item.Id = message.reader().ReadInt();
                 item.Title = message.reader().ReadUTF();
                 item.Content = message.reader().ReadUTF();
-                GameConfig.ListNoti.Add(item);
+                GameControl.instance.ListNoti.Add(item);
             }
         }
     }
@@ -209,7 +212,7 @@ public class ListernerServer : IChatListener {
     }
     public void OnTop(Message message) {
         try {
-            GameConfig.ListRank.Clear();
+            GameControl.instance.ListRank.Clear();
             int size = message.reader().ReadByte();
             for (int i = 0; i < size; i++) {
                 ItemRankData item = new ItemRankData();
@@ -220,7 +223,7 @@ public class ListernerServer : IChatListener {
                     item.Avata_Id = 0;
                 }
                 item.Money = message.reader().ReadLong();
-                GameConfig.ListRank.Add(item);
+                GameControl.instance.ListRank.Add(item);
             }
         } catch (Exception e) {
             Debug.LogException(e);
@@ -344,6 +347,28 @@ public class ListernerServer : IChatListener {
                     SendData.onAcceptInviteFriend((byte)gameid, tblid, -1);
                 });
             }
+        }
+    }
+    public void OnListInvite(Message message) {
+        try {
+            short total = message.reader().ReadShort();
+            if (total <= 0) {
+                PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText(""));
+                return;
+            }
+            List<ItemInviteData> list = new List<ItemInviteData>();
+            for (int i = 0; i < total; i++) {
+                ItemInviteData ittt = new ItemInviteData();
+                ittt.Name = message.reader().ReadUTF();
+                ittt.Dispayname = message.reader().ReadUTF();
+                ittt.Money = message.reader().ReadLong();
+                list.Add(ittt);
+            }
+            LoadAssetBundle.LoadScene(SceneName.SUB_INVITE, SceneName.SUB_INVITE, () => {
+                DialogInvite.instance.Init(list);
+            });
+        } catch (Exception e) {
+            Debug.LogException(e);
         }
     }
     public void OnJoinGame(Message message) {
@@ -492,6 +517,7 @@ public class ListernerServer : IChatListener {
     public void OnJoinTablePlay(Message message) {
         // check = SerializerHelper.readInt(message);
         sbyte status = message.reader().ReadByte();
+		Debug.LogError ("======== " + status);
         if (status == 1) {
             sbyte numPlayer = message.reader().ReadByte();
             GameControl.instance.SetCasino(numPlayer == 9 ? 1 : 0, () => {
@@ -514,6 +540,12 @@ public class ListernerServer : IChatListener {
         string nick = message.reader().ReadUTF();
         GameControl.instance.CurrentCasino.OnUserExitTable(nick, master);
     }
+	public void OnUserJoinTable(Message message){
+		GameControl.instance.CurrentCasino.OnUserJoinTable (message);
+	}
+	public void OnUpdateMoneyTbl(Message message){
+		GameControl.instance.CurrentCasino.OnUpdateMoneyTbl (message);
+	}
     #region Bat dau van
     public void InfoCardPlayerInTbl(Message message) {
         GameControl.instance.CurrentCasino.InfoCardPlayerInTbl(message);
@@ -689,4 +721,10 @@ public class ListernerServer : IChatListener {
         ((PhomControl)GameControl.instance.CurrentCasino).OnPhomha(message);
     }
     #endregion
+	#region Mau Binh
+	public void OnRankMauBinh(Message message){
+		((MauBinhControl)GameControl.instance.CurrentCasino).OnRankMauBinh(message);
+	}
+
+	#endregion
 }

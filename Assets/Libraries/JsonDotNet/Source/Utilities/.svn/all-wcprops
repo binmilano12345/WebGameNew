@@ -1,0 +1,305 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities
+END
+LateBoundReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/LateBoundReflectionDelegateFactory.cs
+END
+ValidationUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ValidationUtils.cs
+END
+ListWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ListWrapper.cs
+END
+CollectionUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/CollectionUtils.cs
+END
+MethodCall.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MethodCall.cs
+END
+DateTimeUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DateTimeUtils.cs
+END
+ILGeneratorExtensions.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ILGeneratorExtensions.cs.meta
+END
+CollectionWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/CollectionWrapper.cs.meta
+END
+DynamicReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DynamicReflectionDelegateFactory.cs
+END
+BidirectionalDictionary.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/BidirectionalDictionary.cs.meta
+END
+MiscellaneousUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MiscellaneousUtils.cs
+END
+EnumValue.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumValue.cs.meta
+END
+ConvertUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ConvertUtils.cs.meta
+END
+ILGeneratorExtensions.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ILGeneratorExtensions.cs
+END
+MathUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MathUtils.cs.meta
+END
+ReflectionUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ReflectionUtils.cs.meta
+END
+StringBuffer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/StringBuffer.cs
+END
+ListWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ListWrapper.cs.meta
+END
+EnumValue.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumValue.cs
+END
+CollectionUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/CollectionUtils.cs.meta
+END
+ConvertUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ConvertUtils.cs
+END
+MethodCall.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MethodCall.cs.meta
+END
+ReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ReflectionDelegateFactory.cs.meta
+END
+DictionaryWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DictionaryWrapper.cs
+END
+DynamicReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DynamicReflectionDelegateFactory.cs.meta
+END
+ThreadSafeStore.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ThreadSafeStore.cs.meta
+END
+MiscellaneousUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MiscellaneousUtils.cs.meta
+END
+EnumUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumUtils.cs.meta
+END
+DynamicWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DynamicWrapper.cs.meta
+END
+ReflectionUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ReflectionUtils.cs
+END
+JavaScriptUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/JavaScriptUtils.cs.meta
+END
+StringUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/StringUtils.cs.meta
+END
+ReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ReflectionDelegateFactory.cs
+END
+ThreadSafeStore.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ThreadSafeStore.cs
+END
+EnumValues.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumValues.cs
+END
+Base64Encoder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/Base64Encoder.cs
+END
+EnumUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumUtils.cs
+END
+DynamicWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DynamicWrapper.cs
+END
+StringBuffer.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/StringBuffer.cs.meta
+END
+JavaScriptUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/JavaScriptUtils.cs
+END
+StringUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/StringUtils.cs
+END
+DictionaryWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DictionaryWrapper.cs.meta
+END
+CollectionWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/CollectionWrapper.cs
+END
+BidirectionalDictionary.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/BidirectionalDictionary.cs
+END
+LateBoundReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/LateBoundReflectionDelegateFactory.cs.meta
+END
+ValidationUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/ValidationUtils.cs.meta
+END
+DateTimeUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/DateTimeUtils.cs.meta
+END
+EnumValues.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/EnumValues.cs.meta
+END
+Base64Encoder.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/Base64Encoder.cs.meta
+END
+MathUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities/MathUtils.cs
+END

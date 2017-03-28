@@ -1,0 +1,413 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization
+END
+RT_DefaultSerializationBinder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultSerializationBinder.cs
+END
+RT_ExpressionValueProvider.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ExpressionValueProvider.cs
+END
+RT_JsonContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonContract.cs
+END
+RT_JsonProperty.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonProperty.cs
+END
+RT_JsonSerializerInternalBase.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalBase.cs.meta
+END
+RT_JsonTypeReflector.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonTypeReflector.cs
+END
+RT_JsonSerializerInternalWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalWriter.cs.meta
+END
+RT_ErrorContext.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ErrorContext.cs.meta
+END
+RT_MemoryTraceWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_MemoryTraceWriter.cs
+END
+RT_ReflectionValueProvider.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ReflectionValueProvider.cs.meta
+END
+RT_JsonLinqContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonLinqContract.cs
+END
+RT_ExpressionValueProvider.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ExpressionValueProvider.cs.meta
+END
+RT_JsonContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonContract.cs.meta
+END
+RT_ErrorEventArgs.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ErrorEventArgs.cs.meta
+END
+RT_JsonDictionaryContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonDictionaryContract.cs
+END
+RT_ErrorContext.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ErrorContext.cs
+END
+RT_OnErrorAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_OnErrorAttribute.cs.meta
+END
+RT_JsonPrimitiveContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonPrimitiveContract.cs
+END
+RT_ReflectionValueProvider.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ReflectionValueProvider.cs
+END
+RT_DefaultContractResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultContractResolver.cs
+END
+RT_JsonSerializerProxy.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerProxy.cs
+END
+RT_IContractResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IContractResolver.cs
+END
+RT_OnErrorAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_OnErrorAttribute.cs
+END
+RT_DefaultReferenceResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultReferenceResolver.cs.meta
+END
+RT_TraceJsonWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_TraceJsonWriter.cs.meta
+END
+RT_ObjectConstructor.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ObjectConstructor.cs
+END
+RT_JsonDynamicContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonDynamicContract.cs
+END
+RT_IReferenceResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IReferenceResolver.cs.meta
+END
+RT_JsonPropertyCollection.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonPropertyCollection.cs.meta
+END
+RT_JsonLinqContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonLinqContract.cs.meta
+END
+RT_JsonSerializerInternalReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalReader.cs
+END
+RT_IValueProvider.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IValueProvider.cs.meta
+END
+RT_JsonPropertyCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonPropertyCollection.cs
+END
+RT_CachedAttributeGetter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_CachedAttributeGetter.cs.meta
+END
+RT_JsonSerializerInternalWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalWriter.cs
+END
+RT_JsonContainerContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonContainerContract.cs.meta
+END
+RT_ITraceWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ITraceWriter.cs
+END
+RT_CachedAttributeGetter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_CachedAttributeGetter.cs
+END
+RT_JsonSerializerInternalReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalReader.cs.meta
+END
+RT_MemoryTraceWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_MemoryTraceWriter.cs.meta
+END
+RT_JsonContainerContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonContainerContract.cs
+END
+RT_CamelCasePropertyNamesContractResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_CamelCasePropertyNamesContractResolver.cs.meta
+END
+RT_TraceJsonReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_TraceJsonReader.cs
+END
+RT_JsonPrimitiveContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonPrimitiveContract.cs.meta
+END
+RT_DefaultReferenceResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultReferenceResolver.cs
+END
+RT_TraceJsonWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_TraceJsonWriter.cs
+END
+RT_CamelCasePropertyNamesContractResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_CamelCasePropertyNamesContractResolver.cs
+END
+RT_DefaultContractResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultContractResolver.cs.meta
+END
+RT_IReferenceResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IReferenceResolver.cs
+END
+RT_JsonArrayContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonArrayContract.cs.meta
+END
+RT_IContractResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IContractResolver.cs.meta
+END
+RT_TraceJsonReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_TraceJsonReader.cs.meta
+END
+RT_ObjectConstructor.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ObjectConstructor.cs.meta
+END
+RT_JsonDynamicContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonDynamicContract.cs.meta
+END
+RT_JsonTypeReflector.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonTypeReflector.cs.meta
+END
+RT_JsonArrayContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonArrayContract.cs
+END
+RT_ErrorEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ErrorEventArgs.cs
+END
+RT_JsonDictionaryContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonDictionaryContract.cs.meta
+END
+RT_JsonStringContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonStringContract.cs.meta
+END
+RT_JsonObjectContract.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonObjectContract.cs.meta
+END
+RT_ITraceWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_ITraceWriter.cs.meta
+END
+RT_JsonSerializerProxy.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerProxy.cs.meta
+END
+RT_JsonSerializerInternalBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonSerializerInternalBase.cs
+END
+RT_DefaultSerializationBinder.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_DefaultSerializationBinder.cs.meta
+END
+RT_JsonStringContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonStringContract.cs
+END
+RT_JsonObjectContract.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonObjectContract.cs
+END
+RT_IValueProvider.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_IValueProvider.cs
+END
+RT_JsonProperty.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Serialization/RT_JsonProperty.cs.meta
+END

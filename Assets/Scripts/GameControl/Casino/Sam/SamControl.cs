@@ -152,7 +152,7 @@ public class SamControl : BaseCasino {
                     pl.SetNumCard(numCard);
                 }
             }
-            GameConfig.TimerTurnInGame = time;
+            GameControl.instance.TimerTurnInGame = time;
             BasePlayer plTurn = GetPlayerWithName(turnName);
             if (plTurn != null) {
                 plTurn.SetTurn(time);
@@ -172,7 +172,7 @@ public class SamControl : BaseCasino {
         base.OnInfome(message);
         try {
             //    BaseInfo.gI().isView = false;
-            GameConfig.TimerTurnInGame = 20;
+            GameControl.instance.TimerTurnInGame = 20;
             //    isStart = true;
             //    players[0].setPlaying(true);
             playerMe.IsPlaying = (true);

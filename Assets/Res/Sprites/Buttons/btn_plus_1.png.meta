@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4ac3c26147d64a64886227a293c95e73
-timeCreated: 1487256369
+guid: 9dcb003d3a23042a29e727633133fc34
+timeCreated: 1490608462
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -66,6 +66,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
@@ -86,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Button
+  spritePackingTag: Btn
   userData: 
   assetBundleName: ui
   assetBundleVariant: 

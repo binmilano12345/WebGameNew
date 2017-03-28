@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0ae893530e529d54caad03c4cdf645b4
-timeCreated: 1487255003
+guid: f23c53c155ab946cc94a305da99cc266
+timeCreated: 1490619683
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -39,7 +39,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 34, y: 0, z: 34, w: 0}
+  spriteBorder: {x: 35, y: 0, z: 35, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -59,6 +59,14 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
   - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
     maxTextureSize: 2048
     textureFormat: -1
     textureCompression: 1
@@ -86,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Bkg
+  spritePackingTag: bkg
   userData: 
   assetBundleName: ui
   assetBundleVariant: 

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repo/!svn/ver/713/unity-client/Assets/AssetBundleManager
+END
+Resources.meta
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Resources.meta
+END
+Demo.meta
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Demo.meta
+END
+Editor.meta
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor.meta
+END
+Scripts.meta
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Scripts.meta
+END

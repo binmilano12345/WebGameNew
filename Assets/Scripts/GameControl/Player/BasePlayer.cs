@@ -22,13 +22,9 @@ public class BasePlayer : MonoBehaviour {
     [SerializeField]
     ChatPlayer chatPlayer;
     [SerializeField]
-    ChatActionViewScript chatAction;
-    [SerializeField]
     GameObject objXoay;
     [SerializeField]
     Image imgEffectRank;
-
-    //public PlayerData playerData { get; set; }
 
     void Init() {
         objXoay.transform.DORotate(new Vector3(0, 0, 120), 0.4f).SetLoops(-1, LoopType.Yoyo);
@@ -39,6 +35,7 @@ public class BasePlayer : MonoBehaviour {
     public bool IsPlaying { get; set; }
     public bool IsReady { get; set; }
     public bool IsMaster { get; set; }
+    public bool IsTurn { get; set; }
     public string NamePlayer { get; set; }
     public int SitOnClient { get; set; }
 
@@ -50,7 +47,7 @@ public class BasePlayer : MonoBehaviour {
         } else {
             txt_name.text = name.Substring(0, 6) + "..";
         }
-        txt_money.text = MoneyHelper.FormatMoneyNormal(money);
+		SetMoney (money);
         IsMaster = isMaster;
         IsReady = isReady;
         SetShowMaster(isMaster);
@@ -67,8 +64,18 @@ public class BasePlayer : MonoBehaviour {
         txt_ready.text = ClientConfig.Language.GetText("ingame_ready");
         txt_ready.gameObject.SetActive(isReady);
     }
-    public void SetTurn(float time) {
+    public void SetTurn(float time = 20, bool isDenLuot = true) {
         timeTurn.SetTime(time);
+        IsTurn = isDenLuot;
+        if (isDenLuot) {
+            timeTurn.SetTime(time);
+            //if (HighLightViewScript.Instance != null) {
+            //    if (!HighLightViewScript.Instance.isShow)
+            //        HighLightViewScript.Instance.SetVisibleHighLight(true);
+            //    HighLightViewScript.Instance.HighLightTo(gameObject);
+            //}
+        } else
+            timeTurn.SetTime(0);
     }
     public void SetEffect(string msg) {
         txt_effect.text = msg;
@@ -88,11 +95,11 @@ public class BasePlayer : MonoBehaviour {
 
     public void ChatAction() {
         if (NamePlayer.Equals(ClientConfig.UserInfo.UNAME)) return;
-        if (!chatAction.isShow()) {
-            chatAction.OnShowAction();
-        } else {
-            chatAction.OnHideAction();
-        }
+//        if (!chatAction.isShow()) {
+//            chatAction.OnShowAction();
+//        } else {
+//            chatAction.OnHideAction();
+//        }
     }
 
     public void SetEnableEffectRank(int rank) {
@@ -109,7 +116,7 @@ public class BasePlayer : MonoBehaviour {
     public void SetTextBao() {
         txt_ready.text = "Báo";
     }
-    
+
     public virtual void SetRank(int rank) {
         // 0 mom, 1 nhat, 2 nhi, 3 ba, 4 bet, 5 u
 
@@ -155,7 +162,6 @@ public class BasePlayer : MonoBehaviour {
         }
     }
 
-
     #region Chat Action
     public void SetChat(string msg) {
         chatPlayer.SetText(msg);
@@ -164,8 +170,8 @@ public class BasePlayer : MonoBehaviour {
         chatPlayer.SetPosition(isLeft);
     }
     public void SetPositionChatAction(Align_Anchor align) {
-        chatAction.NamePlayer = NamePlayer;
-        chatAction.SetAnchor(align);
+//        chatAction.NamePlayer = NamePlayer;
+//        chatAction.SetAnchor(align);
     }
     #endregion
 }

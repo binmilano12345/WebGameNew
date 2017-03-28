@@ -20,7 +20,7 @@ public class AutoChooseCardTaLa {
     /// <summary>
     /// Lay phom tren tay tra ve nhieu mang
     /// </summary>
-    static List<int[]> GetPhomTrenTayMultiArray(int[] cardH) {
+    public static List<int[]> GetPhomTrenTayMultiArray(int[] cardH) {
         List<int[]> lResult = new List<int[]>();
         List<int> lTemp = new List<int>();
 
@@ -95,16 +95,13 @@ public class AutoChooseCardTaLa {
     /// </summary>
     public static int[] GetPhomTrenTayOneArray(int[] cardH) {
         List<int> lResult = new List<int>();
-
         List<int> lTemp = new List<int>();
 
         #region Lay bai phom cung gia tri
         var result = cardH.GroupBy(x => GetValue(x));
         foreach (var item in result) {
             lTemp.Clear();
-
             lTemp.AddRange(item.ToList());
-
             if (lTemp.Count > 2) {
                 for (int i = 0; i < lTemp.Count; i++) {
                     if (!lResult.Contains(lTemp[i])) {
@@ -170,13 +167,11 @@ public class AutoChooseCardTaLa {
 
         foreach (var item in result) {
             lTemp.Clear();
-            foreach (var item2 in item) {
-                lTemp.Add(item2);
-                Debug.LogError(GetValue(item2));
-            }
+            lTemp.AddRange(item.ToList());
             if (lTemp.Contains(card)) {
                 lTemp.Remove(card);
-                lResult.AddRange(lTemp);
+                if (lTemp.Count > 1)
+                    lResult.AddRange(lTemp);
                 break;
             }
         }
@@ -199,7 +194,7 @@ public class AutoChooseCardTaLa {
         List<int[]> listPhomTT = GetPhomTrenTayMultiArray(cardH, out cardOther);
         for (int i = 0; i < listPhomTT.Count; i++) {
             List<int> l = listPhomTT[i].ToList();
-            for (int j = 0; j < cardAn.Length; i++) {
+            for (int j = 0; j < cardAn.Length; j++) {
                 if (l.Contains(cardAn[j])) {
                     if (l.Count < 5) {
                         listPhomTT.RemoveAt(i);
@@ -221,6 +216,54 @@ public class AutoChooseCardTaLa {
         }
         int[] cardCotheAn = GetPhomAnDuoc(cardOther.ToArray(), card);
         return cardCotheAn;
+    }
+
+    public static int[] GetPhomDuocAn(int[] cardH, int[] cardAn) {
+        List<int> cardOther;
+        List<int> PhomAn = new List<int>();
+        //Loai bo nhung phom da an trc do
+        List<int[]> listPhomTT = GetPhomTrenTayMultiArray(cardH, out cardOther);
+        for (int i = 0; i < listPhomTT.Count; i++) {
+            List<int> l = listPhomTT[i].ToList();
+            for (int j = 0; j < cardAn.Length; j++) {
+                if (l.Contains(cardAn[j])) {
+                    if (l.Count < 5) {
+                        PhomAn.AddRange(listPhomTT[i]);
+                        listPhomTT.RemoveAt(i);
+                        i--;
+                        cardAn[j] = 53;
+                        break;
+                    } else {
+                        int indexCA = GetIndexCardInArray(cardAn, cardAn[i]);
+                        if (indexCA >= cardAn.Length - 2) {
+                            PhomAn.AddRange(listPhomTT[i]);
+                            listPhomTT.RemoveAt(i);
+                            i--;
+                            cardAn[j] = 53;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < listPhomTT.Count; i++) {
+            for (int j = 0; j < PhomAn.Count; j++) {
+                List<int> l = listPhomTT[i].ToList();
+                if (l.Contains(PhomAn[j])) {
+                    listPhomTT.RemoveAt(i);
+                    i--;
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < listPhomTT.Count; i++) {
+            for (int j = 0; j < listPhomTT[i].Length; j++) {
+                if (!PhomAn.Contains(listPhomTT[i][j])) {
+                    PhomAn.Add(listPhomTT[i][j]);
+                }
+            }
+        }
+        return PhomAn.ToArray();
     }
     /// <summary>
     /// Sap xep bai tren tay, uu tien phom
@@ -249,38 +292,16 @@ public class AutoChooseCardTaLa {
         return null;
     }
     #endregion
-    public static int[] SortCardTaLa(int[] cardH, List<int> CardAn, ref int isTangDan) {
+    public static int[] SortCardTaLa(int[] cardH, List<int> CardEatted, ref int isTangDan) {
         List<int> result = new List<int>();
+        List<int> CardAn = new List<int>();
+        CardAn.AddRange(CardEatted);
+        if (CardAn != null && CardAn.Count > 0) {
+            result.AddRange(GetPhomDuocAn(cardH, CardAn.ToArray()));
+        } else
+            result.AddRange(GetPhomTrenTayOneArray(cardH));
 
-        if (CardAn.Count > 0) {
-            List<int[]> listPhom = GetPhomTrenTayMultiArray(cardH).ToList();//lay phom ra
-            for (int i = 0; i < listPhom.Count; i++) {
-                for (int j = 0; j < listPhom[i].Length; j++) {
-                    if (CardAn.Contains(listPhom[i][j])) {
-                        result.AddRange(listPhom[i]);
-                        listPhom.RemoveAt(i);
-                        i--;
-                        break;
-                    }
-                }
-            }
-            for (int i = 0; i < listPhom.Count; i++) {
-                for (int j = 0; j < listPhom[i].Length; j++) {
-                    if (result.Contains(listPhom[i][j])) {
-                        listPhom.RemoveAt(i);
-                        i--;
-                        break;
-                    }
-                }
-            }
-            for (int i = 0; i < listPhom.Count; i++) {
-                result.AddRange(listPhom[i]);
-            }
-        } else {
-            result.AddRange(GetPhomTrenTayOneArray(cardH).ToList());
-        }
         int[] temp = cardH.Except(result).ToArray();//lay cai ko chung giua phom va card tt
-
         List<int> result2 = new List<int>();
         switch (isTangDan) {
             case 1:
@@ -292,7 +313,6 @@ public class AutoChooseCardTaLa {
                 foreach (var item in res) {
                     result2.AddRange(item.ToList());
                 }
-
                 isTangDan = 3;
                 break;
             case 3:

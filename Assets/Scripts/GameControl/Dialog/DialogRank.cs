@@ -10,12 +10,12 @@ public class DialogRank : MonoBehaviour {
     // Use this for initialization
     void Start() {
         LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ITEM_RANK, (objPre) => {
-            for (int i = 0; i < GameConfig.ListRank.Count; i++) {
+            for (int i = 0; i < GameControl.instance.ListRank.Count; i++) {
                 GameObject obj = Instantiate(objPre);
                 obj.transform.SetParent(tf_parent);
                 obj.transform.localScale = Vector3.one;
                 ItemRankUI it = obj.GetComponent<ItemRankUI>();
-                it.item = GameConfig.ListRank[i];
+                it.item = GameControl.instance.ListRank[i];
                 it.SetUI();
             }
         });

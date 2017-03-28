@@ -1,0 +1,449 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source
+END
+TypeNameHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/TypeNameHandling.cs.meta
+END
+JsonConverterCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverterCollection.cs
+END
+JsonArrayAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonArrayAttribute.cs.meta
+END
+ReferenceLoopHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ReferenceLoopHandling.cs.meta
+END
+Linq.meta
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Linq.meta
+END
+JsonWriterException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonWriterException.cs
+END
+JsonConverterAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverterAttribute.cs
+END
+JsonTextReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonTextReader.cs.meta
+END
+JsonConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverter.cs.meta
+END
+TypeNameHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/TypeNameHandling.cs
+END
+JsonToken.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonToken.cs.meta
+END
+ObjectCreationHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObjectCreationHandling.cs
+END
+JsonIgnoreAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonIgnoreAttribute.cs
+END
+MemberSerialization.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/MemberSerialization.cs
+END
+DefaultValueHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/DefaultValueHandling.cs.meta
+END
+ConstructorHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ConstructorHandling.cs.meta
+END
+Required.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Required.cs
+END
+Schema.meta
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Schema.meta
+END
+Bson.meta
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Bson.meta
+END
+JsonValidatingReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonValidatingReader.cs.meta
+END
+ObjectCreationHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObjectCreationHandling.cs.meta
+END
+PreserveReferencesHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/PreserveReferencesHandling.cs.meta
+END
+JsonConstructorAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConstructorAttribute.cs.meta
+END
+JsonWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonWriter.cs.meta
+END
+Serialization.meta
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Serialization.meta
+END
+JsonValidatingReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonValidatingReader.cs
+END
+JsonReaderException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonReaderException.cs.meta
+END
+JsonConverterCollection.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverterCollection.cs.meta
+END
+JsonConstructorAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConstructorAttribute.cs
+END
+Aot.meta
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Aot.meta
+END
+Required.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Required.cs.meta
+END
+JsonWriterException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonWriterException.cs.meta
+END
+JsonToken.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonToken.cs
+END
+JsonConverterAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverterAttribute.cs.meta
+END
+JsonSerializationException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializationException.cs.meta
+END
+JsonReaderException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonReaderException.cs
+END
+Converters.meta
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Converters.meta
+END
+JsonSerializerSettings.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializerSettings.cs
+END
+DefaultValueHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/DefaultValueHandling.cs
+END
+JsonIgnoreAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonIgnoreAttribute.cs.meta
+END
+JsonPropertyAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonPropertyAttribute.cs.meta
+END
+MemberSerialization.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/MemberSerialization.cs.meta
+END
+ConstructorHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ConstructorHandling.cs
+END
+MissingMemberHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/MissingMemberHandling.cs.meta
+END
+IJsonLineInfo.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/IJsonLineInfo.cs.meta
+END
+JsonReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonReader.cs
+END
+Utilities.meta
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Utilities.meta
+END
+ReferenceLoopHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ReferenceLoopHandling.cs
+END
+JsonConvert.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConvert.cs.meta
+END
+JsonTextWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonTextWriter.cs.meta
+END
+JsonContainerAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonContainerAttribute.cs
+END
+JsonTextReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonTextReader.cs
+END
+JsonConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConverter.cs
+END
+ObservableSupport.meta
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/ObservableSupport.meta
+END
+PreserveReferencesHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/PreserveReferencesHandling.cs
+END
+Shims.meta
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims.meta
+END
+JsonWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonWriter.cs
+END
+JsonSerializerSettings.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializerSettings.cs.meta
+END
+JsonTextWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonTextWriter.cs
+END
+NullValueHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/NullValueHandling.cs
+END
+JsonReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonReader.cs.meta
+END
+WinRT.meta
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT.meta
+END
+JsonObjectAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonObjectAttribute.cs
+END
+JsonContainerAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonContainerAttribute.cs.meta
+END
+JsonSerializationException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializationException.cs
+END
+JsonSerializer.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializer.cs.meta
+END
+JsonArrayAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonArrayAttribute.cs
+END
+NullValueHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/NullValueHandling.cs.meta
+END
+JsonPropertyAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonPropertyAttribute.cs
+END
+JsonSerializer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonSerializer.cs
+END
+MissingMemberHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/MissingMemberHandling.cs
+END
+IJsonLineInfo.cs
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/IJsonLineInfo.cs
+END
+JsonObjectAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonObjectAttribute.cs.meta
+END
+JsonConvert.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/JsonConvert.cs
+END

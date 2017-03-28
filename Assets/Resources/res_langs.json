@@ -79,6 +79,9 @@
     "lobby_help": "Hỗ trợ",
     "lobby_rank": "Xếp hạng",
     "lobby_menu": "Menu",
+	
+    "lobby_invite": "MỜI BẠN",
+    "lobby_invite_all": "Mời tất cả",
 
     "popup_taoban_header":  "TẠO BÀN",
     "popup_taoban_muccuoc": "MỨC CƯỢC",

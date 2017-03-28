@@ -15,7 +15,7 @@ public class LoadSceneAtTheBegining : MonoBehaviour {
             return;
         }
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-        EditorSceneManager.OpenScene("Assets/Scenes/load.unity", OpenSceneMode.Single);
+        EditorSceneManager.OpenScene("Assets/Res/Scenes/load.unity", OpenSceneMode.Single);
         EditorApplication.isPlaying = true;
     }
 }

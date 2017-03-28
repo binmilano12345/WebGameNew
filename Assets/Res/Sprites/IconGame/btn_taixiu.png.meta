@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 053cbc2cef53c0442b581b5e77a5b730
-timeCreated: 1487997152
+guid: d2402e7e797194e0b8469bd7ca3012df
+timeCreated: 1490608463
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -66,6 +66,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
@@ -88,5 +96,5 @@ TextureImporter:
     outline: []
   spritePackingTag: IconGame
   userData: 
-  assetBundleName: 
+  assetBundleName: icon_game
   assetBundleVariant: 

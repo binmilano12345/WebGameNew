@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Serialization
+END
+1-BasicSerialization.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Serialization/1-BasicSerialization.meta
+END
+2-Polymorphism.meta
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Serialization/2-Polymorphism.meta
+END
+3-BSON.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Serialization/3-BSON.meta
+END
+999-ExampleModels.meta
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Serialization/999-ExampleModels.meta
+END

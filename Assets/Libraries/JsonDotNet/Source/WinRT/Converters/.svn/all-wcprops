@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters
+END
+RT_StringEnumConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_StringEnumConverter.cs.meta
+END
+RT_JavaScriptDateTimeConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_JavaScriptDateTimeConverter.cs
+END
+RT_CustomCreationConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_CustomCreationConverter.cs.meta
+END
+RT_ExpandoObjectConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_ExpandoObjectConverter.cs
+END
+RT_VersionConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_VersionConverter.cs
+END
+RT_KeyValuePairConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_KeyValuePairConverter.cs.meta
+END
+RT_DateTimeConverterBase.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_DateTimeConverterBase.cs
+END
+RT_BsonObjectIdConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_BsonObjectIdConverter.cs.meta
+END
+RT_JsonValueConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_JsonValueConverter.cs.meta
+END
+RT_StringEnumConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_StringEnumConverter.cs
+END
+RT_XmlNodeConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_XmlNodeConverter.cs.meta
+END
+RT_IsoDateTimeConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_IsoDateTimeConverter.cs.meta
+END
+RT_CustomCreationConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_CustomCreationConverter.cs
+END
+RT_RegexConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_RegexConverter.cs.meta
+END
+RT_KeyValuePairConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_KeyValuePairConverter.cs
+END
+RT_BsonObjectIdConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_BsonObjectIdConverter.cs
+END
+RT_JsonValueConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_JsonValueConverter.cs
+END
+RT_XmlNodeConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_XmlNodeConverter.cs
+END
+RT_IsoDateTimeConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_IsoDateTimeConverter.cs
+END
+RT_JavaScriptDateTimeConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_JavaScriptDateTimeConverter.cs.meta
+END
+RT_ExpandoObjectConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_ExpandoObjectConverter.cs.meta
+END
+RT_RegexConverter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_RegexConverter.cs
+END
+RT_VersionConverter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_VersionConverter.cs.meta
+END
+RT_DateTimeConverterBase.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Converters/RT_DateTimeConverterBase.cs.meta
+END

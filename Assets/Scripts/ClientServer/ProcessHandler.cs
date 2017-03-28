@@ -62,9 +62,27 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_UPDATE_ROOM:
                         listenner.OnUpdateRoom(message);
                         break;
+				case CMDClient.CMD_ID_GAME:
+					listenner.OnGameID(message);
+					break;
                     case CMDClient.CMD_JOIN_TABLE_PLAY:
                         listenner.OnJoinTablePlay(message);
                         break;
+				case CMDClient.CMD_USER_JOIN_TABLE:
+					if (GameControl.instance.CurrentCasino == null) {
+						GameControl.instance.ListCMDID.Add(messageId);
+						GameControl.instance.ListMsg.Add(message);
+					} else
+						listenner.OnUserJoinTable(message);
+							break;
+					break;
+				case CMDClient.CMD_UPDATEMONEY_PLAYER_INTBL:	
+					if (GameControl.instance.CurrentCasino == null) {
+						GameControl.instance.ListCMDID.Add(messageId);
+						GameControl.instance.ListMsg.Add(message);
+				} else
+					listenner.OnUpdateMoneyTbl(message);
+					break;
                     case CMDClient.CMD_EXIT_TABLE:
                         if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
@@ -140,12 +158,18 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_SET_TURN:
                         listenner.OnSetTurn(message);
                         break;
+                    case CMDClient.CMD_LIST_INVITE:
+                        listenner.OnListInvite(message);
+                        break;
                     case CMDClient.CMD_INVITE_FRIEND:// nhan loi moi tu a vao tbid
                         listenner.OnInvite(message);
                         break;
                     case CMDClient.CMD_BAO_SAM:
                         listenner.OnBaoSam(message);
                         break;
+				case CMDClient.CMD_CALMB_RANKS:
+					listenner.OnRankMauBinh(message);
+					break;
                     default:
                         if (secondHandler != null) {
                             secondHandler.processMessage(message);

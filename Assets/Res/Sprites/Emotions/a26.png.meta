@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 12d032fb04533824293bdb67ac3c1a0f
-timeCreated: 1487002491
+guid: ddef19aa1924743ed865dbfa1345e30f
+timeCreated: 1490608463
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -66,6 +66,14 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   - buildTarget: Android
     maxTextureSize: 2048
     textureFormat: -1
@@ -88,5 +96,5 @@ TextureImporter:
     outline: []
   spritePackingTag: Emotions
   userData: 
-  assetBundleName: emotions
+  assetBundleName: 
   assetBundleVariant: 

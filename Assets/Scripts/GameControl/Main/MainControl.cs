@@ -9,7 +9,6 @@ public class MainControl : MonoBehaviour {
     ArrayCard cardHand;
 
     void Start() {
-        GameControl.instance.UnloadSubScene();
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadGameScene();
@@ -24,7 +23,13 @@ public class MainControl : MonoBehaviour {
         //}
         //Debug.LogError(msg);
         //cardHand.InitDemo(cardH);L
-    }
+		StartCoroutine (InitGame ());
+	}
+	IEnumerator InitGame(){
+		yield return new WaitForEndOfFrame ();
+//		LoadAssetBundle.LoadFisrtSceneGame (SceneName.GAME_TLMN, SceneName.GAME_TLMN);
+//		Debug.LogError ("LoadFisrtSceneGame TLMN");
+	}
     public void OnClick_LoginFacebook() {
     }
     public void OnClick_Login() {

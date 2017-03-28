@@ -77,23 +77,28 @@ public class TLMNSoloControl : BaseCasino {
             SetActiveButton(false, true, false, false);
         }
     }
-    internal override void SetTurn(string nick, Message message) {
-        base.SetTurn(nick, message);
-        Debug.LogError("thang danh " + nick);
-        try {
-            if (nick.Equals(ClientConfig.UserInfo.UNAME) || string.IsNullOrEmpty(nick)) {
-                SetActiveButton(false, false, true, true);
-            } else {
-                SetActiveButton(false, false, false, false);
-            }
-            if (nick.Equals(nickFire)) {
-                cardTable.UpHetCMNBaiXuong();
-                AutoChooseCard.CardTrenBan.Clear();
-            }
-        } catch (Exception e) {
-            Debug.LogException(e);
-        }
-    }
+
+	internal override void SetTurn (string nick, Message message)
+	{
+		base.SetTurn (nick, message);
+		try {
+			if (nick.Equals (ClientConfig.UserInfo.UNAME) || string.IsNullOrEmpty (nick)) {
+				SetActiveButton (false, false, true, true);
+				((TLMNPlayer)playerMe).CardHand.ResetCard ();
+			} else {
+				SetActiveButton (false, false, false, false);
+			}
+
+			if (nick.Equals (nickFire)) {
+				cardTable.UpHetCMNBaiXuong ();
+				AutoChooseCard.CardTrenBan.Clear ();
+				nickFire = "";
+			}
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
+	}
+
     internal override void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
         base.StartTableOk(cardHand, msg, nickPlay);
         ListCardOfMe.Clear();
@@ -101,13 +106,14 @@ public class TLMNSoloControl : BaseCasino {
         AutoChooseCard.CardTrenBan.Clear();
         nickFire = "";
         for (int i = 0; i < nickPlay.Length; i++) {
-            BasePlayer pl = GetPlayerWithName(nickPlay[i]);
+			TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
                 if (pl.SitOnClient == 0) {
-                    ((TLMNPlayer)pl).CardHand.ChiaBaiTienLen(AutoChooseCard.SortArrCard(cardHand), true);
+                    pl.CardHand.ChiaBaiTienLen(AutoChooseCard.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {
-                    ((TLMNPlayer)pl).CardHand.ChiaBaiTienLen(cardHand, false);
+					pl.CardHand.ChiaBaiTienLen(cardHand, false);
+					pl.SetNumCard(13);
                 }
             }
         }
@@ -145,7 +151,7 @@ public class TLMNSoloControl : BaseCasino {
                     pl.SetNumCard(numCard);
                 }
             }
-            GameConfig.TimerTurnInGame = time;
+            GameControl.instance.TimerTurnInGame = time;
             BasePlayer plTurn = GetPlayerWithName(turnName);
             if (plTurn != null) {
                 plTurn.SetTurn(time);
@@ -163,7 +169,7 @@ public class TLMNSoloControl : BaseCasino {
         base.OnInfome(message);
         try {
             //    BaseInfo.gI().isView = false;
-            GameConfig.TimerTurnInGame = 20;
+            GameControl.instance.TimerTurnInGame = 20;
             //    isStart = true;
             //    players[0].setPlaying(true);
             playerMe.IsPlaying = (true);

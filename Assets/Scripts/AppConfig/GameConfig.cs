@@ -41,11 +41,6 @@ namespace AppConfig {
         public static int[] IdGame = new int[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
         public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO" };
         public static int CurrentGameID;
-
-        public static int TimerTurnInGame = 0;
-        public static List<ItemRankData> ListRank = new List<ItemRankData>();
-        public static List<ItemNotiData> ListNoti = new List<ItemNotiData>();
-        //public static Dictionary<int, string> GetGameById = new Dictionary<int, string>();
     }
 
     public class LinkFixed {
@@ -105,8 +100,9 @@ namespace AppConfig {
     }
 
     public class BundleName {
-        public const string PREFAPS = "prefabs";
-        public const string UI = "ui";
+		public const string PREFAPS = "prefabs";
+		public const string UI = "ui";
+		public const string CARDS = "cards";
         public const string ICON_GAME = "icon_game";
         public const string AVATAS = "avatas";
         public const string CHIP = "chip";
@@ -130,6 +126,8 @@ namespace AppConfig {
         public const string PRE_PLAYER_TLMN = "TLMNPlayer";
         public const string PRE_PLAYER_SAM = "SamPlayer";
         public const string PRE_PLAYER_PHOM = "PhomPlayer";
+
+        public const string PRE_ITEM_INVITE = "ItemInvite";
 
         public const string PRE_ITEM_TABLE = "Item_Table";
         public const string PRE_ITEM_GAME = "ItemGame";
@@ -164,19 +162,13 @@ namespace AppConfig {
         public const string SUB_NOTI = "sub_noti";
         public const string SUB_CHAT = "sub_chat";
         public const string SUB_HELP = "sub_help";
+        public const string SUB_INVITE = "sub_invite";
 
-        public const string SUB_MAIL = "mail";
-        public const string SUB_INFO_PLAYER = "info_player";
-        public const string SUB_BANK = "bank";
-        public const string SUB_INVITE_FRIEND = "invite_friend";
-        public const string SUB_CAOTHU = "caothu";
-        public const string SUB_DOI_THUONG = "doithuong";
-        public const string SUB_NAPTHE = "napthe";
-
-        public const string GAME_TLMN = "tlmn";
-        public const string GAME_TLMN_SOLO = "tlmnsolo";
-        public const string GAME_SAM = "sam";
-        public const string GAME_PHOM = "phom";
+        public const string GAME_TLMN = "game_tlmn";
+        public const string GAME_TLMN_SOLO = "game_tlmnsolo";
+        public const string GAME_SAM = "game_sam";
+		public const string GAME_PHOM = "game_phom";
+		public const string GAME_MAUBINH = "game_maubinh";
     }
 
     public class CMDClient {

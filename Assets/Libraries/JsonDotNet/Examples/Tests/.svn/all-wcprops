@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests
+END
+TestCaseUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/TestCaseUtils.cs
+END
+JsonTestScript.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/JsonTestScript.cs
+END
+JsonTestScene.unity.meta
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/JsonTestScene.unity.meta
+END
+TestCaseUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/TestCaseUtils.cs.meta
+END
+JsonTestScript.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/JsonTestScript.cs.meta
+END
+TestModels.meta
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/TestModels.meta
+END
+TextTest.cs
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/TextTest.cs
+END
+TextTest.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/TextTest.cs.meta
+END
+JsonTestScene.unity
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Examples/Tests/JsonTestScene.unity
+END

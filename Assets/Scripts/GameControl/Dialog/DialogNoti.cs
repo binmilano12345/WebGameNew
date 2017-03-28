@@ -14,13 +14,13 @@ public class DialogNoti : MonoBehaviour {
     void Start() {
         LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ITEM_NOTI, (objPre) => {
             GameObject objInit = null;
-            for (int i = 0; i < GameConfig.ListNoti.Count; i++) {
+            for (int i = 0; i < GameControl.instance.ListNoti.Count; i++) {
                 GameObject obj = Instantiate(objPre);
                 obj.transform.SetParent(tf_parent);
                 obj.transform.localScale = Vector3.one;
                 obj.name = i + "";
                 ItemNotiUI it = obj.GetComponent<ItemNotiUI>();
-                it.item = GameConfig.ListNoti[i];
+                it.item = GameControl.instance.ListNoti[i];
                 it.SetUI();
                 it.GetComponent<UIButton>()._onClick.AddListener(delegate {
                     OnClickItem(obj);
@@ -36,7 +36,7 @@ public class DialogNoti : MonoBehaviour {
 
     void OnClickItem(GameObject obj) {
         int index = int.Parse(obj.name);
-        txt_content.text = GameConfig.ListNoti[index].Content;
+        txt_content.text = GameControl.instance.ListNoti[index].Content;
     }
 
     public void OnHide() {

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repo/!svn/ver/336/unity-client/Assets/AssetBundleManager/Editor
+END
+LaunchAssetBundleServer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/LaunchAssetBundleServer.cs
+END
+AssetBundleServer.exe
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/AssetBundleServer.exe
+END
+ExecuteInternalMono.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/ExecuteInternalMono.cs.meta
+END
+LaunchAssetBundleServer.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/LaunchAssetBundleServer.cs.meta
+END
+AssetBundleServer.exe.meta
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/AssetBundleServer.exe.meta
+END
+AssetbundlesMenuItems.cs
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/AssetbundlesMenuItems.cs
+END
+BuildScript.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/336/unity-client/Assets/AssetBundleManager/Editor/BuildScript.cs
+END
+AssetbundlesMenuItems.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/AssetbundlesMenuItems.cs.meta
+END
+ExecuteInternalMono.cs
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/ExecuteInternalMono.cs
+END
+BuildScript.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repo/!svn/ver/2/unity-client/Assets/AssetBundleManager/Editor/BuildScript.cs.meta
+END

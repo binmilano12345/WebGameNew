@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson
+END
+RT_BsonToken.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonToken.cs.meta
+END
+RT_BsonBinaryType.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonBinaryType.cs
+END
+RT_BsonBinaryWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonBinaryWriter.cs.meta
+END
+RT_BsonType.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonType.cs.meta
+END
+RT_BsonReader.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonReader.cs.meta
+END
+RT_BsonObjectId.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonObjectId.cs.meta
+END
+RT_BsonBinaryType.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonBinaryType.cs.meta
+END
+RT_BsonWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonWriter.cs
+END
+RT_BsonToken.cs
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonToken.cs
+END
+RT_BsonBinaryWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonBinaryWriter.cs
+END
+RT_BsonType.cs
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonType.cs
+END
+RT_BsonWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonWriter.cs.meta
+END
+RT_BsonReader.cs
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonReader.cs
+END
+RT_BsonObjectId.cs
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Bson/RT_BsonObjectId.cs
+END

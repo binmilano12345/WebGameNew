@@ -39,6 +39,7 @@ public class LangLocalize : MonoBehaviour {
 #endif
 
     private void OnChangeLanguage() {
+//		Debug.LogError ("keyyyyyy   " + key);
         Text txt = GetComponent<Text>();
         if (txt != null) {
             txt.text = ClientConfig.Language.GetText(key);

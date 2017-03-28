@@ -88,7 +88,6 @@ public class AutoChooseCard {
                 Card card = cardHandInput[i];
                 if (card.IsChoose && card.ID == idCardChoose && card.isBatHayChua) {
                     card.IsChoose = false;
-                    //Debug.LogError("Bai da duoc chon thi ha xuong!");
                     return;
                 }
             }
@@ -97,7 +96,6 @@ public class AutoChooseCard {
                 Card card = cardHandInput[i];
                 if (card.IsChoose && GetValue(card.ID) == GetValue(idCardChoose) && card.isBatHayChua) {
                     GetCardByID(idCardChoose, cardHandInput).IsChoose = true;
-                    //Debug.LogError("Thang nay la thang thu 2");
                     return;
                 }
             }

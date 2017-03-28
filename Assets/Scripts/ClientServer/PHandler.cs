@@ -23,7 +23,7 @@ public class PHandler : MessageHandler {
     protected override void serviceMessage(Message message, int messageId) {
         try {
             switch (messageId) {
-                case CMDClient.CMD_FIRE_CARD:
+                case CMDClient.CMD_FIRE_CARD: 
                     int card = message.reader().ReadByte();
                     if (card == -1) {
                         GameControl.instance.CurrentCasino.OnFireCardFail();
@@ -34,19 +34,19 @@ public class PHandler : MessageHandler {
                     }
                     break;
                 case CMDClient.CMD_GET_CARD:
-                    listenner.OnGetCardNocSuccess(message);
+                        listenner.OnGetCardNocSuccess(message);
                     break;
                 case CMDClient.CMD_EAT_CARD:
-                    listenner.OnEatCardSuccess(message);
+                        listenner.OnEatCardSuccess(message);
                     break;
                 case CMDClient.CMD_BALANCE:
-                    listenner.OnBalanceCard(message);
+                        listenner.OnBalanceCard(message);
                     break;
                 case CMDClient.CMD_DROP_PHOM:
-                    listenner.OnDropPhomSuccess(message);
+                        listenner.OnDropPhomSuccess(message);
                     break;
                 case CMDClient.CMD_GUI_CARD:
-                    listenner.OnAttachCard(message);
+                        listenner.OnAttachCard(message);
                     break;
                 //case CMDClient.CMD_U:
                 //    // SerializerHelper.readInt(message);
@@ -54,7 +54,7 @@ public class PHandler : MessageHandler {
                 //    listenner.onInfoU(message.reader().readUTF());
                 //    break;
                 case CMDClient.CMD_PHOM_HA:
-                    listenner.OnPhomha(message);
+                        listenner.OnPhomha(message);
                     break;
                 default:
                     Debug.Log("Khong vao cau lenh naooooooooooooo ");

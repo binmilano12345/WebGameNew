@@ -1,0 +1,353 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities
+END
+RT_ThreadSafeStore.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ThreadSafeStore.cs.meta
+END
+RT_EnumValues.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumValues.cs.meta
+END
+RT_DynamicProxyMetaObject.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicProxyMetaObject.cs.meta
+END
+RT_DateTimeParser.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DateTimeParser.cs
+END
+RT_EnumUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumUtils.cs.meta
+END
+RT_MathUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MathUtils.cs
+END
+RT_StringReference.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringReference.cs.meta
+END
+RT_DynamicProxy.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicProxy.cs.meta
+END
+RT_ValidationUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ValidationUtils.cs
+END
+RT_CollectionUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_CollectionUtils.cs
+END
+RT_JavaScriptUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_JavaScriptUtils.cs.meta
+END
+RT_StringUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringUtils.cs.meta
+END
+RT_DateTimeUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DateTimeUtils.cs
+END
+RT_ImmutableCollectionsUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ImmutableCollectionsUtils.cs.meta
+END
+RT_EnumValues.cs
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumValues.cs
+END
+RT_DynamicProxyMetaObject.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicProxyMetaObject.cs
+END
+RT_DynamicProxy.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicProxy.cs
+END
+RT_ConvertUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ConvertUtils.cs.meta
+END
+RT_DictionaryWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DictionaryWrapper.cs.meta
+END
+RT_ExpressionReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ExpressionReflectionDelegateFactory.cs
+END
+RT_DateTimeParser.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DateTimeParser.cs.meta
+END
+RT_ValidationUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ValidationUtils.cs.meta
+END
+RT_EnumValue.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumValue.cs
+END
+RT_MethodCall.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MethodCall.cs.meta
+END
+RT_TypeExtensions.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_TypeExtensions.cs
+END
+RT_DateTimeUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DateTimeUtils.cs.meta
+END
+RT_DynamicUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicUtils.cs
+END
+RT_DictionaryWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DictionaryWrapper.cs
+END
+RT_Base64Encoder.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_Base64Encoder.cs.meta
+END
+RT_MiscellaneousUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MiscellaneousUtils.cs.meta
+END
+RT_LateBoundReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_LateBoundReflectionDelegateFactory.cs
+END
+RT_ReflectionUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ReflectionUtils.cs
+END
+RT_MethodCall.cs
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MethodCall.cs
+END
+RT_ReflectionDelegateFactory.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ReflectionDelegateFactory.cs
+END
+RT_CollectionWrapper.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_CollectionWrapper.cs.meta
+END
+RT_ExpressionReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ExpressionReflectionDelegateFactory.cs.meta
+END
+RT_BidirectionalDictionary.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_BidirectionalDictionary.cs.meta
+END
+RT_ThreadSafeStore.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ThreadSafeStore.cs
+END
+RT_Base64Encoder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_Base64Encoder.cs
+END
+RT_MiscellaneousUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MiscellaneousUtils.cs
+END
+RT_EnumUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumUtils.cs
+END
+RT_StringBuffer.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringBuffer.cs.meta
+END
+RT_StringReference.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringReference.cs
+END
+RT_EnumValue.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_EnumValue.cs.meta
+END
+RT_TypeExtensions.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_TypeExtensions.cs.meta
+END
+RT_JavaScriptUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_JavaScriptUtils.cs
+END
+RT_StringUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringUtils.cs
+END
+RT_DynamicUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_DynamicUtils.cs.meta
+END
+RT_CollectionWrapper.cs
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_CollectionWrapper.cs
+END
+RT_BidirectionalDictionary.cs
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_BidirectionalDictionary.cs
+END
+RT_ImmutableCollectionsUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ImmutableCollectionsUtils.cs
+END
+RT_MathUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_MathUtils.cs.meta
+END
+RT_LateBoundReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_LateBoundReflectionDelegateFactory.cs.meta
+END
+RT_ReflectionUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ReflectionUtils.cs.meta
+END
+RT_StringBuffer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_StringBuffer.cs
+END
+RT_CollectionUtils.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_CollectionUtils.cs.meta
+END
+RT_ConvertUtils.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ConvertUtils.cs
+END
+RT_ReflectionDelegateFactory.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Utilities/RT_ReflectionDelegateFactory.cs.meta
+END

@@ -30,8 +30,8 @@ public class Card : MonoBehaviour {
         get { return h_Card; }
         set { h_Card = value; }
     }
-    public bool isBatHayChua = false;
-
+	public bool isBatHayChua = false;
+	bool isTouched;
     #endregion
     #region UI
     [SerializeField]
@@ -40,7 +40,7 @@ public class Card : MonoBehaviour {
     //DragDropHandler dragdrop;
     #endregion
     #region ARRAY
-    public static int[] LIENG_BACAY_PHOM_XITO = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 };
+	public static int[] LIENG_BACAY_PHOM_XITO = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 };
 
     public static int[] GAME_CON_LAI = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0, 1, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 13, 14, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 26, 27, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 39, 40, 52 };
     //public static int[] GAME_MAU_BINH = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1,15, 16,
@@ -57,7 +57,10 @@ public class Card : MonoBehaviour {
         img_card.rectTransform.sizeDelta = new Vector2(W_Card, H_Card);
         vtDefault = transform.localPosition;
     }
-
+	/// <summary>
+	/// Sets the type of the card. 0 - LIENG_BACAY_PHOM_XITO, 1 - Other
+	/// </summary>
+	/// <param name="type">Type.</param>
     public static void setCardType(int type) {
         if (type == 0) {// phom
             cardPaint = LIENG_BACAY_PHOM_XITO;
@@ -73,10 +76,11 @@ public class Card : MonoBehaviour {
             _id = 52;
         }
         ID = _id;
-        LoadAssetBundle.LoadSprite(img_card, "card", "bai" + cardPaint[_id]);
+		LoadAssetBundle.LoadSprite(img_card, BundleName.CARDS, "bai" + cardPaint[_id]);
     }
 
     public void SetTouched(bool istouched) {
+		isTouched = istouched;
         img_card.raycastTarget = istouched;
     }
     public bool isDark;
@@ -120,13 +124,14 @@ public class Card : MonoBehaviour {
             }
         }
     }
-    public void OnClickCard() {
+	public void OnClickCard() {
+		if (!isTouched) return;
         //if (!isMauBinh || SceneManager.GetSceneByName(SceneName.GAME_TALA).isLoaded) {
-        if (!isAuto)
-            IsChoose = !IsChoose;
-        else {
+		if (!isAuto) {
+			IsChoose = !IsChoose;
+		}else {
             if (onClickOK != null) {
-                onClickOK.Invoke();
+				onClickOK.Invoke();
             } else {
                 IsChoose = !IsChoose;
             }
@@ -168,10 +173,11 @@ public class Card : MonoBehaviour {
         transform.localPosition = from;
         transform.localScale = Vector3.zero;
         transform.DOScale(1, dur);
-        transform.DOLocalMove(vt, dur);
-        if (callback != null) {
-            callback();
-        }
+        transform.DOLocalMove(vt, dur).OnComplete(()=> {
+            if (callback != null) {
+                callback.Invoke();
+            }
+        });
     }
 
     public IEnumerator MoveFromCardHand(Vector3 from, float dur, float wait) {
@@ -196,5 +202,11 @@ public class Card : MonoBehaviour {
             //isCardAnnnnn = false;
             //SetActiveBorder(false);
         }
+    }
+
+    public void SetActiveBorder(bool isActive) {
+        //if (objBorderCard != null) {
+        //    objBorderCard.SetActive(isActive);
+        //}
     }
 }

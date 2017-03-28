@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 643ebe3077f549b40bf3f3c3db6fcb96
-timeCreated: 1487085842
+guid: 90687c038fa814c05ba737dd62c1c609
+timeCreated: 1490608464
 licenseType: Pro
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -17,5 +17,5 @@ TrueTypeFontImporter:
   fontRenderingMode: 0
   ascentCalculationMode: 1
   userData: 
-  assetBundleName: fonts
+  assetBundleName: 
   assetBundleVariant: 

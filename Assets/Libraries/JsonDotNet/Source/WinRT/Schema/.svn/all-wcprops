@@ -1,0 +1,197 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema
+END
+RT_JsonSchemaModelBuilder.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaModelBuilder.cs.meta
+END
+RT_ValidationEventArgs.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_ValidationEventArgs.cs
+END
+RT_JsonSchemaException.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaException.cs
+END
+RT_JsonSchemaModel.cs
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaModel.cs
+END
+RT_JsonSchemaWriter.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaWriter.cs.meta
+END
+RT_JsonSchemaResolver.cs
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaResolver.cs
+END
+RT_JsonSchemaConstants.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaConstants.cs.meta
+END
+RT_ValidationEventHandler.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_ValidationEventHandler.cs.meta
+END
+RT_JsonSchemaType.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaType.cs.meta
+END
+RT_JsonSchemaModelBuilder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaModelBuilder.cs
+END
+RT_JsonSchemaGenerator.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaGenerator.cs.meta
+END
+RT_ValidationEventHandler.cs
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_ValidationEventHandler.cs
+END
+RT_JsonSchemaType.cs
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaType.cs
+END
+RT_ValidationEventArgs.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_ValidationEventArgs.cs.meta
+END
+RT_JsonSchemaException.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaException.cs.meta
+END
+RT_JsonSchemaModel.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaModel.cs.meta
+END
+RT_JsonSchemaNodeCollection.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaNodeCollection.cs.meta
+END
+RT_JsonSchemaBuilder.cs
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaBuilder.cs
+END
+RT_SchemaExtensions.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_SchemaExtensions.cs.meta
+END
+RT_JsonSchemaNodeCollection.cs
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaNodeCollection.cs
+END
+RT_JsonSchema.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchema.cs.meta
+END
+RT_SchemaExtensions.cs
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_SchemaExtensions.cs
+END
+RT_JsonSchemaNode.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaNode.cs.meta
+END
+RT_JsonSchemaBuilder.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaBuilder.cs.meta
+END
+RT_JsonSchemaWriter.cs
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaWriter.cs
+END
+RT_JsonSchemaConstants.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaConstants.cs
+END
+RT_UndefinedSchemaIdHandling.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_UndefinedSchemaIdHandling.cs.meta
+END
+RT_JsonSchema.cs
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchema.cs
+END
+RT_JsonSchemaNode.cs
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaNode.cs
+END
+RT_JsonSchemaResolver.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaResolver.cs.meta
+END
+RT_JsonSchemaGenerator.cs
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_JsonSchemaGenerator.cs
+END
+RT_UndefinedSchemaIdHandling.cs
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/WinRT/Schema/RT_UndefinedSchemaIdHandling.cs
+END

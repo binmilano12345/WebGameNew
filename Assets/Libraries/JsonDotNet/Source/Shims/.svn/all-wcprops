@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims
+END
+DataContractAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/DataContractAttribute.cs
+END
+WP8.meta
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/WP8.meta
+END
+DataContractAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/DataContractAttribute.cs.meta
+END
+EnumMemberAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/EnumMemberAttribute.cs
+END
+DataMemberAttribute.cs
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/DataMemberAttribute.cs
+END
+EnumMemberAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/EnumMemberAttribute.cs.meta
+END
+DataMemberAttribute.cs.meta
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repo/!svn/ver/2/unity-client/Assets/Libraries/JsonDotNet/Source/Shims/DataMemberAttribute.cs.meta
+END

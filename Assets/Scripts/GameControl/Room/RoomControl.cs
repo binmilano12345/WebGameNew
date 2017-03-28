@@ -37,7 +37,7 @@ public class RoomControl : MonoBehaviour {
         GameControl.instance.CurrentCasino = null;
         GameControl.instance.UnloadScene(SceneName.SCENE_MAIN);
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
-        GameControl.instance.UnloadScene(SceneName.GAME_TLMN);
+        GameControl.instance.UnloadGameScene();
         GameControl.instance.UnloadSubScene();
         PopupAndLoadingScript.instance.ShowTaiXiu();
         SetInfo();
@@ -48,7 +48,7 @@ public class RoomControl : MonoBehaviour {
         txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
         txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
         LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
-        txt_game_name.text = GameConfig.GameName[(int)GameConfig.CurrentGameID];
+        txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
         obj_tick_ban_full.SetActive(isAnBanFull);
     }
 
@@ -122,7 +122,7 @@ public class RoomControl : MonoBehaviour {
         myScrollView.ClearCells();
 
         myScrollView.OnStartFillItem(Itemtable, listTable.Count);
-        myScrollView.UpdateInfo = UpdateItemTable;
+        //myScrollView.UpdateInfo = UpdateItemTable;
     }
 
     void UpdateItemTable(GameObject obj, int index) {
