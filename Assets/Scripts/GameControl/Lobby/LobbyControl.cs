@@ -40,17 +40,23 @@ public class LobbyControl : MonoBehaviour {
     }
 
     void SetInfo() {
-        txt_name.text = ClientConfig.UserInfo.UNAME;
         txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
-        txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
         LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
-
+		SetDisplayName ();
+		SetMoney ();
         txt_noti.text = GameConfig.TXT_NOTI;
         txt_noti.transform.localPosition = new Vector3(600, 0, 0);
         float w = LayoutUtility.GetPreferredWidth(txt_noti.rectTransform);
         float time = (1200 + w) / 100;
         txt_noti.transform.DOLocalMoveX(-600 - w, time).SetLoops(-1).SetEase(Ease.Linear);
     }
+
+	public void SetDisplayName(){
+		txt_name.text = ClientConfig.UserInfo.DISPLAY_NAME;
+	}
+	public void SetMoney(){
+		txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
+	}
 
     public void SetNoti() {
         txt_noti.transform.DOKill();
@@ -113,5 +119,9 @@ public class LobbyControl : MonoBehaviour {
     public void OnClickMenu() {
         //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
     }
+
+	public void OnClickInfoPlayer() {
+		LoadAssetBundle.LoadScene(SceneName.SUB_INFO_PLAYER, SceneName.SUB_INFO_PLAYER);
+	}
     #endregion
 }

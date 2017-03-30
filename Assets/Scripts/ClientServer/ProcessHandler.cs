@@ -9,7 +9,7 @@ public class ProcessHandler : MessageHandler {
             DoOnMainThread.ExecuteOnMainThread.Enqueue(() => {
                 switch (messageId) {
                     case CMDClient.CMD_GETPHONECSKH:
-                        string a = message.reader().ReadUTF();
+					listenner.OnGetPhoneCSKH (message);
                         break;
                     case CMDClient.CMD_SERVER_MESSAGE:
                         listenner.OnMessageServer(message.reader().ReadUTF());
@@ -17,6 +17,9 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_LOGIN:
                         listenner.OnLogin(message);
                         break;
+				case CMDClient.CMD_GET_PASS:
+					listenner.OnGetPass(message);
+					break;
                     case CMDClient.CMD_REGISTER:
                         listenner.OnRegister(message);
                         break;
@@ -26,6 +29,15 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_PROFILE:
                         listenner.OnProfile(message);
                         break;
+				case CMDClient.CMD_CHANGE_NAME:
+					listenner.OnChangeName(message);
+					break;
+				case CMDClient.CMD_UPDATE_AVATA:
+					listenner.OnChangeAvatar(message);
+					break;		
+//				case CMDClient.PA:
+//					listenner.OnChangeAvatar(message);
+//					break;
                     case CMDClient.CMD_RATE_SCRATCH_CARD:
                         listenner.OnRateScratchCard(message);
                         break;

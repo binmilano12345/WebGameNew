@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class LoginControl : MonoBehaviour {
     public static LoginControl instance;
     [SerializeField]
-    InputField ip_tk, ip_mk;
+    InputField ip_tk, ip_mk, ip_tk_quenmk;
     [SerializeField]
     Toggle tg_ghi_nho_mk;
+
+	[SerializeField]
+	UIPopUp ui_quen_mk;
 
     void Awake() {
         instance = this;
@@ -46,5 +49,16 @@ public class LoginControl : MonoBehaviour {
     public void OnClick_Ghi_Nho_Mk() {
         ClientConfig.UserInfo.SAVE_PASS = tg_ghi_nho_mk.isOn ? 1 : 0;
     }
+
+	public void OnClick_LayLai_MK(){
+		string tk_mk = ip_tk_quenmk.text.Trim ();
+		if (string.IsNullOrEmpty(tk_mk) || (tk_mk.Length < 5 && tk_mk.Length > 20) || !Regex.IsMatch(tk_mk, @"^([a-zA-Z0-9])+$")) {
+			PopupAndLoadingScript.instance.messageSytem.OnShow (ClientConfig.Language.GetText ("register_tenkhonghople"));
+			ui_quen_mk.HideDialog ();
+			return;
+		}
+		SendData.onGetPass (tk_mk);
+		ui_quen_mk.HideDialog ();
+	}
     #endregion
 }

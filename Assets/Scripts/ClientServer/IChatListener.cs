@@ -4,10 +4,15 @@ using System.Collections;
 interface IChatListener {
     void onDisConnect();
     void OnLogin(Message message);
+	void OnGetPass (Message message);
+	void OnGetPhoneCSKH (Message message);
     void OnRegister(Message message);
     void OnMessageServer(string message);
     void OnPopupNotify(Message message);
-    void OnProfile(Message message);
+	void OnProfile(Message message);
+	void OnChangeName (Message message);
+	void OnChangePass (Message message);
+	void OnChangeAvatar (Message message);
     void OnRateScratchCard(Message message);
     void OnListBetMoney(Message message);
     void OnListProduct(Message message);

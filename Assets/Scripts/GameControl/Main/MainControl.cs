@@ -3,10 +3,17 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainControl : MonoBehaviour {
+	public static MainControl instance;
     [SerializeField]
     ArrayCard cardHand;
+	[SerializeField]
+	Text txt_hotline;
+	void Awake(){
+	
+	}
 
     void Start() {
         GameControl.instance.UnloadScene(SceneName.SCENE_ROOM);
@@ -14,22 +21,13 @@ public class MainControl : MonoBehaviour {
         GameControl.instance.UnloadGameScene();
         GameControl.instance.UnloadSubScene();
         PopupAndLoadingScript.instance.OnHideAll();
+		SetHotline ();
+	}
 
-        //int[] cardH = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
-        //string msg = "";
-        //string[] chat = new string[] { "Bích", "Tép", "Rô", "Cơ" };
-        //for (int i = 0; i < cardH.Length; i++) {
-        //    msg += " " + AutoChooseCard.GetValue(cardH[i]) + " " + chat[AutoChooseCard.GetType(cardH[i])];
-        //}
-        //Debug.LogError(msg);
-        //cardHand.InitDemo(cardH);L
-		StartCoroutine (InitGame ());
+	public void SetHotline(){
+		txt_hotline.text = "Hotline: " + GameConfig.HOT_LINE;
 	}
-	IEnumerator InitGame(){
-		yield return new WaitForEndOfFrame ();
-//		LoadAssetBundle.LoadFisrtSceneGame (SceneName.GAME_TLMN, SceneName.GAME_TLMN);
-//		Debug.LogError ("LoadFisrtSceneGame TLMN");
-	}
+
     public void OnClick_LoginFacebook() {
     }
     public void OnClick_Login() {
@@ -42,6 +40,6 @@ public class MainControl : MonoBehaviour {
         LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
     }
     public void OnClick_Hotline() {
-
+		GameControl.instance.CallPhone (GameConfig.HOT_LINE);
     }
 }

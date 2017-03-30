@@ -73,12 +73,35 @@ public class GameControl : MonoBehaviour {
         }
     }
 
+	#region SMS, Call Phone
+	public void SendSMS(string port, string content){
+		#if UNITY_EDITOR
+		PopupAndLoadingScript.instance.messageSytem.OnShow ("Soạn tin nhắn theo cú pháp: "
+			+ content + " gửi tới " + port);
+		#else
+		Application.OpenURL("sms:" + port + "?body=" + content);
+		#endif
+	}
+	public void CallPhone(string port){		
+		#if UNITY_EDITOR
+		Debug.LogError ("tel://" + port);
+		#else
+		Application.OpenURL("tel://" + port);
+		#endif
+	}
+	#endregion
+
     #region Unload Sub Scene
     public void UnloadSubScene() {
         UnloadScene(SceneName.SUB_REGISTER);
         UnloadScene(SceneName.SUB_LOGIN);
-        UnloadScene(SceneName.SUB_RANK);
-        UnloadScene(SceneName.SUB_SETTING);
+		UnloadScene(SceneName.SUB_RANK);
+		UnloadScene(SceneName.SUB_SETTING);
+		UnloadScene(SceneName.SUB_HELP);
+		UnloadScene(SceneName.SUB_INFO_PLAYER);
+		UnloadScene(SceneName.SUB_INVITE);
+		UnloadScene(SceneName.SUB_CHAT);
+		UnloadScene(SceneName.SUB_NOTI);
     }
     #endregion
     #region Unload Game Scene

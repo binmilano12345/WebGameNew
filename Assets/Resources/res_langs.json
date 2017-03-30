@@ -11,7 +11,7 @@
     "register_chuanhaplai_matkhau": "Bạn chưa nhập lại mật khẩu!",
 	"register_dangky":"Đăng Ký ",
 	"register_matkhau":"Mật Khẩu",
-	"register_nhaplai_matkhau":"Nhập Lại mật khẩu",
+	"register_nhaplai_matkhau":"Nhập lại mật khẩu",
 	"register_taikhoan":"Tài Khoản",
 	"register_warning":"Xin vui lòng nhập đủ thông tin.",
 		"register_nhaplai":"Nhập lại",
@@ -20,9 +20,17 @@
 	"login_facebook":"Facebook",
 	"login_quenmk":"Quên mật khẩu?",
 	"login_ghinhomk":"Ghi nhớ mật khẩu.",
+
+		"change_pass_old":"Mật khẩu cũ:",
+		"change_pass_new":"Mật khẩu mới:",
+		"change_pass_again":"Nhập lại:",
 	"nhap_matkhau":"Mật khẩu...",
+	"nhap_matkhau_moi":"Nhập mật khẩu mới...",
 	"nhap_nhaplai_matkhau":"Nhập lại mật khẩu...",
 	"nhap_taikhoan":"Tài khoản...",
+	"lay_lai_mat_khau":"Lấy Lại Mật Khẩu",
+	"ten_dang_nhap":"Tên đăng nhập",
+	"gui_sms_doi_mk":"Bạn muốn gửi tin nhắn để đổi mật khẩu?",
 
     "reconect_cancel": "THOÁT",
     "reconect_retry": "Không thể kết nối tới server, Bạn có muốn thử lại?",
@@ -46,6 +54,7 @@
     "popup_chua_chon_bai": "Chưa chọn bài!",
     "popup_danh_bai_loi": "Đánh bài lỗi!",
     "popup_invite_play": "{0} mời bạn chơi game {1} với mức cược {2}.",
+	"popup_lay_mk":"Chương trình sẽ gửi tin nhắn để lấy lại mật khẩu (phí 5000đ), bạn có đồng ý không?",
     "button_gui": "Gửi",
 	
     "ingame_ready": "SẴN SÀNG",
@@ -96,7 +105,7 @@
     "iap_noitem": "Hiện chưa có gói nạp nào trong danh sách",
 	"error_seri_code":"Số Seri hoặc Mã thẻ không hợp lệ",
 
-    "changeavatarerr": "Quá trình tải ảnh lên thất bại, quý khách vui lòng thử lại.",
+    "help_luat_choi": "Luật chơi",
 	
     "setting_tile": "CÀI ĐẶT",
     "setting_amthanh": "Âm thanh",
@@ -180,6 +189,22 @@
 	"bank_header_nguoi_nhan":"Người nhận",
 	"bank_header_gia_tri":"Giá trị",
 	"bank_msg_vip3":"Vip 3 trở lên mới được sử dụng chức năng này!",
+
+    "popup_tittle_thong_canhan": "Thông tin cá nhân",
+	"info_player_sovandau":"Số ván đấu: {0}",
+	"info_player_tylethang":"Tỷ lệ thắng: {0}%",
+	"info_player_sogoldmax":"Số Gold lớn nhất: {0}",
+	"info_player_capnhat":"Cập nhật: {0}",
+	"info_player_doiten":"Đổi Tên",
+	"info_player_doimk":"Đổi Mật Khẩu",
+	"info_player_doiavata":"Đổi Avata",
+	"change_name_tenhientai":"Tên hiện tại: {0}",
+	"change_name_tenmoi":"Tên mới:",
+
+	"helper":"Để được hỗ trợ các bạn vui lòng liên hệ các kênh chăm sóc khác hàng sau:\n
+	1. Chăm sóc khách hàng: {0}
+	2. Fanpage: {1}
+	3. Mail hỗ trợ: {2}",
 
 	"mail_tieu_de":"Hòm thư",
 	"mail_soan_thu":"Soạn thư",

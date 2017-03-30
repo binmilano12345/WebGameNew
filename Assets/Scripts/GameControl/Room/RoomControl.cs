@@ -44,13 +44,20 @@ public class RoomControl : MonoBehaviour {
     }
 
     void SetInfo() {
-        txt_name.text = ClientConfig.UserInfo.UNAME;
+		SetDisplayName ();
+		SetMoney ();
         txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
-        txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
         LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
         txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
         obj_tick_ban_full.SetActive(isAnBanFull);
     }
+
+	public void SetDisplayName(){
+		txt_name.text = ClientConfig.UserInfo.DISPLAY_NAME;
+	}
+	public void SetMoney(){
+		txt_money.text = MoneyHelper.FormatAbsoluteWithoutUnit(ClientConfig.UserInfo.CASH_FREE);
+	}
 
     public void CreateTable(List<ItemTableData> listTable) {
         this.ListTable.Clear();
@@ -177,5 +184,8 @@ public class RoomControl : MonoBehaviour {
         sorttype = isOderBy ? 4 : -4;
         OnClickRefresh();
     }
+	public void OnClickInfoPlayer() {
+		LoadAssetBundle.LoadScene(SceneName.SUB_INFO_PLAYER, SceneName.SUB_INFO_PLAYER);
+	}
     #endregion
 }

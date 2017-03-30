@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using DataBase;
+using System.Runtime.CompilerServices;
+
+
 public enum TYPE_CARD {
     MAU_THAU = 0,
     DOI,
@@ -14,8 +17,9 @@ public enum TYPE_CARD {
     THUNG_PHA_SANH
 };
 namespace AppConfig {
-    public class GameConfig {
-        public const string IP = "game.atmdoithuong.com";
+	public class GameConfig {
+		public const string IP = "game.atmdoithuong.com";
+		public static string IP2 = "";
         //public const string IP = "115.84.179.166";
         public const int PORT = 3966;
         //public const string IP = "gamebai.thanbai68.net";//so do
@@ -40,7 +44,16 @@ namespace AppConfig {
         public const int NUM_GAME = 10;
         public static int[] IdGame = new int[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
         public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO" };
-        public static int CurrentGameID;
+		public static int CurrentGameID;
+
+		public static string HOT_LINE = "";
+		public static string MAIL_HELPER = "";
+		public static string FANPAGE = "";
+		public static string CONTENT_DAILY = "";
+		public static string PHONE_NUMBER_DAILY = "";
+		public static bool IS_LOGIN_FB_AVARIABLE = true;
+
+		public const string MONEY_UNIT_VIP = "GOLD";
     }
 
     public class LinkFixed {
@@ -161,8 +174,12 @@ namespace AppConfig {
         public const string SUB_RANK = "sub_rank";
         public const string SUB_NOTI = "sub_noti";
         public const string SUB_CHAT = "sub_chat";
-        public const string SUB_HELP = "sub_help";
-        public const string SUB_INVITE = "sub_invite";
+		public const string SUB_HELP = "sub_help";
+		public const string SUB_INVITE = "sub_invite";
+		public const string SUB_INFO_PLAYER = "sub_info_player";
+		public const string SUB_CHANGE_NAME = "sub_change_name";
+		public const string SUB_CHANGE_PASS = "sub_change_pass";
+		public const string SUB_CHANGE_AVATAR = "sub_change_avatar";
 
         public const string GAME_TLMN = "game_tlmn";
         public const string GAME_TLMN_SOLO = "game_tlmnsolo";
