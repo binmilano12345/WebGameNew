@@ -57,6 +57,9 @@
 	"popup_lay_mk":"Chương trình sẽ gửi tin nhắn để lấy lại mật khẩu (phí 5000đ), bạn có đồng ý không?",
     "button_gui": "Gửi",
 	
+    "menu_thong_bao": "Thông báo",
+    "menu_cai_dat": "Cài đặt",
+
     "ingame_ready": "SẴN SÀNG",
     "ingame_start": "BẮT ĐẦU",
     "ingame_attack": "ĐÁNH",

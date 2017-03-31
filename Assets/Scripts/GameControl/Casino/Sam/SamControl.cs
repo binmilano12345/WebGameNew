@@ -60,7 +60,7 @@ public class SamControl : BaseCasino {
             string str = "";
             string str1 = "";
             for (int i = 0; i < card.Length; i++) {
-                str += "  " + AutoChooseCard.GetValue(card[i]);
+				str += "  " + AutoChooseCardSam.GetValue(card[i]);
                 str1 += "  " + card[i];
             }
 
@@ -75,6 +75,7 @@ public class SamControl : BaseCasino {
     }
     public void OnClickBoSam() {
         SendData.baoxam(0);
+		objBoSam.SetActive(false);
     }
     #endregion
 
@@ -96,7 +97,7 @@ public class SamControl : BaseCasino {
             }
             if (nick.Equals(nickFire)) {
                 cardTable.UpHetCMNBaiXuong();
-                AutoChooseCard.CardTrenBan.Clear();
+				AutoChooseCardSam.CardTrenBan.Clear();
             }
         } catch (Exception e) {
             Debug.LogException(e);
@@ -106,13 +107,13 @@ public class SamControl : BaseCasino {
         base.StartTableOk(cardHand, msg, nickPlay);
         ListCardOfMe.Clear();
         cardTable.XoaHetCMNBaiTrenBan();
-        AutoChooseCard.CardTrenBan.Clear();
+        AutoChooseCardSam.CardTrenBan.Clear();
         nickFire = "";
         for (int i = 0; i < nickPlay.Length; i++) {
             SamPlayer pl = (SamPlayer)GetPlayerWithName(nickPlay[i]);
             if (pl != null) {
                 if (pl.SitOnClient == 0) {
-                    pl.CardHand.ChiaBaiTienLen(AutoChooseCard.SortArrCard(cardHand), true);
+					pl.CardHand.ChiaBaiTienLen(AutoChooseCardSam.SortArrCard(cardHand), true);
                     ListCardOfMe.AddRange(cardHand);
                 } else {
                     pl.CardHand.ChiaBaiTienLen(cardHand, false);
@@ -240,8 +241,8 @@ public class SamControl : BaseCasino {
     }
     internal override void OnFireCard(string nick, string turnName, int[] card) {
         base.OnFireCard(nick, turnName, card);
-        AutoChooseCard.CardTrenBan.Clear();
-        AutoChooseCard.CardTrenBan.AddRange(card);
+		AutoChooseCardSam.CardTrenBan.Clear();
+		AutoChooseCardSam.CardTrenBan.AddRange(card);
         nickFire = nick;
         SamPlayer plTurn = (SamPlayer)GetPlayerWithName(nick);
         if (plTurn != null) {
@@ -264,8 +265,8 @@ public class SamControl : BaseCasino {
 
         if (turnName.ToLower().Equals(ClientConfig.UserInfo.UNAME.ToLower())) {
             SetActiveButton(false, false, true, true);
-            if (AutoChooseCard.CardTrenBan.Count > 0) {
-                int[] result = AutoChooseCard.ChooseCard(ListCardOfMe.ToArray());
+			if (AutoChooseCardSam.CardTrenBan.Count > 0) {
+				int[] result = AutoChooseCardSam.ChooseCard(ListCardOfMe.ToArray());
                 ((SamPlayer)playerMe).CardHand.SetChooseCard(result);
                 //if (result == null) {//sua
                 //    playerMe.SetTurn(true, 5);
@@ -326,6 +327,8 @@ public class SamControl : BaseCasino {
     internal void OnHoiBaoSam(int time) {
         TimeBaoSam.enabled = true;
         objBoSam.SetActive(true);
+		TimeBaoSam.transform.localScale = Vector3.one;
+		TimeBaoSam.transform.position = Vector3.zero;
         TimeBaoSam.SetTime(time, () => {
             TimeBaoSam.gameObject.SetActive(false);
             objBoSam.SetActive(false);
@@ -338,6 +341,7 @@ public class SamControl : BaseCasino {
             TimeBaoSam.transform.DOMove(plBaoSam.transform.position, 0.4f).OnComplete(delegate {
                 TimeBaoSam.transform.DOScale(0.5f, 0.2f);
             });
+			objBoSam.SetActive (false);
         }
     }
 }

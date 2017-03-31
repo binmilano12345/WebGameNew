@@ -43,7 +43,7 @@ namespace AppConfig {
 
         public const int NUM_GAME = 10;
         public static int[] IdGame = new int[] { GameID.XOCDIA, GameID.TLMN, GameID.TLMNSL, GameID.MAUBINH, GameID.LIENG, GameID.XITO, GameID.POKER, GameID.BACAY, GameID.PHOM, GameID.SAM };
-        public static string[] GameName = new string[] { "PHỎM", "TIẾN LÊN MIỀN NAM", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TIẾN LÊN MIỀN NAM SOLO" };
+        public static string[] GameName = new string[] { "PHỎM", "TLMN ĐẾM LÁ", "XÌ TỐ", "MẬU BINH", "BA CÂY", "LIÊNG", "SÂM", "CHƯƠNG", "POKER", "XÓC ĐĨA", "TÀI XỈU", "TLMN SOLO" };
 		public static int CurrentGameID;
 
 		public static string HOT_LINE = "";
@@ -183,7 +183,7 @@ namespace AppConfig {
 		public const string SUB_CHANGE_AVATAR = "sub_change_avatar";
 
         public const string GAME_TLMN = "game_tlmn";
-        public const string GAME_TLMN_SOLO = "game_tlmnsolo";
+        public const string GAME_TLMN_SOLO = "game_tlmn_solo";
         public const string GAME_SAM = "game_sam";
 		public const string GAME_PHOM = "game_phom";
 		public const string GAME_MAUBINH = "game_maubinh";

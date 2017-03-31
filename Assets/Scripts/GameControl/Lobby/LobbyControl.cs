@@ -118,10 +118,15 @@ public class LobbyControl : MonoBehaviour {
     public void OnClickHelp() {
         LoadAssetBundle.LoadScene(SceneName.SUB_HELP, SceneName.SUB_HELP);
     }
-    public void OnClickMenu() {
-        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+    public void OnClickNoti() {
+		LoadAssetBundle.LoadScene(SceneName.SUB_NOTI, SceneName.SUB_NOTI);
     }
-
+	public void OnClickSetting() {
+		LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
+	}   
+	public void OnClickFanpage() {
+		Application.OpenURL (GameConfig.FANPAGE);
+	}
 	public void OnClickInfoPlayer() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_INFO_PLAYER, SceneName.SUB_INFO_PLAYER);
 	}

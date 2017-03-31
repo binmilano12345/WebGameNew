@@ -38,7 +38,7 @@ public class ListernerServer : IChatListener
 
 	public void OnLogin (Message message)
 	{
-		sbyte b = message.reader ().ReadByte ();
+		int b = message.reader ().ReadByte ();
 		#region Dang nhap Thanh cong
 		if (b == 1) {
 			try {

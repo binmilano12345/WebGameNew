@@ -500,16 +500,18 @@ public abstract class BaseCasino : MonoBehaviour
 		switch (GameConfig.CurrentGameID) {
 		case GameID.TLMN:
 		case GameID.TLMNSL:
+			InitPlayerTLMN ();
+			break;
 		case GameID.SAM:
-			InitPlayerTLMN_SAM ();
+			InitPlayerSam ();
 			break;
 		case GameID.PHOM:
 			InitInfoPlayer_PHOM ();
 			break;
 		}
 	}
-
-	void InitPlayerTLMN_SAM ()
+	#region Init Player TLMN
+	void InitPlayerTLMN ()
 	{
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			TLMNPlayer pl = (TLMNPlayer)ListPlayer [i];
@@ -554,7 +556,55 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 		}
 	}
-
+	#endregion
+	#region Init Player Sam
+	void InitPlayerSam ()
+	{
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			SamPlayer pl = (SamPlayer)ListPlayer [i];
+			pl.CardHand.CardCount = 10;
+			switch (pl.SitOnClient) {
+			case 0:
+				pl.CardHand.isSmall = false;
+				pl.CardHand.isTouched = true;
+				pl.CardHand.align_Anchor = Align_Anchor.CENTER;
+				pl.CardHand.MaxWidth = 800;
+				pl.SetPositionChatLeft (true);
+				pl.CardHand.Init ();
+				pl.CardHand.SetInputChooseCard ();
+				break;
+			case 1:
+				pl.CardHand.isSmall = true;
+				pl.CardHand.isTouched = false;
+				pl.CardHand.align_Anchor = Align_Anchor.RIGHT;
+				pl.CardHand.MaxWidth = 500;
+				pl.SetPositionChatLeft (false);
+				pl.SetPositionChatAction (Align_Anchor.RIGHT);
+				pl.CardHand.Init ();
+				break;
+			case 2:
+				pl.CardHand.isSmall = true;
+				pl.CardHand.isTouched = false;
+				pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+				pl.CardHand.MaxWidth = 500;
+				pl.SetPositionChatLeft (true);
+				pl.SetPositionChatAction (Align_Anchor.BOT);
+				pl.CardHand.Init ();
+				break;
+			case 3:
+				pl.CardHand.isSmall = true;
+				pl.CardHand.isTouched = false;
+				pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+				pl.CardHand.MaxWidth = 500;
+				pl.SetPositionChatLeft (true);
+				pl.SetPositionChatAction (Align_Anchor.LEFT);
+				pl.CardHand.Init ();
+				break;
+			}
+		}
+	}
+	#endregion
+	#region Init Player Phom
 	public void InitInfoPlayer_PHOM ()
 	{
 		for (int i = 0; i < ListPlayer.Count; i++) {
@@ -588,7 +638,7 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 		}
 	}
-
+	#endregion
 	#endregion
 
 	internal BasePlayer GetPlayerWithName (string nick)
