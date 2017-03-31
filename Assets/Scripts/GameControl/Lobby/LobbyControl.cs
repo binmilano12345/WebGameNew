@@ -41,7 +41,7 @@ public class LobbyControl : MonoBehaviour {
 
     void SetInfo() {
         txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
-        LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+		SetAvatar ();
 		SetDisplayName ();
 		SetMoney ();
         txt_noti.text = GameConfig.TXT_NOTI;
@@ -50,7 +50,9 @@ public class LobbyControl : MonoBehaviour {
         float time = (1200 + w) / 100;
         txt_noti.transform.DOLocalMoveX(-600 - w, time).SetLoops(-1).SetEase(Ease.Linear);
     }
-
+	public void SetAvatar(){
+		LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+	}
 	public void SetDisplayName(){
 		txt_name.text = ClientConfig.UserInfo.DISPLAY_NAME;
 	}

@@ -147,20 +147,21 @@ namespace AppConfig {
         public const string PRE_ITEM_RANK = "ItemRank";
         public const string PRE_ITEM_NOTI = "ItemNoti";
         public const string PRE_CARD = "Card";
-        public const string PRE_CHAT_TEXT = "ButtonChatText";
-        public const string PRE_CHAT_SMILE = "ButtonEmotion";
+		public const string PRE_CHAT_TEXT = "ButtonChatText";
+		public const string PRE_CHAT_SMILE = "ButtonEmotion";
+		public const string PRE_ITEM_AVATAR = "ItemAvatar";
 
-        public const string PRE_CHIP = "Chip";
-        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
-        public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
-        public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Image_LichSu_XocDia";
-        public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_Lich_Su_XD";
-        public const string PRE_ITEM_NHAN_GOLD = "ItemReceiveGold";
-        public const string PRE_ITEM_AVATA = "ItemAvata";
-        public const string PRE_ITEM_DOI_THUONG = "ItemDoiThuong";
-        public const string PRE_ITEM_VALUE_GOLD = "ItemValueGold";//Chuyen gold
-        public const string PRE_ITEM_SAFE_GOLD = "ItemSafeGold";//ket bac
-        public const string PRE_ITEM_MAIL = "ItemMail";
+//        public const string PRE_CHIP = "Chip";
+//        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
+//        public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
+//        public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Image_LichSu_XocDia";
+//        public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_Lich_Su_XD";
+//        public const string PRE_ITEM_NHAN_GOLD = "ItemReceiveGold";
+//        public const string PRE_ITEM_AVATA = "ItemAvata";
+//        public const string PRE_ITEM_DOI_THUONG = "ItemDoiThuong";
+//        public const string PRE_ITEM_VALUE_GOLD = "ItemValueGold";//Chuyen gold
+//        public const string PRE_ITEM_SAFE_GOLD = "ItemSafeGold";//ket bac
+//        public const string PRE_ITEM_MAIL = "ItemMail";
     }
 
     public class SceneName {

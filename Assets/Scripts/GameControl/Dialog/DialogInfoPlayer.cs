@@ -54,11 +54,17 @@ public class DialogInfoPlayer : MonoBehaviour {
 
 	public void OnClickChangeName(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_NAME, SceneName.SUB_CHANGE_NAME);
+		OnHide();
 	}	
 	public void OnClickChangePass(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_PASS, SceneName.SUB_CHANGE_PASS);
+		OnHide();
 	}	
 	public void OnClickChangeAvatar(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_AVATAR, SceneName.SUB_CHANGE_AVATAR);
+		OnHide();
+	}
+	 void OnHide(){
+		GetComponent<UIPopUp> ().HideDialog ();
 	}
 }

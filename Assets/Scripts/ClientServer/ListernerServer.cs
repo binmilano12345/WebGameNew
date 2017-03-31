@@ -98,7 +98,7 @@ public class ListernerServer : IChatListener
 				GameConfig.FANPAGE = b [2];
 			}
 
-			GameConfig.IP2 = message.reader().ReadUTF ();
+			GameConfig.IP2 = message.reader ().ReadUTF ();
 			GameConfig.CONTENT_DAILY = message.reader ().ReadUTF ();
 			GameConfig.PHONE_NUMBER_DAILY = message.reader ().ReadUTF ();
 
@@ -180,16 +180,16 @@ public class ListernerServer : IChatListener
 		if (ClientConfig.UserInfo.EXP < 10) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 0;
 		} else if (ClientConfig.UserInfo.EXP >= 30
-		                 && ClientConfig.UserInfo.EXP < 100) {
+		           && ClientConfig.UserInfo.EXP < 100) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 1;
 		} else if (ClientConfig.UserInfo.EXP >= 100
-		                 && ClientConfig.UserInfo.EXP < 300) {
+		           && ClientConfig.UserInfo.EXP < 300) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 2;
 		} else if (ClientConfig.UserInfo.EXP >= 300
-		                 && ClientConfig.UserInfo.EXP < 10000) {
+		           && ClientConfig.UserInfo.EXP < 10000) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 3;
 		} else if (ClientConfig.UserInfo.EXP >= 10000
-		                 && ClientConfig.UserInfo.EXP < 100000) {
+		           && ClientConfig.UserInfo.EXP < 100000) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 4;
 		} else if (ClientConfig.UserInfo.EXP > 100000) {
 			ClientConfig.UserInfo.LEVEL_SCORE = 5;
@@ -209,26 +209,28 @@ public class ListernerServer : IChatListener
 
 	}
 
-	public void OnChangeName(Message message){
+	public void OnChangeName (Message message)
+	{
 		try {
-			sbyte type = message.reader().ReadByte();
-			string info = message.reader().ReadUTF();
+			sbyte type = message.reader ().ReadByte ();
+			string info = message.reader ().ReadUTF ();
 			if (type == 1) {
-				ClientConfig.UserInfo.DISPLAY_NAME = message.reader().ReadUTF();
-				if(LobbyControl.instance != null){
+				ClientConfig.UserInfo.DISPLAY_NAME = message.reader ().ReadUTF ();
+				if (LobbyControl.instance != null) {
 					LobbyControl.instance.SetDisplayName ();
 				}
-				if(RoomControl.instance != null){
+				if (RoomControl.instance != null) {
 					RoomControl.instance.SetDisplayName ();
 				}
 			}
 			PopupAndLoadingScript.instance.messageSytem.OnShow (info);
-		}catch(Exception e){
+		} catch (Exception e) {
 			Debug.LogException (e);
 		}
 	}
 
-	public void OnChangePass(Message message){
+	public void OnChangePass (Message message)
+	{
 		try {
 //			sbyte type = message.reader().ReadByte();
 //			string info = message.reader().ReadUTF();
@@ -242,26 +244,24 @@ public class ListernerServer : IChatListener
 //				}
 //			}
 //			PopupAndLoadingScript.instance.messageSytem.OnShow (info);
-		}catch(Exception e){
+		} catch (Exception e) {
 			Debug.LogException (e);
 		}
 	}
 
-	public void OnChangeAvatar(Message message){
+	public void OnChangeAvatar (Message message)
+	{
 		try {
-			//			sbyte type = message.reader().ReadByte();
-			//			string info = message.reader().ReadUTF();
-			//			if (type == 1) {
-			//				ClientConfig.UserInfo.DISPLAY_NAME = message.reader().ReadUTF();
-			//				if(LobbyControl.instance != null){
-			//					LobbyControl.instance.SetDisplayName ();
-			//				}
-			//				if(RoomControl.instance != null){
-			//					RoomControl.instance.SetDisplayName ();
-			//				}
-			//			}
-			//			PopupAndLoadingScript.instance.messageSytem.OnShow (info);
-		}catch(Exception e){
+			sbyte type = message.reader ().ReadByte ();
+			string info = message.reader ().ReadUTF ();
+			if (LobbyControl.instance != null) {
+				LobbyControl.instance.SetAvatar ();
+			}
+			if (RoomControl.instance != null) {
+				RoomControl.instance.SetAvatar ();
+			}
+			PopupAndLoadingScript.instance.messageSytem.OnShow (info);
+		} catch (Exception e) {
 			Debug.LogException (e);
 		}
 	}
