@@ -213,6 +213,8 @@ public class TLMNControl : BaseCasino
 				for (int i = 0; i < sizeCardFire; i++) {
 					cardFire [i] = message.reader ().ReadByte ();
 				}
+				AutoChooseCard.CardTrenBan.Clear ();
+				AutoChooseCard.CardTrenBan.AddRange (cardFire);
 			}
 			string turnName = message.reader ().ReadUTF ();
 			int turnTime = message.reader ().ReadInt ();

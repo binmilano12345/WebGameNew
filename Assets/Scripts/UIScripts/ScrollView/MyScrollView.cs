@@ -16,14 +16,9 @@ public class MyScrollView : LoopScrollRect {
         if (prfObject != null) {
             GameObject obj = Instantiate(prfObject, Vector3.zero, Quaternion.identity) as GameObject;
             obj.transform.localScale = Vector3.one;
-            StartCoroutine(WaitSeconds());
             return obj;
         }
         return null;
-    }
-
-    private IEnumerator WaitSeconds() {
-        yield return new WaitForSeconds(.1f);
     }
 
     public override void RemoveItem(GameObject go) {

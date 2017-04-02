@@ -182,6 +182,7 @@
 	"rank_gioi_thieu" : "Giới thiệu",
 	"gop_y_tieu_de":"Góp ý",
 	"gop_y_hint":"Những góp ý chất lượng sẽ nhận được quà tặng  từ Ban quản trị.\nChúc các bạn vui vẻ và may mắn.",
+	
 	"bank_tieu_de":"Ngân hàng",
 	"bank_nhan_gold":"Nhận Gold",
 	"bank_chuyen_gold":"Chuyển Gold",
@@ -192,6 +193,19 @@
 	"bank_header_nguoi_nhan":"Người nhận",
 	"bank_header_gia_tri":"Giá trị",
 	"bank_msg_vip3":"Vip 3 trở lên mới được sử dụng chức năng này!",
+	
+	"payment_tab_thecao":"Thẻ cào",
+	"payment_tab_chuyentien":"Chuyển tiền",
+	"payment_tab_daily":"Đại lý",
+	"payment_txt_tyle_quydoi":"TỶ LỆ QUY ĐỔI",
+	"payment_txt_chonmang":"Chọn mạng",
+	"payment_mathe":"Mã thẻ:",
+	"payment_soseri":"Số seri:",
+	"payment_error":"Bạn không được để trống!",
+	"payment_hethong_xuli":"Hệ thống đang xử lí!",
+	"payment_txt_toida_10tin":"Mỗi ngày chỉ được phép nạp tối đa 10 tin nhắn",
+	"payment_txt_send_sms":"Nhắn tin để nạp {0} Gold (phí {1}).",
+	"payment_txt_lsct":"Lịch sử chuyển tiền",
 
     "popup_tittle_thong_canhan": "Thông tin cá nhân",
 	"info_player_sovandau":"Số ván đấu: {0}",

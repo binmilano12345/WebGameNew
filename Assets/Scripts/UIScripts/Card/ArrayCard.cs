@@ -834,4 +834,16 @@ public class ArrayCard : MonoBehaviour
 			return (MaxWidth / CardCount);
 		}
 	}
+	public void ResetForTala(bool isTouched = false){
+		for (int i = 0; i < listCardHand.Count; i++) {
+			Card c = listCardHand [i];
+			c.SetCardWithId(53);
+			c.SetDarkCard (false);
+			c.SetTouched (isTouched);
+			c.IsChoose = false;
+			c.SetActiveBorder (false);
+			c.SetIsCardMauBinh (isTouched);
+			c.SetVisible (false);
+		}
+	}
 }

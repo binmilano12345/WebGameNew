@@ -271,8 +271,10 @@ public class ListernerServer : IChatListener
 		try {
 			int size = message.reader ().ReadInt ();
 			for (int i = 0; i < size; i++) {
-				int menhgia = message.reader ().ReadInt ();
-				int xu = message.reader ().ReadInt ();
+				GameConfig.RATE_CARD it = new GameConfig.RATE_CARD();
+				it.Card_Cost = message.reader ().ReadInt ();//menh gia
+				it.Card_Value = message.reader ().ReadInt ();//xu
+				GameConfig.ListRateCard.Add (it);
 			}
 			GameConfig.SMS_10 = message.reader ().ReadInt ();
 			GameConfig.SMS_15 = message.reader ().ReadInt ();
@@ -284,6 +286,16 @@ public class ListernerServer : IChatListener
 			Debug.LogException (e);
 		}
 	}
+
+	public	void OnMoneyFree(long money){
+		LoadAssetBundle.LoadScene (SceneName.SUB_GIFT_MONEY,SceneName.SUB_GIFT_MONEY, ()=>{
+			ClientConfig.UserInfo.CASH_FREE += money;
+			if(LobbyControl.instance != null){
+				LobbyControl.instance.SetMoney ();
+			}
+		});
+	}
+
 
 	public void OnListBetMoney (Message message)
 	{
@@ -587,8 +599,8 @@ public class ListernerServer : IChatListener
 		for (int i = 0; i < totalTB; i++) {
 			try {
 				ItemTableData ctb = new ItemTableData ();
-				ctb.TableName = "Bàn " + i;
 				ctb.Id = (message.reader ().ReadShort ());
+				ctb.TableName = "Bàn " + ctb.Id;
 				ctb.Status = (message.reader ().ReadByte ());
 				ctb.NUser = (message.reader ().ReadByte ());
 				ctb.IsLock = message.reader ().ReadByte ();
@@ -618,8 +630,8 @@ public class ListernerServer : IChatListener
 		for (int i = 0; i < totalTB; i++) {
 			try {
 				ItemTableData ctb = new ItemTableData ();
-				ctb.TableName = "Bàn " + i;
 				ctb.Id = (message.reader ().ReadShort ());
+				ctb.TableName = "Bàn " + ctb.Id;
 				ctb.Status = (message.reader ().ReadByte ());
 				ctb.NUser = (message.reader ().ReadByte ());
 				ctb.IsLock = message.reader ().ReadByte ();
@@ -627,7 +639,7 @@ public class ListernerServer : IChatListener
 				ctb.NeedMoney = message.reader ().ReadLong ();
 				ctb.MaxMoney = message.reader ().ReadLong ();
 				ctb.MaxUser = (message.reader ().ReadByte ());
-
+//				Debug.LogError (ctb.Id + "    " + ctb.NUser);
 				listTable.Add (ctb);
 			} catch (Exception ex) {
 				Debug.LogException (ex);
@@ -854,8 +866,8 @@ public class ListernerServer : IChatListener
 	{
 		int card = message.reader ().ReadByte ();
 		if (card != -1) {
-			string thangBiAn = message.reader ().ReadUTF ();
 			string thangAn = message.reader ().ReadUTF ();
+			string thangBiAn = message.reader ().ReadUTF ();
 			((PhomControl)GameControl.instance.CurrentCasino).OnEatCardSuccess (thangBiAn, thangAn, card);
 		}
 	}

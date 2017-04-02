@@ -33,6 +33,10 @@ public class PHandler : MessageHandler {
                         GameControl.instance.CurrentCasino.OnFireCard(nick, turnName, new int[] { card });
                     }
                     break;
+			case CMDClient.CMD_MOM:
+				string from = message.reader().ReadUTF();
+//				listenner.onInfoMom(from);
+				break;
                 case CMDClient.CMD_GET_CARD:
                         listenner.OnGetCardNocSuccess(message);
                     break;

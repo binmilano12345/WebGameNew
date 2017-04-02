@@ -110,7 +110,7 @@ public class LobbyControl : MonoBehaviour {
         LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
     }
     public void OnClickNap() {
-        //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+		LoadAssetBundle.LoadScene(SceneName.SUB_PAYMENT, SceneName.SUB_PAYMENT);
     }
     public void OnClickMail() {
         //LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);

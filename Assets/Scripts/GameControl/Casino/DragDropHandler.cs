@@ -17,22 +17,8 @@ public class DragDropHandler : MonoBehaviour,
     [SerializeField]
     CanvasGroup canvasGroup;
 
-    Camera cameraInGame;
-    Camera GetCamera() {
-        Camera ccc = null;
-        foreach (Camera c in Camera.allCameras) {
-            if (c.name.Equals("Camera")) {
-                ccc = c;
-                break;
-            }
-        }
-        return ccc;
-    }
-
     #region IBeginDragHandler implement
     public void OnBeginDrag(PointerEventData eventData) {
-        if (cameraInGame == null)
-            cameraInGame = GetCamera();
         itemBeingDragged = gameObject;
         startPosition = transform.localPosition;
         canvasGroup.blocksRaycasts = false;
@@ -45,11 +31,8 @@ public class DragDropHandler : MonoBehaviour,
     #region IDragHandler implement
     public void OnDrag(PointerEventData eventData) {
         Vector3 vtScreen = Input.mousePosition;
-        if (cameraInGame != null) {
-            vtScreen = transform.parent.InverseTransformPoint(cameraInGame.ScreenToWorldPoint(Input.mousePosition));
-        }
         vtScreen.z = 0;
-        transform.localPosition = vtScreen;
+		transform.localPosition = vtScreen;
 
         ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasDrag(transform.position));
     }

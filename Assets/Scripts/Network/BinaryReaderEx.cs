@@ -295,7 +295,7 @@ namespace System.IO
                 throw new IOException("Stream is invalid");
             }
 
-            int val = m_stream.ReadByte();
+			int val = m_stream.ReadByte();
             if (val != -1)
                 return (byte)val;
 

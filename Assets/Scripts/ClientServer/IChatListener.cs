@@ -14,6 +14,7 @@ interface IChatListener {
 	void OnChangePass (Message message);
 	void OnChangeAvatar (Message message);
     void OnRateScratchCard(Message message);
+	void OnMoneyFree (long money);
     void OnListBetMoney(Message message);
     void OnListProduct(Message message);
     void OnTop(Message message);

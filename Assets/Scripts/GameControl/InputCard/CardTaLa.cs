@@ -48,29 +48,23 @@ public class CardTaLa : MonoBehaviour {
     }
 
     public void SetChiaBai(int[] arrCard, bool isTao, UnityAction callback = null) {
-        ArrayCardHand.ResetCard(true);
-        ArrayCardPhom[0].ResetCard(true);
-        ArrayCardPhom[1].ResetCard(true);
-        ArrayCardPhom[2].ResetCard(true);
-        ArrayCardFire.ResetCard(true);
+		ArrayCardHand.ResetForTala(isTao);
+		ArrayCardPhom[0].ResetForTala();
+		ArrayCardPhom[1].ResetForTala();
+		ArrayCardPhom[2].ResetForTala();
+		ArrayCardFire.ResetForTala();
 
-        ArrayCardHand.SetActiveCardHand();
-        ArrayCardPhom[0].SetActiveCardHand();
-        ArrayCardPhom[1].SetActiveCardHand();
-        ArrayCardPhom[2].SetActiveCardHand();
-        ArrayCardFire.SetActiveCardHand();
-
-        ArrayCardHand.SetCardWithId53();
-        ArrayCardPhom[0].SetCardWithId53();
-        ArrayCardPhom[1].SetCardWithId53();
-        ArrayCardPhom[2].SetCardWithId53();
-        ArrayCardFire.SetCardWithId53();
-
-        ArrayCardHand.ChiaBaiTienLen(arrCard, isTao, callback);
         isSortOderBy = 1;
         indexPhomHa = 0;
         indexPhomAn = 0;
-    }
+
+		StartCoroutine (ChiaBai (arrCard, isTao, callback));
+	}
+
+	IEnumerator ChiaBai(int[] arrCard, bool isTao, UnityAction callback = null){
+		yield return new WaitForEndOfFrame ();
+		ArrayCardHand.ChiaBaiTienLen(arrCard, isTao, callback);
+	}
 
     public void OnFireCard(int idCard, bool isTao) {
         if (isTao) {
@@ -100,7 +94,8 @@ public class CardTaLa : MonoBehaviour {
         }
     }
     public void SetEatCard(int idCardEat, bool isTao, Card cardAnCuaThangkhac, UnityAction callback = null) {
-        if (isTao) {
+		Debug.LogError("====SetEatCard");
+		if (isTao) {
             Card cAn = GetCardOnArrayCard(ArrayCardHand);
             cAn.transform.localPosition = ArrayCardHand.GetPositonCardActive();
             cAn.ResetCard(true);
@@ -431,7 +426,7 @@ public class CardTaLa : MonoBehaviour {
     void SetDefaultPosition_1_3(bool isOne) {
         Vector3 vtPos = ArrayCardPhom[0].transform.localPosition;
         vtPos.x = isOne ? 70 : -60;
-        vtPos.y = 110;
+        vtPos.y = 100;
         ArrayCardPhom[0].transform.localPosition = vtPos;
         vtPos.y = 150;
         ArrayCardPhom[1].transform.localPosition = vtPos;
@@ -445,7 +440,7 @@ public class CardTaLa : MonoBehaviour {
     }
     void SetDefaultPosition_2() {
         Vector3 vtPos = ArrayCardPhom[0].transform.localPosition;
-        vtPos.x = -110;
+        vtPos.x = -100;
         vtPos.y = -40;
         ArrayCardPhom[0].transform.localPosition = vtPos;
         vtPos.y = 0;

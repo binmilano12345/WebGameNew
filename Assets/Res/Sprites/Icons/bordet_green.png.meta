@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 13cc4de06482e4470af3c76917c06659
-timeCreated: 1490608458
+guid: cb7543777f28b4574a37024382a31e93
+timeCreated: 1491147363
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -39,7 +39,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 29, y: 24, z: 29, w: 24}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -94,7 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline: []
-  spritePackingTag: Ranks
+  spritePackingTag: 
   userData: 
-  assetBundleName: ui
+  assetBundleName: 
   assetBundleVariant: 

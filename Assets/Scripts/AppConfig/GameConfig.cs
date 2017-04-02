@@ -54,6 +54,11 @@ namespace AppConfig {
 		public static bool IS_LOGIN_FB_AVARIABLE = true;
 
 		public const string MONEY_UNIT_VIP = "GOLD";
+		public static List<RATE_CARD> ListRateCard = new List<RATE_CARD>();
+		public struct RATE_CARD{
+			public int Card_Cost;
+			public int Card_Value;
+		}
     }
 
     public class LinkFixed {
@@ -181,6 +186,8 @@ namespace AppConfig {
 		public const string SUB_CHANGE_NAME = "sub_change_name";
 		public const string SUB_CHANGE_PASS = "sub_change_pass";
 		public const string SUB_CHANGE_AVATAR = "sub_change_avatar";
+		public const string SUB_GIFT_MONEY = "sub_gift_money";
+		public const string SUB_PAYMENT = "sub_payment";
 
         public const string GAME_TLMN = "game_tlmn";
         public const string GAME_TLMN_SOLO = "game_tlmn_solo";

@@ -5,7 +5,7 @@ using AppConfig;
 
 public class ProcessHandler : MessageHandler {
     protected override void serviceMessage(Message message, int messageId) {
-        try {
+		try {
             DoOnMainThread.ExecuteOnMainThread.Enqueue(() => {
                 switch (messageId) {
                     case CMDClient.CMD_GETPHONECSKH:
@@ -35,6 +35,9 @@ public class ProcessHandler : MessageHandler {
 				case CMDClient.CMD_UPDATE_AVATA:
 					listenner.OnChangeAvatar(message);
 					break;		
+				case CMDClient.CMD_GET_FREE_MONEY:
+					listenner.OnMoneyFree(message.reader().ReadLong());
+					break;
 //				case CMDClient.PA:
 //					listenner.OnChangeAvatar(message);
 //					break;

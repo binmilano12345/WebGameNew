@@ -103,7 +103,7 @@ public abstract class BaseCasino : MonoBehaviour
 					playerMe = plUI;
 				}
 				objPlayer.SetActive (false);
-				var match = ListPlayer.FirstOrDefault(item => item.NamePlayer== pl.Name);
+				var match = ListPlayer.FirstOrDefault (item => item.NamePlayer == pl.Name);
 				//ListPlayer.Any (item=>item.NamePlayer == pl.Name
 
 				if (match == null) {
@@ -148,6 +148,7 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 			BasePlayer pl = GetPlayerWithName (nick);
 			if (pl != null) {
+				Debug.LogError ("==OnFinishGame");
 				pl.SetEffect (dau + MoneyHelper.FormatMoneyNormal (money));
 				pl.SetRank (rank);
 				pl.IsReady = false;
@@ -212,7 +213,7 @@ public abstract class BaseCasino : MonoBehaviour
 					playerMe = plUI;
 				}
 				objPlayer.SetActive (false);
-				var match = ListPlayer.FirstOrDefault(item => item.NamePlayer== pl.Name);
+				var match = ListPlayer.FirstOrDefault (item => item.NamePlayer == pl.Name);
 				//ListPlayer.Any (item=>item.NamePlayer == pl.Name
 
 				if (match == null) {
@@ -284,7 +285,7 @@ public abstract class BaseCasino : MonoBehaviour
 //			indexMe = i;
 //		}
 		objPlayer.SetActive (false);
-		var match = ListPlayer.FirstOrDefault(item => item.NamePlayer== pl.Name);
+		var match = ListPlayer.FirstOrDefault (item => item.NamePlayer == pl.Name);
 		//ListPlayer.Any (item=>item.NamePlayer == pl.Name
 
 		if (match == null) {
@@ -426,20 +427,19 @@ public abstract class BaseCasino : MonoBehaviour
 			long money = 0;
 			long folowMoney = 0;
 			for (int i = 0; i < size; i++) {
-				 _name = message.reader ().ReadUTF ();
-				 money = message.reader ().ReadLong ();
-				 folowMoney = message.reader ().ReadLong ();
+				_name = message.reader ().ReadUTF ();
+				money = message.reader ().ReadLong ();
+				folowMoney = message.reader ().ReadLong ();
 				bool isGetMoney = message.reader ().ReadBoolean ();
 				BasePlayer pl = GetPlayerWithName (_name);
-				if(pl!= null){
-				pl.SetMoney (folowMoney);
-				if (!isGetMoney) {
-					pl.SetEffect (MoneyHelper.FormatMoneyNormal (folowMoney));
-				}
-				if (name.Equals (ClientConfig.UserInfo.UNAME)) {
-					ClientConfig.UserInfo.CASH_FREE = money;
-					pl.SetMoney (money);
-				}
+				if (pl != null) {
+					pl.SetMoney (folowMoney);
+					if (!isGetMoney) {
+						pl.SetEffect (MoneyHelper.FormatMoneyNormal (folowMoney));
+					}
+					if (_name.Equals (ClientConfig.UserInfo.UNAME)) {
+						ClientConfig.UserInfo.CASH_FREE = money;
+					}
 				}
 			}
 		} catch (Exception ex) {
@@ -510,7 +510,9 @@ public abstract class BaseCasino : MonoBehaviour
 			break;
 		}
 	}
+
 	#region Init Player TLMN
+
 	void InitPlayerTLMN ()
 	{
 		for (int i = 0; i < ListPlayer.Count; i++) {
@@ -556,8 +558,11 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 		}
 	}
+
 	#endregion
+
 	#region Init Player Sam
+
 	void InitPlayerSam ()
 	{
 		for (int i = 0; i < ListPlayer.Count; i++) {
@@ -603,8 +608,11 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 		}
 	}
+
 	#endregion
+
 	#region Init Player Phom
+
 	public void InitInfoPlayer_PHOM ()
 	{
 		for (int i = 0; i < ListPlayer.Count; i++) {
@@ -638,7 +646,9 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 		}
 	}
+
 	#endregion
+
 	#endregion
 
 	internal BasePlayer GetPlayerWithName (string nick)

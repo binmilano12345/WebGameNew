@@ -1151,5 +1151,18 @@ public class SendData {
 
     public static void onAdminTaiXiu(int tx) {
     }
+
+	public static void doRequestPayment(int type, string cardCode, string series) {
+		Message m;
+		m = new Message(CMDClient.PAYCARD);
+		try {
+			m.writer().WriteUTF(ClientConfig.UserInfo.UNAME);
+			m.writer().WriteShort((short) type);
+			m.writer().WriteUTF(cardCode);
+			m.writer().WriteUTF(series);
+			NetworkUtil.GI().sendMessage(m);
+		} catch (Exception e) {
+		}
+	}
 }
 

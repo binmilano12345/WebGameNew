@@ -64,7 +64,6 @@ public class RoomControl : MonoBehaviour {
     public void CreateTable(List<ItemTableData> listTable) {
         this.ListTable.Clear();
         this.ListTable.AddRange(listTable);
-
         if (isAnBanFull) {
             ListTable.RemoveAll(x => (x.NUser == x.MaxUser));
         }
@@ -74,12 +73,12 @@ public class RoomControl : MonoBehaviour {
             LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_ITEM_TABLE, (objPre) => {
                 Itemtable = objPre;
                 PopupAndLoadingScript.instance.HideLoading();
-                myScrollView.OnStartFillItem(Itemtable, listTable.Count);
+				myScrollView.OnStartFillItem(Itemtable, ListTable.Count);
                 myScrollView.UpdateInfo = UpdateItemTable;
             });
         } else {
             PopupAndLoadingScript.instance.HideLoading();
-            myScrollView.OnStartFillItem(Itemtable, listTable.Count);
+			myScrollView.OnStartFillItem(Itemtable, ListTable.Count);
             myScrollView.UpdateInfo = UpdateItemTable;
         }
     }
@@ -87,6 +86,7 @@ public class RoomControl : MonoBehaviour {
     public void UpdateListTable(List<ItemTableData> listTable) {
         this.ListTable.Clear();
         this.ListTable.AddRange(listTable);
+		Debug.LogError ("---------UpdateListTable");
         PopupAndLoadingScript.instance.HideLoading();
         if (isAnBanFull) {
             ListTable.RemoveAll(x => (x.NUser == x.MaxUser));
@@ -94,7 +94,9 @@ public class RoomControl : MonoBehaviour {
 
         List<ItemTableData> listTemp = new List<ItemTableData>();
         listTemp.AddRange(ListTable);
-        ListTable.Clear();
+		Debug.LogError ("Trc====" + ListTable.Count);
+		ListTable.Clear();
+		Debug.LogError ("Sau====" + listTemp.Count);
         switch (Mathf.Abs(sorttype)) {
             case 1:
                 if (sorttype > 0) {
@@ -128,10 +130,12 @@ public class RoomControl : MonoBehaviour {
                 ListTable.AddRange(listTemp.OrderBy(r => r.TableName).ToList());
                 break;
         }
-        myScrollView.ClearCells();
 
-        myScrollView.OnStartFillItem(Itemtable, listTable.Count);
-        //myScrollView.UpdateInfo = UpdateItemTable;
+		Debug.LogError ("Sau cung====" + ListTable.Count);
+        myScrollView.ClearCells();
+		myScrollView.totalCount = ListTable.Count;
+//		myScrollView.OnStartFillItem(Itemtable, ListTable.Count);
+//        myScrollView.UpdateInfo = UpdateItemTable;
     }
 
     void UpdateItemTable(GameObject obj, int index) {
