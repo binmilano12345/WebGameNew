@@ -148,6 +148,7 @@ namespace AssetBundles {
 
         public static void SetSourceAssetBundleURL(string absolutePath) {
             BaseDownloadingURL = absolutePath + Utility.GetPlatformName() + "/";
+			Debug.LogError ("URL: " + BaseDownloadingURL);
         }
 
         public static void SetDevelopmentAssetBundleServer() {

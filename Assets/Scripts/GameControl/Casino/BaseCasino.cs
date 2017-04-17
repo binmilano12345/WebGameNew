@@ -97,6 +97,7 @@ public abstract class BaseCasino : MonoBehaviour
 				}
 				GameObject objPlayer = Instantiate (GameControl.instance.objPlayer);
 				objPlayer.transform.SetParent (tf_parent_player);
+				objPlayer.transform.localScale = Vector3.one;
 				BasePlayer plUI = objPlayer.GetComponent<BasePlayer> ();
 				plUI.SetInfo (pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
 				if (pl.Name.Equals (ClientConfig.UserInfo.UNAME)) {
@@ -148,7 +149,6 @@ public abstract class BaseCasino : MonoBehaviour
 			}
 			BasePlayer pl = GetPlayerWithName (nick);
 			if (pl != null) {
-				Debug.LogError ("==OnFinishGame");
 				pl.SetEffect (dau + MoneyHelper.FormatMoneyNormal (money));
 				pl.SetRank (rank);
 				pl.IsReady = false;
@@ -207,6 +207,7 @@ public abstract class BaseCasino : MonoBehaviour
 
 				GameObject objPlayer = Instantiate (GameControl.instance.objPlayer);
 				objPlayer.transform.SetParent (tf_parent_player);
+				objPlayer.transform.localScale = Vector3.one;
 				BasePlayer plUI = objPlayer.GetComponent<BasePlayer> ();
 				plUI.SetInfo (pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
 				if (pl.Name.Equals (ClientConfig.UserInfo.UNAME)) {
@@ -278,6 +279,7 @@ public abstract class BaseCasino : MonoBehaviour
 
 		GameObject objPlayer = Instantiate (GameControl.instance.objPlayer);
 		objPlayer.transform.SetParent (tf_parent_player);
+		objPlayer.transform.localScale = Vector3.one;
 		BasePlayer plUI = objPlayer.GetComponent<BasePlayer> ();
 		plUI.SetInfo (pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
 //		if (pl.Name.Equals (ClientConfig.UserInfo.UNAME)) {
@@ -425,17 +427,19 @@ public abstract class BaseCasino : MonoBehaviour
 			int size = message.reader ().ReadByte ();
 			string _name = "";
 			long money = 0;
-			long folowMoney = 0;
+//			long folowMoney = 0;
 			for (int i = 0; i < size; i++) {
 				_name = message.reader ().ReadUTF ();
 				money = message.reader ().ReadLong ();
-				folowMoney = message.reader ().ReadLong ();
+				long folowMoney = message.reader ().ReadLong ();
 				bool isGetMoney = message.reader ().ReadBoolean ();
 				BasePlayer pl = GetPlayerWithName (_name);
 				if (pl != null) {
+					long m =folowMoney - pl.Money;
+//					Debug.LogError (m + " folowMoney -  pl.Money " + folowMoney + "  " +pl.Money);
 					pl.SetMoney (folowMoney);
 					if (!isGetMoney) {
-						pl.SetEffect (MoneyHelper.FormatMoneyNormal (folowMoney));
+						pl.SetEffect (MoneyHelper.FormatMoneyNormal (m));
 					}
 					if (_name.Equals (ClientConfig.UserInfo.UNAME)) {
 						ClientConfig.UserInfo.CASH_FREE = money;
@@ -448,6 +452,9 @@ public abstract class BaseCasino : MonoBehaviour
 
 	}
 
+	internal virtual void OnTimeAuToStart(int time) {
+
+	}
 	internal virtual void AllCardFinish (string nick, int[] card)
 	{
 
@@ -507,6 +514,9 @@ public abstract class BaseCasino : MonoBehaviour
 			break;
 		case GameID.PHOM:
 			InitInfoPlayer_PHOM ();
+			break;
+		case GameID.MAUBINH:
+			InitInfoPlayer_MAUBINH ();
 			break;
 		}
 	}
@@ -649,6 +659,43 @@ public abstract class BaseCasino : MonoBehaviour
 
 	#endregion
 
+
+	#region Init Player Mau Binh
+
+	public void InitInfoPlayer_MAUBINH ()
+	{
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			MauBinhPlayer pl = (MauBinhPlayer)ListPlayer [i];
+
+			switch (pl.SitOnClient) {
+			case 0:
+				pl.cardMauBinh.Init (true);
+				pl.cardMauBinh.SetPositionArryCard (Align_Anchor.CENTER);
+				pl.SetPositionChatLeft (true);
+				break;
+			case 1:
+				pl.cardMauBinh.Init (false);
+				pl.SetPositionChatLeft (false);
+				pl.cardMauBinh.SetPositionArryCard (Align_Anchor.RIGHT);
+				pl.SetPositionChatAction (Align_Anchor.RIGHT);
+				break;
+			case 2:
+				pl.cardMauBinh.Init (false);
+				pl.cardMauBinh.SetPositionArryCard (Align_Anchor.LEFT);
+				pl.SetPositionChatLeft (false);
+				pl.SetPositionChatAction (Align_Anchor.BOT);
+				break;
+			case 3:
+				pl.cardMauBinh.Init (false);
+				pl.cardMauBinh.SetPositionArryCard (Align_Anchor.LEFT);
+				pl.SetPositionChatLeft (true);
+				pl.SetPositionChatAction (Align_Anchor.LEFT);
+				break;
+			}
+		}
+	}
+
+	#endregion
 	#endregion
 
 	internal BasePlayer GetPlayerWithName (string nick)

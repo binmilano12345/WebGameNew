@@ -30,7 +30,15 @@ public class ArrayCard : MonoBehaviour
 	[HideInInspector]
 	public List<int> listIdCardHand;
 	private Vector3 CENTER_SCREEN = new Vector3 (Screen.width / 2, Screen.height / 2, 0);
-	public Vector3 vtPosCenter;
+	private Vector3 posCenter;
+	public Vector3 POS_CENTER {
+		get{
+//			posCenter = transform.InverseTransformPoint (CENTER_SCREEN);
+			return posCenter;}
+		set{ 
+			posCenter = value;
+		}
+	}
 	float w_card, h_card;
 	bool IsInit = false;
 	public void Init ()
@@ -39,7 +47,7 @@ public class ArrayCard : MonoBehaviour
 			IsInit = true;
 			listCardHand = new List<Card> ();
 			listIdCardHand = new List<int> ();
-			vtPosCenter = transform.InverseTransformPoint (CENTER_SCREEN);
+			POS_CENTER = transform.InverseTransformPoint (CENTER_SCREEN);
 			if (GameControl.instance.objCard != null) {
 				GameObject objCard = GameControl.instance.objCard;
 				for (int i = 0; i < CardCount; i++) {
@@ -72,6 +80,7 @@ public class ArrayCard : MonoBehaviour
 		listCardHand = new List<Card> ();
 		listIdCardHand = new List<int> ();
 
+		POS_CENTER = transform.InverseTransformPoint (CENTER_SCREEN);
 		LoadAssetBundle.LoadPrefab (BundleName.PREFAPS, PrefabsName.PRE_CARD, (objPre) => {
 			for (int i = 0; i < arrcard.Length; i++) {
 				GameObject obj = Instantiate (objPre);
@@ -264,7 +273,7 @@ public class ArrayCard : MonoBehaviour
 	public void SetPositonCardHandTaLa ()
 	{
 		float vty = transform.localPosition.y;
-		Vector3 vt = vtPosCenter;
+		Vector3 vt = POS_CENTER;
 		vt.y = vty;
 		vt.z = 0;
 		vt.x += 100;
@@ -290,6 +299,7 @@ public class ArrayCard : MonoBehaviour
 		for (int i = 0; i < listCardHand.Count; i++) {
 			listCardHand [i].transform.localPosition = new Vector3 (i * disCard, 0, 0);
 			listCardHand [i].transform.SetSiblingIndex (i);
+			listCardHand [i].IsChoose = false;
 		}
 	}
 
@@ -298,6 +308,7 @@ public class ArrayCard : MonoBehaviour
 		for (int i = listCardHand.Count - 1; i >= 0; i--) {
 			listCardHand [i].transform.localPosition = new Vector3 (-(listCardHand.Count - 1 - i) * disCard, 0, 0);
 			listCardHand [i].transform.SetSiblingIndex (i);
+			listCardHand [i].IsChoose = false;
 		}
 	}
 
@@ -316,6 +327,7 @@ public class ArrayCard : MonoBehaviour
 					-((int)listCardHand.Count / 2) * disCard
 					+ i * disCard, 0, 0);
 				listCardHand [i].transform.SetSiblingIndex (i);
+				listCardHand [i].IsChoose = false;
 			}
 		}
 
@@ -328,6 +340,7 @@ public class ArrayCard : MonoBehaviour
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card card = listCardHand [i];
 			if (card.isBatHayChua) {
+				card.IsChoose = false;
 				list.Add (card);
 				card.transform.SetSiblingIndex (i);
 			}
@@ -347,6 +360,7 @@ public class ArrayCard : MonoBehaviour
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card card = listCardHand [i];
 			if (card.isBatHayChua) {
+				card.IsChoose = false;
 				list.Add (card);
 				card.transform.SetAsFirstSibling ();
 			}
@@ -367,6 +381,7 @@ public class ArrayCard : MonoBehaviour
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card card = listCardHand [i];
 			if (card.isBatHayChua) {
+				card.IsChoose = false;
 				list.Add (card);
 				card.transform.SetSiblingIndex (i);
 			}
@@ -379,7 +394,6 @@ public class ArrayCard : MonoBehaviour
 					StartCoroutine (card.MoveTo (vt, dur, i * 0.01f));
 				else
 					card.transform.localPosition = vt;
-
 			}
 		} else {
 			for (int i = 0; i < list.Count; i++) {
@@ -389,7 +403,6 @@ public class ArrayCard : MonoBehaviour
 					StartCoroutine (card.MoveTo (vt, dur, i * 0.01f));
 				else
 					card.transform.localPosition = vt;
-
 			}
 		}
 
@@ -652,7 +665,8 @@ public class ArrayCard : MonoBehaviour
 			}
 		}
 		if (isSort) {
-			SetPositionCardInArray ();
+//			SetPositionCardInArray ();
+			SortCardActive (false);
 		}
 	}
 

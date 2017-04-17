@@ -185,29 +185,6 @@ public class LoadAssetBundle : MonoBehaviour
 			loadErrorCallback ();
 		isLoadSprite = false;
 	}
-
-	void test ()
-	{
-
-	}
-
-	IEnumerator test3 ()
-	{
-
-		yield return test2 ();
-
-
-
-	}
-
-	IEnumerator test2 ()
-	{
-		yield return new WaitForSeconds (1);
-
-
-
-	}
-
 	protected IEnumerator InstantiateTextureAsync (SpriteRenderer image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null)
 	{
 		AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(Texture2D));
@@ -241,7 +218,7 @@ public class LoadAssetBundle : MonoBehaviour
 			try {
 				image.sprite = sprite;
 			} catch (Exception e) {
-
+				Debug.LogException (e);
 			}
 			if (loadDoneCallback != null) {
 				loadDoneCallback ();
@@ -258,9 +235,9 @@ public class LoadAssetBundle : MonoBehaviour
 		yield return StartCoroutine (request);
 		// Get the asset.
 		var text = request.GetAsset<Texture2D> ();
-		//Debug.Log ("Has sprite? " + (text != null));
+		Debug.LogError (text != null);
 		if (text != null) {
-			var sprite = Sprite.Create (text, new Rect (0, 0, text.width, text.height), new Vector2 (0.5f, 0.5f));
+//			var sprite = Sprite.Create (text, new Rect (0, 0, text.width, text.height), new Vector2 (0.5f, 0.5f));
 			image.texture = text;
 			if (loadDoneCallback != null) {
 				loadDoneCallback ();
@@ -299,14 +276,15 @@ public class LoadAssetBundle : MonoBehaviour
 				//				if (Progress.value >= 1)
 				//					IsChecking = false;
 			}
-			txtMsg.text = "Đang tải " + (int)(progressValue * 100) + "%";
+			if(txtMsg != null)
+				txtMsg.text = (int)(progressValue * 100) + "%";
 			yield return new WaitForEndOfFrame ();
 		}
 	}
 
-	internal static void LoadAdditiveScene (string sceneBundleName, string sceneName, UnityAction SceneLoadDoneCallback = null, float timedur = 0.2f)
+	internal static void LoadAdditiveScene (string sceneBundleName, string sceneName, UnityAction SceneLoadDoneCallback = null, float timedur = 0.01f)
 	{
-		if (SceneManager.GetSceneByName (sceneName) == null || !SceneManager.GetSceneByName (sceneName).isLoaded) {
+		if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 			//Debug.Log ("Load new scene");
 			LoadScene (sceneBundleName, sceneName, SceneLoadDoneCallback, timedur);
 		} else {
@@ -321,8 +299,8 @@ public class LoadAssetBundle : MonoBehaviour
 	{
 		//DialogEx.ShowLoading(true);
 		if (!isLoading) {
-			//			PopupAndLoadingScript.instance.ShowLoading ();
-			if (SceneManager.GetSceneByName (sceneName) == null || !SceneManager.GetSceneByName (sceneName).isLoaded) {
+						PopupAndLoadingScript.instance.ShowLoading ();
+			if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 				#if ASSET_BUNDLE
 				LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InitializeLevelAsync (sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));
 				#else
@@ -345,7 +323,7 @@ public class LoadAssetBundle : MonoBehaviour
 		//DialogEx.ShowLoading(true);
 		if (!isLoading) {
 			//			PopupAndLoadingScript.instance.ShowLoading ();
-			if (SceneManager.GetSceneByName (sceneName) == null || !SceneManager.GetSceneByName (sceneName).isLoaded) {
+			if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 				#if ASSET_BUNDLE
 				LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InitializeLevelAsync (sceneBundleName, sceneName, () => {
 					Transform tf = SceneManager.GetSceneByName (sceneName).GetRootGameObjects () [0].transform.GetChild (0);
@@ -378,8 +356,8 @@ public class LoadAssetBundle : MonoBehaviour
 	internal static void LoadSceneLienTuc (string sceneBundleName = "", string sceneName = "", UnityAction SceneLoadDoneCallback = null, float timedur = 0.2f)
 	{
 		//DialogEx.ShowLoading(true);
-		//			PopupAndLoadingScript.instance.ShowLoading ();
-		if (SceneManager.GetSceneByName (sceneName) == null || !SceneManager.GetSceneByName (sceneName).isLoaded) {
+					PopupAndLoadingScript.instance.ShowLoading ();
+		if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 #if ASSET_BUNDLE
 			LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InitializeLevelAsync (sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));
 #else

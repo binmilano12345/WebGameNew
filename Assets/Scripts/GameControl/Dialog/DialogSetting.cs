@@ -11,9 +11,9 @@ public class DialogSetting : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        tg_sound.isOn = SettingConfig.IsSound == 1 ? true : false;
-        tg_auto_ready.isOn = SettingConfig.IsAutoReady == 1 ? true : false;
-        tg_invite.isOn = SettingConfig.IsInvite == 1 ? true : false;
+        tg_sound.isOn = SettingConfig.IsSound ;
+        tg_auto_ready.isOn = SettingConfig.IsAutoReady;
+        tg_invite.isOn = SettingConfig.IsInvite;
 
         tg_sound.onValueChanged.AddListener(OnChangeAmThanh);
         tg_auto_ready.onValueChanged.AddListener(OnChangeRung);
@@ -21,12 +21,12 @@ public class DialogSetting : MonoBehaviour {
     }
 
     public void OnChangeAmThanh(bool value) {
-        SettingConfig.IsSound = value ? 1 : 0;
+        SettingConfig.IsSound = value;
     }
     public void OnChangeNhanLoiMoi(bool value) {
-        SettingConfig.IsInvite = value ? 1 : 0;
+        SettingConfig.IsInvite = value;
     }
     public void OnChangeRung(bool value) {
-        SettingConfig.IsAutoReady = value ? 1 : 0;
+        SettingConfig.IsAutoReady = value;
     }
 }

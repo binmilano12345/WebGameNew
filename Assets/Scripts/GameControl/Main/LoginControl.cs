@@ -23,6 +23,7 @@ public class LoginControl : MonoBehaviour {
     void Start() {
         Init();
         GameControl.instance.IsShowNoti = true;
+//		SettingConfig.IsInvite = true;
     }
     public void Init() {
         ip_tk.text = ClientConfig.UserInfo.UNAME;

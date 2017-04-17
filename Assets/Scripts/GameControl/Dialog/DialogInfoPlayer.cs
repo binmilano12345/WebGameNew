@@ -9,8 +9,10 @@ using System;
 public class DialogInfoPlayer : MonoBehaviour {
 	[SerializeField]
 	Text txt_name, txt_id, txt_money, txt_sdt, txt_sovandau, txt_gold_max, txt_tyle_thang, txt_cap_nhat;
+//	[SerializeField]
+//	RawImage raw_avata;	
 	[SerializeField]
-	RawImage raw_avata;
+	Image img_avata;
 
 	void OnEnable(){
 		StartCoroutine (Init ());
@@ -18,12 +20,15 @@ public class DialogInfoPlayer : MonoBehaviour {
 	IEnumerator Init(){
 		yield return new WaitForEndOfFrame ();
 		txt_name.text = ClientConfig.UserInfo.UNAME;
-		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE) + GameConfig.MONEY_UNIT_VIP;
+		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE) + " " + GameConfig.MONEY_UNIT_VIP;
 		txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
 		txt_sdt.text = "SĐT:" + ClientConfig.UserInfo.PHONE;
 		txt_gold_max.text = string.Format (ClientConfig.Language.GetText ("info_player_sogoldmax"), ClientConfig.UserInfo.SO_TIEN_MAX);
 		txt_cap_nhat.text = string.Format (ClientConfig.Language.GetText ("info_player_capnhat"), ClientConfig.UserInfo.LOGIN_END);
-		LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+		//		LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+
+		yield return new WaitForEndOfFrame ();
+		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
 		SetThangThua ();
 	}
 

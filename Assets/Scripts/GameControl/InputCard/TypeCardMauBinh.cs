@@ -62,16 +62,19 @@ public class TypeCardMauBinh {
 
         for (int i = 1; i < arrayCard.Length; i++) {
             if (GetValue(temp) == GetValue(arrayCard[i]) - 1) {
-                demsanh++;
+				demsanh++;
                 temp = arrayCard[i];
             }
-            if (typeC == GetType(arrayCard[i])) {
+
+			if (typeC == GetType (arrayCard [i])) {
                 demthung++;
             }
+//			Debug.LogError ("   " + tt);
         }
+		Debug.LogError (demsanh + "     " + demthung + "   " + typeC + "  ");
         //1-2-3-4-5
         if (ConstanceValue(arrayCard, 14) && ConstanceValue(arrayCard, 2) && ConstanceValue(arrayCard, 3) && ConstanceValue(arrayCard, 4) && ConstanceValue(arrayCard, 5)) {
-            if (demthung == 4) {
+			if (demthung == 4) {
                 return TYPE_CARD.THUNG_PHA_SANH;
             } else {
                 return TYPE_CARD.SANH;
@@ -125,7 +128,20 @@ public class TypeCardMauBinh {
 
         int max1 = GetValue(array1[array1.Length - 1]) * 10 + GetType(array1[array1.Length - 1]);
         int max2 = GetValue(array2[array2.Length - 1]) * 10 + GetType(array2[array2.Length - 1]);
-
+		if (ConstanceValue(array1, 14) 
+			&& ConstanceValue(array1, 2) 
+			&& ConstanceValue(array1, 3) 
+			&& ConstanceValue(array1, 4) 
+			&& ConstanceValue(array1, 5)) {
+			max1 = 52;
+		}
+		if (ConstanceValue(array2, 14) 
+			&& ConstanceValue(array2, 2) 
+			&& ConstanceValue(array2, 3) 
+			&& ConstanceValue(array2, 4) 
+			&& ConstanceValue(array2, 5)) {
+			max2 = 52;
+		}
         if (max1 > max2)
             return true;
         return false;
@@ -164,23 +180,38 @@ public class TypeCardMauBinh {
                 return GetValue(arr1[0]).CompareTo(GetValue(arr2[0]));
             });
         } else {
-            list.OrderBy(r => r.Length).ThenBy(r1 => r1.Length);
+//            list.OrderBy(r => r.Length).ThenBy(r1 => r1.Length);
+			list.Sort(delegate (int[] arr1, int[] arr2) {
+				return GetValue(arr1.Length).CompareTo(GetValue(arr2.Length));
+			});
         }
         return list;
     }
     static bool ConstanceValue(int[] arrC, int value) {
-        int id = value - 1;
-        for (int i = 0; i < 4; i++) {
-            if (arrC.Contains(id + i * 13)) {
-                return true;
-            }
-        }
-
+//		int id = (value==14 ? 1 : value) - 1;
+//        for (int i = 0; i < 4; i++) {
+//            if (arrC.Contains(id + i * 13)) {
+//                return true;
+//            }
+//        }
+		for (int i = 0; i < arrC.Length; i++) {
+			if (value == GetValue (arrC [i])) {
+				return true;
+			}
+		}
         return false;
     }
 
     public static int IsThangTrang(int[] arr) {
         #region Rong cuon
+//		public static string[] STR_THANG_TRANG = new string[6] {
+//			"Rồng Cuốn",
+//			"Sảnh Rồng",
+//			"5 Đôi 1 Sám",
+//			"Lục Phế Bôn",
+//			"3 Thùng",
+//			"3 Sảnh"
+//		};
         int typeC = GetType(arr[0]);
         int demthung = 0;
         for (int i = 1; i < arr.Length; i++) {
@@ -198,12 +229,13 @@ public class TypeCardMauBinh {
 
         if (demsanh == 13) {
             if (demthung == 12) {
-                return 5;//rong cuon
+                return 0;//rong cuon
             } else
-                return 4;//sanh rong
-        } else {
-            if (demthung == 12) {
-                return 3;//Dong Hoa
+                return 1;//sanh rong
+        } 
+		else {
+            if (demthung == 12) {//check 5doi 1 sam
+                return 2;//Dong Hoa
             }
         }
 
@@ -212,55 +244,47 @@ public class TypeCardMauBinh {
         #region 6 DOI
         List<int[]> list = GetGroupIDByValueInArray(arr, TYPE_CARD.MAU_THAU);
         if (list.Count == 6) {
-            return 2;//luc phe bon
+            return 3;//luc phe bon
         }
         #endregion
         #region 3 Sanh, 3 Thung
-        int[] chi1 = new int[3];
-        int[] chi2 = new int[5];
-        int[] chi3 = new int[5];
-        for (int i = 0; i < arr.Length; i++) {
-            if (i < 3) {
-                chi1[i] = arr[i];
-            } else if (i < 8) {
-                chi2[i - 3] = arr[i];
-            } else {
-                chi3[i - 8] = arr[i];
-            }
-        }
+		int[] chi1 = new int[5];
+		int[] chi2 = new int[5];
+		int[] chi3 = new int[3];
+		for (int i = 0; i < arr.Length; i++) {
+			if (i < 5) {
+				chi1 [i] = arr [i];
+			} else if (i < 10) {
+				chi2 [i - 5] = arr [i];
+			} else {
+				chi3 [i - 10] = arr [i];
+			}
+		}
         chi1 = SortArrCard(chi1);
         chi2 = SortArrCard(chi2);
         chi3 = SortArrCard(chi3);
 
-        TYPE_CARD type1 = CheckThungSanh3(chi1);
+        TYPE_CARD type1 = CheckThungSanh3(chi3);
         TYPE_CARD type2 = CheckThungSanh(chi2);
-        TYPE_CARD type3 = CheckThungSanh(chi3);
+        TYPE_CARD type3 = CheckThungSanh(chi1);
 
-        if (type1 == TYPE_CARD.THUNG && type2 == TYPE_CARD.THUNG && type3 == TYPE_CARD.THUNG) {
-            return 1;//3 thung
+		if ((type1 == TYPE_CARD.THUNG) 
+			&& (type2 == TYPE_CARD.THUNG) 
+			&& (type3 == TYPE_CARD.THUNG) ) {
+            return 4;//3 thung
         }
-        if (type1 == TYPE_CARD.SANH && type2 == TYPE_CARD.SANH && type3 == TYPE_CARD.SANH) {
-            return 0;//3 sanh
+        if (type1 == TYPE_CARD.SANH 
+			&& type2 == TYPE_CARD.SANH 
+			&& type3 == TYPE_CARD.SANH) {
+            return 5;//3 sanh
         }
         #endregion
         return -1;
     }
-    public static bool IsLung(int[] arr) {
-        int[] chi1 = new int[3];
-        int[] chi2 = new int[5];
-        int[] chi3 = new int[5];
-        for (int i = 0; i < arr.Length; i++) {
-            if (i < 3) {
-                chi1[i] = arr[i];
-            } else if (i < 8) {
-                chi2[i - 3] = arr[i];
-            } else {
-                chi3[i - 8] = arr[i];
-            }
-        }
-        if (IsBigger2Array(chi3, chi2)
-            && IsBigger2Array(chi2, chi1)
-            && IsBigger2Array(chi3, chi1)) {
+	public static bool IsLung(int[] chi1,int[] chi2,int[] chi3) {
+        if (IsBigger2Array(chi1, chi2)
+            && IsBigger2Array(chi2, chi3)
+            && IsBigger2Array(chi1, chi3)) {
             return false;
         }
         return true;
@@ -279,37 +303,47 @@ public class TypeCardMauBinh {
                 demthung++;
             }
         }
+
+		Debug.LogError (demsanh + "     " + demthung);
         //1-2-3
-        if (ConstanceValue(arrayCard, 14) && ConstanceValue(arrayCard, 2) && ConstanceValue(arrayCard, 3)) {
-            if (demthung == 4) {
+        if (ConstanceValue(arrayCard, 14) 
+			&& ConstanceValue(arrayCard, 2) 
+			&& ConstanceValue(arrayCard, 3)) {
+			if (demthung == 2) {
+				Debug.LogError ("1. vao day");
                 return TYPE_CARD.THUNG;
-            } else {
-                return TYPE_CARD.SANH;
+			} else {
+				Debug.LogError ("2. vao day");
+				return TYPE_CARD.SANH;
             }
         }
         if (demsanh == 2) {
-            if (demthung == 2) {
+			if (demthung == 2) {
+				Debug.LogError ("3. vao day");
                 return TYPE_CARD.THUNG;
-            } else {
+			} else {
+				Debug.LogError ("4. vao day");
                 return TYPE_CARD.SANH;
             }
-        } else if (demthung == 2) {
+		} else if (demthung == 2) {
+			Debug.LogError ("5. vao day");
             return TYPE_CARD.THUNG;
         }
+
+		Debug.LogError ("6. vao day");
         return TYPE_CARD.MAU_THAU;
     }
 
     #region Lay Gia tri Bai
     public static int GetValue(int id) {
-        int vl = (id - 1) % 13 + 2;
-        //if (vl == 14) vl = 2;
-        return vl;
+		int vl = Card.cardPaint [id] % 13 + 1;
+		return vl == 1 ? 14 : vl;
     }
     /// <summary>
     ///Co - 4, ro - 3, tep - 2, bich - 1
     /// </summary>
     public static int GetType(int id) {
-        return (id - 1) / 13 + 1;
+		return Card.cardPaint[id] / 13;
     }
     #endregion
     #region Sap xep mang theo gia tri

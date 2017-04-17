@@ -33,7 +33,7 @@ public class PHandler : MessageHandler {
                         GameControl.instance.CurrentCasino.OnFireCard(nick, turnName, new int[] { card });
                     }
                     break;
-			case CMDClient.CMD_MOM:
+			case CMDClient.CMD_MOM://khong dung
 				string from = message.reader().ReadUTF();
 //				listenner.onInfoMom(from);
 				break;
@@ -47,12 +47,17 @@ public class PHandler : MessageHandler {
                         listenner.OnBalanceCard(message);
                     break;
                 case CMDClient.CMD_DROP_PHOM:
+				//vi du co phom laf 444, 555
+				//se gui theo thu tu: 444, 555
                         listenner.OnDropPhomSuccess(message);
                     break;
                 case CMDClient.CMD_GUI_CARD:
                         listenner.OnAttachCard(message);
                     break;
-                //case CMDClient.CMD_U:
+			case CMDClient.CMD_CHANGERULETBL:
+				listenner.OnChangeRuleTbl(message);
+				break;
+//                case CMDClient.CMD_U:
                 //    // SerializerHelper.readInt(message);
                 //    message.reader().readByte();
                 //    listenner.onInfoU(message.reader().readUTF());

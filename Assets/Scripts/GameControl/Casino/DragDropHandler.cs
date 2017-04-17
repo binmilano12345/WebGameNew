@@ -30,11 +30,10 @@ public class DragDropHandler : MonoBehaviour,
 
     #region IDragHandler implement
     public void OnDrag(PointerEventData eventData) {
-        Vector3 vtScreen = Input.mousePosition;
-        vtScreen.z = 0;
-		transform.localPosition = vtScreen;
+        Vector3 vtPos = Input.mousePosition;
+		transform.position = vtPos;
 
-        ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasDrag(transform.position));
+		ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasDrag(vtPos));
     }
     #endregion
 

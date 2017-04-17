@@ -32,12 +32,15 @@ public class Card : MonoBehaviour {
     }
 	public bool isBatHayChua = false;
 	bool isTouched;
+	bool isCardAnnnnn = false;
     #endregion
     #region UI
     [SerializeField]
     Image img_card;
-    //[SerializeField]
-    //DragDropHandler dragdrop;
+    [SerializeField]
+    DragDropHandler dragdrop;
+	[SerializeField]
+	GameObject objBorderCard;
     #endregion
     #region ARRAY
 	public static int[] LIENG_BACAY_PHOM_XITO = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 };
@@ -126,7 +129,7 @@ public class Card : MonoBehaviour {
     }
 	public void OnClickCard() {
 		if (!isTouched) return;
-        //if (!isMauBinh || SceneManager.GetSceneByName(SceneName.GAME_TALA).isLoaded) {
+		if (!isMauBinh || SceneManager.GetSceneByName(SceneName.GAME_PHOM).isLoaded) {
 		if (!isAuto) {
 			IsChoose = !IsChoose;
 		}else {
@@ -136,7 +139,7 @@ public class Card : MonoBehaviour {
                 IsChoose = !IsChoose;
             }
         }
-        //}
+        }
     }
 
     public bool isAuto { get; set; }
@@ -148,8 +151,8 @@ public class Card : MonoBehaviour {
     bool isMauBinh = false;
     public void SetIsCardMauBinh(bool isMauBinh = false) {
         this.isMauBinh = isMauBinh;
-        //if (dragdrop != null)
-        //    dragdrop.enabled = isMauBinh;
+        if (dragdrop != null)
+            dragdrop.enabled = isMauBinh;
     }
 
     public IEnumerator MoveFromTo(Vector3 from, Vector3 to, float dur, float wait) {
@@ -194,19 +197,19 @@ public class Card : MonoBehaviour {
         transform.DOLocalMove(vt, dur);
     }
 
-    public void ResetCard(bool isBorder = false) {
-        SetDarkCard(false);
-        SetTouched(true);
-        IsChoose = false;
-        if (isBorder) {
-            //isCardAnnnnn = false;
-            //SetActiveBorder(false);
-        }
-    }
+	public void ResetCard(bool isTouched = true, bool isBorder = false) {
+		SetDarkCard(false);
+		SetTouched(isTouched);
+		IsChoose = false;
+		if (isBorder) {
+			isCardAnnnnn = false;
+			SetActiveBorder(false);
+		}
+	}
 
     public void SetActiveBorder(bool isActive) {
-        //if (objBorderCard != null) {
-        //    objBorderCard.SetActive(isActive);
-        //}
+        if (objBorderCard != null) {
+            objBorderCard.SetActive(isActive);
+        }
     }
 }

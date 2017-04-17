@@ -11,53 +11,58 @@ public class CardMauBinh : MonoBehaviour
 {
 	[SerializeField]
 	ArrayCard[] arrayCard;
-//3-5-5
+	//3-5-5==321
 	//[SerializeField]
 	//Text txt_sum_score;
 	public MauBinhPlayer player;
 
-	float[] PosYMe = new float[3] { 270, 120, -30 };
+	float[] PosYMe = new float[3] { 252, 116, -20 };
 	const float MaxWidthMe = 100;
 
 	float[] PosYOther = new float[3] { 10, 5, 0 };
-	const float MaxWidthOther = 10;
+	const float MaxWidthOther = 20;
 
-	public void Init ()
+	public void Init (bool isMe)
 	{
 		for (int i = 0; i < arrayCard.Length; i++) {
 			int count = 3;
-			if (i > 0) {
+			if (i >0) {
 				count = 5;
 			}
 			arrayCard [i].CardCount = count;
 			arrayCard [i].MaxWidth = count * MaxWidthMe;
 			arrayCard [i].Init ();
 		}
-		SetCardMauBinh (true);
+		SetCardMauBinh (isMe);
+		SetTouchCardHand (isMe);
 	}
 
 	public void SetCard (int[] arr, bool isTao, UnityAction callback = null)
 	{
 		StopAllCoroutines ();
 
-		int[] chi1 = new int[5];
-		int[] chi2 = new int[5];
 		int[] chi3 = new int[3];
+		int[] chi2 = new int[5];
+		int[] chi1 = new int[5];
 		for (int i = 0; i < arr.Length; i++) {
-			if (i < 5) {
-				chi1 [i] = arr [i];
-			} else if (i < 10) {
-				chi2 [i - 5] = arr [i];
+			if (i < 3) {
+				chi3 [i] = arr [i];
+			} else if (i < 8) {
+				chi2 [i - 3] = arr [i];
 			} else {
-				chi3 [i - 10] = arr [i];
+				chi1 [i - 8] = arr [i];
 			}
 		}
-
+		int count = 3;
 		if (isTao) {
 			for (int i = 0; i < arrayCard.Length; i++) {
 				Vector3 vt = arrayCard [i].transform.localPosition;
 				vt.y = PosYMe [i];
 				arrayCard [i].transform.localPosition = vt;
+
+				count = i==0 ? 3: 5;
+				arrayCard [i].CardCount = count;
+				arrayCard [i].MaxWidth = count * MaxWidthMe;
 			}
 		} else {
 			for (int i = 0; i < arrayCard.Length; i++) {
@@ -67,9 +72,9 @@ public class CardMauBinh : MonoBehaviour
 			}
 		}
 	
-		arrayCard [0].ChiaBaiTienLen (chi1, isTao, () => {
+		arrayCard [0].ChiaBaiTienLen (chi3, isTao, () => {
 			arrayCard [1].ChiaBaiTienLen (chi2, isTao, () => {
-				arrayCard [2].ChiaBaiTienLen (chi3, isTao, () => {
+				arrayCard [2].ChiaBaiTienLen (chi1, isTao, () => {
 					numc = 0;
 					if (callback != null)
 						callback.Invoke ();
@@ -80,6 +85,9 @@ public class CardMauBinh : MonoBehaviour
 
 	void SetCard (int[] arr)
 	{
+//		final int[] cardChi1 = new int[] { cardHand[0], cardHand[1], cardHand[2], cardHand[3], cardHand[4] };
+//		final int[] cardChi2 = new int[] { cardHand[5], cardHand[6], cardHand[7], cardHand[8], cardHand[9] };
+//		final int[] cardChi3 = new int[] { cardHand[10], cardHand[11], cardHand[12] };
 		int[] chi1 = new int[5];
 		int[] chi2 = new int[5];
 		int[] chi3 = new int[3];
@@ -93,9 +101,9 @@ public class CardMauBinh : MonoBehaviour
 			}
 		}
 
-		arrayCard [0].SetCardWithArrID (chi1, false);
+		arrayCard [2].SetCardWithArrID (chi1, false);
 		arrayCard [1].SetCardWithArrID (chi2, false);
-		arrayCard [2].SetCardWithArrID (chi3, false);
+		arrayCard [0].SetCardWithArrID (chi3, false);
 	}
 
 	public void SetSoBai (bool isTao)
@@ -128,7 +136,7 @@ public class CardMauBinh : MonoBehaviour
 				arrayCard [i].MaxWidth = count * MaxWidthOther;
 				arrayCard [i].SortCardActive ();
 
-				arrayCard [i].transform.DOLocalMoveY (PosYOther [i], 0.2f);
+				arrayCard [i].transform.DOLocalMoveY (PosYOther [2-i], 0.2f);
 			}
 		}
 	}
@@ -305,19 +313,21 @@ public class CardMauBinh : MonoBehaviour
 		//txt_sum_score.gameObject.SetActive(false);
 	}
 
-	void SetCardKetThuc (bool isOne, int[] chi1, int[] chi2, int[] chi3, bool isTao)
+	public void SetCardKetThuc (bool isOne, int[] chi1, int[] chi2, int[] chi3, bool isTao)
 	{
 		Vector3 vt;
 		if (isTao) {
 			for (int i = 0; i < arrayCard.Length; i++) {
-				int count = 3;
-				if (i > 0) {
-					count = 5;
+//				int count = 3;
+//				if (i > 0) {
+//					count = 5;
+//				}
+				int count = 5;
+				if (i >= arrayCard.Length - 1) {
+					count = 3;
 				}
 				arrayCard [i].MaxWidth = count * MaxWidthMe;
-
 				arrayCard [i].transform.localScale = isOne ? Vector3.zero : Vector3.one;
-
 				vt = arrayCard [i].transform.localPosition;
 				vt.y = PosYMe [i];
 				arrayCard [i].transform.localPosition = vt;
@@ -326,9 +336,9 @@ public class CardMauBinh : MonoBehaviour
 			//    MauBinhViewScript.instance.SetActiveCardHand();
 		} else {
 			for (int i = 0; i < arrayCard.Length; i++) {
-				int count = 3;
-				if (i > 0) {
-					count = 5;
+				int count = 5;
+				if (i >= arrayCard.Length - 1) {
+					count = 3;
 				}
 				arrayCard [i].MaxWidth = count * (MaxWidthOther + 30);
 				arrayCard [i].transform.localScale = isOne ? Vector3.zero : Vector3.one;
@@ -339,22 +349,52 @@ public class CardMauBinh : MonoBehaviour
 			}
 		}
 
-		arrayCard [0].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi1));
-		arrayCard [1].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi2));
-		arrayCard [2].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi3));
+//		arrayCard [2].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi1));
+//		arrayCard [1].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi2));
+//		arrayCard [0].SetActiveCardWithArrID (TypeCardMauBinh.SortDescendingArrCard (chi3));
 
 		if (isOne)
-			EffectScale (arrayCard [2].transform, 1.1f, () => {
+			EffectScale (arrayCard [0].transform, 1.1f, () => {
 				EffectScale (arrayCard [1].transform, 1.1f, () => {
-					EffectScale (arrayCard [0].transform, 1.1f, () => {
+					EffectScale (arrayCard [2].transform, 1.1f, () => {
 					});
 				});
 			});
 	}
-
-	void ShowChi (int[] arrChi, int chi, bool isTao, int hsc, int sum, int bonus)
+	public void ShowChi (int[] arrChi, int chi,int typeC, bool isTao/*, int hsc, int sum, int bonus*/)
 	{
-		int type = (int)TypeCardMauBinh.GetTypeCardMauBinh (arrChi);
+		StartCoroutine (SoChi(arrChi, chi, typeC, isTao));
+	}
+	IEnumerator SoChi(int[] arrChi, int chi,int typeC, bool isTao){
+		yield return new WaitForEndOfFrame ();
+		#region Them
+		Vector3 vt;
+			Debug.LogError("================     " + chi);
+		if(chi == 2){
+			yield return new WaitForSeconds(1);
+			int count = (chi == 0 ? 3 : 5);
+			for (int i = 0; i < 3; i++) {
+				vt = arrayCard [i].transform.localPosition;
+				arrayCard [i].transform.localScale = Vector3.zero;
+				if (isTao) {
+					arrayCard [i].MaxWidth = count * MaxWidthMe;
+					vt.y = PosYMe [i];
+				} else {
+					Debug.LogError(chi + " ===Chi vs COunt===  " + count);
+					arrayCard [i].MaxWidth = count * (MaxWidthOther + 20);
+					vt.y = 120 - i * 60;
+				}
+
+				arrayCard[i].SortCardActive(true);
+				arrayCard [i].transform.localPosition = vt;
+				arrayCard[i].transform.DOScale(1, 0.2f);
+			}
+
+			yield return new WaitForSeconds(1);
+		}
+		#endregion
+
+		int typeCC = (int)TypeCardMauBinh.GetTypeCardMauBinh (arrChi);
 		arrChi = TypeCardMauBinh.SortDescendingArrCard (arrChi);
 		for (int i = 0; i < arrayCard.Length; i++) {
 			if (i != chi) {
@@ -364,18 +404,33 @@ public class CardMauBinh : MonoBehaviour
 		}
 		arrayCard [chi].transform.SetSiblingIndex (4);
 		arrayCard [chi].transform.DOScale (1.2f, 0.2f);// = Vector3.one;
-		Vector3 vt = arrayCard [chi].transform.localPosition;
+		vt = arrayCard [chi].transform.localPosition;
 
 		if (isTao) {
 			vt.y += 40;
 		} else {
 			vt.y += 80;
 		}
-
-		//player.SetTypeCard(GameConfig.STR_TYPE_CARD[type], vt, isTao);//sua
+		if (isTao) {
+			Debug.LogError (typeCC + " =-=-=-=-=-=-=-=-= " + GameConfig.STR_TYPE_CARD[typeCC]);
+		}
+		player.SetTypeCard(GameConfig.STR_TYPE_CARD[typeCC], vt, isTao);//sua
 		arrayCard [chi].SetActiveCardWithArrID (arrChi);
 
-		SetTextScore (hsc, chi, sum, bonus, isTao);
+		if (chi == 0) {
+			yield return new WaitForSeconds(1);
+			arrayCard [2].transform.SetAsFirstSibling ();
+			EffectScale (arrayCard [2].transform, 1.1f, () => {
+				arrayCard [1].transform.SetAsFirstSibling ();
+				EffectScale (arrayCard [1].transform, 1.1f, () => {
+					arrayCard [0].transform.SetAsFirstSibling ();
+					EffectScale (arrayCard [0].transform, 1.1f, () => {
+					});
+				});
+			});
+			yield return new WaitForSeconds (2);
+			SetActiveCard ();
+		}
 	}
 
 	public void DoiChi ()

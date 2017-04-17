@@ -56,9 +56,6 @@ namespace AssetBundles
 				return "iOS";
 			case RuntimePlatform.WebGLPlayer:
 				return "WebGL";
-			case RuntimePlatform.OSXWebPlayer:
-			case RuntimePlatform.WindowsWebPlayer:
-				return "WebPlayer";
 			case RuntimePlatform.WindowsPlayer:
 				return "Windows";
 			case RuntimePlatform.OSXPlayer:

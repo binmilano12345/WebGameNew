@@ -16,8 +16,11 @@ public class RoomControl : MonoBehaviour {
 
     [SerializeField]
     Text txt_name, txt_id, txt_money, txt_game_name;
-    [SerializeField]
-    RawImage raw_avata;
+//    [SerializeField]
+//    RawImage raw_avata;
+
+	[SerializeField]
+	Image img_avata;
 
     bool isAnBanFull = true;
     [SerializeField]
@@ -52,7 +55,7 @@ public class RoomControl : MonoBehaviour {
         obj_tick_ban_full.SetActive(isAnBanFull);
     }
 	public void SetAvatar(){
-		LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
+		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
 	}
 	public void SetDisplayName(){
 		txt_name.text = ClientConfig.UserInfo.DISPLAY_NAME;
@@ -86,7 +89,6 @@ public class RoomControl : MonoBehaviour {
     public void UpdateListTable(List<ItemTableData> listTable) {
         this.ListTable.Clear();
         this.ListTable.AddRange(listTable);
-		Debug.LogError ("---------UpdateListTable");
         PopupAndLoadingScript.instance.HideLoading();
         if (isAnBanFull) {
             ListTable.RemoveAll(x => (x.NUser == x.MaxUser));
@@ -94,9 +96,7 @@ public class RoomControl : MonoBehaviour {
 
         List<ItemTableData> listTemp = new List<ItemTableData>();
         listTemp.AddRange(ListTable);
-		Debug.LogError ("Trc====" + ListTable.Count);
 		ListTable.Clear();
-		Debug.LogError ("Sau====" + listTemp.Count);
         switch (Mathf.Abs(sorttype)) {
             case 1:
                 if (sorttype > 0) {
@@ -131,7 +131,6 @@ public class RoomControl : MonoBehaviour {
                 break;
         }
 
-		Debug.LogError ("Sau cung====" + ListTable.Count);
         myScrollView.ClearCells();
 		myScrollView.totalCount = ListTable.Count;
 //		myScrollView.OnStartFillItem(Itemtable, ListTable.Count);
@@ -139,7 +138,7 @@ public class RoomControl : MonoBehaviour {
     }
 
     void UpdateItemTable(GameObject obj, int index) {
-        if (obj != null) {
+		if (obj != null && index < ListTable.Count) {
             obj.name = index + "";
             ItemTableUI it = obj.GetComponent<ItemTableUI>();
             it.itemData = ListTable[index];
@@ -147,6 +146,9 @@ public class RoomControl : MonoBehaviour {
         }
     }
     #region Button Click
+	public void OnClickNap() {
+		LoadAssetBundle.LoadScene(SceneName.SUB_PAYMENT, SceneName.SUB_PAYMENT);
+	}
     public void OnClickBack() {
         LoadAssetBundle.LoadScene(SceneName.SCENE_LOBBY, SceneName.SCENE_LOBBY);
     }
@@ -157,13 +159,13 @@ public class RoomControl : MonoBehaviour {
         PopupAndLoadingScript.instance.ShowLoading();
         SendData.onUpdateRoom();
     }
-    public void OnClickMail() {
-    }
-    public void OnClickHoTro() {
-    }
-    public void OnClickRank() {
-        LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
-    }
+//    public void OnClickMail() {
+//    }
+//    public void OnClickHoTro() {
+//    }
+//    public void OnClickRank() {
+//        LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
+//    }
     public void OnClickAnBanFull() {
         isAnBanFull = !isAnBanFull;
         obj_tick_ban_full.SetActive(isAnBanFull);

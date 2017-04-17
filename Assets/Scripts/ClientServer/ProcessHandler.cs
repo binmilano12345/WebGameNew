@@ -38,9 +38,9 @@ public class ProcessHandler : MessageHandler {
 				case CMDClient.CMD_GET_FREE_MONEY:
 					listenner.OnMoneyFree(message.reader().ReadLong());
 					break;
-//				case CMDClient.PA:
-//					listenner.OnChangeAvatar(message);
-//					break;
+				case CMDClient.CMD_HISTORY_TRANFER:
+					listenner.OnHistoryTranfer(message);
+					break;
                     case CMDClient.CMD_RATE_SCRATCH_CARD:
                         listenner.OnRateScratchCard(message);
                         break;
@@ -50,6 +50,9 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_LIST_PRODUCT:
                         listenner.OnListProduct(message);
                         break;
+				case CMDClient.CMD_INFO_GIFT2:
+					listenner.InfoGift(message);
+					break;
                     case CMDClient.CMD_TOP:
                         listenner.OnTop(message);
                         break;
@@ -77,6 +80,9 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_UPDATE_ROOM:
                         listenner.OnUpdateRoom(message);
                         break;
+				case CMDClient.CMD_INVITE_FRIEND:// nhan loi moi tu a vao tbid
+					listenner.OnInvite (message);
+					break;
 				case CMDClient.CMD_ID_GAME:
 					listenner.OnGameID(message);
 					break;
@@ -156,6 +162,9 @@ public class ProcessHandler : MessageHandler {
                         } else
                             listenner.OnFinishGame(message);
                         break;
+				case CMDClient.CMD_TIME_AUTOSTART:
+					listenner.OnTimeAuToStart(message);
+					break;
                     case CMDClient.CMD_ALLCARD_FINISH:
                         if (GameControl.instance.CurrentCasino == null) {
                             GameControl.instance.ListCMDID.Add(messageId);
@@ -176,14 +185,17 @@ public class ProcessHandler : MessageHandler {
                     case CMDClient.CMD_LIST_INVITE:
                         listenner.OnListInvite(message);
                         break;
-                    case CMDClient.CMD_INVITE_FRIEND:// nhan loi moi tu a vao tbid
-                        listenner.OnInvite(message);
-                        break;
                     case CMDClient.CMD_BAO_SAM:
                         listenner.OnBaoSam(message);
                         break;
 				case CMDClient.CMD_CALMB_RANKS:
 					listenner.OnRankMauBinh(message);
+					break;
+				case CMDClient.CMD_FINAL_MAUBINH:
+					listenner.OnFinalMauBinh(message);
+					break;
+				case CMDClient.CMD_WINMAUBINH:
+					listenner.OnWinMauBinh(message);
 					break;
                     default:
                         if (secondHandler != null) {

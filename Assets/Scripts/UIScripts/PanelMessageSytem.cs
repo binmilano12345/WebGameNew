@@ -120,7 +120,7 @@ public class PanelMessageSytem : MonoBehaviour {
     }
 
     public void OnClickCancelAll() {
-        SettingConfig.IsInvite = 0;
+		SettingConfig.IsInvite = false;
         onHide();
     }
 }

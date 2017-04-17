@@ -139,9 +139,9 @@ public class SamControl : BaseCasino {
         base.InfoCardPlayerInTbl(message, turnName, time, numP);
         try {
             for (int i = 0; i < numP; i++) {
-                string name = message.reader().ReadUTF();
+                string nameP = message.reader().ReadUTF();
                 sbyte numCard = message.reader().ReadByte();
-                SamPlayer pl = (SamPlayer)GetPlayerWithName(name);
+                SamPlayer pl = (SamPlayer)GetPlayerWithName(nameP);
                 if (pl != null) {
                     pl.IsPlaying = (true);
                     int[] temp = new int[numCard];

@@ -20,6 +20,8 @@ public class PhomControl : BaseCasino, IHasChanged
 	List<int> ListIdCardAn = new List<int> ();
 	int cardDanhTruocDo = 0;
 
+	[SerializeField]
+	Text txt_luat_choi;
 	void Awake ()
 	{
 		instace = this;
@@ -28,6 +30,7 @@ public class PhomControl : BaseCasino, IHasChanged
 	public new void Start ()
 	{
 		base.Start ();
+		OnRule (0);
 	}
 
 	/// <summary>
@@ -117,6 +120,11 @@ public class PhomControl : BaseCasino, IHasChanged
 	public void OnClickSortCard ()
 	{
 		((PhomPlayer)playerMe).cardTaLaManager.SortCard (ListIdCardAn);
+	}
+
+	public void OnClickChangeRule ()
+	{
+		SendData.onChangeRuleTbl();
 	}
 
 	#endregion
@@ -221,12 +229,12 @@ public class PhomControl : BaseCasino, IHasChanged
 			if (issMe) {
 				int[] temp = ((PhomPlayer)playerMe).cardTaLaManager.GetCardIdCardHand ();
 				int[] arr = AutoChooseCardTaLa.GetPhomAnDuoc (temp, cardDanhTruocDo, ListIdCardAn.ToArray ());
-				for (int i = 0; i < temp.Length; i++) {
-					Debug.LogError ("Tren tay:  " + temp[i] + " = " + AutoChooseCardTaLa.GetValue (temp[i]));
-				}
-				for (int i = 0; i < arr.Length; i++) {
-					Debug.LogError ("Phom an duoc:  " + arr[i] + " = " + AutoChooseCardTaLa.GetValue (arr[i]));
-				}
+//				for (int i = 0; i < temp.Length; i++) {
+//					Debug.LogError ("Tren tay:  " + temp[i] + " = " + AutoChooseCardTaLa.GetValue (temp[i]));
+//				}
+//				for (int i = 0; i < arr.Length; i++) {
+//					Debug.LogError ("Phom an duoc:  " + arr[i] + " = " + AutoChooseCardTaLa.GetValue (arr[i]));
+//				}
 				if (arr != null && arr.Length > 0) {
 					((PhomPlayer)playerMe).cardTaLaManager.ArrayCardHand.SetChooseCard (arr);
 					SetActiveButton (false, false, false, true, true, false, true);
@@ -262,20 +270,22 @@ public class PhomControl : BaseCasino, IHasChanged
 
 	internal void OnEatCardSuccess (string thangAn, string thangBiAn, int card)
 	{
+//		Debug.LogError (ClientConfig.UserInfo.UNAME + "   Thang An:  " + thangAn);
+//		Debug.LogError ("Thang Bi An:  " + thangBiAn);
 		Card cardAn = null;
 		PhomPlayer plThangBiAn = (PhomPlayer)GetPlayerWithName (thangBiAn);
 		PhomPlayer plThangAn = (PhomPlayer)GetPlayerWithName (thangAn);
 
-		for (int i = 0; i < ListPlayer.Count; i++) {
-			cardAn = ((PhomPlayer)ListPlayer [i]).cardTaLaManager.ArrayCardFire.GetCardbyIDCard (card);
-			if (cardAn != null) {
-				break;
-			}
-		}
+//		for (int i = 0; i < ListPlayer.Count; i++) {
+//			cardAn = ((PhomPlayer)ListPlayer [i]).cardTaLaManager.ArrayCardFire.GetCardbyIDCard (card);
+//			if (cardAn != null) {
+//				break;
+//			}
+//		}
 
-//        cardAn = plThangBiAn.cardTaLaManager.ArrayCardFire.GetCardbyIDCard(card);
+        cardAn = plThangBiAn.cardTaLaManager.ArrayCardFire.GetCardbyIDCard(card);
 		if (cardAn != null) {
-			bool isTao = thangAn.Equals (ClientConfig.UserInfo.UNAME);
+			bool isTao = thangAn.ToUpper ().Equals (ClientConfig.UserInfo.UNAME.ToUpper ());
 			if (plThangAn != null) {
 				plThangAn.cardTaLaManager.SetEatCard (card, isTao, cardAn, () => {
 					if (isTao) {
@@ -376,8 +386,8 @@ public class PhomControl : BaseCasino, IHasChanged
 		try {
 			int numCardNoc = 0;
 			for (int i = 0; i < numP; i++) {
-				string name = message.reader ().ReadUTF ();
-				PhomPlayer pl = (PhomPlayer)GetPlayerWithName (name);
+				string nameP = message.reader ().ReadUTF ();
+				PhomPlayer pl = (PhomPlayer)GetPlayerWithName (nameP);
 				if (pl != null) {
 					pl.IsPlaying = (true);
 					int[] temp = new int[9];
@@ -533,6 +543,11 @@ public class PhomControl : BaseCasino, IHasChanged
 		}
 	}
 
+
+	 string[] luatchoi = new string[] { "TÁI GỬI", "KHÔNG TÁI GỬI" };
+	internal void OnRule (int luat){
+		txt_luat_choi.text = luatchoi [luat];
+	}
 	internal override void OnStartFail ()
 	{
 		SetActiveButton (true, false, false, false, false, false, false);

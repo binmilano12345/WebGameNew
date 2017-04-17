@@ -14,7 +14,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	[SerializeField]
 	GameObject objSoBai, objDoiChi, objXepLai, objXepBai;
 	[SerializeField]
-	TimeCountDown time;
+	TimeCountDown timeCountDown;
 
 	void Awake ()
 	{
@@ -46,16 +46,22 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	public void OnClickDoiChi ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.DoiChi ();
+
+		int[] cardFinal = ((MauBinhPlayer)playerMe).cardMauBinh.GetArrCardID ();
+		SetLoaiBai (cardFinal);
 	}
 
 	public void OnClickXepBai ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.XepBai ();
+		int[] cardFinal = ((MauBinhPlayer)playerMe).cardMauBinh.GetArrCardID ();
+		SetLoaiBai (cardFinal);
 	}
 
 	public void OnClickXepLai ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.SetXepLai (true);
+		SetActiveButton (true, true, false, true);
 	}
 
 	#endregion
@@ -63,30 +69,37 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	internal override void OnJoinTableSuccess (string master)
 	{
 		base.OnJoinTableSuccess (master);
-		if (master.Equals (ClientConfig.UserInfo.UNAME)) {
-			SetActiveButton (true, false, false, false);
-		} else {
-			SetActiveButton (false, true, false, false);
-		}
+//		if (master.Equals (ClientConfig.UserInfo.UNAME)) {
+		SetActiveButton (false, false, false, false);
+//		} else {
+//			SetActiveButton (false, true, false, false);
+//		}
 	}
 
 	internal override void StartTableOk (int[] cardHand, Message msg, string[] nickPlay)
 	{
 		base.StartTableOk (cardHand, msg, nickPlay);
+		int	turntimeMB = 60;
+		try {
+			turntimeMB = msg.reader ().ReadByte ();
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
 		for (int i = 0; i < nickPlay.Length; i++) {
 			MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nickPlay [i]);
 			if (pl != null) {
+				pl.SetDisableAction ();
 				if (pl.SitOnClient == 0) {
 					pl.cardMauBinh.SetCard (cardHand, true, () => {
-						SetActiveButton (false, false, false, false);
-						time.SetTime (60);
+						SetActiveButton (true, true, false, true);
+						SetLoaiBai (cardHand);
 					});
 				} else {
 					pl.cardMauBinh.SetCard (cardHand, false);
 				}
 			}
 		}
-		time.SetTime (60);
+		timeCountDown.SetTime (turntimeMB);
 		SetLoaiBai (cardHand);
 	}
 
@@ -101,7 +114,8 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		}
 	}
 
-	void OnLung(string namePlayer, long moneyEarn){
+	void OnLung (string namePlayer, long moneyEarn)
+	{
 		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (namePlayer);
 		if (pl != null) {
 			if (moneyEarn < 0) {
@@ -111,25 +125,54 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		}
 	}
 
-	internal void OnRankMauBinh(Message message){
-	}
-	internal override void OnStartFail ()
+	internal void OnRankMauBinh (Message message)
 	{
-		SetActiveButton (true, false, false, false);
-	}
+		SetActiveButton (false, false, false, false);
+		timeCountDown.SetTime (0);
 
-	internal override void OnNickSkip (string nick, string turnname)
-	{
-		base.OnNickSkip (nick, turnname);
-		SetTurn (turnname, null);
-		if (nick.Equals (ClientConfig.UserInfo.UNAME)) {
-			((TLMNPlayer)playerMe).CardHand.ResetCard ();
+		int chi = message.reader ().ReadByte ();
+		int size, i;
+		if (chi != 4 && chi != 5) {
+			size = message.reader ().ReadByte ();
+			for (i = 0; i < size; i++) {
+				string namePlayer = message.reader ().ReadUTF ();
+				int typeCard = message.reader ().ReadByte ();
+				long moneyEarn = message.reader ().ReadLong ();
+				int size2 = message.reader ().ReadByte ();
+				int[] cardChi = new int[size2];
+				for (int k = 0; k < size2; k++) {
+					cardChi [k] = message.reader ().ReadByte ();
+				}
+				MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (namePlayer);
+				if (pl != null) {
+					int iCard = 0;
+					if (chi == 1) {
+						iCard = 2;
+					} else if (chi == 2) {
+						iCard = 1;
+					} else if (chi == 3) {
+						iCard = 0;
+					}
+					pl.cardMauBinh.ShowChi (cardChi, iCard, typeCard, pl.SitOnClient == 0);
+					pl.SetEffect (moneyEarn + "");
+				}
+//				onRankMauBinh(chi, namePlayer, typeCard, moneyEarn, cardChi);
+			}
+		} else if (chi == 4) {
+			size = message.reader ().ReadByte ();
+			for (i = 0; i < size; i++) {
+				string namePlayer = message.reader ().ReadUTF ();
+				long moneyEarn = message.reader ().ReadLong ();
+				OnSapBaChi (namePlayer, moneyEarn);
+			}
+		} else if (chi == 5) {
+			size = message.reader ().ReadByte ();
+			for (i = 0; i < size; i++) {
+				string namePlayer = message.reader ().ReadUTF ();
+				long moneyEarn = message.reader ().ReadLong ();
+				OnLung (namePlayer, moneyEarn);
+			}
 		}
-	}
-
-	internal override void OnFinishTurn ()
-	{
-		base.OnFinishTurn ();
 	}
 
 	internal override void InfoCardPlayerInTbl (Message message, string turnName, int time, sbyte numP)
@@ -137,30 +180,24 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		base.InfoCardPlayerInTbl (message, turnName, time, numP);
 		try {
 			for (int i = 0; i < numP; i++) {
-				string name = message.reader ().ReadUTF ();
-				sbyte numCard = message.reader ().ReadByte ();
-				TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName (name);
+				string nameP = message.reader ().ReadUTF ();
+				bool isDangXep = message.reader ().ReadBoolean ();
+				Debug.LogError ("Ten " + nameP);
+
+				MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nameP);
 				if (pl != null) {
-					pl.IsPlaying = (true);
-					int[] temp = new int[numCard];
+					pl.IsPlaying = true;
+					pl.SetXepXong (!isDangXep);
+					int[] temp = new int[13];
 					for (int j = 0; j < temp.Length; j++) {
 						temp [j] = 52;
 					}
-					pl.CardHand.SetCardWithId53 ();
-					pl.CardHand.SetActiveCardHand (true);
-					pl.SetNumCard (numCard);
+
+					pl.cardMauBinh.SetCard (temp, false);
 				}
 			}
 			GameControl.instance.TimerTurnInGame = time;
-			BasePlayer plTurn = GetPlayerWithName (turnName);
-			if (plTurn != null) {
-				plTurn.SetTurn (time);
-			}
-			if (turnName.Equals (ClientConfig.UserInfo.UNAME)) {
-				SetActiveButton (false, false, true, true);
-			} else {
-				SetActiveButton (false, false, false, false);
-			}
+			timeCountDown.SetTime (time);
 		} catch (Exception e) {
 			Debug.LogException (e);
 		}
@@ -170,37 +207,37 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	{
 		base.OnInfome (message);
 		try {
-			GameControl.instance.TimerTurnInGame = 20;
 			playerMe.IsPlaying = (true);
-			int sizeCardHand = message.reader ().ReadByte ();
-			int[] cardHand = new int[sizeCardHand];
-			for (int i = 0; i < sizeCardHand; i++) {
-				cardHand [i] = message.reader ().ReadByte ();
-			}
-			((TLMNPlayer)playerMe).CardHand.SetCardWithArrID (cardHand);
-			((TLMNPlayer)playerMe).CardHand.SetActiveCardHand (true);
-
-			int sizeCardFire = message.reader ().ReadByte ();
-			if (sizeCardFire > 0) {
-				int[] cardFire = new int[sizeCardFire];
-				for (int i = 0; i < sizeCardFire; i++) {
-					cardFire [i] = message.reader ().ReadByte ();
-				}
-			}
-			string turnName = message.reader ().ReadUTF ();
-			int turnTime = message.reader ().ReadInt ();
-			BasePlayer plTurn = GetPlayerWithName (turnName);
-			if (plTurn != null) {
-				plTurn.SetTurn (turnTime);
+			bool isDangXep = message.reader ().ReadBoolean ();
+			sbyte len = message.reader ().ReadByte ();
+			sbyte[] c = new sbyte[len];
+			for (int i = 0; i < len; i++) {
+				c [i] = message.reader ().ReadByte ();
 			}
 
-			if (turnName.Equals (ClientConfig.UserInfo.UNAME)) {
-				SetActiveButton (false, false, true, sizeCardFire > 0);
-			} else {
-				SetActiveButton (false, false, false, false);
+			int[] cardHand = new int[c.Length];
+			for (int i = 0; i < c.Length; i++) {
+				cardHand [i] = c [i];
 			}
+
+//			((MauBinhPlayer)playerMe).SetXepXong(!isDangXep);
+
+			((MauBinhPlayer)playerMe).cardMauBinh.SetCard (cardHand, true);
+			SetActiveButton (true, true, false, true);
 		} catch (Exception e) {
 			Debug.LogException (e);
+		}
+	}
+
+	internal override void OnFinishGame (Message message)
+	{
+		SetActiveButton (false, false, false, false);
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			MauBinhPlayer pl = (MauBinhPlayer)ListPlayer [i];
+			if (pl != null) {
+				pl.SetDisableAction ();
+				pl.cardMauBinh.SetActiveCard ();
+			}
 		}
 	}
 
@@ -211,17 +248,6 @@ public class MauBinhControl : BaseCasino, IHasChanged
 			SetActiveButton (false, false, false, false);
 	}
 
-	internal override void OnReady (string nick, bool ready)
-	{
-		base.OnReady (nick, ready);
-		if (nick.Equals (ClientConfig.UserInfo.UNAME) && !playerMe.IsMaster) {
-			if (ready)
-				SetActiveButton (false, false, false, false);
-			else
-				SetActiveButton (false, true, false, false);
-		}
-	}
-
 	internal override void OnJoinTablePlaySuccess (Message message)
 	{
 		base.OnJoinTablePlaySuccess (message);
@@ -229,50 +255,76 @@ public class MauBinhControl : BaseCasino, IHasChanged
 			SetActiveButton (false, false, false, false);
 	}
 
-	internal override void OnFireCardFail ()
-	{
-		base.OnFireCardFail ();
-		SetActiveButton (false, false, true, true);
-		PopupAndLoadingScript.instance.toast.showToast (ClientConfig.Language.GetText ("popup_danh_bai_loi"));
-	}
-
-	internal override void SetMaster (string nick)
-	{
-		base.SetMaster (nick);
-		if (nick.Equals (ClientConfig.UserInfo.UNAME)) {
-			SetActiveButton (true, false, false, false);
-		} else {
-			SetActiveButton (false, true, false, false);
-		}
-	}
-
 	internal override void OnStartForView (string[] playingName, Message msg)
 	{
 		base.OnStartForView (playingName, msg);
 		SetActiveButton (false, false, false, false);
+		int[] cardHand = new int[13];
+		for (int i = 0; i < cardHand.Length; i++) {
+			cardHand [i] = 52;
+		}
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			if (ListPlayer [i].IsPlaying) {
-				((TLMNPlayer)ListPlayer [i]).CardHand.SetActiveCardHand (true);
+				MauBinhPlayer pl = (MauBinhPlayer)ListPlayer [i];
+				if (pl != null) {
+					pl.cardMauBinh.SetCard (cardHand, false);
+				}
 			}
 		}
-	}
 
-	internal override void OnFinishGame (Message message)
-	{
-		base.OnFinishGame (message);
-		if (playerMe.IsMaster)
-			SetActiveButton (true, false, false, false);
-		else
-			SetActiveButton (false, true, false, false);
+		timeCountDown.SetTime (60);
 	}
 
 	internal override void AllCardFinish (string nick, int[] card)
 	{
 		base.AllCardFinish (nick, card);
-		TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName (nick);
-		if (pl != null) {
-			pl.CardHand.SetCardKhiKetThucGame (AutoChooseCard.SortArrCard (card));
+		try {
+			Debug.LogError(nick + "   " + card.Length);
+			if (card.Length > 0) {
+				int[] cardChi1 = new int[] { card [0], card [1], card [2], card [3], card [4] };
+				int[] cardChi2 = new int[] { card [5], card [6], card [7], card [8], card [9] };
+				int[] cardChi3 = new int[] { card [10], card [11], card [12] };
+				MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nick);
+				if (pl != null) {
+					pl.cardMauBinh.SetCardKetThuc (true, cardChi1, cardChi2, cardChi3, pl.SitOnClient == 0);
+				}
+			}
+		} catch (Exception e) {
+			Debug.LogException (e);
 		}
+		SetActiveButton (false, false, false, false);
+	}
+
+	internal override void OnTimeAuToStart (int time)
+	{
+		base.OnTimeAuToStart (time);
+		timeCountDown.SetTime (time);
+	}
+
+	public void OnFinalMauBinh (Message message)
+	{
+		string nameP = message.reader ().ReadUTF ();
+		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nameP);
+		if (pl != null) {
+			pl.cardMauBinh.SetSoBai (pl.SitOnClient == 0);
+			pl.SetXepXong (true);
+		}
+		if (nameP.Equals (ClientConfig.UserInfo.UNAME)) {
+			SetActiveButton (false, false, true, false);
+		}
+	}
+
+	internal void OnWinMauBinh (Message message)
+	{
+		string nameP = message.reader ().ReadUTF ();
+		int typeC = message.reader ().ReadByte ();
+
+		Debug.LogError (nameP + " -=Thang trang=- " + typeC);
+		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nameP);
+		if (pl != null) {
+			pl.SetMauBinh (typeC);
+		}
+		SetActiveButton (false, false, false, false);
 	}
 
 	#region IHasChanged
@@ -299,19 +351,36 @@ public class MauBinhControl : BaseCasino, IHasChanged
 				txt_typecards [i].gameObject.SetActive (false);
 			}
 			txt_typecards [1].gameObject.SetActive (true);
-			//txt_typecards[1].text = GameConfig.STR_THANG_TRANG[thangtrang];
+			txt_typecards [1].text = GameConfig.STR_THANG_TRANG [thangtrang];
 			return;
 		}
 
-		int type1 = (int)TypeCardMauBinh.GetTypeCardMauBinh (chi1);
-		int type2 = (int)TypeCardMauBinh.GetTypeCardMauBinh (chi2);
-		int type3 = (int)TypeCardMauBinh.GetTypeCardMauBinh (chi3);
+		TYPE_CARD type1 = TypeCardMauBinh.GetTypeCardMauBinh (chi1);
+		TYPE_CARD type2 = TypeCardMauBinh.GetTypeCardMauBinh (chi2);
+		TYPE_CARD type3 = TypeCardMauBinh.GetTypeCardMauBinh (chi3);
 
-		SetLoaiBaiCuaChi (0, type1);
-		SetLoaiBaiCuaChi (1, type2);
-		SetLoaiBaiCuaChi (2, type3);
+		string str = "";
+		for (int i = 0; i < chi1.Length; i++) {
+			str += TypeCardMauBinh.GetValue (chi1 [i]);
+		}
+		Debug.LogError (type1 + "\n" + str);
+		str = "";
+		for (int i = 0; i < chi2.Length; i++) {
+			str += TypeCardMauBinh.GetValue (chi2 [i]);
+		}
+		Debug.LogError (type2 + "\n" + str);
 
-		if (TypeCardMauBinh.IsLung (arr)) {
+		str = "";
+		for (int i = 0; i < chi3.Length; i++) {
+			str += TypeCardMauBinh.GetValue (chi3 [i]);
+		}
+		Debug.LogError (type3 + "\n" + str);
+
+		SetLoaiBaiCuaChi (2, (int)type1);
+		SetLoaiBaiCuaChi (1, (int)type2);
+		SetLoaiBaiCuaChi (0, (int)type3);
+	
+		if (TypeCardMauBinh.IsLung (chi1, chi2, chi3)) {
 			for (int i = 0; i < txt_typecards.Length; i++) {
 				txt_typecards [i].gameObject.SetActive (false);
 			}
@@ -320,33 +389,33 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		}
 	}
 
-	public void SetScoreMauBinh (int score, int bonus, int chi, bool isHide = false)
-	{
-		if (isHide) {
-			for (int i = 0; i < txt_typecards.Length; i++) {
-				txt_typecards [i].gameObject.SetActive (false);
-			}
-		} else {
-			txt_typecards [chi].color = Color.white;
-			txt_typecards [chi].gameObject.SetActive (true);
-			txt_typecards [chi].text = (score > 0 ? "<color=yellow>+" + score + "</color>" : "" + score) + (bonus > 0 ? " <color=yellow>(+" + bonus + ")</color>" : "");
-			txt_typecards [chi].transform.DOScale (1.2f, 0.2f).OnComplete (delegate {
-				txt_typecards [chi].transform.DOScale (1f, 0.1f);
-			});
-		}
-	}
-
+	//	public void SetScoreMauBinh (int score, int bonus, int chi, bool isHide = false)
+	//	{
+	//		if (isHide) {
+	//			for (int i = 0; i < txt_typecards.Length; i++) {
+	//				txt_typecards [i].gameObject.SetActive (false);
+	//			}
+	//		} else {
+	//			txt_typecards [chi].color = Color.white;
+	//			txt_typecards [chi].gameObject.SetActive (true);
+	//			txt_typecards [chi].text = (score > 0 ? "<color=yellow>+" + score + "</color>" : "" + score) + (bonus > 0 ? " <color=yellow>(+" + bonus + ")</color>" : "");
+	//			txt_typecards [chi].transform.DOScale (1.2f, 0.2f).OnComplete (delegate {
+	//				txt_typecards [chi].transform.DOScale (1f, 0.1f);
+	//			});
+	//		}
+	//	}
+	//
 	void SetLoaiBaiCuaChi (int chi, int type)
 	{
 		txt_typecards [chi].gameObject.SetActive (true);
-		//txt_typecards[chi].text = (chi + 1) + ". " + GameConfig.STR_TYPE_CARD[type];
+		txt_typecards [chi].text = (chi + 1) + ". " + GameConfig.STR_TYPE_CARD [type];
 
 	}
 	//tha
 	public void HasDrop ()
 	{
 		if (playerMe != null) {
-			//SetLoaiBai(playerMe.cardMauBinh.GetArrCardID());
+			SetLoaiBai (((MauBinhPlayer)playerMe).cardMauBinh.GetArrCardID ());
 		}
 
 		card_show_mb.SetVisible (false);
@@ -379,4 +448,16 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	}
 
 	#endregion
+
+	public void Demo ()
+	{
+		int[] arrr = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+		((MauBinhPlayer)playerMe).cardMauBinh.SetCard (arrr, true);
+		for (int i = 1; i < ListPlayer.Count; i++) {
+			MauBinhPlayer pl = (MauBinhPlayer)ListPlayer [i];
+			if (pl != null) {
+				pl.cardMauBinh.SetCard (arrr, false);
+			}
+		}
+	}
 }

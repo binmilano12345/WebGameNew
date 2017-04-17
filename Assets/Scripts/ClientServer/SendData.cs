@@ -418,7 +418,7 @@ public class SendData {
         NetworkUtil.GI().sendMessage(msg);
     }
 
-    public static void onAcceptInviteFriend(byte gameid, short tblid, long folowMoney) {
+    public static void onAcceptInviteFriend(sbyte gameid, short tblid, long folowMoney) {
         Message msg = new Message(CMDClient.CMD_ANSWER_INVITE_FRIEND);
         try {
             msg.writer().WriteByte(gameid);

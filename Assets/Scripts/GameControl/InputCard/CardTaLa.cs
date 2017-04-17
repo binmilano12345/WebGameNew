@@ -21,22 +21,23 @@ public class CardTaLa : MonoBehaviour {
         ArrayCardHand.CardCount = 10;
         if (isTao) {
             ArrayCardHand.MaxWidth = 10 * 60;
-            ArrayCardHand.isSmall = false;
-            ArrayCardHand.isTouched = true;
         } else {
             ArrayCardHand.MaxWidth = 10 * 40;
-            ArrayCardHand.isSmall = true;
-            ArrayCardHand.isTouched = false;
         }
 
-        ArrayCardHand.Init();
+		ArrayCardHand.isSmall = !isTao;
+		ArrayCardHand.isTouched = isTao;
+		ArrayCardHand.Init();
+		ArrayCardHand.SetIsCardDragDrop (isTao);
+
         for (int i = 0; i < ArrayCardPhom.Length; i++) {
             ArrayCardPhom[i].CardCount = 10;
             ArrayCardPhom[i].MaxWidth = 10 * 40;
             ArrayCardPhom[i].isSmall = true;
             ArrayCardPhom[i].isTouched = false;
 
-            ArrayCardPhom[i].Init();
+			ArrayCardPhom[i].Init();
+			ArrayCardPhom[i].SetIsCardDragDrop (false);
         }
 
         ArrayCardFire.CardCount = 4;
@@ -44,7 +45,8 @@ public class CardTaLa : MonoBehaviour {
         ArrayCardFire.isSmall = true;
         ArrayCardFire.isTouched = false;
 
-        ArrayCardFire.Init();
+		ArrayCardFire.Init();
+		ArrayCardFire.SetIsCardDragDrop (false);
     }
 
     public void SetChiaBai(int[] arrCard, bool isTao, UnityAction callback = null) {
@@ -94,11 +96,10 @@ public class CardTaLa : MonoBehaviour {
         }
     }
     public void SetEatCard(int idCardEat, bool isTao, Card cardAnCuaThangkhac, UnityAction callback = null) {
-		Debug.LogError("====SetEatCard");
 		if (isTao) {
             Card cAn = GetCardOnArrayCard(ArrayCardHand);
             cAn.transform.localPosition = ArrayCardHand.GetPositonCardActive();
-            cAn.ResetCard(true);
+            cAn.ResetCard(false ,true);
             cAn.SetCardWithId(idCardEat);
 
             Vector3 vtFrom = ArrayCardHand.transform.InverseTransformPoint(cardAnCuaThangkhac.transform.position);
@@ -139,25 +140,47 @@ public class CardTaLa : MonoBehaviour {
 
     public void BocBai(int idCard, bool isTao, UnityAction callback = null) {
         //if (isTao) {
-        Card c = GetCardOnArrayCard(ArrayCardHand);
-        if (isTao) {
-            c.SetCardWithId(idCard);
-            c.transform.localPosition = ArrayCardHand.GetPositonCardActive();
-        } else
-            c.SetCardWithId(53);
-        Vector3 vt = ArrayCardHand.vtPosCenter;
-        StartCoroutine(c.MoveFrom(vt, CONST_DUR, 0, () => {
-            if (isTao) {
-                c.ResetCard(true);
-                ArrayCardHand.ResetCard();
-                ArrayCardHand.SortCardActive();
-                isSortOderBy = 1;
-            }
-            if (callback != null) {
-                callback.Invoke();
-            }
-        }));
-        //}
+//        Card c = GetCardOnArrayCard(ArrayCardHand);
+//        if (isTao) {
+//            c.SetCardWithId(idCard);
+//            c.transform.localPosition = ArrayCardHand.GetPositonCardActive();
+//        } else
+//            c.SetCardWithId(53);
+//        Vector3 vt = ArrayCardHand.vtPosCenter;
+//        StartCoroutine(c.MoveFrom(vt, CONST_DUR, 0, () => {
+//            if (isTao) {
+//                c.ResetCard(true);
+//                ArrayCardHand.ResetCard();
+//                ArrayCardHand.SortCardActive();
+//                isSortOderBy = 1;
+//            }
+//            if (callback != null) {
+//                callback.Invoke();
+//            }
+//        }));
+		//}
+		Card c = GetCardOnArrayCard(ArrayCardHand);
+		if (isTao) {
+			c.SetCardWithId(idCard);
+			c.transform.localPosition = ArrayCardHand.GetPositonCardActive();
+		} else
+			c.SetCardWithId(53);
+		Vector3 vt = ArrayCardHand.POS_CENTER;//ArrayCardHand.transform.InverseTransformPoint(ArrayCardHand.vtPosCenter);
+		StartCoroutine(c.MoveFrom(vt, CONST_DUR, 0, () => {
+			if (isTao) {
+				c.ResetCard(true,true);
+				ArrayCardHand.ResetCard(true);
+				Card ctemp = new Card();
+				ctemp = c;
+				ArrayCardHand.listCardHand.Remove(c);
+				ArrayCardHand.listCardHand.Add(ctemp);
+				ArrayCardHand.SortCardActive(true, 0.2f);
+				isSortOderBy = 1;
+			}
+			if (callback != null) {
+				callback.Invoke();
+			}
+		}));
     }
     public void ChuyenBai(int idCard, PhomPlayer playerTu, UnityAction callback = null) {
         Card cTu = playerTu.cardTaLaManager.ArrayCardFire.GetCardbyIDCard(idCard);
@@ -243,7 +266,7 @@ public class CardTaLa : MonoBehaviour {
             ArrayCard arr = ArrayCardPhom[indexPhomHa];
             for (int i = 0; i < arr.listCardHand.Count; i++) {
                 Card cc = arr.listCardHand[i];
-                cc.ResetCard(true);
+                cc.ResetCard(false,true);
                 if (i < idCards.Length) {
                     Card cHa = ArrayCardHand.GetCardbyIDCard(idCards[i]);
                     cc.transform.localPosition = arr.GetPositonCardActive();
@@ -269,7 +292,7 @@ public class CardTaLa : MonoBehaviour {
             ArrayCard arr = ArrayCardPhom[indexPhomHa];
             for (int i = 0; i < arr.listCardHand.Count; i++) {
                 Card cc = arr.listCardHand[i];
-                cc.ResetCard(true);
+                cc.ResetCard(false, true);
                 if (i < idCards.Length) {
                     cc.SetCardWithId(idCards[i]);
                     Vector3 vt = arr.transform.InverseTransformPoint(ArrayCardHand.transform.position);
@@ -309,7 +332,7 @@ public class CardTaLa : MonoBehaviour {
             Card c = ArrayCardHand.listCardHand[j];
             if (j < arrSorted.Length) {
                 c.SetVisible(true);
-                c.ResetCard(true);
+                c.ResetCard(true, true);
                 newPos = c.transform.localPosition;
                 oldPos = oldPosition[arrSorted[j]];
 

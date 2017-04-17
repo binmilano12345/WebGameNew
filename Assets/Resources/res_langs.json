@@ -71,6 +71,9 @@
 	"ingame_an":"ĂN",
 	"ingame_ha_bai":"HẠ PHỎM",
 	"ingame_xep_bai":"XẾP BÀI",
+	"ingame_so_bai":"SO BÀI",
+	"ingame_doi_chi":"ĐỔI CHI",
+	"ingame_xep_lai":"XẾP LẠI",
 	
 	 "maingame_choingay": "CHƠI NGAY",
     "maingame_taoban": "TẠO BÀN",
@@ -206,6 +209,10 @@
 	"payment_txt_toida_10tin":"Mỗi ngày chỉ được phép nạp tối đa 10 tin nhắn",
 	"payment_txt_send_sms":"Nhắn tin để nạp {0} Gold (phí {1}).",
 	"payment_txt_lsct":"Lịch sử chuyển tiền",
+	"payment_txt_ko_gd":"Bạn chưa có giao dịch nào!",
+
+	"mail_txt_ko_mail":"Bạn không có thư nào!",
+	"mail_txt_tin_he_thong":"Tin hệ thống",
 
     "popup_tittle_thong_canhan": "Thông tin cá nhân",
 	"info_player_sovandau":"Số ván đấu: {0}",

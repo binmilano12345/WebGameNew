@@ -92,8 +92,6 @@ public class PanelHelp : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
-		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE);
 		txt_hotro.text = string.Format (ClientConfig.Language.GetText ("helper")
 			, GameConfig.HOT_LINE
 			, GameConfig.FANPAGE
@@ -116,6 +114,11 @@ public class PanelHelp : MonoBehaviour
 			});
 		}
 		OnValueChange (tg_tab[0]);
+	}
+
+	void OnEnable(){
+		txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
+		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE);
 	}
 
 	void OnValueChange (Toggle obj)

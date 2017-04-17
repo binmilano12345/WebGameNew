@@ -164,9 +164,9 @@ public class TLMNControl : BaseCasino
 		base.InfoCardPlayerInTbl (message, turnName, time, numP);
 		try {
 			for (int i = 0; i < numP; i++) {
-				string name = message.reader ().ReadUTF ();
+				string nameP = message.reader ().ReadUTF ();
 				sbyte numCard = message.reader ().ReadByte ();
-				TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName (name);
+				TLMNPlayer pl = (TLMNPlayer)GetPlayerWithName (nameP);
 				if (pl != null) {
 					pl.IsPlaying = (true);
 					int[] temp = new int[numCard];

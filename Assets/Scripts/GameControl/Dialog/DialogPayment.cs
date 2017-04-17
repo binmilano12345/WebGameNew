@@ -52,8 +52,6 @@ public class DialogPayment : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
-		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE);
 		string str_rate = "";
 		for (int i = 0; i < GameConfig.ListRateCard.Count; i++) {
 			str_rate += MoneyHelper.FormatMoneyNormal (GameConfig.ListRateCard [i].Card_Cost) + "VNĐ  =  "
@@ -63,6 +61,10 @@ public class DialogPayment : MonoBehaviour
 		rate_card.text = str_rate;
 		sms_10.text = MoneyHelper.FormatMoneyNormal (GameConfig.SMS_10) + " Gold";
 		sms_15.text = MoneyHelper.FormatMoneyNormal (GameConfig.SMS_15) + " Gold";
+	}
+	void OnEnable(){
+		txt_id.text = "ID: " + ClientConfig.UserInfo.USER_ID;
+		txt_money.text = MoneyHelper.FormatMoneyNormal (ClientConfig.UserInfo.CASH_FREE);
 	}
 
 	#region Click

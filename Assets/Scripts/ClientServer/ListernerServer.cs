@@ -271,7 +271,7 @@ public class ListernerServer : IChatListener
 		try {
 			int size = message.reader ().ReadInt ();
 			for (int i = 0; i < size; i++) {
-				GameConfig.RATE_CARD it = new GameConfig.RATE_CARD();
+				ItemRateCardData it = new ItemRateCardData ();
 				it.Card_Cost = message.reader ().ReadInt ();//menh gia
 				it.Card_Value = message.reader ().ReadInt ();//xu
 				GameConfig.ListRateCard.Add (it);
@@ -287,15 +287,40 @@ public class ListernerServer : IChatListener
 		}
 	}
 
-	public	void OnMoneyFree(long money){
-		LoadAssetBundle.LoadScene (SceneName.SUB_GIFT_MONEY,SceneName.SUB_GIFT_MONEY, ()=>{
+	public	void OnMoneyFree (long money)
+	{
+		Debug.LogError ("Nhan dc tien nhe: " + money);
+		LoadAssetBundle.LoadScene (SceneName.SUB_GIFT_MONEY, SceneName.SUB_GIFT_MONEY, () => {
 			ClientConfig.UserInfo.CASH_FREE += money;
-			if(LobbyControl.instance != null){
+			if (LobbyControl.instance != null) {
 				LobbyControl.instance.SetMoney ();
 			}
 		});
 	}
 
+	public	void OnHistoryTranfer (Message message)
+	{
+		try {
+			int size = message.reader ().ReadShort ();
+			if (size == 0) {
+				PopupAndLoadingScript.instance.messageSytem.OnShow (ClientConfig.Language.GetText ("payment_txt_ko_gd"));
+			} else {
+				List<ItemHistoryTranferData> list = new List<ItemHistoryTranferData> ();
+				for (int i = 0; i < size; i++) {
+					ItemHistoryTranferData ls = new ItemHistoryTranferData ();
+					ls.Id = message.reader ().ReadLong ();
+					ls.Money = message.reader ().ReadLong ();
+					ls.TimeTranfer = message.reader ().ReadUTF ();
+					list.Add (ls);
+				}
+//				LoadAssetBundle.LoadScene (SceneName.SUB_HISTORY_TRANFER,SceneName.SUB_HISTORY_TRANFER, ()=>{
+//					
+//				});
+			}
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
+	}
 
 	public void OnListBetMoney (Message message)
 	{
@@ -331,6 +356,49 @@ public class ListernerServer : IChatListener
 			}
 			//mainGame.mainScreen.dialogNapTien.createIAP(mainGame,
 			//        mainGame.listProductIDs);
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
+	}
+
+	public void InfoGift (Message message)//doi thuong
+	{
+		try {
+			int size = message.reader ().ReadInt ();
+			List<ItemInfoGiftData> list = new List<ItemInfoGiftData> ();
+			for (int i = 0; i < size; i++) {
+				ItemInfoGiftData gift = new ItemInfoGiftData ();
+				gift.Id = message.reader ().ReadInt ();
+				gift.Type = message.reader ().ReadInt ();
+				// type 1: the cao
+				// type 2: vat pham
+				gift.Name = message.reader ().ReadUTF ();
+				gift.Cost = message.reader ().ReadLong ();
+				gift.Telco = message.reader ().ReadUTF ();
+				gift.Price = message.reader ().ReadLong ();
+				gift.Balance = message.reader ().ReadLong ();
+				gift.Des = message.reader ().ReadUTF ();
+				gift.Links = message.reader ().ReadUTF ();
+				list.Add (gift);
+//				if (gift.Type == 1) {
+//					BaseInfo.gI().giftTheCao.add(gift);
+//					switch (gift.telco) {
+//					case "VMS":
+//						BaseInfo.gI().giftTheMobi.add(gift);
+//						break;
+//					case "VNP":
+//						BaseInfo.gI().giftTheVina.add(gift);
+//						break;
+//					case "VTT":
+//						BaseInfo.gI().giftTheViettel.add(gift);
+//						break;
+//					default:
+//						break;
+//					}
+//				} else {
+//					BaseInfo.gI().giftPhanQua.add(gift);
+//				}
+			}
 		} catch (Exception e) {
 			Debug.LogException (e);
 		}
@@ -462,28 +530,6 @@ public class ListernerServer : IChatListener
 			Debug.LogException (e);
 		}
 
-	}
-
-	public void OnInvite (Message message)
-	{
-		sbyte confirm = message.reader ().ReadByte ();
-		if (confirm == 0) {
-			string str = message.reader ().ReadUTF ();
-		} else {
-			string nickinvite = message.reader ().ReadUTF ();
-			string displayNameInvite = message.reader ().ReadUTF ();
-			int gameid = message.reader ().ReadByte ();
-			short tblid = message.reader ().ReadShort ();
-			long money = message.reader ().ReadLong ();
-			long minMoney = message.reader ().ReadLong ();
-			long maxMoney = message.reader ().ReadLong ();
-
-			if (SettingConfig.IsInvite == 1) {
-				PopupAndLoadingScript.instance.messageSytem.OnShowCancelAll (string.Format (ClientConfig.Language.GetText ("popup_invite_play"), string.IsNullOrEmpty (displayNameInvite) ? nickinvite : displayNameInvite, GameConfig.GameName [gameid], money), delegate {
-					SendData.onAcceptInviteFriend ((byte)gameid, tblid, -1);
-				});
-			}
-		}
 	}
 
 	public void OnListInvite (Message message)
@@ -657,6 +703,34 @@ public class ListernerServer : IChatListener
 		}
 	}
 
+	public void OnInvite (Message message)
+	{
+		try {
+			if (SettingConfig.IsInvite) {
+				sbyte confirm = message.reader ().ReadByte ();
+				if (confirm == 0) {
+					string str = message.reader ().ReadUTF ();
+				} else {
+					string nickInvite = message.reader ().ReadUTF ();
+					string displayNameInvite = message.reader ().ReadUTF ();
+					sbyte gameId = message.reader ().ReadByte ();
+					short tblId = message.reader ().ReadShort ();
+					long money = message.reader ().ReadLong ();
+					long minMoney = message.reader ().ReadLong ();
+					long maxMoney = message.reader ().ReadLong ();
+					string gameName = GameConfig.GameName [gameId];
+					PopupAndLoadingScript.instance.messageSytem.OnShowCancelAll (
+						string.Format (ClientConfig.Language.GetText ("popup_invite_play"), displayNameInvite, gameName, money)
+						, delegate {
+						SendData.onAcceptInviteFriend (gameId, tblId, -1);
+					});
+				}
+			}
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
+	}
+
 	public void OnChat (Message message)
 	{
 		string nick = message.reader ().ReadUTF ();
@@ -669,7 +743,6 @@ public class ListernerServer : IChatListener
 	{
 		// check = SerializerHelper.readInt(message);
 		sbyte status = message.reader ().ReadByte ();
-		Debug.LogError ("======== " + status);
 		if (status == 1) {
 			sbyte numPlayer = message.reader ().ReadByte ();
 			GameControl.instance.SetCasino (numPlayer == 9 ? 1 : 0, () => {
@@ -705,6 +778,13 @@ public class ListernerServer : IChatListener
 		GameControl.instance.CurrentCasino.OnUpdateMoneyTbl (message);
 	}
 
+	public void OnTimeAuToStart(Message message) {
+		try {
+			GameControl.instance.CurrentCasino.OnTimeAuToStart(message.reader().ReadByte());
+		} catch (Exception e) {
+			Debug.LogException (e);
+		}
+	}
 	#region Bat dau van
 
 	public void InfoCardPlayerInTbl (Message message)
@@ -868,7 +948,7 @@ public class ListernerServer : IChatListener
 		if (card != -1) {
 			string thangAn = message.reader ().ReadUTF ();
 			string thangBiAn = message.reader ().ReadUTF ();
-			((PhomControl)GameControl.instance.CurrentCasino).OnEatCardSuccess (thangBiAn, thangAn, card);
+			((PhomControl)GameControl.instance.CurrentCasino).OnEatCardSuccess (thangAn, thangBiAn, card);
 		}
 	}
 
@@ -922,6 +1002,11 @@ public class ListernerServer : IChatListener
 		((PhomControl)GameControl.instance.CurrentCasino).OnPhomha (message);
 	}
 
+	public void OnChangeRuleTbl (Message message)
+	{
+		sbyte luat = message.reader().ReadByte();
+		((PhomControl)GameControl.instance.CurrentCasino).OnRule (luat);
+	}
 	#endregion
 
 	#region Mau Binh
@@ -930,6 +1015,12 @@ public class ListernerServer : IChatListener
 	{
 		((MauBinhControl)GameControl.instance.CurrentCasino).OnRankMauBinh (message);
 	}
-
+	public void OnFinalMauBinh(Message message) {
+		((MauBinhControl)GameControl.instance.CurrentCasino).OnFinalMauBinh (message);
+	}
+	public void OnWinMauBinh(Message message) {
+		//		mainGame.mainScreen.curentCasino.onWinMauBinh(name, typeCard);
+		((MauBinhControl)GameControl.instance.CurrentCasino).OnWinMauBinh (message);
+	}
 	#endregion
 }

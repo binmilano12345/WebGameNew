@@ -13,28 +13,31 @@ interface IChatListener {
 	void OnChangeName (Message message);
 	void OnChangePass (Message message);
 	void OnChangeAvatar (Message message);
-    void OnRateScratchCard(Message message);
+	void OnRateScratchCard(Message message);
 	void OnMoneyFree (long money);
-    void OnListBetMoney(Message message);
-    void OnListProduct(Message message);
+	void OnHistoryTranfer (Message message);
+	void OnListBetMoney(Message message);
+	void OnListProduct(Message message);
+	void InfoGift(Message message);
     void OnTop(Message message);
     void OnInboxMessage(Message message);
     void OnGetAlertLink(Message message);
     void OnInfoSMS(Message message);
     void OnSMS9029(Message message);
-    void OnInvite(Message message);
     void OnListInvite(Message message);
     void OnJoinGame(Message message);
     void OnJoinRoom(Message message);
     void OnGameID(Message message);
-    void OnListTable(int totalTB, Message message);
-    void OnUpdateRoom(Message message);
+	void OnListTable(int totalTB, Message message);
+	void OnUpdateRoom(Message message);
+	void OnInvite(Message message);
     void OnChat(Message message);
 
     void OnJoinTablePlay(Message message);
     void OnUserExitTable(Message message);
 	void OnUserJoinTable (Message message);
 	void OnUpdateMoneyTbl (Message message);
+	void OnTimeAuToStart (Message message);
     void InfoCardPlayerInTbl(Message message);
     void OnReady(Message message);
     void OnStartFail(string info);
@@ -55,5 +58,8 @@ interface IChatListener {
     void OnDropPhomSuccess(Message message);
     void OnAttachCard(Message message);
     void OnPhomha(Message message);
+	void OnChangeRuleTbl (Message message);
 	void OnRankMauBinh (Message message);
+	void OnFinalMauBinh (Message message);
+	void OnWinMauBinh (Message message);
 }

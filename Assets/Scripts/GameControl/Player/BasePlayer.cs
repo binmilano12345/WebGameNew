@@ -11,7 +11,7 @@ public class BasePlayer : MonoBehaviour {
     [SerializeField]
     Text txt_name, txt_money, txt_effect;
     [SerializeField]
-    RawImage raw_avata;
+    Image img_avata;
     [SerializeField]
     GameObject master;
     [SerializeField]
@@ -39,6 +39,8 @@ public class BasePlayer : MonoBehaviour {
     public string NamePlayer { get; set; }
     public int SitOnClient { get; set; }
 
+	public long Money { get; set; }
+
     public void SetInfo(string name, long money, bool isMaster, bool isReady, int avata_id) {
         Init();
         NamePlayer = name;
@@ -51,7 +53,7 @@ public class BasePlayer : MonoBehaviour {
         IsMaster = isMaster;
         IsReady = isReady;
         SetShowMaster(isMaster);
-        LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, avata_id + "");
+		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, avata_id + "");
         if (IsMaster)
             SetShowReady(false);
         else
@@ -90,6 +92,7 @@ public class BasePlayer : MonoBehaviour {
         });
     }
     public void SetMoney(long money) {
+		this.Money = money;
         txt_money.text = MoneyHelper.FormatMoneyNormal(money);
     }
 
@@ -158,7 +161,7 @@ public class BasePlayer : MonoBehaviour {
 
         }
         if (idTR >= 0 && idTR <= 5) {
-            SetEnableEffectRank(rank);
+			SetEnableEffectRank(idTR);
         }
     }
 

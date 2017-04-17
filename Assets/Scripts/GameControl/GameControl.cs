@@ -14,8 +14,9 @@ public class GameControl : MonoBehaviour {
 
     public BaseCasino CurrentCasino { get; set; }
     public GameObject objPlayerTLMN { get; set; }
-    public GameObject objPlayerSam { get; set; }
-    public GameObject objPlayerPhom { get; set; }
+	public GameObject objPlayerSam { get; set; }
+	public GameObject objPlayerPhom { get; set; }
+	public GameObject objPlayerMauBinh { get; set; }
     public GameObject objCard { get; set; }
     public GameObject objPlayer;
 
@@ -63,6 +64,14 @@ public class GameControl : MonoBehaviour {
                 objPlayerPhom.gameObject.SetActive(false);
             });
         }
+		if (objPlayerMauBinh == null) {
+			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_MAU_BINH, (obj) => {
+				objPlayerMauBinh = obj;
+				objPlayerMauBinh.transform.SetParent(tf_parent.transform);
+				objPlayerMauBinh.transform.localScale = Vector3.one;
+				objPlayerMauBinh.gameObject.SetActive(false);
+			});
+		}
         if (objCard == null) {
             LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (obj) => {
                 objCard = obj;
@@ -108,8 +117,9 @@ public class GameControl : MonoBehaviour {
     public void UnloadGameScene() {
         UnloadScene(SceneName.GAME_TLMN);
         UnloadScene(SceneName.GAME_TLMN_SOLO);
-        UnloadScene(SceneName.GAME_SAM);
-        UnloadScene(SceneName.GAME_PHOM);
+		UnloadScene(SceneName.GAME_SAM);
+		UnloadScene(SceneName.GAME_PHOM);
+		UnloadScene(SceneName.GAME_MAUBINH);
     }
     #endregion
     #region Unload Scene
@@ -136,9 +146,9 @@ public class GameControl : MonoBehaviour {
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
 				TLMNControl.instace.UnloadSceneGame ();
                     CurrentCasino = (TLMNControl.instace);
-                    try {
+				try {
+					if(callback != null)
                         callback.Invoke();
-					Debug.LogError ("so luong: " + ListMsg.Count);
                         for (int i = 0; i < ListMsg.Count; i++) {
                             ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
                         }
@@ -157,7 +167,8 @@ public class GameControl : MonoBehaviour {
                 ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN_SOLO, SceneName.GAME_TLMN_SOLO, () => {
                     CurrentCasino = (TLMNSoloControl.instace);
-                    try {
+				try {
+					if(callback != null)
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {
                             ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
@@ -177,7 +188,8 @@ public class GameControl : MonoBehaviour {
                 ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_SAM, SceneName.GAME_SAM, () => {
                     CurrentCasino = (SamControl.instace);
-                    try {
+				try {
+					if(callback != null)
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {
                             ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
@@ -197,7 +209,8 @@ public class GameControl : MonoBehaviour {
                 ProcessHandler.setSecondHandler(PHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_PHOM, SceneName.GAME_PHOM, () => {
                     CurrentCasino = (PhomControl.instace);
-                    try {
+				try {
+					if(callback != null)
                         callback.Invoke();
                         for (int i = 0; i < ListMsg.Count; i++) {
                             ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
@@ -212,12 +225,12 @@ public class GameControl : MonoBehaviour {
                 #endregion
 			#region MAU BINH
 		case GameID.MAUBINH:
-			Card.setCardType(0);
-			objPlayer = objPlayerPhom;
-			ProcessHandler.setSecondHandler(PHandler.getInstance());
+			Card.setCardType(1);
+			objPlayer = objPlayerMauBinh;
 			LoadAssetBundle.LoadScene(SceneName.GAME_MAUBINH, SceneName.GAME_MAUBINH, () => {
-				CurrentCasino = (PhomControl.instace);
+				CurrentCasino = (MauBinhControl.instace);
 				try {
+					if(callback != null)
 					callback.Invoke();
 					for (int i = 0; i < ListMsg.Count; i++) {
 						ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
