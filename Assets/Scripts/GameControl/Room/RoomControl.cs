@@ -22,7 +22,7 @@ public class RoomControl : MonoBehaviour {
 	[SerializeField]
 	Image img_avata;
 
-    bool isAnBanFull = true;
+	bool isAnBanFull = false;
     [SerializeField]
     GameObject obj_tick_ban_full;
     /// <summary>

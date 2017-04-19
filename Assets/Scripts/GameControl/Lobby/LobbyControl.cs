@@ -106,13 +106,13 @@ public class LobbyControl : MonoBehaviour {
 			itemGame.GetComponent<UIButton>()._onClick.AddListener(delegate {
 				OnClickGame(itemGame);
 			});
-			itemGame.transform.DOScale (1, 0.2f).SetDelay (i * 0.05f);
+			itemGame.transform.DOScale (1, 0.1f);
 			LoadAssetBundle.LoadSprite(itemGame.GetComponent<Image>(), BundleName.ICON_GAME, UIName.UI_GAME[i], ()=>{
 				isLoad = true;
 			});
 //			listGame.Add(itemGame);
-//			yield return new WaitUntil (()=>isLoad);
-			yield return new WaitForSeconds (0.1f);
+			yield return new WaitUntil (()=>isLoad);
+//			yield return new WaitForSeconds (0.1f);
 		}
 		Destroy (objPre);
     }

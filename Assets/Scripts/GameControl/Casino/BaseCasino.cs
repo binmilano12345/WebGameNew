@@ -730,12 +730,13 @@ public abstract class BaseCasino : MonoBehaviour
 
 	#endregion
 
-
+	int index = 0;
 	public void DemoNguoiVao ()
 	{
 		PlayerData pl = new PlayerData ();
 		pl.Name = "ten";
-		pl.DisplaName = "Ten dep";
+		pl.DisplaName = "Tendep" + index;
+		index++;
 		pl.Avata_Link = "";
 		pl.Avata_Id = UnityEngine.Random.Range (0, 30);
 		pl.SitOnSever = 1;

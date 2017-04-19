@@ -257,12 +257,14 @@ public class CardTaLa : MonoBehaviour {
     }
     List<int> CardPhom = new List<int>();
     List<int> CardAn = new List<int>();
-    public void HaBai(int[] idCards, bool isTao, List<int> CardAnMe) {
+	public void HaBai(int[] idCards, bool isTao, List<int> CardAnMe = null) {
         CardPhom.Clear();
         CardPhom.AddRange(idCards);
         if (isTao) {
-            this.CardAn.Clear();
-            this.CardAn.AddRange(CardAnMe);
+			if (CardAnMe != null) {
+				this.CardAn.Clear ();
+				this.CardAn.AddRange (CardAnMe);
+			}
             ArrayCard arr = ArrayCardPhom[indexPhomHa];
             for (int i = 0; i < arr.listCardHand.Count; i++) {
                 Card cc = arr.listCardHand[i];
@@ -464,11 +466,11 @@ public class CardTaLa : MonoBehaviour {
     void SetDefaultPosition_2() {
         Vector3 vtPos = ArrayCardPhom[0].transform.localPosition;
         vtPos.x = -100;
-        vtPos.y = -40;
+        vtPos.y = -30;
         ArrayCardPhom[0].transform.localPosition = vtPos;
-        vtPos.y = 0;
+        vtPos.y = 10;
         ArrayCardPhom[1].transform.localPosition = vtPos;
-        vtPos.y = 40;
+        vtPos.y = 50;
         ArrayCardPhom[2].transform.localPosition = vtPos;
 
         vtPos = ArrayCardFire.transform.localPosition;

@@ -21,6 +21,7 @@ public class AutoChooseCardTaLa {
 	/// Lay phom tren tay tra ve nhieu mang
 	/// </summary>
 	public static List<int[]> GetPhomTrenTayMultiArray(int[] cardH) {
+//		int[] cardH = (int[])cards.Clone ();
 		List<int[]> lResult = new List<int[]>();
 		List<int> lTemp = new List<int>();
 
@@ -45,6 +46,13 @@ public class AutoChooseCardTaLa {
 			foreach (var item2 in item) {
 				List<int> l = item2.ToList();
 				if (l.Count > 2) {
+					for (int i = 0; i < lResult.Count; i++) {
+						for (int j = 0; j < l.Count; j++) {
+							if(lResult[i].Contains(l[j])){
+								l.RemoveAt(i);
+							}
+						}
+					}
 					lResult.Add(l.ToArray());
 				}
 			}
@@ -80,6 +88,13 @@ public class AutoChooseCardTaLa {
 			foreach (var item2 in item) {
 				List<int> l = item2.ToList();
 				if (l.Count > 2) {
+					for (int i = 0; i < lResult.Count; i++) {
+						for (int j = 0; j < l.Count; j++) {
+							if(lResult[i].Contains(l[j])){
+								l.RemoveAt(i);
+							}
+						}
+					}
 					lResult.Add(l.ToArray());
 				} else {
 					lOther.AddRange(l);

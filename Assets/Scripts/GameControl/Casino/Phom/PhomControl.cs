@@ -415,8 +415,10 @@ public class PhomControl : BaseCasino, IHasChanged
 						for (int j = 0; j < sizePhom; j++) {
 							phom [j] = message.reader ().ReadByte ();
 						}
-
-						pl.cardTaLaManager.ArrayCardPhom [0].SetActiveCardWithArrID (phom);//sua
+						List<int[]> listP = AutoChooseCardTaLa.GetPhomTrenTayMultiArray(phom);
+						for (int k = 0; k < listP.Count; k++) {
+							pl.cardTaLaManager.HaBai(listP[k], false);
+						}
 					}
 				}
 			}
@@ -475,7 +477,10 @@ public class PhomControl : BaseCasino, IHasChanged
 				for (int i = 0; i < sizeCardFire; i++) {
 					cardPhom [i] = message.reader ().ReadByte ();
 				}
-				((PhomPlayer)playerMe).cardTaLaManager.ArrayCardPhom [0].SetActiveCardWithArrID (cardPhom);//sua
+				List<int[]> listP = AutoChooseCardTaLa.GetPhomTrenTayMultiArray(cardPhom);
+				for (int k = 0; k < listP.Count; k++) {
+					((PhomPlayer)playerMe).cardTaLaManager.HaBai (listP[k], true, ListIdCardAn);	
+				}
 			}
 
 			string turnName = message.reader ().ReadUTF ();
@@ -536,7 +541,10 @@ public class PhomControl : BaseCasino, IHasChanged
 				for (int j = 0; j < len2; j++) {
 					phom [j] = message.reader ().ReadInt ();
 				}
-				((PhomPlayer)playerMe).cardTaLaManager.HaBai (phom, true, ListIdCardAn);
+				List<int[]> listP = AutoChooseCardTaLa.GetPhomTrenTayMultiArray(phom);
+				for (int k = 0; k < listP.Count; k++) {
+					((PhomPlayer)playerMe).cardTaLaManager.HaBai (listP[k], true, ListIdCardAn);
+				}
 			}
 		} catch (Exception e) {
 			Debug.LogException (e);
@@ -656,7 +664,7 @@ public class PhomControl : BaseCasino, IHasChanged
 	{
 		int[] ccccH = new int[] { 1, 2, 4, 6, 7, 8, 33, 44, 34 };
 		int[] ccccF = new int[] { 11, 12, 13, 14 };
-		int[] ccccP1 = new int[] { 1, 2, 4 };
+		int[] ccccP1 = new int[] { 1, 2, 4};
 		int[] ccccP2 = new int[] { 6, 7, 8 };
 		int[] ccccP3 = new int[] { 33, 44, 34 };
 		int[] ccccPAn = new int[] { 23, 02, 17 };
