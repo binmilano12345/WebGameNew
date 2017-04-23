@@ -125,7 +125,7 @@ public class GameControl : MonoBehaviour {
         UnloadScene(SceneName.GAME_TLMN_SOLO);
 		UnloadScene(SceneName.GAME_SAM);
 		UnloadScene(SceneName.GAME_PHOM);
-		UnloadScene(SceneName.GAME_MAUBINH);
+		UnloadScene(SceneName.GAME_MAU_BINH);
     }
     #endregion
     #region Unload Scene
@@ -233,7 +233,7 @@ public class GameControl : MonoBehaviour {
 		case GameID.MAUBINH:
 			Card.setCardType(1);
 			objPlayer = objPlayerMauBinh;
-			LoadAssetBundle.LoadScene(SceneName.GAME_MAUBINH, SceneName.GAME_MAUBINH, () => {
+			LoadAssetBundle.LoadScene(SceneName.GAME_MAU_BINH, SceneName.GAME_MAU_BINH, () => {
 				CurrentCasino = (MauBinhControl.instace);
 				try {
 					if(callback != null)

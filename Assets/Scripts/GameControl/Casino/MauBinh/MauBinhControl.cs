@@ -188,12 +188,12 @@ public class MauBinhControl : BaseCasino, IHasChanged
 				if (pl != null) {
 					pl.IsPlaying = true;
 					pl.SetXepXong (!isDangXep);
-					int[] temp = new int[13];
-					for (int j = 0; j < temp.Length; j++) {
-						temp [j] = 52;
-					}
+//					int[] temp = new int[13];
+//					for (int j = 0; j < temp.Length; j++) {
+//						temp [j] = 52;
+//					}
 
-					pl.cardMauBinh.SetCard (temp, false);
+					StartCoroutine(pl.cardMauBinh.SetDangChoi (!isDangXep));
 				}
 			}
 			GameControl.instance.TimerTurnInGame = time;
@@ -219,8 +219,6 @@ public class MauBinhControl : BaseCasino, IHasChanged
 			for (int i = 0; i < c.Length; i++) {
 				cardHand [i] = c [i];
 			}
-
-//			((MauBinhPlayer)playerMe).SetXepXong(!isDangXep);
 
 			((MauBinhPlayer)playerMe).cardMauBinh.SetCard (cardHand, true);
 			SetActiveButton (true, true, false, true);
@@ -279,7 +277,6 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	{
 		base.AllCardFinish (nick, card);
 		try {
-			Debug.LogError (nick + "   " + card.Length);
 			if (card.Length > 0) {
 				int[] cardChi1 = new int[] { card [0], card [1], card [2], card [3], card [4] };
 				int[] cardChi2 = new int[] { card [5], card [6], card [7], card [8], card [9] };
@@ -319,7 +316,6 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		string nameP = message.reader ().ReadUTF ();
 		int typeC = message.reader ().ReadByte ();
 
-		Debug.LogError (nameP + " -=Thang trang=- " + typeC);
 		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nameP);
 		if (pl != null) {
 			pl.SetMauBinh (typeC);

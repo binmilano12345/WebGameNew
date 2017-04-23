@@ -235,8 +235,15 @@
 	"mail_he_thong":"Hệ thống",
 	"mail_nguoi_choi":"Người chơi",
 	"forced_logout":"Tài khoản của bạn đang được đăng nhập trên thiết bị khác",
-	"xac_thuc_sdt":"\t- Số điện thoại dùng để xác thực quyền sở hữu của bạn đối với tài khoản này, vì vậy bạn chỉ được nhập 1 lần duy nhất, không được phép thay đổi. Bạn hãy nhập một cách chính xác số điện thoại của mình để đảm bảo quyền lợi của bạn trong tương lai.\n\n\t- Khi bạn quên mật khẩu, hãy báo với admin, chúng tôi sẽ gửi lại mật khẩu của bạn vào số điện thoại mà bạn đã đăng ký."
-	},
+	"xac_thuc_sdt":"\t- Số điện thoại dùng để xác thực quyền sở hữu của bạn đối với tài khoản này, vì vậy bạn chỉ được nhập 1 lần duy nhất, không được phép thay đổi. Bạn hãy nhập một cách chính xác số điện thoại của mình để đảm bảo quyền lợi của bạn trong tương lai.\n\n\t- Khi bạn quên mật khẩu, hãy báo với admin, chúng tôi sẽ gửi lại mật khẩu của bạn vào số điện thoại mà bạn đã đăng ký.",
+	"xd_chan":"CHẴN",
+	"xd_le":"LẺ",
+	"xd_dat_x2":"Đặt X2",
+	"xd_dat_lai":"Đặt lại",
+	"xd_huy_cuoc":"Huỷ cược",
+	"xd_lam_cai":"Làm cái",
+	"xd_huy_cai":"Huỷ cái",
+		},
 	"en":{
 		"helloworld": "Hello World"
 	}

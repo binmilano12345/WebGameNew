@@ -722,6 +722,13 @@ public class ArrayCard : MonoBehaviour
 		}
 	}
 
+	public void SetCardDangChoiVeToaDo0(){
+		for (int i = 0; i < listCardHand.Count; i++) {
+			listCardHand [i].SetVisible (true);
+			listCardHand [i].transform.localPosition = Vector3.zero;
+		}
+	}
+
 	public void SortCardActive (bool isEffect = true, float dur = 0.2f)
 	{
 		switch (align_Anchor) {

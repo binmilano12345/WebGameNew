@@ -203,8 +203,8 @@ namespace AppConfig
 			"ic_phom",
 			"ic_sam"
 		};
-		public static string UI_XOC_DIA_ORANGE = "orange";
-		public static string UI_XOC_DIA_WHITE = "white";
+		public static string UI_XD_RED = "icon_red";
+		public static string UI_XD_WHITE = "icon_white";
 		public static string[] UI_ANI_WIN = new string[] {
 			"rank_u",
 			"rank_win",
@@ -237,6 +237,9 @@ namespace AppConfig
 		public const string PRE_CHAT_TEXT = "ButtonChatText";
 		public const string PRE_CHAT_SMILE = "ButtonEmotion";
 		public const string PRE_ITEM_AVATAR = "ItemAvatar";
+
+		public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Item_Image_XD_His";
+		public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_His_XD";
 
 		//        public const string PRE_CHIP = "Chip";
 		//        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
@@ -281,7 +284,8 @@ namespace AppConfig
 		public const string GAME_TLMN_SOLO = "game_tlmn_solo";
 		public const string GAME_SAM = "game_sam";
 		public const string GAME_PHOM = "game_phom";
-		public const string GAME_MAUBINH = "game_maubinh";
+		public const string GAME_MAU_BINH = "game_maubinh";
+		public const string GAME_XOC_DIA = "game_xocdia";
 	}
 
 	public class CMDClient

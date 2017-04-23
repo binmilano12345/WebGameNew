@@ -19,7 +19,7 @@ public class CardMauBinh : MonoBehaviour
 	float[] PosYMe = new float[3] { 252, 116, -20 };
 	const float MaxWidthMe = 100;
 
-	float[] PosYOther = new float[3] {5, 0, -5 };
+	float[] PosYOther = new float[3] { 5, 0, -5 };
 	const float MaxWidthOther = 10;
 
 	public void Init (bool isMe)
@@ -40,7 +40,7 @@ public class CardMauBinh : MonoBehaviour
 	public void SetCard (int[] arr, bool isTao, UnityAction callback = null)
 	{
 //		StopAllCoroutines ();
-
+		isOne = false;
 		int[] chi3 = new int[3];
 		int[] chi2 = new int[5];
 		int[] chi1 = new int[5];
@@ -71,6 +71,7 @@ public class CardMauBinh : MonoBehaviour
 				arrayCard [i].transform.localPosition = vt;
 			}
 		}
+
 		arrayCard [0].ChiaBaiTienLen (chi3, isTao, () => {
 			arrayCard [1].ChiaBaiTienLen (chi2, isTao, () => {
 				arrayCard [2].ChiaBaiTienLen (chi1, isTao, () => {
@@ -82,25 +83,25 @@ public class CardMauBinh : MonoBehaviour
 		});
 	}
 
-	void SetCard (int[] arr)
+	#region Set bai khi dang choi
+
+	public	IEnumerator SetDangChoi (bool isXepXong)
 	{
-		int[] chi1 = new int[5];
-		int[] chi2 = new int[5];
-		int[] chi3 = new int[3];
-		for (int i = 0; i < arr.Length; i++) {
-			if (i < 5) {
-				chi1 [i] = arr [i];
-			} else if (i < 10) {
-				chi2 [i - 5] = arr [i];
-			} else {
-				chi3 [i - 10] = arr [i];
-			}
+		yield return new WaitForSeconds (1);
+
+		for (int i = 0; i < arrayCard.Length; i++) {
+			Vector3 vt = arrayCard [i].transform.localPosition;
+			vt.y = 0;
+			arrayCard [i].transform.localPosition = vt;
+			arrayCard [i].SetCardDangChoiVeToaDo0 ();
 		}
 
-		arrayCard [2].SetCardWithArrID (chi1, false);
-		arrayCard [1].SetCardWithArrID (chi2, false);
-		arrayCard [0].SetCardWithArrID (chi3, false);
+		yield return new WaitForSeconds (0.5f);
+		if (isXepXong)
+			SetSoBai (false);
 	}
+
+	#endregion
 
 	public void SetSoBai (bool isTao)
 	{//xep xong bai
@@ -132,7 +133,7 @@ public class CardMauBinh : MonoBehaviour
 				arrayCard [i].MaxWidth = count * MaxWidthOther;
 				arrayCard [i].SortCardActive ();
 
-				arrayCard [i].transform.DOLocalMoveY (PosYOther [2 - i], 0.2f);
+				arrayCard [i].transform.DOLocalMoveY (PosYOther [i], 0.2f);
 			}
 		}
 	}
@@ -269,12 +270,15 @@ public class CardMauBinh : MonoBehaviour
 		StartCoroutine (SoChi (arrChi, chi, typeC, isTao));
 	}
 
+	bool isOne = false;
+
 	IEnumerator SoChi (int[] arrChi, int chi, int typeC, bool isTao)
 	{
 		yield return new WaitForEndOfFrame ();
 		#region Them
 		Vector3 vt;
-		if (chi == 2) {
+		if (!isOne) {//chi == 2 ||
+			isOne = true;
 			yield return new WaitForSeconds (1);
 			for (int i = 0; i < arrayCard.Length; i++) {
 				int count = (i == 0 ? 3 : 5);
@@ -318,9 +322,10 @@ public class CardMauBinh : MonoBehaviour
 		player.SetTypeCard (GameConfig.STR_TYPE_CARD [typeCC], vt, isTao);//sua
 		arrayCard [chi].SetActiveCardWithArrID (arrChi);
 
-//		if (chi == 0) {
-//			yield return new WaitForSeconds(1);
-//			arrayCard [2].transform.SetAsFirstSibling ();
+		if (chi == 0) {
+			yield return new WaitForSeconds (2);
+			arrayCard [chi].transform.DOScale (1f, 0.2f);
+			arrayCard [chi].transform.SetAsFirstSibling ();
 //			EffectScale (arrayCard [2].transform, 1.1f, () => {
 //				arrayCard [1].transform.SetAsFirstSibling ();
 //				EffectScale (arrayCard [1].transform, 1.1f, () => {
@@ -331,7 +336,7 @@ public class CardMauBinh : MonoBehaviour
 //			});
 //			yield return new WaitForSeconds (2);
 //			SetActiveCard ();
-//		}
+		}
 	}
 
 	#endregion
