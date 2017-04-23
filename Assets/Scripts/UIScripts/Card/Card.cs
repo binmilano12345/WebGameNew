@@ -57,7 +57,7 @@ public class Card : MonoBehaviour {
     public CallBack onClickOK;
     Vector3 vtDefault;
     void Awake() {
-        img_card.rectTransform.sizeDelta = new Vector2(W_Card, H_Card);
+//        img_card.rectTransform.sizeDelta = new Vector2(W_Card, H_Card);
         vtDefault = transform.localPosition;
     }
 	/// <summary>

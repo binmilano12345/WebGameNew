@@ -29,15 +29,15 @@ public abstract class BaseCasino : MonoBehaviour
 		for (int i = 1; i < tf_invite.Length; i++) {
 			tf_invite [i].GetComponent<UIButton> ()._onClick.AddListener (OnClickInvite);
 		}
-		UnloadSceneGame ();
+		UnloadAllSubScene ();
 	}
 
-	public void UnloadSceneGame ()
+	public void UnloadAllSubScene ()
 	{
-		StartCoroutine (WaitUnloadSceneGame ());
+		StartCoroutine (WaitUnloadAllSubScene ());
 	}
 
-	IEnumerator WaitUnloadSceneGame ()
+	IEnumerator WaitUnloadAllSubScene ()
 	{
 		yield return new WaitForEndOfFrame ();
 		GameControl.instance.UnloadScene (SceneName.SCENE_ROOM);
@@ -439,7 +439,7 @@ public abstract class BaseCasino : MonoBehaviour
 //					Debug.LogError (m + " folowMoney -  pl.Money " + folowMoney + "  " +pl.Money);
 					pl.SetMoney (folowMoney);
 					if (!isGetMoney) {
-						pl.SetEffect (MoneyHelper.FormatMoneyNormal (m));
+						pl.SetEffect (m > 0 ? "+" + MoneyHelper.FormatMoneyNormal (m) : MoneyHelper.FormatMoneyNormal (m));
 					}
 					if (_name.Equals (ClientConfig.UserInfo.UNAME)) {
 						ClientConfig.UserInfo.CASH_FREE = money;

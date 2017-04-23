@@ -9,27 +9,30 @@ public class MauBinhPlayer : BasePlayer {
     public CardMauBinh cardMauBinh;
 	[SerializeField]
 	Text txt_typeAction;
-	void Update(){
-		if (Input.GetKeyDown (KeyCode.L)) {
-			SetLung (1234);
-		}if (Input.GetKeyDown (KeyCode.M)) {
-			SetSap3Chi (1234);
-		}if (Input.GetKeyDown (KeyCode.N)) {
-			SetXepXong (true);
-		}if (Input.GetKeyDown (KeyCode.B)) {
-			SetTypeCard ("thung pha sanh", Vector3.zero, true);
-		}
-	}
-	public void SetSap3Chi(long money){
-//		txt_typeAction.gameObject.SetActive (true);
-//		txt_typeAction.text = "Sập 3 chi!";
-		SetTypeActionEffect ("Sập 3 chi", false);
-	}
-	public void SetLung(long money){
-//		txt_typeAction.gameObject.SetActive (true);
-//		txt_typeAction.text = "Lủng";
+//	void Update(){
+//		if (Input.GetKeyDown (KeyCode.L)) {
+//			SetLung (1234);
+//		}if (Input.GetKeyDown (KeyCode.M)) {
+//			SetSap3Chi (1234);
+//		}if (Input.GetKeyDown (KeyCode.N)) {
+//			SetXepXong (true);
+//		}if (Input.GetKeyDown (KeyCode.B)) {
+//			SetTypeCard ("thung pha sanh", Vector3.zero, true);
+//		}
+//	}
+	public void SetSap3Chi(){
+		txt_typeAction.gameObject.SetActive(true);
+		txt_typeAction.transform.localPosition = Vector3.zero;
 
-		SetTypeActionEffect ("Lủng", false);
+		txt_typeAction.text = "Sập 3 chi";
+		txt_typeAction.SetNativeSize ();
+	}
+	public void SetLung(){
+		txt_typeAction.gameObject.SetActive(true);
+		txt_typeAction.transform.localPosition = Vector3.zero;
+
+		txt_typeAction.text = "Lủng";
+		txt_typeAction.SetNativeSize ();
 	}
 
 	void SetTypeActionEffect(string msg, bool isHide = true) {
@@ -37,7 +40,6 @@ public class MauBinhPlayer : BasePlayer {
 
 		txt_typeAction.SetNativeSize ();
 		txt_typeAction.transform.DOKill();
-//		txt_typeAction.transform.localPosition = Vector3.zero;
 		Vector3 vt = txt_typeAction.transform.localPosition;
 		vt.x = 0;
 		vt.y = -20;
@@ -55,26 +57,18 @@ public class MauBinhPlayer : BasePlayer {
 			return;
 		}
 
-//		if (isMe) {
-//			txt_typeAction.fontSize = 40;
-//		} else {
-//			txt_typeAction.fontSize = 30;
-//		}
-
 		txt_typeAction.transform.localPosition = lcPositon;
 		txt_typeAction.gameObject.SetActive(true);
 		txt_typeAction.text = str.ToUpper();
 
 		txt_typeAction.SetNativeSize ();
-		Debug.LogError (isMe + " =-=-=-=-=" +txt_typeAction.text+ "-=-=-=-= " + str);
 	}
 
 	public void SetXepXong(bool isXong){
-		txt_typeAction.gameObject.SetActive(true);
+		txt_typeAction.gameObject.SetActive(isXong);
 		if (isXong) {
 			txt_typeAction.transform.localPosition = Vector3.zero;
 
-//			txt_typeAction.fontSize = 50;
 			txt_typeAction.text = "Xếp xong";
 			txt_typeAction.SetNativeSize ();
 		}
@@ -83,13 +77,9 @@ public class MauBinhPlayer : BasePlayer {
 		if (type < 0 || type > 6) {
 			return;
 		}
+		Debug.LogError (type + "Thang trang  " + GameConfig.STR_THANG_TRANG[type]);
 		SetTypeActionEffect (GameConfig.STR_THANG_TRANG[type]);
 //		BaseInfo.gI().startMaubinhAudio();
-//		TextureRegionDrawable textDraw = new TextureRegionDrawable(ResourceManager.shared().thangTrangRegions[type]);
-//		ani_thangtrang.setDrawable(textDraw);
-//		ani_thangtrang.setPosition(-ani_thangtrang.getWidth() / 2, -ani_thangtrang.getHeight()/2);
-//		ani_thangtrang.setVisible(true);
-
 	}
 
 	public void SetDisableAction(){

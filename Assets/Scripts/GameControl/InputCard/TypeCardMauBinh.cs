@@ -71,7 +71,7 @@ public class TypeCardMauBinh {
             }
 //			Debug.LogError ("   " + tt);
         }
-		Debug.LogError (demsanh + "     " + demthung + "   " + typeC + "  ");
+//		Debug.LogError (demsanh + "     " + demthung + "   " + typeC + "  ");
         //1-2-3-4-5
         if (ConstanceValue(arrayCard, 14) && ConstanceValue(arrayCard, 2) && ConstanceValue(arrayCard, 3) && ConstanceValue(arrayCard, 4) && ConstanceValue(arrayCard, 5)) {
 			if (demthung == 4) {
@@ -304,33 +304,26 @@ public class TypeCardMauBinh {
             }
         }
 
-		Debug.LogError (demsanh + "     " + demthung);
         //1-2-3
         if (ConstanceValue(arrayCard, 14) 
 			&& ConstanceValue(arrayCard, 2) 
 			&& ConstanceValue(arrayCard, 3)) {
 			if (demthung == 2) {
-				Debug.LogError ("1. vao day");
                 return TYPE_CARD.THUNG;
 			} else {
-				Debug.LogError ("2. vao day");
 				return TYPE_CARD.SANH;
             }
         }
         if (demsanh == 2) {
 			if (demthung == 2) {
-				Debug.LogError ("3. vao day");
                 return TYPE_CARD.THUNG;
 			} else {
-				Debug.LogError ("4. vao day");
                 return TYPE_CARD.SANH;
             }
 		} else if (demthung == 2) {
-			Debug.LogError ("5. vao day");
             return TYPE_CARD.THUNG;
         }
 
-		Debug.LogError ("6. vao day");
         return TYPE_CARD.MAU_THAU;
     }
 

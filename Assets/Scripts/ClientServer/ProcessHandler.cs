@@ -186,7 +186,7 @@ public class ProcessHandler : MessageHandler {
                         listenner.OnListInvite(message);
                         break;
                     case CMDClient.CMD_BAO_SAM:
-                        listenner.OnBaoSam(message);
+					listenner.OnBaoSam(message);
                         break;
 				case CMDClient.CMD_CALMB_RANKS:
 					listenner.OnRankMauBinh(message);

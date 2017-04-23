@@ -71,6 +71,10 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		base.OnJoinTableSuccess (master);
 //		if (master.Equals (ClientConfig.UserInfo.UNAME)) {
 		SetActiveButton (false, false, false, false);
+		if (card_show_mb != null) {
+			card_show_mb.setSmall (false);
+			card_show_mb.SetVisible (false);
+		}
 //		} else {
 //			SetActiveButton (false, true, false, false);
 //		}
@@ -88,7 +92,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		for (int i = 0; i < nickPlay.Length; i++) {
 			MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nickPlay [i]);
 			if (pl != null) {
-				pl.SetDisableAction ();
+				pl.cardMauBinh.SetActiveCard ();
 				if (pl.SitOnClient == 0) {
 					pl.cardMauBinh.SetCard (cardHand, true, () => {
 						SetActiveButton (true, true, false, true);
@@ -107,9 +111,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	{
 		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (namePlayer);
 		if (pl != null) {
-			if (moneyEarn < 0) {
-				pl.SetSap3Chi (moneyEarn);
-			}
+			pl.SetSap3Chi ();
 			pl.SetEffect (MoneyHelper.FormatMoneyNormal (moneyEarn));
 		}
 	}
@@ -118,9 +120,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	{
 		MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (namePlayer);
 		if (pl != null) {
-			if (moneyEarn < 0) {
-				pl.SetLung (moneyEarn);
-			}
+			pl.SetLung ();
 			pl.SetEffect (MoneyHelper.FormatMoneyNormal (moneyEarn));
 		}
 	}
@@ -138,6 +138,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 				string namePlayer = message.reader ().ReadUTF ();
 				int typeCard = message.reader ().ReadByte ();
 				long moneyEarn = message.reader ().ReadLong ();
+
 				int size2 = message.reader ().ReadByte ();
 				int[] cardChi = new int[size2];
 				for (int k = 0; k < size2; k++) {
@@ -154,9 +155,9 @@ public class MauBinhControl : BaseCasino, IHasChanged
 						iCard = 0;
 					}
 					pl.cardMauBinh.ShowChi (cardChi, iCard, typeCard, pl.SitOnClient == 0);
-					pl.SetEffect (moneyEarn + "");
+					if(moneyEarn != 0)
+						pl.SetEffect (moneyEarn > 0 ? "+" + MoneyHelper.FormatMoneyNormal (moneyEarn) : MoneyHelper.FormatMoneyNormal (moneyEarn));
 				}
-//				onRankMauBinh(chi, namePlayer, typeCard, moneyEarn, cardChi);
 			}
 		} else if (chi == 4) {
 			size = message.reader ().ReadByte ();
@@ -182,7 +183,6 @@ public class MauBinhControl : BaseCasino, IHasChanged
 			for (int i = 0; i < numP; i++) {
 				string nameP = message.reader ().ReadUTF ();
 				bool isDangXep = message.reader ().ReadBoolean ();
-				Debug.LogError ("Ten " + nameP);
 
 				MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nameP);
 				if (pl != null) {
@@ -236,7 +236,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 			MauBinhPlayer pl = (MauBinhPlayer)ListPlayer [i];
 			if (pl != null) {
 				pl.SetDisableAction ();
-				pl.cardMauBinh.SetActiveCard ();
+//				pl.cardMauBinh.SetActiveCard ();
 			}
 		}
 	}
@@ -279,14 +279,14 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	{
 		base.AllCardFinish (nick, card);
 		try {
-			Debug.LogError(nick + "   " + card.Length);
+			Debug.LogError (nick + "   " + card.Length);
 			if (card.Length > 0) {
 				int[] cardChi1 = new int[] { card [0], card [1], card [2], card [3], card [4] };
 				int[] cardChi2 = new int[] { card [5], card [6], card [7], card [8], card [9] };
 				int[] cardChi3 = new int[] { card [10], card [11], card [12] };
 				MauBinhPlayer pl = (MauBinhPlayer)GetPlayerWithName (nick);
 				if (pl != null) {
-					pl.cardMauBinh.SetCardKetThuc (true, cardChi1, cardChi2, cardChi3, pl.SitOnClient == 0);
+					pl.cardMauBinh.SetCardKetThuc (cardChi1, cardChi2, cardChi3, pl.SitOnClient == 0);
 				}
 			}
 		} catch (Exception e) {
@@ -359,22 +359,22 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		TYPE_CARD type2 = TypeCardMauBinh.GetTypeCardMauBinh (chi2);
 		TYPE_CARD type3 = TypeCardMauBinh.GetTypeCardMauBinh (chi3);
 
-		string str = "";
-		for (int i = 0; i < chi1.Length; i++) {
-			str += TypeCardMauBinh.GetValue (chi1 [i]);
-		}
-		Debug.LogError (type1 + "\n" + str);
-		str = "";
-		for (int i = 0; i < chi2.Length; i++) {
-			str += TypeCardMauBinh.GetValue (chi2 [i]);
-		}
-		Debug.LogError (type2 + "\n" + str);
-
-		str = "";
-		for (int i = 0; i < chi3.Length; i++) {
-			str += TypeCardMauBinh.GetValue (chi3 [i]);
-		}
-		Debug.LogError (type3 + "\n" + str);
+//		string str = "";
+//		for (int i = 0; i < chi1.Length; i++) {
+//			str += TypeCardMauBinh.GetValue (chi1 [i]);
+//		}
+//		Debug.LogError (type1 + "\n" + str);
+//		str = "";
+//		for (int i = 0; i < chi2.Length; i++) {
+//			str += TypeCardMauBinh.GetValue (chi2 [i]);
+//		}
+//		Debug.LogError (type2 + "\n" + str);
+//
+//		str = "";
+//		for (int i = 0; i < chi3.Length; i++) {
+//			str += TypeCardMauBinh.GetValue (chi3 [i]);
+//		}
+//		Debug.LogError (type3 + "\n" + str);
 
 		SetLoaiBaiCuaChi (2, (int)type1);
 		SetLoaiBaiCuaChi (1, (int)type2);

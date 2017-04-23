@@ -32,7 +32,10 @@ public class GameControl : MonoBehaviour {
     public int TimerTurnInGame = 0;
     void Awake() {
         instance = this;
-        Application.runInBackground = false;
+		Application.targetFrameRate = 60;
+		#if UNITY_EDITOR
+		Application.runInBackground = true;
+		#endif
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
@@ -84,11 +87,13 @@ public class GameControl : MonoBehaviour {
 
 	#region SMS, Call Phone
 	public void SendSMS(string port, string content){
-		#if UNITY_EDITOR
-		PopupAndLoadingScript.instance.messageSytem.OnShow ("Soạn tin nhắn theo cú pháp: "
-			+ content + " gửi tới " + port);
-		#else
+		#if UNITY_ANDROID && !UNITY_EDITOR
+		AndroidUtils.SendSMS (port, content);
+		#elif UNITY_IOS && !UNITY_EDITOR
 		Application.OpenURL("sms:" + port + "?body=" + content);
+		#else
+		PopupAndLoadingScript.instance.messageSytem.OnShow ("Soạn tin nhắn theo cú pháp: " 
+			+ content + " gửi tới " + port);
 		#endif
 	}
 	public void CallPhone(string port){		
@@ -102,6 +107,7 @@ public class GameControl : MonoBehaviour {
 
     #region Unload Sub Scene
     public void UnloadSubScene() {
+		PopupAndLoadingScript.instance.OnHideAll();
         UnloadScene(SceneName.SUB_REGISTER);
         UnloadScene(SceneName.SUB_LOGIN);
 		UnloadScene(SceneName.SUB_RANK);
@@ -144,7 +150,7 @@ public class GameControl : MonoBehaviour {
                 objPlayer = objPlayerTLMN;
                 ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
-				TLMNControl.instace.UnloadSceneGame ();
+				TLMNControl.instace.UnloadAllSubScene ();
                     CurrentCasino = (TLMNControl.instace);
 				try {
 					if(callback != null)

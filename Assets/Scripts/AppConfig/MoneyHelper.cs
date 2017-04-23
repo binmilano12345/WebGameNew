@@ -188,8 +188,9 @@ namespace Us.Mobile.Utilites {
         /// format money to pattern #,###
         /// </summary>
         public static string FormatMoneyNormal(long m) {
-            //if (m <= 0) return "0";
-            return m.ToString("0,0");
+            if (m == 0) return "0";
+
+			return m.ToString ("0,0");
         }
         private static string GetCulture(string lang) {
             if (lang.Equals(ClientConfig.Language.VN)) {

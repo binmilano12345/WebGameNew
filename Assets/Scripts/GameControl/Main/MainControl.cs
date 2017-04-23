@@ -18,7 +18,6 @@ public class MainControl : MonoBehaviour {
         GameControl.instance.UnloadScene(SceneName.SCENE_LOBBY);
         GameControl.instance.UnloadGameScene();
         GameControl.instance.UnloadSubScene();
-        PopupAndLoadingScript.instance.OnHideAll();
 		SetHotline ();
 //		StartCoroutine (InitFacebookSDK ());
 

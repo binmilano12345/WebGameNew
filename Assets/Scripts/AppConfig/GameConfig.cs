@@ -36,12 +36,12 @@ namespace AppConfig
 			"Thùng Phá Sảnh"
 		};
 		/// <summary>
-		///0-"Rồng Cuốn", 1-"Sảnh Rồng", 2-"5 Đôi 1 Sám", 3-"Lục Phế Bôn", 4-"3 Thùng", 5-"3 Sảnh"
+		///0-"Rồng Cuốn", 1-"Sảnh Rồng", 2-"5 Đôi", 3-"Lục Phế Bôn", 4-"3 Thùng", 5-"3 Sảnh"
 		/// </summary>
 		public static string[] STR_THANG_TRANG = new string[6] {
 			"Rồng Cuốn",
 			"Sảnh Rồng",
-			"5 Đôi 1 Sám",
+			"5 Đôi",
 			"Lục Phế Bôn",
 			"3 Thùng",
 			"3 Sảnh"
