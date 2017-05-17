@@ -82,14 +82,10 @@ public class LoadAssetBundle : MonoBehaviour
 #endif
 	}
 
-	static bool isLoadSprite = false;
+//	static bool isLoadSprite = false;
 
 	internal static void LoadSprite (Image image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null)
 	{
-		//try {
-		//    LoadAssetBundle.instance.StartCoroutine(IESprite(image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-		//} catch (Exception e) {
-		//}
 #if UNITY_EDITOR
 		if (AssetBundleManager.SimulateAssetBundleInEditor)
 			LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InstantiateTextureAsync (image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
@@ -98,24 +94,6 @@ public class LoadAssetBundle : MonoBehaviour
 #else
    LoadAssetBundle.instance.StartCoroutine(LoadAssetBundle.instance.InstantiateSpritetAsync(image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
 #endif
-	}
-
-	static IEnumerator IESprite (Image image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null)
-	{
-		if (!isLoadSprite) {
-			isLoadSprite = true;
-#if UNITY_EDITOR
-			if (AssetBundleManager.SimulateAssetBundleInEditor)
-				LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InstantiateTextureAsync (image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-			else
-				LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InstantiateSpritetAsync (image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-#else
-   LoadAssetBundle.instance.StartCoroutine(LoadAssetBundle.instance.InstantiateSpritetAsync(image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-#endif
-		} else {
-			yield return new WaitForSeconds (.001f);
-			LoadAssetBundle.instance.StartCoroutine (IESprite (image, assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-		}
 	}
 
 	internal static void LoadTexture (RawImage image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null
@@ -137,17 +115,17 @@ public class LoadAssetBundle : MonoBehaviour
 		}
 	}
 
-	static bool isLoadPrefabs = false;
+	//	static bool isLoadPrefabs = false;
 
 	static IEnumerator LoadPrefabs (string assetBundleName, string assetName, UnityAction<GameObject> loadDoneCallback = null, UnityAction loadErrorCallback = null)
 	{
-		if (!isLoadPrefabs) {
-			isLoadPrefabs = true;
-			yield return LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InstantiatePrefabtAsync (assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-		} else {
-			yield return new WaitForSeconds (.1f);
-			LoadAssetBundle.instance.StartCoroutine (LoadPrefabs (assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
-		}
+//		if (!isLoadPrefabs) {
+//			isLoadPrefabs = true;
+		yield return LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InstantiatePrefabtAsync (assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
+//		} else {
+//			yield return new WaitForSeconds (.1f);
+//			LoadAssetBundle.instance.StartCoroutine (LoadPrefabs (assetBundleName, assetName, loadDoneCallback, loadErrorCallback));
+//		}
 	}
 
 	protected IEnumerator InstantiateSpritetAsync (SpriteRenderer image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null)
@@ -183,8 +161,9 @@ public class LoadAssetBundle : MonoBehaviour
 			}
 		} else if (loadErrorCallback != null)
 			loadErrorCallback ();
-		isLoadSprite = false;
+//		isLoadSprite = false;
 	}
+
 	protected IEnumerator InstantiateTextureAsync (SpriteRenderer image, string assetBundleName, string assetName, UnityAction loadDoneCallback = null, UnityAction loadErrorCallback = null)
 	{
 		AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync (assetBundleName, assetName, typeof(Texture2D));
@@ -262,7 +241,7 @@ public class LoadAssetBundle : MonoBehaviour
 				GameObject.Instantiate (obj);
 		} else if (loadErrorCallback != null)
 			loadErrorCallback ();
-		isLoadPrefabs = false;
+//		isLoadPrefabs = false;
 	}
 
 
@@ -276,7 +255,7 @@ public class LoadAssetBundle : MonoBehaviour
 				//				if (Progress.value >= 1)
 				//					IsChecking = false;
 			}
-			if(txtMsg != null)
+			if (txtMsg != null)
 				txtMsg.text = (int)(progressValue * 100) + "%";
 			yield return new WaitForEndOfFrame ();
 		}
@@ -299,7 +278,7 @@ public class LoadAssetBundle : MonoBehaviour
 	{
 		//DialogEx.ShowLoading(true);
 		if (!isLoading) {
-						PopupAndLoadingScript.instance.ShowLoading ();
+			PopupAndLoadingScript.instance.ShowLoading ();
 			if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 				#if ASSET_BUNDLE
 				LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InitializeLevelAsync (sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));
@@ -356,7 +335,7 @@ public class LoadAssetBundle : MonoBehaviour
 	internal static void LoadSceneLienTuc (string sceneBundleName = "", string sceneName = "", UnityAction SceneLoadDoneCallback = null, float timedur = 0.2f)
 	{
 		//DialogEx.ShowLoading(true);
-					PopupAndLoadingScript.instance.ShowLoading ();
+		PopupAndLoadingScript.instance.ShowLoading ();
 		if (!SceneManager.GetSceneByName (sceneName).isLoaded) {
 #if ASSET_BUNDLE
 			LoadAssetBundle.instance.StartCoroutine (LoadAssetBundle.instance.InitializeLevelAsync (sceneBundleName, sceneName, SceneLoadDoneCallback, timedur));

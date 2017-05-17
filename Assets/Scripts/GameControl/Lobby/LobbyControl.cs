@@ -57,7 +57,6 @@ public class LobbyControl : MonoBehaviour {
 		SetAvatar ();
     }
 	public void SetAvatar(){
-//		LoadAssetBundle.LoadTexture(raw_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
 		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, ClientConfig.UserInfo.AVATAR_ID + "");
 
 	}
@@ -96,9 +95,9 @@ public class LobbyControl : MonoBehaviour {
     }
 	IEnumerator LoadIconGame(GameObject objPre) {
 		yield return new WaitForEndOfFrame ();
-		bool isLoad = false;
+//		bool isLoad = false;
 		for (int i = 0; i < GameConfig.NUM_GAME; i++) {
-			isLoad = false;
+//			isLoad = false;
 			GameObject itemGame = Instantiate(objPre);
 			itemGame.transform.SetParent(tf_parent);
 			itemGame.transform.localScale = Vector3.zero;
@@ -107,11 +106,11 @@ public class LobbyControl : MonoBehaviour {
 				OnClickGame(itemGame);
 			});
 			itemGame.transform.DOScale (1, 0.1f);
-			LoadAssetBundle.LoadSprite(itemGame.GetComponent<Image>(), BundleName.ICON_GAME, UIName.UI_GAME[i], ()=>{
-				isLoad = true;
-			});
+			LoadAssetBundle.LoadSprite (itemGame.GetComponent<Image> (), BundleName.ICON_GAME, UIName.UI_GAME [i]);//, ()=>{
+//				isLoad = true;
+//			});
 //			listGame.Add(itemGame);
-			yield return new WaitUntil (()=>isLoad);
+//			yield return new WaitUntil (()=>isLoad);
 //			yield return new WaitForSeconds (0.1f);
 		}
 		Destroy (objPre);

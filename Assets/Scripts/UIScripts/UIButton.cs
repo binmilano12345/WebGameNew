@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class UIButton : MonoBehaviour, IPointerDownHandler, IPointerClickHandler, IPointerUpHandler
 {
 	public UnityEvent _onClick;
-
+	public UnityEngine.UI.Image image;
     private const float effectTime = 0.1f;
 
     private const float minScale = 0.95f;

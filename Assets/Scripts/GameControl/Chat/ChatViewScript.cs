@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChatViewScript : MonoBehaviour {
+	const int NUM_SMILE = 12;
     [SerializeField]
     Transform tf_parent_text, tf_parent_smile;
     [SerializeField]
@@ -42,7 +43,7 @@ public class ChatViewScript : MonoBehaviour {
         });
         yield return new WaitForEndOfFrame();
         LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CHAT_SMILE, (objPre) => {
-            for (int i = 0; i < 12; i++) {
+			for (int i = 0; i < NUM_SMILE; i++) {
                 GameObject obj = Instantiate(objPre);
                 obj.transform.SetParent(tf_parent_smile);
                 obj.transform.localScale = Vector3.one;
@@ -61,7 +62,6 @@ public class ChatViewScript : MonoBehaviour {
     public void OnClickSendText() {
         string msg = ip_chat.text.Trim();
         if (string.IsNullOrEmpty(msg)) return;
-        //Controller.OnHandleUIEvent("SendTextRequest", new object[] { msg });
         ip_chat.text = "";
         Hide();
     }

@@ -243,6 +243,10 @@
 	"xd_huy_cuoc":"Huỷ cược",
 	"xd_lam_cai":"Làm cái",
 	"xd_huy_cai":"Huỷ cái",
+	"xd_cho_van_moi":"Chờ bắt đầu ván mới!",
+	"xd_nha_cai_xoc":"Nhà cái bắt đầu xóc",
+	"xd_bd_dat_cuoc":"Đặt cược",
+	"xd_nha_cai_dung_cuoc":"Nhà cái ngừng nhận cược"
 		},
 	"en":{
 		"helloworld": "Hello World"

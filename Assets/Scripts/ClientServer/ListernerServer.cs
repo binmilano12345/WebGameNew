@@ -18,6 +18,7 @@ public class ListernerServer : IChatListener
 		PHandler.setListenner (this);
 		TLMNHandler.setListenner (this);
 		XiToHandler.setListenner (this);
+		XocDiaHandler.setListenner (this);
 	}
 
 	public ListernerServer (/*GameControl gameControl*/)
@@ -739,6 +740,26 @@ public class ListernerServer : IChatListener
 		GameControl.instance.CurrentCasino.OnChat (nick, msg);
 	}
 
+	public void OnJoinTableSuccess(Message message) {
+//		mainGame.mainScreen.disableAllDialog2();
+//		mainGame.mainScreen.curentCasino.onJoinTableSuccess(message);
+//		mainGame.mainScreen.dialogWaitting.onHide();
+		GameControl.instance.CurrentCasino.OnJoinTableSuccess (message);
+	}
+
+	public void OnJoinTableFail(string info) {
+//		mainGame.mainScreen.dialogWaitting.onHide();
+//		mainGame.mainScreen.dialogConfirm.onShow(info
+//			+ ". Bạn có muốn nạp thêm tiền không?", new ChildScrListener() {
+//
+//				@Override
+//				public void onChildScrDismiss() {
+//					SendData.onOutView();
+//				}
+//			});
+
+	}
+
 	public void OnJoinTablePlay (Message message)
 	{
 		// check = SerializerHelper.readInt(message);
@@ -882,6 +903,7 @@ public class ListernerServer : IChatListener
 
 	public void OnFinishGame (Message message)
 	{
+		Debug.LogError (".................." + GameControl.instance.CurrentCasino);
 		GameControl.instance.CurrentCasino.OnFinishGame (message);
 	}
 
@@ -1023,4 +1045,45 @@ public class ListernerServer : IChatListener
 		((MauBinhControl)GameControl.instance.CurrentCasino).OnWinMauBinh (message);
 	}
 	#endregion
+
+	#region Xoc Dia
+	public	void OnBeGinXocDia(int time){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnBeGinXocDia (time);
+	}
+	public void OnXocDia_DatCuoc (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_DatCuoc (message);
+	}
+	public void OnXocDia_DatX2 (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_DatX2 (message);
+	}
+	public void OnXocDia_DatLai (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_DatLai (message);
+	}
+	public void OnBeGinXocDia_TG_DatCuoc (int time){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnBeGinXocDia_TG_DatCuoc (time);
+	}
+	public void OnXocDia_TG_DungCuoc (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_TG_DungCuoc (message);
+	}
+	public void OnBeGinXocDia_MoBat (int quando){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnBeGinXocDia_MoBat (quando);
+	}
+	public void OnXocDiaUpdateCua (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDiaUpdateCua (message);
+	}
+	public 	void OnXocDiaHuyCuoc (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDiaHuyCuoc (message);
+	}
+	public 	void OnNhanCacMucCuocXD (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnNhanCacMucCuocXD (message);
+	}
+	public void OnXocDia_LichSu (Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_LichSu (message);
+	}
+
+	public void OnXocDia_HuyCua_LamCai(Message message){
+		((XocDiaControl)GameControl.instance.CurrentCasino).OnXocDia_HuyCua_LamCai (message);
+	}
+	#endregion
+
 }

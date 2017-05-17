@@ -32,7 +32,8 @@ interface IChatListener {
 	void OnUpdateRoom(Message message);
 	void OnInvite(Message message);
     void OnChat(Message message);
-
+	 void OnJoinTableSuccess (Message message);
+	 void OnJoinTableFail (string info);
     void OnJoinTablePlay(Message message);
     void OnUserExitTable(Message message);
 	void OnUserJoinTable (Message message);
@@ -62,4 +63,19 @@ interface IChatListener {
 	void OnRankMauBinh (Message message);
 	void OnFinalMauBinh (Message message);
 	void OnWinMauBinh (Message message);
+
+	#region Xoc dia
+	void OnBeGinXocDia(int time);
+	void OnXocDia_DatCuoc (Message message);
+	void OnXocDia_DatX2 (Message message);
+	void OnXocDia_DatLai (Message message);
+	void OnBeGinXocDia_TG_DatCuoc (int time);
+	void OnXocDia_TG_DungCuoc (Message message);
+	void OnBeGinXocDia_MoBat (int quando);
+	void OnXocDiaUpdateCua (Message message);
+	void OnXocDiaHuyCuoc (Message message);
+	void OnNhanCacMucCuocXD (Message message);
+	void OnXocDia_LichSu (Message message);
+	void OnXocDia_HuyCua_LamCai(Message message);
+	#endregion
 }

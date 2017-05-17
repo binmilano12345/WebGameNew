@@ -211,7 +211,8 @@ namespace AppConfig
 			"rank_thangtrang",
 			"rank_mom",
 			"rank_cong",
-			"rank_lung"
+			"rank_lung",
+			"rank_lose"
 		};
 	}
 
@@ -226,6 +227,7 @@ namespace AppConfig
 		public const string PRE_PLAYER_SAM = "SamPlayer";
 		public const string PRE_PLAYER_PHOM = "PhomPlayer";
 		public const string PRE_PLAYER_MAU_BINH = "MauBinhPlayer";
+		public const string PRE_PLAYER_XOC_DIA = "XocDiaPlayer";
 
 		public const string PRE_ITEM_INVITE = "ItemInvite";
 

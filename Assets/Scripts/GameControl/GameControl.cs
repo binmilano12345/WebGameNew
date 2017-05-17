@@ -17,6 +17,7 @@ public class GameControl : MonoBehaviour {
 	public GameObject objPlayerSam { get; set; }
 	public GameObject objPlayerPhom { get; set; }
 	public GameObject objPlayerMauBinh { get; set; }
+	public GameObject objPlayerXocDia { get; set; }
     public GameObject objCard { get; set; }
     public GameObject objPlayer;
 
@@ -75,6 +76,14 @@ public class GameControl : MonoBehaviour {
 				objPlayerMauBinh.gameObject.SetActive(false);
 			});
 		}
+		if (objPlayerXocDia == null) {
+			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_XOC_DIA, (obj) => {
+				objPlayerXocDia = obj;
+				objPlayerXocDia.transform.SetParent(tf_parent.transform);
+				objPlayerXocDia.transform.localScale = Vector3.one;
+				objPlayerXocDia.gameObject.SetActive(false);
+			});
+		}
         if (objCard == null) {
             LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (obj) => {
                 objCard = obj;
@@ -126,6 +135,7 @@ public class GameControl : MonoBehaviour {
 		UnloadScene(SceneName.GAME_SAM);
 		UnloadScene(SceneName.GAME_PHOM);
 		UnloadScene(SceneName.GAME_MAU_BINH);
+		UnloadScene(SceneName.GAME_XOC_DIA);
     }
     #endregion
     #region Unload Scene
@@ -150,8 +160,8 @@ public class GameControl : MonoBehaviour {
                 objPlayer = objPlayerTLMN;
                 ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
                 LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
-				TLMNControl.instace.UnloadAllSubScene ();
-                    CurrentCasino = (TLMNControl.instace);
+				TLMNControl.instance.UnloadAllSubScene ();
+                    CurrentCasino = (TLMNControl.instance);
 				try {
 					if(callback != null)
                         callback.Invoke();
@@ -228,7 +238,7 @@ public class GameControl : MonoBehaviour {
                     }
                 });
                 break;
-                #endregion
+			#endregion
 			#region MAU BINH
 		case GameID.MAUBINH:
 			Card.setCardType(1);
@@ -237,9 +247,32 @@ public class GameControl : MonoBehaviour {
 				CurrentCasino = (MauBinhControl.instace);
 				try {
 					if(callback != null)
-					callback.Invoke();
+						callback.Invoke();
 					for (int i = 0; i < ListMsg.Count; i++) {
 						ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+					}
+					ListCMDID.Clear();
+					ListMsg.Clear();
+				} catch (Exception e) {
+					Debug.LogException(e);
+				}
+			});
+			break;
+			#endregion
+			#region XOC DIA
+		case GameID.XOCDIA:
+			objPlayer = objPlayerXocDia;
+
+			ProcessHandler.setSecondHandler(XocDiaHandler.getInstance());
+			LoadAssetBundle.LoadScene(SceneName.GAME_XOC_DIA, SceneName.GAME_XOC_DIA, () => {
+				CurrentCasino = (XocDiaControl.instance);
+				try {
+					if(callback != null)
+						callback.Invoke();
+					Debug.LogError(CurrentCasino + " bi tre:  " + ListMsg.Count);
+					for (int i = 0; i < ListMsg.Count; i++) {
+						ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+						Debug.LogError("========   " + ListCMDID[i]);
 					}
 					ListCMDID.Clear();
 					ListMsg.Clear();

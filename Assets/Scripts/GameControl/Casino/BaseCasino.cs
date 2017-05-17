@@ -63,6 +63,10 @@ public abstract class BaseCasino : MonoBehaviour
 		}
 	}
 
+	public Transform GetParentPlayer(){
+		return tf_parent_player;
+	}
+
 	internal virtual void OnJoinTablePlaySuccess (Message message)
 	{
 		short idTable = message.reader ().ReadShort ();
@@ -171,7 +175,52 @@ public abstract class BaseCasino : MonoBehaviour
 
 	internal virtual void OnJoinTableSuccess (Message message)
 	{
+		try {
+			sbyte rule = message.reader ().ReadByte ();
+			SetLuatChoi (rule);
+			string master = message.reader ().ReadUTF ();
+			int len = message.reader ().ReadByte ();
+			int timeTurn = message.reader ().ReadInt ();
+			isPlaying = message.reader ().ReadBoolean ();
 
+			Debug.LogError("OnJoinTableSuccess So thang choi:  " + len);
+			for (int i = 0; i < len; i++) {
+				PlayerData pl = new PlayerData ();
+				pl.Name = message.reader ().ReadUTF ();
+				pl.DisplaName = message.reader ().ReadUTF ();
+				pl.Avata_Link = message.reader ().ReadUTF ();
+				pl.Avata_Id = message.reader ().ReadInt ();
+				pl.SitOnSever = message.reader ().ReadByte ();
+				pl.Money = message.reader ().ReadLong ();
+				pl.IsReady = message.reader ().ReadBoolean ();
+				pl.FolowMoney = message.reader ().ReadLong ();
+				pl.IsMaster = pl.Name.Equals (master);
+				if (isPlaying) {
+					pl.IsReady = false;
+				}
+				GameObject objPlayer = Instantiate (GameControl.instance.objPlayer);
+				objPlayer.transform.SetParent (GetParentPlayer ());
+				objPlayer.transform.localScale = Vector3.one;
+				BasePlayer plUI = objPlayer.GetComponent<BasePlayer> ();
+				plUI.SetInfo (pl.Name, pl.Money, pl.IsMaster, pl.IsReady, pl.Avata_Id);
+				if (pl.Name.Equals (ClientConfig.UserInfo.UNAME)) {
+					playerMe = plUI;
+				}
+				objPlayer.SetActive (false);
+				var match = ListPlayer.FirstOrDefault (item => item.NamePlayer == pl.Name);
+
+				if (match == null) {
+					ListPlayer.Add (plUI);
+				} else {
+					Destroy (plUI);
+				}
+			}
+				
+			OnJoinTableSuccess (master);
+			SortSitPlayer ();
+		}catch (Exception ex) {
+			Debug.LogException (ex);
+		}
 	}
 
 	public void OnJoinView (Message message)
@@ -464,7 +513,7 @@ public abstract class BaseCasino : MonoBehaviour
 
 	#region Xep cho ngoi
 
-	void SortSitPlayer (bool issEffect = false)
+	public void SortSitPlayer (bool issEffect = false)
 	{
 		int indexMe = 0;
 		int j = 1;
@@ -517,6 +566,9 @@ public abstract class BaseCasino : MonoBehaviour
 			break;
 		case GameID.MAUBINH:
 			InitInfoPlayer_MAUBINH ();
+			break;
+		case GameID.XOCDIA:
+			InitInfoPlayer_XOCDIA ();
 			break;
 		}
 	}
@@ -659,7 +711,6 @@ public abstract class BaseCasino : MonoBehaviour
 
 	#endregion
 
-
 	#region Init Player Mau Binh
 
 	public void InitInfoPlayer_MAUBINH ()
@@ -690,6 +741,34 @@ public abstract class BaseCasino : MonoBehaviour
 				pl.cardMauBinh.SetPositionArryCard (Align_Anchor.LEFT);
 				pl.SetPositionChatLeft (true);
 				pl.SetPositionChatAction (Align_Anchor.LEFT);
+				break;
+			}
+		}
+	}
+
+	#endregion
+
+
+	#region Init Player Xoc Dia
+
+	public void InitInfoPlayer_XOCDIA ()
+	{
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			XocDiaPlayer pl = (XocDiaPlayer)ListPlayer [i];
+
+			switch (pl.SitOnClient) {
+			case 0:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				pl.SetPositionChatLeft (true);
+				break;
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				pl.SetPositionChatLeft (false);
 				break;
 			}
 		}

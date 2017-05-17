@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TLMNControl : BaseCasino
 {
-	public static TLMNControl instace;
+	public static TLMNControl instance;
 	[SerializeField]
 	GameObject objBatDau, objSanSang, objDanh, objBoLuot;
 	//[SerializeField]
@@ -17,7 +17,7 @@ public class TLMNControl : BaseCasino
 
 	void Awake ()
 	{
-		instace = this;
+		instance = this;
 	}
 	// Use this for initialization
 	public new void Start ()

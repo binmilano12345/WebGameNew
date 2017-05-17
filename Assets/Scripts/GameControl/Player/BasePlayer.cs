@@ -119,7 +119,10 @@ public class BasePlayer : MonoBehaviour {
     public void SetTextBao() {
         txt_ready.text = "Báo";
     }
-
+	/// <summary>
+	/// 0 mom, 1 nhat, 2 nhi, 3 ba, 4 bet, 5 u
+	/// </summary>
+	/// <param name="rank">Rank.</param>
     public virtual void SetRank(int rank) {
         // 0 mom, 1 nhat, 2 nhi, 3 ba, 4 bet, 5 u
 
@@ -150,7 +153,8 @@ public class BasePlayer : MonoBehaviour {
                 //        if (pos == 0 && !BaseInfo.gI().isView) {
                 //            SoundManager.instance.startLostAudio();
                 //        }
-                break;
+				idTR = 6;
+			break;
             case 5:
                 idTR = 0;
                 //        if (pos == 0 && !BaseInfo.gI().isView) {
@@ -160,7 +164,7 @@ public class BasePlayer : MonoBehaviour {
                 break;
 
         }
-        if (idTR >= 0 && idTR <= 5) {
+        if (idTR >= 0 && idTR <= 6) {
 			SetEnableEffectRank(idTR);
         }
     }

@@ -7,7 +7,9 @@ public class Toast : MonoBehaviour {
     Text txt;
     [SerializeField]
     Image img;
-    public void showToast(string mess) {
+	float time = 0;
+	public void showToast(string mess, float time = 2.0f) {
+		this.time = time;
         if (!string.IsNullOrEmpty(mess)) {
             txt.text = mess.Trim();
             gameObject.SetActive(true);
@@ -19,7 +21,7 @@ public class Toast : MonoBehaviour {
     }
 
     void wait() {
-        img.DOFade(0, 0.2f).SetDelay(2).OnComplete(delegate {
+		img.DOFade(0, 0.2f).SetDelay(time).OnComplete(delegate {
             gameObject.SetActive(false);
         });
     }
