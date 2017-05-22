@@ -61,7 +61,9 @@ public class XocDiaControl : BaseCasino
 
 	[Header ("BET")]
 	[SerializeField]
-	Toggle[] tg_bet_money;
+	Button[] btn_bet_money;
+	[SerializeField]
+	GameObject[] img_effect_bet;
 	[SerializeField]
 	Text[] txt_bet_money;
 	[Header ("HISTORY")]
@@ -101,10 +103,10 @@ public class XocDiaControl : BaseCasino
 	{
 		base.Start ();
 		int i = 0;
-		for (i = 0; i < tg_bet_money.Length; i++) {
-			tg_bet_money [i].name = i + "";
-			GameObject obj = tg_bet_money [i].gameObject;
-			tg_bet_money [i].onValueChanged.AddListener (delegate {
+		for (i = 0; i < btn_bet_money.Length; i++) {
+			btn_bet_money [i].name = i + "";
+			GameObject obj = btn_bet_money [i].gameObject;
+			btn_bet_money [i].onClick.AddListener (delegate {
 				OnChangeBet (obj);
 			});
 		}
@@ -125,13 +127,19 @@ public class XocDiaControl : BaseCasino
 	{
 //		Debug.LogError ("==========>  " + obj.name);
 		int index = int.Parse (obj.name);
-
-		if (tg_bet_money [index].isOn) {
-			if (index >= tg_bet_money.Length - 1)
-				CurrentBetMoney = ClientConfig.UserInfo.CASH_FREE;
-			else
-				CurrentBetMoney = SelectBetMoney [index];
+		for (int i = 0; i < img_effect_bet.Length; i++) {
+			if (i != index) {
+				img_effect_bet [i].SetActive (false);
+			}
 		}
+//		if (tg_bet_money [index].isOn) {
+
+		img_effect_bet [index].SetActive (true);
+		if (index >= btn_bet_money.Length - 1)
+			CurrentBetMoney = ClientConfig.UserInfo.CASH_FREE;
+		else
+			CurrentBetMoney = SelectBetMoney [index];
+//		}
 	}
 
 	void OnClickDatCuoc (GameObject obj)
@@ -204,7 +212,7 @@ public class XocDiaControl : BaseCasino
 	bool isShow = false;
 	float VT_Y = -140;
 	bool isRunShow = true;
-//	GameObject objPreImgHis,objPreItemHis;
+	//	GameObject objPreImgHis,objPreItemHis;
 	void UpdateHistory (int resultRed)
 	{
 		#region Update His Image
@@ -217,7 +225,7 @@ public class XocDiaControl : BaseCasino
 				listImage.Add (obj);
 				if (resultRed % 2 != 0) {
 					numbLeHis++;
-					leTextHis.text = "<color=yellow>" + numbLeHis + "</color>\nLẻ";
+					leTextHis.text = "<color=red>" + numbLeHis + "</color>\nLẻ";
 				} else {
 					numbChanHis++;
 					chanTextHis.text = "<color=yellow>" + numbChanHis + "</color>\nChẵn";
@@ -232,7 +240,7 @@ public class XocDiaControl : BaseCasino
 					LoadAssetBundle.LoadSprite (objImg, BundleName.UI, (resultRed % 2 != 0 ? UIName.UI_XD_RED : UIName.UI_XD_WHITE));
 					if (resultRed % 2 != 0) {
 						numbLeHis++;
-						leTextHis.text = "<color=yellow>" + numbLeHis + "</color>\nLẻ";
+						leTextHis.text = "<color=red>" + numbLeHis + "</color>\nLẻ";
 					} else {
 						numbChanHis++;
 						chanTextHis.text = "<color=yellow>" + numbChanHis + "</color>\nChẵn";
@@ -278,14 +286,15 @@ public class XocDiaControl : BaseCasino
 			if (a.Length <= 0)
 				return;
 			string[] chuoi = a.Split (',');
-			for (int i = 0; i < chuoi.Length-1; i++) {
-				int r = UnityEngine.Random.Range(0,3);
+			for (int i = 0; i < chuoi.Length - 1; i++) {
+				int r = UnityEngine.Random.Range (0, 3);
 				if (int.Parse (chuoi [i]) == 0) {//chan
-					UpdateHistory(4-r*2);
+					UpdateHistory (4 - r * 2);
 //					numbChanHis++;
 				} else {//le
-					if(r == 0) r= 1;
-					UpdateHistory(5-r*2);
+					if (r == 0)
+						r = 1;
+					UpdateHistory (5 - r * 2);
 //					numbLeHis++;
 				}
 //						bangLichSu.quan[i].setVisible(true);
@@ -320,7 +329,7 @@ public class XocDiaControl : BaseCasino
 		btn_lam_cai.enabled = isLamCai;
 		btn_huy_cai.enabled = isHuyCai;
 	}
-	
+
 	internal override void SetMaster (String nick)
 	{
 		OnJoinTableSuccess (nick);
@@ -355,6 +364,7 @@ public class XocDiaControl : BaseCasino
 		ListChipCua3.Clear ();
 		ListChipCua4.Clear ();
 		ListChipCua5.Clear ();
+		chipThua.Clear ();
 
 		timeCountDown.SetTime (0);
 		img_dia.enabled = false;
@@ -370,7 +380,8 @@ public class XocDiaControl : BaseCasino
 
 		XocDiaPlayer pl = (XocDiaPlayer)GetPlayerWithName (nick);
 		if (pl != null) {
-			pl.ActionChipDatCuoc (cua, btn_cua_cuoc [cua].transform.position, obj_pre_chip);
+//			pl.ActionChipDatCuoc (cua, btn_cua_cuoc [cua].transform.position, obj_pre_chip);
+			pl.ActionChipDatCuoc (cua, GenPostionRandomInCua (cua), obj_pre_chip);
 		}
 		sum_money [cua] += money;
 		txt_sum_money [cua].text = MoneyHelper.FormatMoneyNormal (sum_money [cua]);
@@ -388,7 +399,8 @@ public class XocDiaControl : BaseCasino
 		for (int i = 0; i < socua; i++) {
 			sbyte cua = message.reader ().ReadByte ();
 			if (pl != null) {
-				pl.ActionChipDatX2 (cua, btn_cua_cuoc [cua].transform.position);
+				//				pl.ActionChipDatX2 (cua, btn_cua_cuoc [cua].transform.position);
+				pl.ActionChipDatX2 (cua, GenPostionRandomInCua (cua));
 			}
 
 			sum_money [cua] *= 2;
@@ -414,7 +426,8 @@ public class XocDiaControl : BaseCasino
 					sbyte loaichip = message.reader ().ReadByte ();
 					int sochip = message.reader ().ReadInt ();
 					for (int k = 0; k < sochip; k++) {
-						pl.ActionChipDatCuoc (cua, btn_cua_cuoc [cua].transform.position, obj_pre_chip);
+//						pl.ActionChipDatCuoc (cua, btn_cua_cuoc [cua].transform.position, obj_pre_chip);
+						pl.ActionChipDatCuoc (cua, GenPostionRandomInCua (cua), obj_pre_chip);
 					}
 				}
 			}
@@ -464,11 +477,6 @@ public class XocDiaControl : BaseCasino
 //			dangchoi = false;
 			int cua1 = message.reader ().ReadByte ();
 			int cua2 = message.reader ().ReadByte ();
-			Debug.LogError (cua1 + "-----------------" + cua2);
-//			set_anim_cuato(cua1);
-			//			set_anim_cuanho(cua2);
-//			win_effect[cua1].SetActive(true);
-//			win_effect[cua2].SetActive(true);
 			int size = message.reader ().ReadByte ();
 			for (int i = 0; i < size; i++) {
 				string _name = message.reader ().ReadUTF ();
@@ -591,37 +599,106 @@ public class XocDiaControl : BaseCasino
 	void ActionTraTien (int cua1, int cua2)
 	{
 		Debug.LogError (cua1 + " =-=-=Tra tien-=-=-= " + cua2);
+//		if (cua1 == 0) {
+//		TraTienCuaThang (cua1);
+//		} else {
+//			TraTienCuaThang (cua1);
+//		}
+//		switch (cua2) {
+//		case 2:
+//			TraTienCuaThang (ListChipCua2, cua2);
+//			break;
+//		case 3:
+//			TraTienCuaThang (ListChipCua3, cua2);
+//			break;
+//		case 4:
+//			TraTienCuaThang (ListChipCua4, cua2);
+//			break;
+//		case 5:
+//			TraTienCuaThang (ListChipCua5, cua2);
+//			break;
+//		}
 		if (cua1 == 0) {
-			TraTienCuaThang (ListChipCua0, cua1);
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+				if (i < ListChipCua0.Count) {
+					//					obj.transform.DOMove (btn_cua_cuoc [cua1].transform.position, 0.1f);
+					obj.transform.DOMove (GenPostionRandomInCua (cua1), 0.1f);
+					ListChipCua0.Add (obj);
+					chipThua.Remove (obj);
+					i--;
+				} 
+			}
 		} else {
-			TraTienCuaThang (ListChipCua1, cua1);
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+				if (i < ListChipCua1.Count) {
+//					obj.transform.DOMove (btn_cua_cuoc [cua1].transform.position, 0.1f);
+					obj.transform.DOMove (GenPostionRandomInCua (cua1), 0.1f);
+					ListChipCua1.Add (obj);
+					chipThua.Remove (obj);
+					i--;
+				} 
+			}
 		}
 		switch (cua2) {
 		case 2:
-			TraTienCuaThang (ListChipCua2, cua2);
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+//				obj.transform.DOMove (btn_cua_cuoc [cua2].transform.position, 0.1f);
+
+				obj.transform.DOMove (GenPostionRandomInCua (cua2), 0.1f);
+				ListChipCua2.Add (obj);
+			}
 			break;
 		case 3:
-			TraTienCuaThang (ListChipCua3, cua2);
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+				//				obj.transform.DOMove (btn_cua_cuoc [cua2].transform.position, 0.1f);
+				obj.transform.DOMove (GenPostionRandomInCua (cua2), 0.1f);
+				ListChipCua3.Add (obj);
+			}
 			break;
 		case 4:
-			TraTienCuaThang (ListChipCua4, cua2);
-			break;
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+				//				obj.transform.DOMove (btn_cua_cuoc [cua2].transform.position, 0.1f);
+				obj.transform.DOMove (GenPostionRandomInCua (cua2), 0.1f);
+				ListChipCua4.Add (obj);
+			}
+			break;		
 		case 5:
-			TraTienCuaThang (ListChipCua5, cua2);
+			for (int i = 0; i < chipThua.Count; i++) {
+				GameObject obj = chipThua [i];
+				//				obj.transform.DOMove (btn_cua_cuoc [cua2].transform.position, 0.1f);
+				obj.transform.DOMove (GenPostionRandomInCua (cua2), 0.1f);
+				ListChipCua5.Add (obj);
+			}
 			break;
 		}
+
+		chipThua.Clear ();
 	}
+
+	List<GameObject> chipThua = new List<GameObject> ();
 
 	void LayTienCuaThua (List<GameObject> listCua)
 	{
-		Debug.LogError (listCua.Count + "    " + img_dia.transform.position);
+//		Debug.LogError (listCua.Count + "    " + img_dia.transform.position);
+		Vector3 pos = img_dia.transform.position;
+		float x = img_dia.rectTransform.sizeDelta.x;
+		float y = img_dia.rectTransform.sizeDelta.y;
+		pos.x += UnityEngine.Random.Range (-x / 3, x / 3);
+		pos.y += UnityEngine.Random.Range (-y / 3.5f, y / 3.5f);
+
 		for (int i = 0; i < listCua.Count; i++) {
 			GameObject obj = listCua [i];
 			obj.transform.DOMove (img_dia.transform.position, 0.1f).OnComplete (() => {
-//				obj.SetActive(false);
+				chipThua.Add (obj);
+//				listCua.Remove (obj);
 			});
 		}
-
+		listCua.Clear ();
 		//co thang lam cai
 //		for (int i = 0; i < arr.size(); i++) {
 //			arr.get(i)
@@ -629,77 +706,11 @@ public class XocDiaControl : BaseCasino
 //		}
 	}
 
-	void TraTienCuaThang (List<GameObject> listCua, int cua)
-	{
-		Debug.LogError (listCua.Count + "  cua thang:   " + cua);
-		for (int i = 0; i < listCua.Count; i++) {
-			GameObject obj = listCua [i];
-			obj.transform.DOMove (btn_cua_cuoc [cua].transform.position, 0.1f).OnComplete (() => {
-//				switch (cua) {
-//				case 0:
-//					ListChipCua0.Add (listCua [i]);
-//					break;
-//				case 1:
-//					ListChipCua1.Add (listCua [i]);
-//					break;
-//				case 2:
-//					ListChipCua2.Add (listCua [i]);
-//					break;
-//				case 3:
-//					ListChipCua3.Add (listCua [i]);
-//					break;
-//				case 4:
-//					ListChipCua4.Add (listCua [i]);
-//					break;
-//				case 5:
-//					ListChipCua5.Add (listCua [i]);
-//					break;
-//				}
-//				listCua.Remove(obj);
-			});
-		}
-//		listCua.Clear ();
-		//co thang lam cai
-//		MoveMoney money = poolMoney.obtain();
-//		money.set(arr.get(i).getUserDatCuoc(), new Vector2(0, 0), cua, arr.get(i).type_chip, this);
-//		money.move(new Vector2(players[getPlayer(master)].getX(), players[getPlayer(master)].getY()),
-//			getRandomPosCua(cua));
-//		arr.add(money);
-	}
-
 	void TraTienNguoiChoi (int cua1, int cua2)
 	{
-		if (cua1 == 0) {
-			for (int i = 0; i < ListChipCua0.Count; i++) {
-				ListChipCua0 [i].SetActive (false);
-			}
-		} else {
-			for (int i = 0; i < ListChipCua1.Count; i++) {
-				ListChipCua1 [i].SetActive (false);
-			}
-		}
-
-		switch (cua2) {
-		case 2:
-			for (int i = 0; i < ListChipCua2.Count; i++) {
-				ListChipCua2 [i].SetActive (false);
-			}
-			break;
-		case 3:
-			for (int i = 0; i < ListChipCua3.Count; i++) {
-				ListChipCua3 [i].SetActive (false);
-			}
-			break;
-		case 4:
-			for (int i = 0; i < ListChipCua4.Count; i++) {
-				ListChipCua4 [i].SetActive (false);
-			}
-			break;
-		case 5:
-			for (int i = 0; i < ListChipCua5.Count; i++) {
-				ListChipCua5 [i].SetActive (false);
-			}
-			break;
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			XocDiaPlayer player = (XocDiaPlayer)ListPlayer [i];
+			player.ActionChipToPlayerWin (cua1, cua2);
 		}
 	}
 
@@ -758,7 +769,10 @@ public class XocDiaControl : BaseCasino
 			txt_bet_money [1].text = MoneyHelper.FormatRelativelyWithoutUnit (muc2);
 			txt_bet_money [2].text = MoneyHelper.FormatRelativelyWithoutUnit (muc3);
 			txt_bet_money [3].text = MoneyHelper.FormatRelativelyWithoutUnit (muc4);
-			tg_bet_money [0].isOn = true;
+			img_effect_bet [0].SetActive (true);
+			for (int i = 1; i < img_effect_bet.Length; i++) {
+				img_effect_bet [i].SetActive (false);
+			}
 			CurrentBetMoney = muc1;
 
 		} catch (Exception ex) {
@@ -794,4 +808,18 @@ public class XocDiaControl : BaseCasino
 		}
 	}
 
+	Vector3	GenPostionRandomInCua (int cua)
+	{
+		Vector3 pos = btn_cua_cuoc [cua].transform.position;
+
+		Image img = btn_cua_cuoc [cua].image;
+		float x = img.rectTransform.sizeDelta.x;
+		float y = img.rectTransform.sizeDelta.y;
+		pos.x += UnityEngine.Random.Range (-x / 3, x / 3);
+		pos.y += UnityEngine.Random.Range (-y / 3.5f, y / 3.5f);
+//		btn_cua_cuoc [cua].transform.TransformPoint (pos);
+
+//		Debug.LogError ("=====Vector:   " +pos);
+		return pos;
+	}
 }

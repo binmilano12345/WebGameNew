@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class XocDiaPlayer : BasePlayer
 {
-	const float RATE_TIME = 1000;
+	const float TIME = 0.1f;
 	[SerializeField]
 	Transform tf_chip;
 	//Dat cuoc.
@@ -55,8 +55,8 @@ public class XocDiaPlayer : BasePlayer
 			break;
 		}
 
-		float time = Vector3.Distance (obj.transform.position, pos) / RATE_TIME;
-		obj.transform.DOMove (pos, time);
+		obj.transform.DOMove (pos, TIME);
+		XocDiaControl.instance.AddChipToList (cua, obj);
 	}
 
 	public void	ActionChipDatX2 (int cua, Vector3 pos)
@@ -91,8 +91,9 @@ public class XocDiaPlayer : BasePlayer
 				break;
 			}
 
-			float time = Vector3.Distance (obj.transform.position, pos) / RATE_TIME;
-			obj.transform.DOMove (pos, time);
+			obj.transform.DOMove (pos, TIME);
+
+			XocDiaControl.instance.AddChipToList (cua, obj);
 		}
 	}
 
@@ -100,71 +101,117 @@ public class XocDiaPlayer : BasePlayer
 	{
 		if (cua0 > 0) {
 			for (int i = 0; i < CurrentChipCua_0.Count; i++) {
-				if (CurrentChipCua_0 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_0 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_0 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_0 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_0 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_0.Remove(obj);
 					});
+					XocDiaControl.instance.RemoveChipFromList (0, obj);
 				}
 			}
 		}
 
 		if (cua1 > 0) {
 			for (int i = 0; i < CurrentChipCua_1.Count; i++) {
-				if (CurrentChipCua_1 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_1 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_1 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_1 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_1 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_1.Remove(obj);
+
 					});
+					XocDiaControl.instance.RemoveChipFromList (1, obj);
 				}
 			}
 		}
 
 		if (cua2 > 0) {
 			for (int i = 0; i < CurrentChipCua_2.Count; i++) {
-				if (CurrentChipCua_2 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_2 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_2 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_2 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_2 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_2.Remove(obj);
 					});
+					XocDiaControl.instance.RemoveChipFromList (2, obj);
 				}
 			}
 		}
 
 		if (cua3 > 0) {
 			for (int i = 0; i < CurrentChipCua_3.Count; i++) {
-				if (CurrentChipCua_3 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_3 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_3 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_3 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_3 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_3.Remove(obj);
 					});
+					XocDiaControl.instance.RemoveChipFromList (3, obj);
 				}
 			}
 		}
 
 		if (cua4 > 0) {
 			for (int i = 0; i < CurrentChipCua_4.Count; i++) {
-				if (CurrentChipCua_4 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_4 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_4 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_4 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_4 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_4.Remove(obj);
 					});
+					XocDiaControl.instance.RemoveChipFromList (4, obj);
 				}
 			}
 		}
 
 		if (cua5 > 0) {
 			for (int i = 0; i < CurrentChipCua_5.Count; i++) {
-				if (CurrentChipCua_5 [i].activeSelf) {
-					float time = Vector3.Distance (CurrentChipCua_5 [i].transform.position, transform.position) / RATE_TIME;
-					CurrentChipCua_5 [i].transform.DOMove (transform.position, time).OnComplete (() => {
-						CurrentChipCua_5 [i].SetActive (false);
+				GameObject obj = CurrentChipCua_5 [i];
+				if (obj.activeSelf) {
+					obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+						obj.SetActive (false);
+						CurrentChipCua_5.Remove(obj);
 					});
+					XocDiaControl.instance.RemoveChipFromList (5, obj);
 				}
 			}
 		}
 	}
 
+	public void ActionChipToPlayerWin(int cua1, int cua2){
+		Debug.LogError ("cua 1: " + cua1 + "  cua 2: " + cua2);
+		List<GameObject> list = new List<GameObject>();
+		if (cua1 == 0) {
+			list.AddRange(CurrentChipCua_0);
+		} else {
+			list.AddRange(CurrentChipCua_1);
+		}
+
+		switch (cua2) {
+		case 2:
+			list.AddRange(CurrentChipCua_2);
+			break;
+		case 3:
+			list.AddRange(CurrentChipCua_3);
+			break;
+		case 4:
+			list.AddRange(CurrentChipCua_4);
+			break;
+		case 5:
+			list.AddRange(CurrentChipCua_5);
+			break;
+		}
+
+		for (int i = 0; i < list.Count; i++) {
+			GameObject obj = list [i];
+			if (obj.activeSelf) {
+				obj.transform.DOMove (transform.position, TIME).OnComplete (() => {
+					obj.SetActive (false);
+				});
+			}
+		}
+	}
 	GameObject GetObjChipHide (GameObject objPre)
 	{
 		GameObject obj;

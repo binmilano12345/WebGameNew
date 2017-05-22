@@ -23,6 +23,7 @@ public abstract class BaseCasino : MonoBehaviour
 	Text txt_id_table, txt_bet_table, txt_game_name;
 
 	internal bool isPlaying = false;
+	protected string MasterName;
 
 	internal void Start ()
 	{
