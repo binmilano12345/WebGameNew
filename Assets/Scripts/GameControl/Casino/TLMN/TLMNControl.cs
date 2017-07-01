@@ -1,4 +1,4 @@
-﻿using AppConfig;
+using AppConfig;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +9,7 @@ public class TLMNControl : BaseCasino
 	public static TLMNControl instance;
 	[SerializeField]
 	GameObject objBatDau, objSanSang, objDanh, objBoLuot;
-	//[SerializeField]
-	//GameObject txt_wait;
-	string nickFire = "";
+
 	public CardTableManager cardTable;
 	List<int> ListCardOfMe = new List<int> ();
 
@@ -236,7 +234,7 @@ public class TLMNControl : BaseCasino
 	internal override void OnJoinTableSuccess (Message message)
 	{
 		base.OnJoinTableSuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false);
 	}
 
@@ -254,7 +252,7 @@ public class TLMNControl : BaseCasino
 	internal override void OnJoinTablePlaySuccess (Message message)
 	{
 		base.OnJoinTablePlaySuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false);
 	}
 

@@ -77,8 +77,10 @@ public class CardTableManager : MonoBehaviour {
     void SapXepCardChinhCMNGiua(Card[] cards) {
         float disCard = 50.0f;
         float posY = UnityEngine.Random.Range(-30.0f, 30.0f);
-        effect_fire.transform.localPosition = new Vector3(0, posY, 0);
-        effect_fire.transform.SetAsLastSibling();
+		if (effect_fire != null) {
+			effect_fire.transform.localPosition = new Vector3(0, posY, 0);
+			effect_fire.transform.SetAsLastSibling();
+		}
         if (cards.Length % 2 == 0) {
             for (int i = 0; i < cards.Length; i++) {
                 cards[i].transform.localPosition = new Vector3(
@@ -126,10 +128,12 @@ public class CardTableManager : MonoBehaviour {
     }
 
     IEnumerator ShowHideEffect(float time) {
-        yield return new WaitForSeconds(time);
-        effect_fire.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.2f);
-        effect_fire.gameObject.SetActive(false);
+		if (effect_fire != null){
+			yield return new WaitForSeconds(time);
+			effect_fire.gameObject.SetActive(true);
+			yield return new WaitForSeconds(0.2f);
+			effect_fire.gameObject.SetActive(false);
+		}
     }
 
     public void UpHetCMNBaiXuong() {

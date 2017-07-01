@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -99,7 +100,7 @@ public class XocDiaControl : BaseCasino
 
 	#endregion
 
-	void Start ()
+	new void Start ()
 	{
 		base.Start ();
 		int i = 0;
@@ -357,14 +358,9 @@ public class XocDiaControl : BaseCasino
 			txt_sum_money [i].text = MoneyHelper.FormatMoneyNormal (sum_money [i]);
 			txt_me_money [i].text = MoneyHelper.FormatMoneyNormal (sum_me_money [i]);
 		}
-
-		ListChipCua0.Clear ();
-		ListChipCua1.Clear ();
-		ListChipCua2.Clear ();
-		ListChipCua3.Clear ();
-		ListChipCua4.Clear ();
-		ListChipCua5.Clear ();
-		chipThua.Clear ();
+		for (int i = 0; i < win_effect.Length; i++) {
+			win_effect [i].SetActive (false);
+		}
 
 		timeCountDown.SetTime (0);
 		img_dia.enabled = false;
@@ -440,6 +436,14 @@ public class XocDiaControl : BaseCasino
 		timeCountDown.SetTime (time);
 		SetEnableButton (true, true, true, false, false);
 		IsDatCuoc = true;
+
+		ListChipCua0.Clear ();
+		ListChipCua1.Clear ();
+		ListChipCua2.Clear ();
+		ListChipCua3.Clear ();
+		ListChipCua4.Clear ();
+		ListChipCua5.Clear ();
+		chipThua.Clear ();
 	}
 
 	internal void OnXocDia_TG_DungCuoc (Message message)
@@ -451,6 +455,7 @@ public class XocDiaControl : BaseCasino
 			timeCountDown.SetTime (time);
 			IsDatCuoc = false;
 		} catch (Exception e) {
+			Debug.LogException(e);
 		}
 	}
 
@@ -472,7 +477,6 @@ public class XocDiaControl : BaseCasino
 
 	internal override void OnFinishGame (Message message)
 	{
-		Debug.LogError ("=======   OnFinishGame");
 		try {
 //			dangchoi = false;
 			int cua1 = message.reader ().ReadByte ();
@@ -492,10 +496,12 @@ public class XocDiaControl : BaseCasino
 					pl.IsReady = false;
 				}
 			}
+			Debug.LogError ("Cua 1: " + cua1 + "  Cua 2: " + cua2);
+			win_effect [cua1].SetActive (true);
+			if (cua2 > 1 && cua2 < 6)
+				win_effect [cua2].SetActive (true);
 
 			StartCoroutine (MoveMoneyFinishGame (cua1, cua2));
-
-//			animXocDia.Play (ANIM_IDLE);
 		} catch (Exception e) {
 			Debug.LogException (e);
 		}
@@ -599,25 +605,6 @@ public class XocDiaControl : BaseCasino
 	void ActionTraTien (int cua1, int cua2)
 	{
 		Debug.LogError (cua1 + " =-=-=Tra tien-=-=-= " + cua2);
-//		if (cua1 == 0) {
-//		TraTienCuaThang (cua1);
-//		} else {
-//			TraTienCuaThang (cua1);
-//		}
-//		switch (cua2) {
-//		case 2:
-//			TraTienCuaThang (ListChipCua2, cua2);
-//			break;
-//		case 3:
-//			TraTienCuaThang (ListChipCua3, cua2);
-//			break;
-//		case 4:
-//			TraTienCuaThang (ListChipCua4, cua2);
-//			break;
-//		case 5:
-//			TraTienCuaThang (ListChipCua5, cua2);
-//			break;
-//		}
 		if (cua1 == 0) {
 			for (int i = 0; i < chipThua.Count; i++) {
 				GameObject obj = chipThua [i];
@@ -634,7 +621,7 @@ public class XocDiaControl : BaseCasino
 				GameObject obj = chipThua [i];
 				if (i < ListChipCua1.Count) {
 //					obj.transform.DOMove (btn_cua_cuoc [cua1].transform.position, 0.1f);
-					obj.transform.DOMove (GenPostionRandomInCua (cua1), 0.1f);
+					obj.transform.DOMove (GenPostionRandomInCua (cua2), 0.1f);
 					ListChipCua1.Add (obj);
 					chipThua.Remove (obj);
 					i--;
@@ -688,17 +675,18 @@ public class XocDiaControl : BaseCasino
 		Vector3 pos = img_dia.transform.position;
 		float x = img_dia.rectTransform.sizeDelta.x;
 		float y = img_dia.rectTransform.sizeDelta.y;
-		pos.x += UnityEngine.Random.Range (-x / 3, x / 3);
-		pos.y += UnityEngine.Random.Range (-y / 3.5f, y / 3.5f);
-
+		pos.x -= x/4;
+		chipThua.Clear();
 		for (int i = 0; i < listCua.Count; i++) {
 			GameObject obj = listCua [i];
 			obj.transform.DOMove (img_dia.transform.position, 0.1f).OnComplete (() => {
-				chipThua.Add (obj);
-//				listCua.Remove (obj);
+				//chipThua.Add (obj);
+				if(i == listCua.Count - 1){
+					listCua.Clear ();
+				}
 			});
+			chipThua.Add (obj);
 		}
-		listCua.Clear ();
 		//co thang lam cai
 //		for (int i = 0; i < arr.size(); i++) {
 //			arr.get(i)
@@ -711,6 +699,7 @@ public class XocDiaControl : BaseCasino
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			XocDiaPlayer player = (XocDiaPlayer)ListPlayer [i];
 			player.ActionChipToPlayerWin (cua1, cua2);
+			StartCoroutine (player.HideAllChip ());
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿using AppConfig;
+using AppConfig;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -242,14 +242,14 @@ public class MauBinhControl : BaseCasino, IHasChanged
 	internal override void OnJoinTableSuccess (Message message)
 	{
 		base.OnJoinTableSuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false);
 	}
 
 	internal override void OnJoinTablePlaySuccess (Message message)
 	{
 		base.OnJoinTablePlaySuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false);
 	}
 

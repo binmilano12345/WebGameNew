@@ -41,23 +41,23 @@ public class BasePlayer : MonoBehaviour {
 
 	public long Money { get; set; }
 
-    public void SetInfo(string name, long money, bool isMaster, bool isReady, int avata_id) {
+	public virtual void SetInfo(PlayerData playerData) {
         Init();
-        NamePlayer = name;
-        if (name.Length <= 6) {
-            txt_name.text = name;
+		NamePlayer = playerData.NamePlayer;
+        if (NamePlayer.Length <= 6) {
+            txt_name.text = NamePlayer;
         } else {
-            txt_name.text = name.Substring(0, 6) + "..";
+            txt_name.text = NamePlayer.Substring(0, 6) + "..";
         }
-		SetMoney (money);
-        IsMaster = isMaster;
-        IsReady = isReady;
-        SetShowMaster(isMaster);
-		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, avata_id + "");
+		SetMoney (playerData.Money);
+		IsMaster = playerData.IsMaster;
+		IsReady = playerData.IsReady;
+		SetShowMaster(IsMaster);
+		LoadAssetBundle.LoadSprite(img_avata, BundleName.AVATAS, playerData.Avata_Id + "");
         if (IsMaster)
             SetShowReady(false);
         else
-            SetShowReady(isReady);
+            SetShowReady(IsReady);
     }
     public void SetShowMaster(bool isMaster) {
         master.SetActive(isMaster);

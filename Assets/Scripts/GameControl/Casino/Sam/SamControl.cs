@@ -1,4 +1,4 @@
-﻿using AppConfig;
+using AppConfig;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -217,7 +217,7 @@ public class SamControl : BaseCasino {
     internal override void OnJoinTableSuccess(Message message) {
         //resetData();
         base.OnJoinTableSuccess(message);
-        if (isPlaying)
+        if (IsPlaying)
             SetActiveButton(false, false, false, false);
     }
     internal override void OnReady(string nick, bool ready) {
@@ -231,7 +231,7 @@ public class SamControl : BaseCasino {
     }
     internal override void OnJoinTablePlaySuccess(Message message) {
         base.OnJoinTablePlaySuccess(message);
-        if (isPlaying)
+        if (IsPlaying)
             SetActiveButton(false, false, false, false);
     }
     internal override void OnFireCardFail() {

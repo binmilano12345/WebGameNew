@@ -3,3 +3,5 @@ Library/
 *.csproj
 Temp/
 *.apk
+obj/Debug/Assembly-CSharp.dll
+obj/Debug/Assembly-CSharp.pdb

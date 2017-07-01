@@ -18,7 +18,7 @@ namespace DataBase {
     #endregion
     #region PlayerData
 	public struct PlayerData {
-        public string Name { get; set; }
+        public string NamePlayer { get; set; }
         public string DisplaName { get; set; }
         public long Money { get; set; }
         public long FolowMoney { get; set; }

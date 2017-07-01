@@ -65,6 +65,9 @@ namespace AppConfig
 		public static int SMS_10 = 4000;
 		public static int SMS_15 = 6000;
 		public static int IsCharging = 0;
+
+		public static long BetMoney = 0;
+
 // 0: disable, 1: enable, 10, enable inapp
 		public static string Syntax10, Syntax15;
 		public static string Port10 = "", Port15 = "";
@@ -228,6 +231,7 @@ namespace AppConfig
 		public const string PRE_PLAYER_PHOM = "PhomPlayer";
 		public const string PRE_PLAYER_MAU_BINH = "MauBinhPlayer";
 		public const string PRE_PLAYER_XOC_DIA = "XocDiaPlayer";
+		public const string PRE_PLAYER_LIENG = "LiengPlayer";
 
 		public const string PRE_ITEM_INVITE = "ItemInvite";
 
@@ -243,6 +247,7 @@ namespace AppConfig
 		public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Item_Image_XD_His";
 		public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_His_XD";
 
+		public const string PRE_ITEM_HIS_TX = "";
 		//        public const string PRE_CHIP = "Chip";
 		//        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
 		//        public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
@@ -281,6 +286,7 @@ namespace AppConfig
 		public const string SUB_MAIL = "sub_mail";
 		public const string SUB_WITHDRAWAL_MONEY = "sub_withdrawal_money";
 		public const string SUB_EVENT = "sub_event";
+		public const string SUB_RUT_TIEN = "";
 
 		public const string GAME_TLMN = "game_tlmn";
 		public const string GAME_TLMN_SOLO = "game_tlmn_solo";
@@ -288,6 +294,10 @@ namespace AppConfig
 		public const string GAME_PHOM = "game_phom";
 		public const string GAME_MAU_BINH = "game_maubinh";
 		public const string GAME_XOC_DIA = "game_xocdia";
+public const string GAME_LIENG = "game_lieng";
+		public const string GAME_BA_CAY = "game_bacay";
+		public const string GAME_POKER = "game_poker";
+		public const string GAME_TAIXIU = "game_taixiu";
 	}
 
 	public class CMDClient

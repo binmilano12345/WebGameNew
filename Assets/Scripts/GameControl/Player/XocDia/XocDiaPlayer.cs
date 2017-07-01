@@ -18,12 +18,12 @@ public class XocDiaPlayer : BasePlayer
 	public List<GameObject> CurrentChipCua_5 = new List<GameObject> ();
 
 	//Cache chip dat cuoc.
-	private List<GameObject> CacheChipDatCua_0 = new List<GameObject> ();
-	private List<GameObject> CacheChipDatCua_1 = new List<GameObject> ();
-	private List<GameObject> CacheChipDatCua_2 = new List<GameObject> ();
-	private List<GameObject> CacheChipDatCua_3 = new List<GameObject> ();
-	private List<GameObject> CacheChipDatCua_4 = new List<GameObject> ();
-	private List<GameObject> CacheChipDatCua_5 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_0 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_1 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_2 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_3 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_4 = new List<GameObject> ();
+//	private List<GameObject> CacheChipDatCua_5 = new List<GameObject> ();
 
 	public void	ActionChipDatCuoc (int cua, Vector3 pos, GameObject objPre)
 	{
@@ -31,27 +31,27 @@ public class XocDiaPlayer : BasePlayer
 		switch (cua) {
 		case 0:
 			CurrentChipCua_0.Add (obj);
-			CacheChipDatCua_0.Add (obj);
+//			CacheChipDatCua_0.Add (obj);
 			break;
 		case 1:
 			CurrentChipCua_1.Add (obj);
-			CacheChipDatCua_1.Add (obj);
+//			CacheChipDatCua_1.Add (obj);
 			break;
 		case 2:
 			CurrentChipCua_2.Add (obj);
-			CacheChipDatCua_2.Add (obj);
+//			CacheChipDatCua_2.Add (obj);
 			break;
 		case 3:
 			CurrentChipCua_3.Add (obj);
-			CacheChipDatCua_3.Add (obj);
+//			CacheChipDatCua_3.Add (obj);
 			break;
 		case 4:
 			CurrentChipCua_4.Add (obj);
-			CacheChipDatCua_4.Add (obj);
+//			CacheChipDatCua_4.Add (obj);
 			break;
 		case 5:
 			CurrentChipCua_5.Add (obj);
-			CacheChipDatCua_5.Add (obj);
+//			CacheChipDatCua_5.Add (obj);
 			break;
 		}
 
@@ -67,27 +67,27 @@ public class XocDiaPlayer : BasePlayer
 			switch (cua) {
 			case 0:
 				CurrentChipCua_0.Add (obj);
-				CacheChipDatCua_0.Add (obj);
+//				CacheChipDatCua_0.Add (obj);
 				break;
 			case 1:
 				CurrentChipCua_1.Add (obj);
-				CacheChipDatCua_1.Add (obj);
+//				CacheChipDatCua_1.Add (obj);
 				break;
 			case 2:
 				CurrentChipCua_2.Add (obj);
-				CacheChipDatCua_2.Add (obj);
+//				CacheChipDatCua_2.Add (obj);
 				break;
 			case 3:
 				CurrentChipCua_3.Add (obj);
-				CacheChipDatCua_3.Add (obj);
+//				CacheChipDatCua_3.Add (obj);
 				break;
 			case 4:
 				CurrentChipCua_4.Add (obj);
-				CacheChipDatCua_4.Add (obj);
+//				CacheChipDatCua_4.Add (obj);
 				break;
 			case 5:
 				CurrentChipCua_5.Add (obj);
-				CacheChipDatCua_5.Add (obj);
+//				CacheChipDatCua_5.Add (obj);
 				break;
 			}
 
@@ -211,6 +211,20 @@ public class XocDiaPlayer : BasePlayer
 				});
 			}
 		}
+	}
+
+	public IEnumerator HideAllChip(){
+		yield return new WaitForSeconds (0.6f);
+		for (int i = 0; i < tf_chip.childCount; i++) {
+			GameObject	obj = tf_chip.GetChild (i).gameObject;
+			obj.SetActive (false);
+		}
+		CurrentChipCua_0.Clear ();
+		CurrentChipCua_1.Clear ();
+		CurrentChipCua_2.Clear ();
+		CurrentChipCua_3.Clear ();
+		CurrentChipCua_4.Clear ();
+		CurrentChipCua_5.Clear ();
 	}
 	GameObject GetObjChipHide (GameObject objPre)
 	{

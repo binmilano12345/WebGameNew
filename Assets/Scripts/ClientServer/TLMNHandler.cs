@@ -7,8 +7,6 @@ public class TLMNHandler : MessageHandler {
     private static IChatListener listenner;
     private static TLMNHandler instance;
 
-    public TLMNHandler() {
-    }
     public static TLMNHandler getInstance() {
         if (instance == null) {
             instance = new TLMNHandler();

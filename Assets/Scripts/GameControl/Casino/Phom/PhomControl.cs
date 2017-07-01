@@ -1,4 +1,4 @@
-﻿using AppConfig;
+using AppConfig;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -564,7 +564,7 @@ public class PhomControl : BaseCasino, IHasChanged
 	internal override void OnJoinTableSuccess (Message message)
 	{
 		base.OnJoinTableSuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false, false, false, false);
 	}
 
@@ -582,7 +582,7 @@ public class PhomControl : BaseCasino, IHasChanged
 	internal override void OnJoinTablePlaySuccess (Message message)
 	{
 		base.OnJoinTablePlaySuccess (message);
-		if (isPlaying)
+		if (IsPlaying)
 			SetActiveButton (false, false, false, false, false, false, false);
 	}
 
