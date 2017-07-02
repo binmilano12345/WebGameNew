@@ -22,25 +22,35 @@ public class BetGroupTaiXiu : MonoBehaviour {
 	bool isTai = false;
 
 	void Start() {
-		int minPos = 0;
-		for (int i = 0; i < GameControl.instance.ListBetTaiXiu.Count; i++) {
-			if (GameControl.instance.ListBetTaiXiu[i] * 2000 <= ClientConfig.UserInfo.CASH_FREE) {
-				minPos = i;
-			} else {
-				break;
-			}
-		}
+		//int minPos = 0;
+		//for (int i = 0; i < GameControl.instance.ListBetTaiXiu.Count; i++) {
+		//	if (GameControl.instance.ListBetTaiXiu[i] * 2000 <= ClientConfig.UserInfo.CASH_FREE) {
+		//		minPos = i;
+		//	} else {
+		//		break;
+		//	}
+		//}
 
-		if (GameControl.instance.ListBetTaiXiu.Count - minPos < 6) {
-			minPos = GameControl.instance.ListBetTaiXiu.Count - 6;
-		}
-		for (int i = 0; i <  btn_bet.Length; i++) {
-			btn_bet[i].name = (i + minPos) + "";
-			txt_bet[i].text = MoneyHelper.FormatMoneyNormal(GameControl.instance.ListBetTaiXiu[i + minPos]);
-			GameObject obj = btn_bet[i].gameObject;
-			btn_bet[i]._onClick.AddListener(delegate {
-				OnClickBet(obj);
-			});
+		//if (GameControl.instance.ListBetTaiXiu.Count - minPos < 6) {
+		//	minPos = GameControl.instance.ListBetTaiXiu.Count - 6;
+		//}
+		//for (int i = 0; i <  btn_bet.Length; i++) {
+		//	btn_bet[i].name = (i + minPos) + "";
+		//	txt_bet[i].text = MoneyHelper.FormatMoneyNormal(GameControl.instance.ListBetTaiXiu[i + minPos]);
+		//	GameObject obj = btn_bet[i].gameObject;
+		//	btn_bet[i]._onClick.AddListener(delegate {
+		//		OnClickBet(obj);
+		//	});
+		//}
+		for (int i = 0; i < GameControl.instance.ListBetTaiXiu.Count; i++) {
+			if (i < btn_bet.Length) {
+				btn_bet[i].name = i + "";
+				txt_bet[i].text = MoneyHelper.FormatMoneyNormal(GameControl.instance.ListBetTaiXiu[i]);
+				GameObject obj = btn_bet[i].gameObject;
+				btn_bet[i]._onClick.AddListener(delegate {
+					OnClickBet(obj);
+				});
+			}
 		}
 	}
 

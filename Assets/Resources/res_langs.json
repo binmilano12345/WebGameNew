@@ -252,7 +252,22 @@
 	"xd_cho_van_moi":"Chờ bắt đầu ván mới!",
 	"xd_nha_cai_xoc":"Nhà cái bắt đầu xóc",
 	"xd_bd_dat_cuoc":"Đặt cược",
-	"xd_nha_cai_dung_cuoc":"Nhà cái ngừng nhận cược"
+	"xd_nha_cai_dung_cuoc":"Nhà cái ngừng nhận cược",
+
+	"tai_xiu_tai":"TÀI",
+	"tai_xiu_xiu":"XỈU",
+	"tai_xiu_top_ngay":"Top Ngày",
+	"tai_xiu_top_tuan":"Top Tuần",
+	"tai_xiu_top_ten_tk":"Tên tài khoản",
+	"tai_xiu_top_thang_cuoc":"Thắng cược",
+	"tai_xiu_his_thoi_gian":"Thời gian",
+	"tai_xiu_his_cua_dat":"Cửa đặt",
+	"tai_xiu_his_tien_dat":"Tiền đặt",
+	"tai_xiu_his_tra_lai":"Trả lại",
+	"tai_xiu_his_ket_qua":"Kết quả",
+	"tai_xiu_chi_dat_cua":"Bạn chỉ được đặt 1 cửa!",
+	"tai_xiu_info":"	Game Tài Xỉu là một game rất đơn giản, bạn chỉ cần chọn Tài hoặc Xỉu theo dự đoán của bạn\nBước 1: Bạn chọn dự đoán bên Tài hoặc Xỉu\nBước 2: Nhập số Gold bạn muốn dự đoán\nBước 3: Chọn nút Xác nhận để tham gia ván đấu\nBước 4: Theo dõi Kết Quả để biết Thắng hay Thua\n* Quy ước cơ bản: \n- Tài: Tổng số mặt của 3 quân xí ngầu có tổng điểm từ 11 - 18 điểm\n- Xỉu: Tổng số mặt của 3 quân xí ngầu có tổng điểm từ 3 - 10 điểm\n** Bắt đầu 1 lượt chơi\n - Nhà cái lắc đồng thời 3 viên xí ngầu và kết quả được dấu dưới bát.\n - Người chơi chọn cửa Tài hoặc Xỉu thực hiện đặt cược vào cửa mình muốn\n - Khi kết thúc thời gian lựa chọn nếu số Gold 2 bên Tài và Xỉu chênh lệch khi đó nhà cái sẽ tiến hành cân cửa tức là số chênh lệch sẽ được hoàn trả lại cho người chơi ( ưu tiên người chơi dự đoán sớm hơn ) \n*** Công bố kết quả\n- Nếu kết quả về Tài: người chơi đặt cửa Tài sẽ thắng, số tiền thắng = số tiền đặt nhân 2\n- Nếu kết quả về Xỉu: người chơi đặt cửa Xỉu sẽ thắng, số tiền thắng = số tiền đặt nhân 2",
+
 		},
 	"en":{
 		"helloworld": "Hello World"

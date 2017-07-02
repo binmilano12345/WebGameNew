@@ -5,8 +5,7 @@ using DataBase;
 using System.Runtime.CompilerServices;
 
 
-public enum TYPE_CARD
-{
+public enum TYPE_CARD {
 	MAU_THAU = 0,
 	DOI,
 	THU,
@@ -15,12 +14,11 @@ public enum TYPE_CARD
 	THUNG,
 	CU_LU,
 	TU_QUY,
-	THUNG_PHA_SANH}
+	THUNG_PHA_SANH
+}
 ;
-namespace AppConfig
-{
-	public class GameConfig
-	{
+namespace AppConfig {
+	public class GameConfig {
 		/// <summary>
 		/// 0-Mau Thau, 1-Doi, 2-Thu, 3-Sam Co, 4-Sanh, 5-Thung, 6-Cu Lu, 7-Tu Quy, 8-Thung Pha Sanh
 		/// </summary>
@@ -68,7 +66,7 @@ namespace AppConfig
 
 		public static long BetMoney = 0;
 
-// 0: disable, 1: enable, 10, enable inapp
+		// 0: disable, 1: enable, 10, enable inapp
 		public static string Syntax10, Syntax15;
 		public static string Port10 = "", Port15 = "";
 
@@ -111,16 +109,14 @@ namespace AppConfig
 		public static bool IS_LOGIN_FB_AVARIABLE = true;
 
 		public const string MONEY_UNIT_VIP = "GOLD";
-		public static List<ItemRateCardData> ListRateCard = new List<ItemRateCardData> ();
+		public static List<ItemRateCardData> ListRateCard = new List<ItemRateCardData>();
 	}
 
-	public class LinkFixed
-	{
+	public class LinkFixed {
 		public static string LinkForum = "";
 	}
 
-	public class GameID
-	{
+	public class GameID {
 		public const int PHOM = 0;
 		public const int TLMN = 1;
 		public const int XITO = 2;
@@ -137,51 +133,48 @@ namespace AppConfig
 		public const int VONGQUAY = 12;
 	}
 
-	public class SettingConfig
-	{
+	public class SettingConfig {
 		private static bool isSound;
-//0- tat, 1 - bat
+		//0- tat, 1 - bat
 		public static bool IsSound {
 			get { return isSound; }
 			set {
 				isSound = value;
-				PlayerPrefs.SetInt ("isSound", isSound ? 1 : 0);
-				PlayerPrefs.Save ();
+				PlayerPrefs.SetInt("isSound", isSound ? 1 : 0);
+				PlayerPrefs.Save();
 			}
 		}
 
 		private static bool isAutoReady;
-//0- tat, 1 - bat
+		//0- tat, 1 - bat
 		public static bool IsAutoReady {
 			get { return isAutoReady; }
 			set {
 				isAutoReady = value;
-				PlayerPrefs.SetInt ("isAutoReady", isAutoReady ? 1 : 0);
-				PlayerPrefs.Save ();
+				PlayerPrefs.SetInt("isAutoReady", isAutoReady ? 1 : 0);
+				PlayerPrefs.Save();
 			}
 		}
 
 		private static bool isInvite;
-//0- tat, 1 - bat
+		//0- tat, 1 - bat
 		public static bool IsInvite {
 			get { return isInvite; }
 			set {
 				isInvite = value;
-				PlayerPrefs.SetInt ("isInvite", isInvite ? 1 : 0);
-				PlayerPrefs.Save ();
+				PlayerPrefs.SetInt("isInvite", isInvite ? 1 : 0);
+				PlayerPrefs.Save();
 			}
 		}
 
-		public static void InitSetting ()
-		{
-			SettingConfig.IsSound = PlayerPrefs.GetInt ("isSound", 1) == 1;
-			SettingConfig.IsAutoReady = PlayerPrefs.GetInt ("isAutoReady", 1) == 1;
-			SettingConfig.IsInvite = PlayerPrefs.GetInt ("isInvite", 1) == 1;
+		public static void InitSetting() {
+			SettingConfig.IsSound = PlayerPrefs.GetInt("isSound", 1) == 1;
+			SettingConfig.IsAutoReady = PlayerPrefs.GetInt("isAutoReady", 1) == 1;
+			SettingConfig.IsInvite = PlayerPrefs.GetInt("isInvite", 1) == 1;
 		}
 	}
 
-	public class BundleName
-	{
+	public class BundleName {
 		public const string PREFAPS = "prefabs";
 		public const string UI = "ui";
 		public const string CARDS = "cards";
@@ -192,8 +185,7 @@ namespace AppConfig
 		public const string EMOTIONS = "emotions";
 	}
 
-	public class UIName
-	{
+	public class UIName {
 		public static string[] UI_GAME = new string[] {
 			"ic_xocdia",
 			"ic_TLMNdemla",
@@ -219,8 +211,7 @@ namespace AppConfig
 		};
 	}
 
-	public class PrefabsName
-	{
+	public class PrefabsName {
 		public const string PRE_MESSAGE_SYTEM = "PanelMessageSytem";
 		public const string PRE_TOAST = "Toast";
 		public const string PRE_ALERT = "Alert";
@@ -247,26 +238,27 @@ namespace AppConfig
 		public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Item_Image_XD_His";
 		public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_His_XD";
 
-		public const string PRE_ITEM_HIS_TX = "";
-		//        public const string PRE_CHIP = "Chip";
-		//        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
-		//        public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
-		//        public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Image_LichSu_XocDia";
-		//        public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_Lich_Su_XD";
-		//        public const string PRE_ITEM_NHAN_GOLD = "ItemReceiveGold";
-		//        public const string PRE_ITEM_AVATA = "ItemAvata";
-		//        public const string PRE_ITEM_DOI_THUONG = "ItemDoiThuong";
-		//        public const string PRE_ITEM_VALUE_GOLD = "ItemValueGold";//Chuyen gold
-		//        public const string PRE_ITEM_SAFE_GOLD = "ItemSafeGold";//ket bac
-		//        public const string PRE_ITEM_MAIL = "ItemMail";
+		internal const string PRE_ITEM_RANK_TX = "ItemRankTX";
+		internal const string PRE_ITEM_HISTORY_TX = "ItemHisTX";
+		internal const string PRE_ITEM_HIS_TX = "Item_His_TX";//vien tron
+//        public const string PRE_CHIP = "Chip";
+//        public const string PRE_TEXT_LICH_SU_MINI_DICE = "Text_LichSu_MiniDice";
+//        public const string PRE_ITEM_LICH_SU_MINI_DICE = "Img_Lich_Su";
+//        public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Image_LichSu_XocDia";
+//        public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_Lich_Su_XD";
+//        public const string PRE_ITEM_NHAN_GOLD = "ItemReceiveGold";
+//        public const string PRE_ITEM_AVATA = "ItemAvata";
+//        public const string PRE_ITEM_DOI_THUONG = "ItemDoiThuong";
+//        public const string PRE_ITEM_VALUE_GOLD = "ItemValueGold";//Chuyen gold
+//        public const string PRE_ITEM_SAFE_GOLD = "ItemSafeGold";//ket bac
+//        public const string PRE_ITEM_MAIL = "ItemMail";
 	}
 
-	public class SceneName
-	{
+	public class SceneName {
 		public const string SCENE_MAIN = "main";
 		public const string SCENE_LOBBY = "lobby";
 		public const string SCENE_ROOM = "room";
-//chon muc cuoc va phong choi
+		//chon muc cuoc va phong choi
 
 		public const string SUB_LOGIN = "sub_login";
 		public const string SUB_REGISTER = "sub_register";
@@ -294,14 +286,13 @@ namespace AppConfig
 		public const string GAME_PHOM = "game_phom";
 		public const string GAME_MAU_BINH = "game_maubinh";
 		public const string GAME_XOC_DIA = "game_xocdia";
-public const string GAME_LIENG = "game_lieng";
+		public const string GAME_LIENG = "game_lieng";
 		public const string GAME_BA_CAY = "game_bacay";
 		public const string GAME_POKER = "game_poker";
 		public const string GAME_TAIXIU = "game_taixiu";
 	}
 
-	public class CMDClient
-	{
+	public class CMDClient {
 		//public const sbyte PROVIDER_ID = 82;
 		public const sbyte PROVIDER_ID = 1;
 		public const sbyte CMD_SESSION_ID = -27;

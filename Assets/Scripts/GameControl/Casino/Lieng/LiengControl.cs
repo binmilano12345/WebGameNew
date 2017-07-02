@@ -117,21 +117,23 @@ public class LiengControl : BaseCasino {
 			long moneyCc = message.reader().ReadLong();
 			Debug.LogError("-=-=-====SetTurn:  " + moneyCc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				//if (plMe.MoneyFollow == 0) {
-				SendData.onAccepFollow();
-				//	} else {
-				//		baseSetturn(moneyCuoc);
-				//	}
-				//} else {
-				//	if (plMe.IsPlaying) {
-				//		showAllButton(true, true, true);
-				//	} else {
-				//		showAllButton(true, false, false);
-				//	}
-				//             enableAllButton(false);
-				//	setMoneyCuoc(moneyCuoc);
-				SetActiveButton();
-				SetEnableButton(true, true, false, true);
+				if (plMe.MoneyFollow == 0) {
+					SendData.onAccepFollow();
+				} else {
+					//	} else {
+					//		baseSetturn(moneyCuoc);
+					//	}
+					//} else {
+					//	if (plMe.IsPlaying) {
+					//		showAllButton(true, true, true);
+					//	} else {
+					//		showAllButton(true, false, false);
+					//	}
+					//             enableAllButton(false);
+					//	setMoneyCuoc(moneyCuoc);
+					SetActiveButton();
+					SetEnableButton(true, true, false, true);
+				}
 			} else {
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
@@ -217,7 +219,7 @@ public class LiengControl : BaseCasino {
 		}
 	}
 
-	internal void OnNickCuoc(Message message) {
+	internal override void OnNickCuoc(Message message) {
 		try {
 			long moneyInPot = message.reader().ReadLong();
 			MoneyCuoc = message.reader().ReadLong();
@@ -264,7 +266,7 @@ public class LiengControl : BaseCasino {
 		}
 	}
 
-	internal void OnNickTheo(Message message) {
+	internal override void OnNickTheo(Message message) {
 		try {
 			long money = message.reader().ReadLong();
 			string nick = message.reader().ReadUTF();

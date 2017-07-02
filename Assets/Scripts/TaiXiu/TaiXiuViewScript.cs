@@ -22,6 +22,8 @@ public class TaiXiuViewScript : MonoBehaviour {
 	Text txt_me_money_tai, txt_me_money_xiu;
 	[SerializeField]
 	Text txt_me_money_current;
+	[SerializeField]
+	Text txt_phien;
 
 	[SerializeField]
 	Transform tf_parent_his;
@@ -76,7 +78,7 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	void Start() {
 		InvokeRepeating("UpdateNew", 0.02f, 0.02f);
-		this.gameObject.SetActive(false);
+		//this.gameObject.SetActive(false);
 	}
 	void UpdateNew() {
 		if (isPlaying) {
@@ -137,17 +139,17 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	//[SkipRename]
 	public void OnClickHistory() {
-		PopupAndLoadingScript.instance.ShowLoading();
+		//PopupAndLoadingScript.instance.ShowLoading();
 		////Controller.OnHandleUIEvent("SendHistoryRequest", new object[] { });
 	}
 
 	//[SkipRename]
 	public void OnClickRank() {
-		RankRequest(0);
+		//RankRequest(0);
 	}
 
 	public void RankRequest(int type) {
-		PopupAndLoadingScript.instance.ShowLoading();
+		//PopupAndLoadingScript.instance.ShowLoading();
 		////Controller.OnHandleUIEvent("SendRankRequest", new object[] { type });
 	}
 
@@ -155,12 +157,13 @@ public class TaiXiuViewScript : MonoBehaviour {
 	public void OnClickHelp() {
 
 	}
+
 	#endregion
 
 	#region Request
 
 	public void SendBetCuoc(long bet, int txState) {
-		//Controller.OnHandleUIEvent("SendBetRequest", new object[] { bet, txState });
+		SendData.onCuocTaiXiu((byte)txState, bet);
 	}
 
 	#endregion
@@ -281,12 +284,11 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	#endregion
 
-	#region HighLow
+	#region HighLow || onjoinTaiXiu
 
 	//[SkipRename]
-	//[HandleUpdateEvent(EventType = HandlerType.EVN_UPDATEUI_HANDLER)]
-	private void HighLow(params object[] param) {
-		try {
+	internal void HighLow(Message message) {
+		/*try {
 			long H = (long)param[0];
 			long L = (long)param[1];
 			long NH = (long)param[2];
@@ -333,80 +335,73 @@ public class TaiXiuViewScript : MonoBehaviour {
 		} catch (Exception e) {
 			Debug.LogException(e);
 		}
-	}
-
-	#endregion
-
-	#region HighLowStop
-	bool isStop = false;
-	//[SkipRename]
-	//[HandleUpdateEvent(EventType = HandlerType.EVN_UPDATEUI_HANDLER)]
-	private void HighLowStop(params object[] param) {
+		*/
 		try {
-			long S = (long)param[0];
-			int[] R = (int[])param[1];
-			MoBat();
-
-			timeCountDown.SetTime(S);
-			int sum = 0;
-			for (int i = 0; i < img_dices.Length; i++) {
-				img_dices[i].transform.parent.gameObject.SetActive(true);
-				sum += R[i];
-			}
-			for (int i = 0; i < img_dices.Length; i++) {
-				LoadAssetBundle.LoadSprite(img_dices[i], BundleName.DICE, R[i] + "");
-			}
-
-			betGroupTaiXiu.OnHide();
-			if (sum <= 10) {
-				effect_win_tai.SetActive(false);
-				effect_win_xiu.SetActive(true);
-			} else {
-				effect_win_tai.SetActive(true);
-				effect_win_xiu.SetActive(false);
-			}
-			UpdateHistory(sum > 10);
-
-			isPlaying = false;
-			if (TaiXiuTouchMoveControl.instance != null)
-				TaiXiuTouchMoveControl.instance.SetFinish(sum > 10 ? ClientConfig.Language.GetText("tai_xiu_tai") : ClientConfig.Language.GetText("tai_xiu_xiu"), S);
-
-			obj_can_cua.SetActive(false);
-			if (money_refund > 0) {
-				if (TaiXiuTouchMoveControl.instance != null) {
-					TaiXiuTouchMoveControl.instance.SetMessageTaiXiu(money_refund, cua_refund);
+			isPlaying = message.reader().ReadBoolean();// isplaying
+			int time = message.reader().ReadInt();
+			if (time > 0) {
+				if (isPlaying) {
+					timeCountDown.SetTime(time);
+				} else {
+					//groupSoDiem.setVisible(true);
+					//groupSoDiem.sodiem.setVisible(false);
+					//groupSoDiem.countDown.setCountDown(time);
 				}
-				money_refund = 0;
+			} else {
+				timeCountDown.SetTime(0);
+				//countDown.setCountDown(0);
+				//groupSoDiem.setVisible(false);
+				//groupSoDiem.sodiem.setVisible(false);
+				//groupSoDiem.countDown.setCountDown(0);
 			}
 
-			isStop = true;
+			txt_sum_money_tai.text = MoneyHelper.FormatMoneyNormal(message.reader().ReadLong());
+			txt_sum_money_xiu.text = MoneyHelper.FormatMoneyNormal(message.reader().ReadLong());
+			txt_me_money_tai.text = MoneyHelper.FormatMoneyNormal(message.reader().ReadLong());
+			txt_me_money_xiu.text = MoneyHelper.FormatMoneyNormal(message.reader().ReadLong());
+
+			//mainGame.mainScreen.dialogWaitting.onHide();
+			int size = message.reader().ReadInt();
+			//lichSuTaiXiu.reset_lichSu();
+			//			lichSuTaiXiu.index = -1;
+			int valueTX = 0;
+			int phien_ss = 1;
+			for (int i = 0; i < size; i++) {
+				valueTX = message.reader().ReadByte();
+				phien_ss = message.reader().ReadInt();
+				//lichSuTaiXiu.update(valueTX, phien_ss);
+				UpdateHistory(valueTX > 10);
+			}
+			int number_tai = message.reader().ReadInt();
+			int number_xiu = message.reader().ReadInt();
+			txt_sum_player_tai.text = number_tai + "";
+			txt_sum_player_xiu.text = number_tai + "";
+
+			int phien = message.reader().ReadInt();
+			txt_phien.text = "Phiên: " + phien;
 		} catch (Exception e) {
-			Debug.LogException(e);
+			Debug.LogError(e);
 		}
 	}
 
 	#endregion
 
-	#region HighLowStart
-
-	//[SkipRename]
-	//[HandleUpdateEvent(EventType = HandlerType.EVN_UPDATEUI_HANDLER)]
-	private void HighLowStart(params object[] param) {
+	#region CMD_TIME_START_TAIXIU || OnTimeStartTaiXiu || OnAutoStartTaiXiu
+	internal void OnTimeStartTaiXiu(Message message) {
+		int time = message.reader().ReadByte();
+		timeCountDown.SetTime(time);
+		SetAnimationNormal();
+	}
+	public void OnAutoStartTaiXiu(Message message) {
 		try {
-			long S = (long)param[0];
-			//for (int i = 0; i < img_dices.Length; i++) {
-			//	img_dices[i].transform.parent.gameObject.SetActive(false);
-			//}
+			int time = message.reader().ReadByte();
+			timeCountDown.SetTime(time);
+			int phien = message.reader().ReadInt();
 
-
-			//callbackXocDiaAnim = null;
-			//callbackXocDiaAnim = delegate {
-			timeCountDown.SetTime(S);
 			isPlaying = true;
-			//};
 			if (TaiXiuTouchMoveControl.instance != null) {
 				TaiXiuTouchMoveControl.instance.SetTX("");
-				TaiXiuTouchMoveControl.instance.SetState(S, "", false, true);
+				TaiXiuTouchMoveControl.instance.SetState(time, "", false, true);
 				TaiXiuTouchMoveControl.instance.SetMoneyWin(0);
 			}
 
@@ -427,6 +422,61 @@ public class TaiXiuViewScript : MonoBehaviour {
 			HideEffect();
 			StartXocDiaAnim();
 			isStop = false;
+			txt_phien.text = "Phiên: " + phien;
+		} catch (Exception e) {
+			Debug.LogException(e);
+		}
+	}
+	#endregion
+
+	#region HighLowStop || onGameoverTaixiu
+	bool isStop = false;
+	//[SkipRename]
+	internal void HighLowStop(Message message) {
+		try {
+			//long S = (long)param[0];
+			//int[] R = (int[])param[1];
+			message.reader().ReadInt();
+			int[] R = new int[3];
+			R[0] = message.reader().ReadInt();
+			R[1] = message.reader().ReadInt();
+			R[2] = message.reader().ReadInt();
+			int taihayxiu = message.reader().ReadInt();
+			int phien_nb = message.reader().ReadInt();
+			txt_phien.text = "Phiên: " + phien_nb;
+			MoBat();
+
+			//timeCountDown.SetTime(S);
+			//int sum = 0;
+			for (int i = 0; i < img_dices.Length; i++) {
+				img_dices[i].transform.parent.gameObject.SetActive(true);
+				LoadAssetBundle.LoadSprite(img_dices[i], BundleName.DICE, R[i] + "");
+				//sum += R[i];
+			}
+
+			betGroupTaiXiu.OnHide();
+			if (taihayxiu != 1) {
+				effect_win_tai.SetActive(false);
+				effect_win_xiu.SetActive(true);
+			} else {
+				effect_win_tai.SetActive(true);
+				effect_win_xiu.SetActive(false);
+			}
+			UpdateHistory(taihayxiu == 1);
+
+			isPlaying = false;
+			if (TaiXiuTouchMoveControl.instance != null)
+				TaiXiuTouchMoveControl.instance.SetFinish(taihayxiu == 1 ? ClientConfig.Language.GetText("tai_xiu_tai") : ClientConfig.Language.GetText("tai_xiu_xiu"));
+
+			obj_can_cua.SetActive(false);
+			if (money_refund > 0) {
+				if (TaiXiuTouchMoveControl.instance != null) {
+					TaiXiuTouchMoveControl.instance.SetMessageTaiXiu(money_refund, cua_refund);
+				}
+				money_refund = 0;
+			}
+
+			isStop = true;
 		} catch (Exception e) {
 			Debug.LogException(e);
 		}
@@ -471,47 +521,48 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	#endregion
 
-	#region BetHighLow
+	#region BetHighLow || OnCuocTaiXiu
 
 	//[SkipRename]
-	//[HandleUpdateEvent(EventType = HandlerType.EVN_UPDATEUI_HANDLER)]
-	private void BetHighLow(params object[] param) {
+	internal void BetHighLow(Message message) {
 		try {
-			long H = (long)param[0];
-			long L = (long)param[1];
-			long NH = (long)param[2];
-			long NL = (long)param[3];
-			long UH = (long)param[4];
-			long UL = (long)param[5];
-			long AG = (long)param[6];
-			long MB = (long)param[7];
-
 			old_money_tai = money_tai;
 			old_money_xiu = money_xiu;
+
 			long old_money_me_tai = money_me_tai;
 			long old_money_me_xiu = money_me_xiu;
+			string nick = message.reader().ReadUTF();
+			long money = message.reader().ReadLong();
+			long my_money = message.reader().ReadLong();
+			sbyte cua = message.reader().ReadByte();
+			int number_people = message.reader().ReadInt();
+			Debug.LogError("nick: " + nick
+						  + "\nmoney: " + money
+						  + "\nmy_money: " + my_money
+						  + "\ncua: " + cua
+						  + "\nnumber_people: " + number_people);
+			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
+				if (cua == 1) {
+					money_me_tai = my_money;
+					EffectRunMoney(txt_me_money_tai, old_money_me_tai, money_me_tai);
+				} else {
+					money_me_xiu = my_money;
+					EffectRunMoney(txt_me_money_xiu, old_money_me_xiu, money_me_xiu);
+				}
+			}
+			if (cua == 1) {
+				money_tai = money;
+				EffectRunMoney(txt_sum_money_tai, old_money_tai, money_tai);
+				txt_sum_player_tai.text = "(" + number_people + ")";
+			} else {
+				money_xiu = money;
+				EffectRunMoney(txt_sum_money_xiu, old_money_xiu, money_xiu);
+				txt_sum_player_xiu.text = "(" + number_people + ")";
+			}
 
-			money_tai = H;
-			money_xiu = L;
-			money_me_tai = UH;
-			money_me_xiu = UL;
-
-			//txt_sum_money_tai.text = MoneyHelper.FormatMoneyNormal(H);
-			//txt_sum_money_xiu.text = MoneyHelper.FormatMoneyNormal(L);
-			txt_sum_player_tai.text = "(" + NH + ")";
-			txt_sum_player_xiu.text = "(" + NL + ")";
-			//txt_me_money_tai.text = MoneyHelper.FormatMoneyNormal(UH);
-			//txt_me_money_xiu.text = MoneyHelper.FormatMoneyNormal(UL);
-
-			EffectRunMoney(txt_sum_money_tai, old_money_tai, money_tai);
-			EffectRunMoney(txt_sum_money_xiu, old_money_xiu, money_xiu);
-			EffectRunMoney(txt_me_money_tai, old_money_me_tai, money_me_tai);
-			EffectRunMoney(txt_me_money_xiu, old_money_me_xiu, money_me_xiu);
-
-			EffectRunMoney(txt_me_money_current, moneyKhaDung, MB);
-			//txt_me_money_current.text = MoneyHelper.FormatMoneyNormal(MB);
-			moneyKhaDung = MB;
-			ClientConfig.UserInfo.CASH_FREE = AG;
+			//EffectRunMoney(txt_me_money_current, moneyKhaDung, MB);
+			//moneyKhaDung = MB;
+			//ClientConfig.UserInfo.CASH_FREE = AG;
 			UpdateMoney();
 		} catch (Exception e) {
 			Debug.LogException(e);
@@ -548,39 +599,6 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	#endregion
 
-	#region HighLow Refund
-
-	//[SkipRename]
-	//[HandleUpdateEvent(EventType = HandlerType.EVN_UPDATEUI_HANDLER)]
-	private void HighLowRefund(params object[] param) {
-		try {
-			long R = (long)param[0];
-			money_refund += R;
-			int N = (int)param[1];//
-			if (N == 1) { //xiu
-				cua_refund = ClientConfig.Language.GetText("tai_xiu_xiu");
-				long old_money_me_xiu = money_me_xiu;
-				money_me_xiu -= R;
-				if (money_me_xiu <= 0) money_me_xiu = 0;
-				//txt_me_money_xiu.text = MoneyHelper.FormatMoneyNormal(money_me_xiu);
-				EffectRunMoney(txt_me_money_xiu, old_money_me_xiu, money_me_xiu);
-			} else {
-				cua_refund = ClientConfig.Language.GetText("tai_xiu_tai");
-				long old_money_me_tai = money_me_tai;
-				money_me_tai -= R;
-				if (money_me_tai <= 0) money_me_tai = 0;
-				//txt_me_money_tai.text = MoneyHelper.FormatMoneyNormal(money_me_tai);
-				EffectRunMoney(txt_me_money_tai, old_money_me_tai, money_me_tai);
-			}
-
-			//Debug.LogError("money_refund   " + money_refund + "   money_me_xiu   " + money_me_xiu+ "   money_me_tai   " + money_me_tai);
-		} catch (Exception e) {
-			Debug.LogException(e);
-		}
-	}
-
-	#endregion
-
 	#region Rank
 
 	//[SkipRename]
@@ -602,6 +620,60 @@ public class TaiXiuViewScript : MonoBehaviour {
 		//PopupAndLoadingScript.instance.HideLoading();
 	}
 
+	#endregion
+
+	#region Info Tai Xiu
+	internal void OnInfoTaiXiu(Message message) {
+		try {
+			int sizee = message.reader().ReadShort();
+			for (int i = 0; i < sizee; i++) {
+				string time = message.reader().ReadUTF();
+				sbyte cua_dat = message.reader().ReadByte();
+				sbyte ketqua = message.reader().ReadByte();
+				long moneyCuoc = message.reader().ReadLong();
+				long moneyTralai = message.reader().ReadLong();
+				long moneyAn = message.reader().ReadLong();
+
+			}
+		} catch (Exception e) {
+			Debug.LogException(e);
+		}
+	}
+	#endregion
+	#region Lich Su Phien Tai Xiu
+	public void OnInfoLSTheoPhienTaiXiu(Message message) {
+		try {
+			int[] kq = new int[3];
+			for (int i = 0; i < 3; i++) {
+				kq[i] = message.reader().ReadByte();
+			}
+			if (kq[0] <= 0) {
+				return;
+			}
+			string date = message.reader().ReadUTF();
+			long tongDatTai = message.reader().ReadLong();
+			long tongHoanTai = message.reader().ReadLong();
+			long tongDatXiu = message.reader().ReadLong();
+			long tongHoanXiu = message.reader().ReadLong();
+			int sizee_Tai = message.reader().ReadInt();
+
+			for (int i = 0; i < sizee_Tai; i++) {
+				string time = message.reader().ReadUTF();
+				string nameTai = message.reader().ReadUTF();
+				long muccuoc = message.reader().ReadLong();
+				long tralai = message.reader().ReadLong();
+			}
+			int sizee_Xiu = message.reader().ReadInt();
+			for (int i = 0; i < sizee_Xiu; i++) {
+				string time = message.reader().ReadUTF();
+				string nameXiu = message.reader().ReadUTF();
+				long muccuoc = message.reader().ReadLong();
+				long tralai = message.reader().ReadLong();
+			}
+		} catch (Exception e) {
+			Debug.LogException(e);
+		}
+	}
 	#endregion
 
 	#endregion
@@ -658,10 +730,11 @@ public class TaiXiuViewScript : MonoBehaviour {
 	#endregion
 
 	public void UpdateMoney() {
-		
+
 	}
 
 	public void OnHide() {
+		//SendData.onExitTaiXiu();
 		gameObject.SetActive(false);
 	}
 	public bool IsShow() {

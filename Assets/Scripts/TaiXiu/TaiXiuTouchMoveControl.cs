@@ -73,9 +73,7 @@ public class TaiXiuTouchMoveControl : MonoBehaviour,
 	public void OnClick() {
 		if (!isDrag) {
 			LoadAssetBundle.LoadScene(SceneName.GAME_TAIXIU, SceneName.GAME_TAIXIU);
-			//var json = new JObject();
-			//json["evt"] = "highlowinfo1";
-			//GameControl.instance.cubeia.sendService(json);
+			SendData.onjoinTaiXiu(0);
 		}
 	}
 
@@ -85,11 +83,11 @@ public class TaiXiuTouchMoveControl : MonoBehaviour,
 		objCanCua.SetActive(isCanCua);
 		objDatCua.SetActive(isDatCua);
 	}
-	public void SetFinish(string result, float time) {
+	public void SetFinish(string result) {
 		objCanCua.SetActive(false);
 		objDatCua.SetActive(false);
 		SetTX(result);
-		StartCoroutine(SetTimeHaveWait(time));
+		//StartCoroutine(SetTimeHaveWait(time));
 	}
 
 	IEnumerator SetTimeHaveWait(float time) {

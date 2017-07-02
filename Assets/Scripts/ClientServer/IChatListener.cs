@@ -86,4 +86,14 @@ interface IChatListener {
 	void OnCuoc3Cay(Message message);
 	void OnInfoPockerTbale(Message message);
 	void OnAddCardTbl(Message message);
+	#region TAI XIU
+	void OnUpdateMoneyTaiXiu(Message message);
+	void OnJoinTaiXiu(Message message);
+	void OnTimeStartTaiXiu(Message message);
+	void OnAutoStartTaiXiu(Message message);
+	void OnGameoverTaiXiu(Message message);
+	void OnCuocTaiXiu(Message message);
+	void OnInfoTaiXiu(Message message);
+	void OnInfoLSTheoPhienTaiXiu(Message message);
+	#endregion
 }

@@ -27,7 +27,7 @@ public class PokerControl : BaseCasino {
 	[SerializeField]
 	TimeCountDown timeCountDown;
 	[SerializeField]
-	CardTableManager cardTableManager;
+	CardTablePoker cardTableManager;
 
 	[SerializeField]
 	Transform dealerPos;
@@ -61,7 +61,7 @@ public class PokerControl : BaseCasino {
 
 		SumChipControl.MoneyChip = 0;
 		tongMoney = 0;
-		cardTableManager.XoaHetCMNBaiTrenBan();
+		cardTableManager.XoaHetBaiTrenBai();
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			LiengPlayer player = (LiengPlayer)ListPlayer[i];
 			if (player != null) {
@@ -99,10 +99,12 @@ public class PokerControl : BaseCasino {
 		base.OnJoinView(message);
 		plMe = (LiengPlayer)playerMe;
 
+		cardTableManager.Init();
 		SetActiveButton(false, false, false, false);
 	}
 	internal override void OnJoinTableSuccess(string master) {
 		plMe = (LiengPlayer)playerMe;
+		cardTableManager.Init();
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			((LiengPlayer)ListPlayer[i]).SetDiemLieng(false, null);
 		}
@@ -114,12 +116,14 @@ public class PokerControl : BaseCasino {
 		base.SetTurn(nick, message);
 		try {
 			long moneyCc = message.reader().ReadLong();
-			Debug.LogError("-=-=-====SetTurn:  " + moneyCc);
+			Debug.LogError(plMe.MoneyFollow + "  -=-=-====SetTurn:  " + moneyCc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				SendData.onAccepFollow();
-
-				SetActiveButton();
-				SetEnableButton(true, true, false, true);
+				if (plMe.MoneyFollow <= 0) {
+					SendData.onAccepFollow();
+				} else {
+					SetActiveButton();
+					SetEnableButton(true, true, false, true);
+				}
 			} else {
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
@@ -185,7 +189,6 @@ public class PokerControl : BaseCasino {
 
 			SetTurn(nick_turn, msg);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-
 				SetActiveButton();
 			}
 			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
@@ -205,7 +208,7 @@ public class PokerControl : BaseCasino {
 		}
 	}
 
-	internal void OnNickCuoc(Message message) {
+	internal override void OnNickCuoc(Message message) {
 		try {
 			long moneyInPot = message.reader().ReadLong();
 			MoneyCuoc = message.reader().ReadLong();
@@ -252,7 +255,7 @@ public class PokerControl : BaseCasino {
 		}
 	}
 
-	internal void OnNickTheo(Message message) {
+	internal override void OnNickTheo(Message message) {
 		try {
 			long money = message.reader().ReadLong();
 			string nick = message.reader().ReadUTF();
@@ -420,74 +423,93 @@ public class PokerControl : BaseCasino {
 	}
 
 	internal void OnInfo(Message msg) {
-	try {
-		string nicksb = msg.reader().ReadUTF();
-		string nickbb = msg.reader().ReadUTF();
-		long moneyInPot = msg.reader().ReadLong();
-		//if (players[0].isPlaying()) {
-		//	players[0].setLoaiBai(PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(
-		//			players[0].cardHand.getArrCardAll(), cardTable.getArrCardAll())));
-		//}
-		//players[getPlayer(nickbb)].setMoneyChip(moneyInPot * 2 / 3);
-		//players[getPlayer(nicksb)].setMoneyChip(moneyInPot / 3);
-		//tongMoney = 0;
-		//for (int i = 0; i < nUsers; i++) {
-		//	if (players[i].isPlaying()) {
-		//		tongMoney = tongMoney + players[i].getMoneyChip();
+		try {
+			string nicksb = msg.reader().ReadUTF();
+			string nickbb = msg.reader().ReadUTF();
+			long moneyInPot = msg.reader().ReadLong();
+			//if (players[0].isPlaying()) {
+			//	players[0].setLoaiBai(PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(
+			//			players[0].cardHand.getArrCardAll(), cardTable.getArrCardAll())));
+			//}
+			Debug.LogError("nicksb " + nicksb
+			              +"\nnickbb " + nickbb
+			              +"\nmoneyInPot " + moneyInPot);
+			LiengPlayer plbb = (LiengPlayer)GetPlayerWithName(nickbb);
+			LiengPlayer plsb = (LiengPlayer)GetPlayerWithName(nicksb);
+			if (plbb != null) {
+				plbb.MoneyChip = moneyInPot * 2 / 3;
+				plbb.MoveChip(moneyInPot * 2 / 3, SumChipControl.transform.position);
+			}
+			if (plsb != null) {
+				plsb.MoneyChip = moneyInPot / 3;
+				plsb.MoveChip(moneyInPot / 3, SumChipControl.transform.position);
+			}
 
-		//	}
-		//}
-		//chip_tong.setMoneyChip(tongMoney);
-		//chip_tong.setVisible(true);
-	} catch (Exception ex) {
+			tongMoney = 0;
+			for (int i = 0; i < ListPlayer.Count; i++) {
+				if (ListPlayer[i].IsPlaying)
+					tongMoney += ((LiengPlayer)ListPlayer[i]).MoneyChip;
+			}
+			//for (int i = 0; i < nUsers; i++) {
+			//	if (players[i].isPlaying()) {
+			//		tongMoney = tongMoney + players[i].getMoneyChip();
+
+			//	}
+			//}
+			//chip_tong.setMoneyChip(tongMoney);
+			//chip_tong.setVisible(true);
+
+			SumChipControl.MoneyChip = tongMoney;
+		} catch (Exception ex) {
 			Debug.LogException(ex);
-	}	}
-
-public void OnAddCardTbl(Message message) {
-	try {
-		//luot = luot + 1;
-		//// byte type = message.reader().readByte();
-		//int size = message.reader().readInt();
-		//int[] card = new int[size];
-		//for (int i = 0; i < size; i++) {
-		//	card[i] = message.reader().readByte();
-		//}
-		//if (size >= 3) {
-		//	flyMoney();
-		//}
-
-		//BaseInfo.gI().startchiabaiAudio();
-		//if (size == 3) {
-		//	cardTable.setArrCard(card, false, false, false);
-		//	for (int i = 0; i < cardTable.getSize(); i++) {
-		//		onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-		//	}
-		//} else {
-		//	for (int i = cardTable.getSize(); i < size; i++) {
-		//		cardTable.addCard(card[i]);
-		//		onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-		//	}
-
-		//}
-
-		//if (players[0].isPlaying()) {
-		//	players[0].setLoaiBai(PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(
-		//			players[0].cardHand.getArrCardAll(), cardTable.getArrCardAll())));
-		//}
-
-	} catch (Exception ex) {
-			Debug.LogException(ex);
+		}
 	}
-//	this.addAction(Actions.sequence(Actions.delay(1f), new Action() {
-//			@Override
-//			public boolean act(float arg0) {
-//	chip_tong.image_chip1.setVisible(true);
 
-//	if (luot % 2 == 0) {
-//		chip_tong.image_chip2.setVisible(true);
-//	}
-//	return true;
-//}
-//		}));
+	public void OnAddCardTbl(Message message) {
+		try {
+			// byte type = message.reader().readByte();
+			int size = message.reader().ReadInt();
+			int[] cards = new int[size];
+			for (int i = 0; i < size; i++) {
+				cards[i] = message.reader().ReadByte();
+			}
+			//if (size >= 3) {
+			//	flyMoney();
+			//}
+
+			//BaseInfo.gI().startchiabaiAudio();
+			//if (size == 3) {
+				//cardTable.setArrCard(card, false, false, false);
+				//for (int i = 0; i < cardTable.getSize(); i++) {
+				//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
+				//}
+				//cardTableManager.AddCard(cards);
+			//} else {
+				//for (int i = cardTable.getSize(); i < size; i++) {
+				//	cardTable.addCard(card[i]);
+				//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
+				//}
+
+			//}
+			cardTableManager.AddCard(cards);
+
+			//if (players[0].isPlaying()) {
+			//	players[0].setLoaiBai(PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(
+			//			players[0].cardHand.getArrCardAll(), cardTable.getArrCardAll())));
+			//}
+		} catch (Exception ex) {
+			Debug.LogException(ex);
+		}
+		//	this.addAction(Actions.sequence(Actions.delay(1f), new Action() {
+		//			@Override
+		//			public boolean act(float arg0) {
+		//	chip_tong.image_chip1.setVisible(true);
+
+		//	if (luot % 2 == 0) {
+		//		chip_tong.image_chip2.setVisible(true);
+		//	}
+		//	return true;
+		//}
+		//		}));
 	}
 }

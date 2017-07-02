@@ -217,20 +217,22 @@ public class BaCayControl : BaseCasino {
 			long moneyCc = message.reader().ReadLong();
 			Debug.LogError("-=-=-====SetTurn:  " + moneyCc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				//if (plMe.MoneyFollow == 0) {
-				SendData.onAccepFollow();
-				//	} else {
-				//		baseSetturn(moneyCuoc);
-				//	}
-				//} else {
-				//	if (plMe.IsPlaying) {
-				//		showAllButton(true, true, true);
-				//	} else {
-				//		showAllButton(true, false, false);
-				//	}
-				//             enableAllButton(false);
-				//	setMoneyCuoc(moneyCuoc);
-				SetActiveButton();
+				if (plMe.MoneyFollow == 0) {
+					SendData.onAccepFollow();
+				} else {
+					//	} else {
+					//		baseSetturn(moneyCuoc);
+					//	}
+					//} else {
+					//	if (plMe.IsPlaying) {
+					//		showAllButton(true, true, true);
+					//	} else {
+					//		showAllButton(true, false, false);
+					//	}
+					//             enableAllButton(false);
+					//	setMoneyCuoc(moneyCuoc);
+					SetActiveButton();
+				}
 			} else {
 				hideThanhTo();
 				SetActiveButton(false, false);

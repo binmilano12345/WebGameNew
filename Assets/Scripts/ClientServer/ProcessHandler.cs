@@ -3,20 +3,18 @@ using System.Collections;
 using System;
 using AppConfig;
 
-public class ProcessHandler : MessageHandler
-{
-	protected override void serviceMessage (Message message, int messageId)
-	{
+public class ProcessHandler : MessageHandler {
+	protected override void serviceMessage(Message message, int messageId) {
 		try {
-			DoOnMainThread.ExecuteOnMainThread.Enqueue (() => {
+			DoOnMainThread.ExecuteOnMainThread.Enqueue(() => {
 				HandlerListerFromSever(message, messageId);
 			});
 		} catch (Exception ex) {
-			Debug.LogException (ex);
+			Debug.LogException(ex);
 		}
 	}
 
-static void HandlerListerFromSever(Message message, int messageId) {
+	static void HandlerListerFromSever(Message message, int messageId) {
 		switch (messageId) {
 			case CMDClient.CMD_GETPHONECSKH:
 				listenner.OnGetPhoneCSKH(message);
@@ -221,11 +219,11 @@ static void HandlerListerFromSever(Message message, int messageId) {
 			case CMDClient.CMD_SET_MONEY:
 				listenner.OnSetMoneyTable(message);
 				break;
-#region To
+			#region To
 			case CMDClient.CMD_THEO:
 				listenner.OnNickTheo(message);
 				break;
-				case CMDClient.CMD_PASS:// bo luot
+			case CMDClient.CMD_PASS:// bo luot
 				listenner.OnNickSkip(message);
 				break;
 			case CMDClient.CMD_CUOC:
@@ -234,19 +232,45 @@ static void HandlerListerFromSever(Message message, int messageId) {
 			case CMDClient.CMD_BEGINRISE_3CAY:
 				listenner.OnBeginRiseBacay(message);
 				break;
-				case CMDClient.CMD_FLIP_3CAY:
+			case CMDClient.CMD_FLIP_3CAY:
 				//listenner.OnFlip3Cay(message);
 				break;
 			case CMDClient.CMD_CUOC_3CAY:
 				listenner.OnCuoc3Cay(message);
 				break;
-				case CMDClient.CMD_INFOPOCKERTABLE:
+			case CMDClient.CMD_INFOPOCKERTABLE:
 				listenner.OnInfoPockerTbale(message);
 				break;
 			case CMDClient.CMD_ADDCARDTABLE_POCKER:
 				listenner.OnAddCardTbl(message);
 				break;
-#endregion
+			#endregion
+			#region TAI XIU
+			case CMDClient.CMD_UPDATE_MONEY_TAIXIU:
+				//listenner.onupdatemoneyTaiXiu(message);
+				break;
+			case CMDClient.CMD_JOIN_TAIXIU:
+				listenner.OnJoinTaiXiu(message);
+				break;
+			case CMDClient.CMD_TIME_START_TAIXIU:
+				listenner.OnTimeStartTaiXiu(message);
+				break;
+			case CMDClient.CMD_AUTO_START_TAIXIU:
+				listenner.OnAutoStartTaiXiu(message);
+				break;
+			case CMDClient.CMD_GAMEOVER_TAIXIU:
+				listenner.OnGameoverTaiXiu(message);
+				break;
+			case CMDClient.CMD_CUOC_TAIXIU:
+				listenner.OnCuocTaiXiu(message);
+				break;
+			case CMDClient.CMD_INFO_TAIXIU:
+				listenner.OnInfoTaiXiu(message);
+				break;
+			case CMDClient.CMD_XEM_LS_THEO_PHIEN:
+				listenner.OnInfoLSTheoPhienTaiXiu(message);
+				break;
+			#endregion
 			default:
 				if (secondHandler != null) {
 					secondHandler.processMessage(message);
@@ -255,22 +279,19 @@ static void HandlerListerFromSever(Message message, int messageId) {
 		}
 	}
 
-	public override void onConnectionFail ()
-	{
-		throw new System.NotImplementedException ();
+	public override void onConnectionFail() {
+		throw new System.NotImplementedException();
 	}
 
-	public override void onDisconnected ()
-	{
-		DoOnMainThread.ExecuteOnMainThread.Enqueue (() => {
-			listenner.onDisConnect ();
+	public override void onDisconnected() {
+		DoOnMainThread.ExecuteOnMainThread.Enqueue(() => {
+			listenner.onDisConnect();
 		});
 
 	}
 
-	public override void onConnectOk ()
-	{
-		Debug.Log ("Connect OK...");
+	public override void onConnectOk() {
+		Debug.Log("Connect OK...");
 	}
 
 	private static ProcessHandler instance;
@@ -278,27 +299,23 @@ static void HandlerListerFromSever(Message message, int messageId) {
 	static int step;
 	private static IChatListener listenner;
 
-	public ProcessHandler ()
-	{
+	public ProcessHandler() {
 
 	}
 
-	public static ProcessHandler getInstance ()
-	{
+	public static ProcessHandler getInstance() {
 		if (instance == null) {
-			instance = new ProcessHandler ();
+			instance = new ProcessHandler();
 		}
 
 		return instance;
 	}
 
-	public static void setListenner (ListernerServer listener)
-	{
+	public static void setListenner(ListernerServer listener) {
 		listenner = listener;
 	}
 
-	public static void setSecondHandler (MessageHandler handler)
-	{
+	public static void setSecondHandler(MessageHandler handler) {
 		secondHandler = null;
 		secondHandler = handler;
 	}

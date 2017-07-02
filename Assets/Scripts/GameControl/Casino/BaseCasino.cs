@@ -581,7 +581,6 @@ protected string masterID = "";
 
 	}
 
-
 internal void OnSetMoneyTable(Message message) {
 	long money = message.reader().ReadLong();	}
 	internal virtual void AllCardFinish(string nick, int[] card)
@@ -589,6 +588,13 @@ internal void OnSetMoneyTable(Message message) {
 
 	}
 
+	internal virtual void OnNickTheo(Message message) {
+		
+	}
+
+	internal virtual void OnNickCuoc(Message message) {
+		
+	}
 	#endregion
 
 	#region Xep cho ngoi
@@ -658,7 +664,10 @@ internal void OnSetMoneyTable(Message message) {
 				break;
 			case GameID.LIENG:
 			case GameID.BACAY:
-				InitPlayerLieng();
+                InitPlayerLieng();
+				break;
+			case GameID.POKER:
+				InitPlayerPoker();
 				break;
 		}
 	}
@@ -916,6 +925,54 @@ void InitPlayerLieng() {
 				pl.CardHand.Init();
 
 					pl.chipControl.SetPosititon(Align_Anchor.LEFT);
+				break;
+		}
+	}
+}
+
+#endregion
+
+
+#region Init Player Poker
+
+void InitPlayerPoker() {
+	for (int i = 0; i < ListPlayer.Count; i++) {
+		LiengPlayer pl = (LiengPlayer)ListPlayer[i];
+		pl.CardHand.CardCount = 2;
+		switch (pl.SitOnClient) {
+			case 0:
+				pl.CardHand.isSmall = false;
+				pl.CardHand.isTouched = true;
+				pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+				pl.CardHand.MaxWidth = 200;
+				pl.SetPositionChatLeft(true);
+				pl.CardHand.Init();
+				pl.CardHand.SetInputChooseCard();
+				pl.chipControl.SetPosititon(Align_Anchor.TOP);
+				break;
+			case 1:
+			case 2:
+				pl.CardHand.isSmall = true;
+				pl.CardHand.isTouched = false;
+				pl.CardHand.align_Anchor = Align_Anchor.RIGHT;
+				pl.CardHand.MaxWidth = 140;
+				pl.SetPositionChatLeft(true);
+				pl.SetPositionChatAction(Align_Anchor.BOT);
+				pl.CardHand.Init();
+
+				pl.chipControl.SetPosititon(Align_Anchor.RIGHT);
+				break;
+			case 3:
+			case 4:
+				pl.CardHand.isSmall = true;
+				pl.CardHand.isTouched = false;
+				pl.CardHand.align_Anchor = Align_Anchor.LEFT;
+				pl.CardHand.MaxWidth = 140;
+				pl.SetPositionChatLeft(true);
+				pl.SetPositionChatAction(Align_Anchor.LEFT);
+				pl.CardHand.Init();
+
+				pl.chipControl.SetPosititon(Align_Anchor.LEFT);
 				break;
 		}
 	}

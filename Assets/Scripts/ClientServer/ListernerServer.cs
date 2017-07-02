@@ -317,10 +317,12 @@ public class ListernerServer : IChatListener {
 				//betMoney.setListBet(a);
 				//ListBetMoney.gI().listBetVip.add(betMoney);
 			}
-			//mainGame.mainScreen.room.groupChonMucCuoc.initMuccuoc(ListBetMoney
-			//        .gI().listBetVip);
-			//mainGame.mainScreen.taiXiuMinigame.initMuccuoc(message.reader()
-			//        .readUTF());
+
+			string muccuocTX = message.reader().ReadUTF();
+			string[] cuocs = muccuocTX.Split(',');
+			for (int i = 0; i < cuocs.Length; i++) {
+				GameControl.instance.ListBetTaiXiu.Add(long.Parse(cuocs[i]));
+			}
 		} catch (Exception e) {
 			Debug.LogException(e);
 		}
@@ -1032,14 +1034,14 @@ public class ListernerServer : IChatListener {
 		GameControl.instance.CurrentCasino.OnSetMoneyTable(message);
 	}
 	public void OnNickTheo(Message message) {
-		((LiengControl)GameControl.instance.CurrentCasino).OnNickTheo(message);
+		GameControl.instance.CurrentCasino.OnNickTheo(message);
 	}
 	public void OnNickSkip(Message message) {
-		((LiengControl)GameControl.instance.CurrentCasino).OnNickSkip(message.reader().ReadUTF(), message);
+		GameControl.instance.CurrentCasino.OnNickSkip(message.reader().ReadUTF(), message);
 	}
 
 	public void OnNickCuoc(Message message) {
-		((LiengControl)GameControl.instance.CurrentCasino).OnNickCuoc(message);
+		GameControl.instance.CurrentCasino.OnNickCuoc(message);
 	}
 
 	public void OnBeginRiseBacay(Message message) {
@@ -1056,4 +1058,47 @@ public class ListernerServer : IChatListener {
 	public void OnAddCardTbl(Message message) {
 		((PokerControl)GameControl.instance.CurrentCasino).OnAddCardTbl(message);
 	}
+
+	#region TAI XIU
+	public void OnUpdateMoneyTaiXiu(Message message) {
+		//GameControl.instance.CurrentCasino.OnUpdateMoneyTbl(message);
+
+	}
+	public void OnJoinTaiXiu(Message message) {
+		LoadAssetBundle.LoadScene(SceneName.GAME_TAIXIU, SceneName.GAME_TAIXIU, () => {
+			TaiXiuViewScript.instance.HighLow(message);
+		});
+	}
+
+	public void OnTimeStartTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.OnTimeStartTaiXiu(message);
+		}
+	}
+	public void OnAutoStartTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.OnAutoStartTaiXiu(message);
+		}
+	}
+	public void OnGameoverTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.HighLowStop(message);
+		}
+	}
+	public void OnCuocTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.BetHighLow(message);
+		}
+	}
+	public void OnInfoTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.OnInfoTaiXiu(message);
+		}
+	}
+	public void OnInfoLSTheoPhienTaiXiu(Message message) {
+		if (TaiXiuViewScript.instance != null) {
+			TaiXiuViewScript.instance.OnInfoLSTheoPhienTaiXiu(message);
+		}
+	}
+	#endregion
 }
