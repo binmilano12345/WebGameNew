@@ -288,8 +288,9 @@ namespace AppConfig {
 		public const string GAME_XOC_DIA = "game_xocdia";
 		public const string GAME_LIENG = "game_lieng";
 		public const string GAME_BA_CAY = "game_bacay";
-		public const string GAME_POKER = "game_poker";
+public const string GAME_POKER = "game_poker";
 		public const string GAME_TAIXIU = "game_taixiu";
+		public const string GAME_XI_TO = "game_xito";
 	}
 
 	public class CMDClient {

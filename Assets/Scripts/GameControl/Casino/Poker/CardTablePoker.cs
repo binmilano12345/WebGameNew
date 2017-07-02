@@ -8,12 +8,13 @@ public class CardTablePoker : MonoBehaviour {
 	ArrayCard ArrayCardTable;
 
 	public void Init() {
+		ArrayCardTable.align_Anchor = Align_Anchor.CENTER;
 		ArrayCardTable.CardCount = 5;
 		ArrayCardTable.MaxWidth = 500;
 		ArrayCardTable.isTouched = false;
 		ArrayCardTable.Init();
 	}
-	List<int> list_card = new List<int>();
+	public List<int> list_card = new List<int>();
 	public void AddCard(int[] arr_card) {
 		int[] temp = arr_card.Except(list_card).ToArray();
 		if (arr_card.Length <= 0) return;
@@ -31,10 +32,13 @@ public class CardTablePoker : MonoBehaviour {
 	}
 
 	public void XoaHetBaiTrenBai() {
+		list_card.Clear();
 		ArrayCardTable.SetActiveCardHand();
 	}
 
 	public void SinhCardKhiKetNoiLai(int[] cards) {
+		list_card.Clear();
+		list_card.AddRange(cards);
 		ArrayCardTable.SetBaiKhiKetNoiLai(cards, true);
 	}
 

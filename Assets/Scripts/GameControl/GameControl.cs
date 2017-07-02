@@ -151,7 +151,8 @@ public class GameControl : MonoBehaviour {
 		UnloadScene(SceneName.GAME_XOC_DIA);
        	UnloadScene(SceneName.GAME_LIENG);
 		UnloadScene(SceneName.GAME_BA_CAY);
-		UnloadScene(SceneName.GAME_POKER);
+       	UnloadScene(SceneName.GAME_POKER);
+		UnloadScene(SceneName.GAME_XI_TO);
 	}
 	#endregion
 	#region Unload Scene
@@ -344,12 +345,34 @@ public class GameControl : MonoBehaviour {
 				#endregion
 			#region POKER
 			case GameID.POKER:
-				Card.setCardType(0);
+				Card.setCardType(1);
 				objPlayer = objPlayerLieng;
 				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_POKER, SceneName.GAME_POKER, () => {
 					PokerControl.instance.UnloadAllSubScene();
 					CurrentCasino = (PokerControl.instance);
+					try {
+						if (callback != null)
+							callback.Invoke();
+						for (int i = 0; i<ListMsg.Count; i++) {
+							ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+						}
+						ListCMDID.Clear();
+						ListMsg.Clear();
+					} catch (Exception e) {
+						Debug.LogException(e);
+					}
+				});
+				break;
+				#endregion
+				#region XI TO
+			case GameID.XITO:
+				Card.setCardType(1);
+				objPlayer = objPlayerLieng;
+				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
+				LoadAssetBundle.LoadScene(SceneName.GAME_XI_TO, SceneName.GAME_XI_TO, () => {
+					XiToControl.instance.UnloadAllSubScene();
+					CurrentCasino = (XiToControl.instance);
 					try {
 						if (callback != null)
 							callback.Invoke();

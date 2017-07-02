@@ -911,7 +911,11 @@ public class ListernerServer : IChatListener {
 		int card = message.reader().ReadByte();
 		if (card != -1) {
 			string nick = message.reader().ReadUTF();
-			((PhomControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
+			if (GameConfig.CurrentGameID == GameID.PHOM) {
+				((PhomControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
+			}else if (GameConfig.CurrentGameID == GameID.XITO) {
+				((XiToControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
+			}
 		}
 	}
 

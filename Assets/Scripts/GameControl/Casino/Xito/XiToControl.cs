@@ -7,8 +7,8 @@ using DG.Tweening;
 using Us.Mobile.Utilites;
 using AppConfig;
 
-public class PokerControl : BaseCasino {
-	public static PokerControl instance;
+public class XiToControl : BaseCasino {
+	public static XiToControl instance;
 	[SerializeField]
 	UIButton btn_bo, btn_xembai, btn_theo, btn_to;
 	[SerializeField]
@@ -72,26 +72,40 @@ public class PokerControl : BaseCasino {
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			LiengPlayer player = (LiengPlayer)ListPlayer[i];
 			if (player != null) {
+				player.MoneyChip = GameConfig.BetMoney;
+				player.MoveChip(GameConfig.BetMoney, SumChipControl.transform.position);
 				if (player.SitOnClient == 0) {
-					player.CardHand.SetAllDark(false);
-				}
-				player.CardHand.ChiaBaiPoker(cardHand, player.SitOnClient == 0, dealerPos, i);
+					player.CardHand.SetAllDark(true);
+					player.SetTypeCard(PokerCard.getTypeOfCardsPoker(list_my_card.ToArray()));
+
+					player.CardHand.ChiaBaiTienLen(cardHand, true);
+				}else
+					player.CardHand.ChiaBaiTienLen(new int[] { 52, 52 }, true);
 			}
+			tongMoney += GameConfig.BetMoney;
 		}
+		SumChipControl.OnShow();
+		SumChipControl.MoneyChip = tongMoney;
 	}
+
 	internal override void OnStartForView(string[] nickPlay, Message msg) {
 		base.OnStartForView(nickPlay, msg);
 		tongMoney = 0;
 		for (int i = 0; i < nickPlay.Length; i++) {
 			LiengPlayer player = (LiengPlayer)GetPlayerWithName(nickPlay[i]);
 			if (player != null) {
+				player.MoneyChip = GameConfig.BetMoney;
+				tongMoney += GameConfig.BetMoney;
 				if (player.SitOnClient != 0)
-					player.CardHand.ChiaBaiPoker(new int[] { 52, 52 }, false, dealerPos, i);
+					player.CardHand.ChiaBaiTienLen(new int[] { 52, 52, 52 }, false);
 			}
 		}
 
+		SumChipControl.OnShow();
+		SumChipControl.MoneyChip = tongMoney;
 		SetActiveButton(false, false, false, false);
 	}
+
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
@@ -103,10 +117,6 @@ public class PokerControl : BaseCasino {
 	internal override void OnJoinTableSuccess(string master) {
 		plMe = (LiengPlayer)playerMe;
 		cardTableManager.Init();
-		for (int i = 0; i < ListPlayer.Count; i++) {
-			((LiengPlayer)ListPlayer[i]).SetDiemLieng(false, null);
-		}
-
 		SetActiveButton(false, false, false, false);
 	}
 
@@ -348,11 +358,11 @@ public class PokerControl : BaseCasino {
 				if (pl != null) {
 					pl.MoneyChip = chips;
 					pl.IsPlaying = true;
-					pl.CardHand.SetBaiKhiKetNoiLaiGamePoker(new int[] { 52, 52 }, true);
+					pl.CardHand.SetBaiKhiKetNoiLai(new int[] { 52, 52 }, true);
 					if (isSkip == 0) {
 						pl.CardHand.SetAllDark(true);
 					}
-					//tongMoney += chips;
+					tongMoney += chips;
 				}
 			}
 
@@ -373,7 +383,7 @@ public class PokerControl : BaseCasino {
 				//moneyInPot[i].setmMoneyInPotNonModifier(money);
 			}
 
-			//SumChipControl.MoneyChip = tongMoney;
+			SumChipControl.MoneyChip = tongMoney;
 			//gameControl.sound.startchiabaiAudio();
 			SetTurn(turnName, message);
 			if (turnName.Equals(ClientConfig.UserInfo.UNAME)) {
@@ -465,51 +475,11 @@ public class PokerControl : BaseCasino {
 		}
 	}
 
-	public void OnAddCardTbl(Message message) {
-		try {
-			// byte type = message.reader().readByte();
-			int size = message.reader().ReadInt();
-			int[] cards = new int[size];
-			for (int i = 0; i < size; i++) {
-				cards[i] = message.reader().ReadByte();
-			}
-			//if (size >= 3) {
-			//	flyMoney();
-			//}
-
-			//BaseInfo.gI().startchiabaiAudio();
-			//if (size == 3) {
-			//cardTable.setArrCard(card, false, false, false);
-			//for (int i = 0; i < cardTable.getSize(); i++) {
-			//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-			//}
-			//cardTableManager.AddCard(cards);
-			//} else {
-			//for (int i = cardTable.getSize(); i < size; i++) {
-			//	cardTable.addCard(card[i]);
-			//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-			//}
-
-			//}
-			cardTableManager.AddCard(cards);
-
-			if (plMe.IsPlaying) {
-							int type = PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(list_my_card.ToArray(), cardTableManager.list_card.ToArray()));
-plMe.SetTypeCard(type);
-			}
-		} catch (Exception ex) {
-			Debug.LogException(ex);
+	internal void OnGetCardNocSuccess(string nick, int card) {
+		LiengPlayer pl = (LiengPlayer)GetPlayerWithName(nick);
+		bool issMe = nick.Equals(ClientConfig.UserInfo.UNAME);
+		if (pl != null) {
+			//pl.cardTaLaManager.BocBai(card, issMe);
 		}
-		//	this.addAction(Actions.sequence(Actions.delay(1f), new Action() {
-		//			@Override
-		//			public boolean act(float arg0) {
-		//	chip_tong.image_chip1.setVisible(true);
-
-		//	if (luot % 2 == 0) {
-		//		chip_tong.image_chip2.setVisible(true);
-		//	}
-		//	return true;
-		//}
-		//		}));
 	}
 }

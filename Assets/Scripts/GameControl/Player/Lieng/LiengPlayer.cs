@@ -82,5 +82,22 @@ public class LiengPlayer : BasePlayer {
 		txt_diem.gameObject.SetActive(true);
 		txt_diem.text = str_score;
 	}
+
+	public void SetTypeCard(int type) {
+		if (type < 0 || type > 8) {
+			txt_diem.gameObject.SetActive(false);
+			return;
+		}
+		//if (string.IsNullOrEmpty(str)) {
+		//	txt_diem.gameObject.SetActive(false);
+		//	return;
+		//}
+
+		txt_diem.transform.localPosition = Vector3.zero;
+		txt_diem.gameObject.SetActive(true);
+		txt_diem.text = GameConfig.STR_TYPE_CARD[type];
+		txt_diem.SetNativeSize();
+		txt_diem.transform.DOLocalMoveY(40, 0.2f);
+	}
 }
 
