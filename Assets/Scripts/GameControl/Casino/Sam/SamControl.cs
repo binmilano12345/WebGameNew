@@ -148,7 +148,7 @@ public class SamControl : BaseCasino {
                     for (int j = 0; j < temp.Length; j++) {
                         temp[j] = 52;
                     }
-                    pl.CardHand.SetCardWithId53();
+                    pl.CardHand.SetCardWithId52();
                     pl.CardHand.SetActiveCardHand(true);
                     pl.SetNumCard(numCard);
                 }
@@ -310,7 +310,7 @@ public class SamControl : BaseCasino {
         //tableArrCard = null;//sua
         for (int i = 0; i < ListPlayer.Count; i++) {
             if (ListPlayer[i].IsPlaying) {
-                ((SamPlayer)ListPlayer[i]).CardHand.SetCardWithId53();
+                ((SamPlayer)ListPlayer[i]).CardHand.SetCardWithId52();
                 ((SamPlayer)ListPlayer[i]).CardHand.SetActiveCardHand(true);
             }
         }

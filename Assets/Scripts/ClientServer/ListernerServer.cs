@@ -86,6 +86,9 @@ public class ListernerServer : IChatListener {
 			GameConfig.IS_LOGIN_FB_AVARIABLE = message.reader().ReadBoolean();
 			string[] b = a.Split(',');
 			GameConfig.HOT_LINE = b[0];
+			if (MainControl.instance != null) {
+				MainControl.instance.SetHotline();
+			}
 			if (b.Length > 1) {
 				GameConfig.MAIL_HELPER = b[1];
 			}
@@ -858,7 +861,7 @@ public class ListernerServer : IChatListener {
 	}
 
 	public void OnFinishGame(Message message) {
-		Debug.LogError(".................." + GameControl.instance.CurrentCasino);
+		//Debug.LogError(".................." + GameControl.instance.CurrentCasino);
 		GameControl.instance.CurrentCasino.OnFinishGame(message);
 	}
 
@@ -913,7 +916,7 @@ public class ListernerServer : IChatListener {
 			string nick = message.reader().ReadUTF();
 			if (GameConfig.CurrentGameID == GameID.PHOM) {
 				((PhomControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
-			}else if (GameConfig.CurrentGameID == GameID.XITO) {
+			} else if (GameConfig.CurrentGameID == GameID.XITO) {
 				((XiToControl)GameControl.instance.CurrentCasino).OnGetCardNocSuccess(nick, card);
 			}
 		}
@@ -1063,6 +1066,62 @@ public class ListernerServer : IChatListener {
 		((PokerControl)GameControl.instance.CurrentCasino).OnAddCardTbl(message);
 	}
 
+	public void StartFlip(Message message) {
+		((XiToControl)GameControl.instance.CurrentCasino).StartFlip(message);
+	}
+
+	public void OnCardFlip(Message message) {
+		((XiToControl)GameControl.instance.CurrentCasino).OnCardFlip(message);
+	}
+
+	public void OnInfoWin(Message message) {
+		int len = message.reader().ReadByte();
+		List<InfoWin> listInfoWin = new List<InfoWin>();
+		for (int i = 0; i < len; i++) {
+			InfoWin infoW = new InfoWin();
+			infoW.name = message.reader().ReadUTF();
+			infoW.rank = i + 1;
+			infoW.money = message.reader().ReadLong();
+			infoW.type = message.reader().ReadByte();
+			infoW.typeCard = message.reader().ReadByte();
+			sbyte len2 = message.reader().ReadByte();
+			infoW.arrCard = new int[len2];
+
+			Debug.LogError("Name:  " + infoW.name 
+			               + "\nRank: " + infoW.rank 
+			               + "\nMoney: " + infoW.money 
+			               + "\nType: " + infoW.type
+			               + "\nTypeCard: " + infoW.typeCard);
+
+			string str = "";
+			for (int j = 0; j < len2; j++) {
+				infoW.arrCard[j] = message.reader().ReadByte();
+				str += infoW.arrCard[j] + " ";
+			}
+			Debug.LogError("Card: " + str);
+			if (infoW.money > 0) {
+				listInfoWin.Add(infoW);
+				int l = listInfoWin.Count - 1;
+				if (listInfoWin[l].arrCard.Length > 0) {
+					if (l > 0) {
+						int k = infoW.arrCard.Length - 5;
+						bool isSame = true;
+						for (int j = k; j < infoW.arrCard.Length; j++) {
+							if (listInfoWin[l].arrCard[j] % 13 != listInfoWin[l - 1].arrCard[j] % 13) {
+								isSame = false;
+								break;
+							}
+						}
+						if (isSame) {
+							listInfoWin[l].rank = listInfoWin[l - 1].rank;
+						}
+					}
+				}
+			}
+		}
+
+		GameControl.instance.CurrentCasino.OnInfoWin(listInfoWin);
+	}
 	#region TAI XIU
 	public void OnUpdateMoneyTaiXiu(Message message) {
 		//GameControl.instance.CurrentCasino.OnUpdateMoneyTbl(message);

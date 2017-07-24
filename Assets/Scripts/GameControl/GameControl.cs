@@ -365,11 +365,11 @@ public class GameControl : MonoBehaviour {
 				});
 				break;
 				#endregion
-				#region XI TO
+			#region XI TO
 			case GameID.XITO:
-				Card.setCardType(1);
+				Card.setCardType(0);
 				objPlayer = objPlayerLieng;
-				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
+				//ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_XI_TO, SceneName.GAME_XI_TO, () => {
 					XiToControl.instance.UnloadAllSubScene();
 					CurrentCasino = (XiToControl.instance);

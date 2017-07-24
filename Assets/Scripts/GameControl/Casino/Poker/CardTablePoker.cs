@@ -9,8 +9,8 @@ public class CardTablePoker : MonoBehaviour {
 
 	public void Init() {
 		ArrayCardTable.align_Anchor = Align_Anchor.CENTER;
-		ArrayCardTable.CardCount = 5;
-		ArrayCardTable.MaxWidth = 500;
+		ArrayCardTable.CardCount = 6;
+		ArrayCardTable.MaxWidth = 600;
 		ArrayCardTable.isTouched = false;
 		ArrayCardTable.Init();
 	}
@@ -25,8 +25,9 @@ public class CardTablePoker : MonoBehaviour {
 			if (carddanh != null) {
 				carddanh.SetVisible(true);
 				carddanh.SetCardWithId(temp[i]);
+				carddanh.SetDarkCard(false);
+				carddanh.IsChoose = false;
 			}
-
 		}
 		ArrayCardTable.SortCardActive();
 	}
@@ -60,5 +61,23 @@ public class CardTablePoker : MonoBehaviour {
 		}
 
 		return arr.AddAndGetCardOnArray();
+	}
+
+	public void showCardFinish(int[] arrC) {
+		string str = "";
+		for (int i = 0; i < arrC.Length; i++) {
+			Card c = ArrayCardTable.GetCardbyIDCard(arrC[i]);
+			if (c != null && list_card.Contains(arrC[i])) {
+				c.SetDarkCard(false);
+				c.IsChoose = true;
+				str += i + ": " + arrC[i] + "\n";
+			}
+		}
+
+		Debug.LogError("-=-=: " + str);
+	}
+
+	public void setAllDark() {
+		ArrayCardTable.SetAllDark(true);
 	}
 }

@@ -37,9 +37,6 @@ public class PHandler : MessageHandler {
 				string from = message.reader().ReadUTF();
 //				listenner.onInfoMom(from);
 				break;
-                case CMDClient.CMD_GET_CARD:
-                        listenner.OnGetCardNocSuccess(message);
-                    break;
                 case CMDClient.CMD_EAT_CARD:
                         listenner.OnEatCardSuccess(message);
                     break;

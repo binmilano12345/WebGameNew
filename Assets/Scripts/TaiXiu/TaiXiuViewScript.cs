@@ -342,6 +342,8 @@ public class TaiXiuViewScript : MonoBehaviour {
 			if (time > 0) {
 				if (isPlaying) {
 					timeCountDown.SetTime(time);
+					if (TaiXiuTouchMoveControl.instance != null)
+						TaiXiuTouchMoveControl.instance.SetState(time, "", false, true);
 				} else {
 					//groupSoDiem.setVisible(true);
 					//groupSoDiem.sodiem.setVisible(false);
@@ -349,6 +351,8 @@ public class TaiXiuViewScript : MonoBehaviour {
 				}
 			} else {
 				timeCountDown.SetTime(0);
+				if (TaiXiuTouchMoveControl.instance != null)
+					TaiXiuTouchMoveControl.instance.SetState(time, "", false, false);
 				//countDown.setCountDown(0);
 				//groupSoDiem.setVisible(false);
 				//groupSoDiem.sodiem.setVisible(false);

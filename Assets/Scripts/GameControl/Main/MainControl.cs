@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Beebyte.Obfuscator;
 //using Facebook.Unity;
 
 public class MainControl : MonoBehaviour {
@@ -40,19 +41,24 @@ public class MainControl : MonoBehaviour {
 	public void SetHotline(){
 		txt_hotline.text = "Hotline: " + GameConfig.HOT_LINE;
 	}
-
+	[SkipRename]
     public void OnClick_LoginFacebook() {
 //		FB.LogInWithReadPermissions (perms, AuthCallback);
     }
+
+[SkipRename]
     public void OnClick_Login() {
         LoadAssetBundle.LoadScene(SceneName.SUB_LOGIN, SceneName.SUB_LOGIN);
     }
+	[SkipRename]
     public void OnClick_Reg() {
         LoadAssetBundle.LoadScene(SceneName.SUB_REGISTER, SceneName.SUB_REGISTER);
     }
+	[SkipRename]
     public void OnClick_Setting() {
         LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
     }
+	[SkipRename]
     public void OnClick_Hotline() {
 		GameControl.instance.CallPhone (GameConfig.HOT_LINE);
     }

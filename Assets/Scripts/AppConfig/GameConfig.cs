@@ -235,8 +235,8 @@ namespace AppConfig {
 		public const string PRE_CHAT_SMILE = "ButtonEmotion";
 		public const string PRE_ITEM_AVATAR = "ItemAvatar";
 
-		public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Item_Image_XD_His";
-		public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_His_XD";
+		//public const string PRE_IMAGE_LICH_SU_XOC_DIA = "Item_Image_XD_His";
+		//public const string PRE_ITEM_LICH_SU_XOC_DIA = "Item_His_XD";
 
 		internal const string PRE_ITEM_RANK_TX = "ItemRankTX";
 		internal const string PRE_ITEM_HISTORY_TX = "ItemHisTX";

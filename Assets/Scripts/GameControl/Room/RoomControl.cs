@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Us.Mobile.Utilites;
+using Beebyte.Obfuscator;
 
 public class RoomControl : MonoBehaviour {
     public static RoomControl instance;
@@ -100,9 +101,9 @@ public class RoomControl : MonoBehaviour {
         switch (Mathf.Abs(sorttype)) {
             case 1:
                 if (sorttype > 0) {
-                    ListTable.AddRange(listTemp.OrderBy(r => r.TableName).ToList());
+					ListTable.AddRange(listTemp.OrderBy(r => r.Id).ToList());
                 } else {
-                    ListTable.AddRange(listTemp.OrderByDescending(r => r.TableName).ToList());
+					ListTable.AddRange(listTemp.OrderByDescending(r => r.Id).ToList());
                 }
                 break;
             case 2:
@@ -146,15 +147,19 @@ public class RoomControl : MonoBehaviour {
         }
     }
     #region Button Click
+[SkipRename]
 	public void OnClickNap() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_PAYMENT, SceneName.SUB_PAYMENT);
 	}
+[SkipRename]
     public void OnClickBack() {
         LoadAssetBundle.LoadScene(SceneName.SCENE_LOBBY, SceneName.SCENE_LOBBY);
     }
+[SkipRename]
     public void OnClickSetting() {
         LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
     }
+[SkipRename]
     public void OnClickRefresh() {
         PopupAndLoadingScript.instance.ShowLoading();
         SendData.onUpdateRoom();
@@ -172,26 +177,31 @@ public class RoomControl : MonoBehaviour {
         OnClickRefresh();
     }
 
+[SkipRename]
     public void OnClickSortName() {
         isOderBy = sorttype != 1 ? true : !isOderBy;
         sorttype = isOderBy ? 1 : -1;
         OnClickRefresh();
     }
+[SkipRename]
     public void OnClicSortkBet() {
         isOderBy = sorttype != 2 ? true : !isOderBy;
         sorttype = isOderBy ? 2 : -2;
         OnClickRefresh();
     }
+[SkipRename]
     public void OnClickSortNeedMoney() {
         isOderBy = sorttype != 3 ? true : !isOderBy;
         sorttype = isOderBy ? 3 : -3;
         OnClickRefresh();
     }
+[SkipRename]
     public void OnClickSortNUser() {
         isOderBy = sorttype != 4 ? true : !isOderBy;
         sorttype = isOderBy ? 4 : -4;
         OnClickRefresh();
     }
+[SkipRename]
 	public void OnClickInfoPlayer() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_INFO_PLAYER, SceneName.SUB_INFO_PLAYER);
 	}

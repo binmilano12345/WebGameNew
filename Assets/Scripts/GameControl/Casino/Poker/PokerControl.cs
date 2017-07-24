@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Us.Mobile.Utilites;
 using AppConfig;
+using Beebyte.Obfuscator;
+using DataBase;
 
 public class PokerControl : BaseCasino {
 	public static PokerControl instance;
@@ -113,15 +115,10 @@ public class PokerControl : BaseCasino {
 	internal override void SetTurn(string nick, Message message) {
 		base.SetTurn(nick, message);
 		try {
-			long moneyCc = message.reader().ReadLong();
-			Debug.LogError(plMe.MoneyFollow + "  -=-=-====SetTurn:  " + moneyCc);
+			MoneyCuoc = message.reader().ReadLong();
+			//Debug.LogError(nick + " -=-=-=- " + MoneyCuoc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (plMe.MoneyFollow <= 0) {
-					SendData.onAccepFollow();
-				} else {
-					SetActiveButton();
-					SetEnableButton(true, true, false, true);
-				}
+				baseSetTurn();
 			} else {
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
@@ -166,7 +163,32 @@ public class PokerControl : BaseCasino {
 			SumChipControl.MoneyChip = tongMoney;
 		} catch (Exception ex) {
 			Debug.LogException(ex);
+		}
+	}
 
+	internal override void OnInfoWinPlayer(InfoWin infoWin) {
+		base.OnInfoWinPlayer(infoWin);
+		Debug.LogError("Vao day roi ma!  " + infoWin.name);
+		LiengPlayer player = (LiengPlayer)GetPlayerWithName(infoWin.name);
+		if (player != null) {
+			player.CardHand.SetAllDark(true);
+
+		int k = infoWin.arrCard.Length - 5;
+		if (k <= 0) {
+				player.CardHand.SetAllDark(false);
+			return;
+		}
+		if (infoWin.typeCard >= 0 && infoWin.typeCard <= 8) {
+		}
+			cardTableManager.setAllDark();
+			cardTableManager.showCardFinish(infoWin.arrCard);
+
+			for (int i = 0; i < infoWin.arrCard.Length; i++) {
+				Card c = player.CardHand.GetCardbyIDCard(infoWin.arrCard[i]);
+				if (c != null) {
+					c.SetDarkCard(false);
+				}
+			}
 		}
 	}
 
@@ -189,18 +211,12 @@ public class PokerControl : BaseCasino {
 			SetTurn(nick_turn, msg);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				SetActiveButton();
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
-
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+			}else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton();
+				baseSetTurn();
+			} else {
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			Debug.LogException(e);
@@ -234,20 +250,13 @@ public class PokerControl : BaseCasino {
 			SetTurn(nick_turn, message);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				hideThanhTo();
-
 				SetActiveButton(false, false, false, false);
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
-
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+			}else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton();
+				baseSetTurn();
+			} else {
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			Debug.LogException(e);
@@ -274,61 +283,63 @@ public class PokerControl : BaseCasino {
 			SetTurn(nick_turn, message);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				SetActiveButton(false, false, false, false);
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
-
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+			}else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton();
+				baseSetTurn();
+			} else {
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			Debug.LogException(e);
 		}
-
-
 	}
+
+	void baseSetTurn() {
+		SetActiveButton();
+		if (MoneyCuoc <= 0) {
+			SetEnableButton(true, true, false, true);
+		} else if (MoneyCuoc < plMe.MoneyFollow) {
+			SetEnableButton(true, false, true, false);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+		} else {
+			SetEnableButton(true, false, true, false);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(plMe.MoneyFollow);
+		}
+	}
+	#region
+	[SkipRename]
 	public void clickButtonBo() {
 		SendData.onSendSkipTurn();
 	}
+	[SkipRename]
 	public void clickButtonXem() {
 		SendData.onAccepFollow();
 	}
+	[SkipRename]
 	public void clickButtonTheo() {
 		SendData.onAccepFollow();
 	}
+	[SkipRename]
 	public void clickButtonTo() {
 		groupMoneyTo.OnShow(MinToMoney, MaxToMoney);
 	}
-
-	public void OnTo(long moneyTo) {
-		SendData.onCuocXT(-99, moneyTo);
-	}
-
+	[SkipRename]
 	public void clickButtnRutTien() {
 		if (ClientConfig.UserInfo.CASH_FREE < GameConfig.BetMoney * 10) {
 			PopupAndLoadingScript.instance.messageSytem.OnShow("Không đủ tiền để rút, bạn có muốn nạp thêm?");
-
 		} else {
 			//Show rut tien
 			Debug.LogError("Show rut tien");
 			LoadAssetBundle.LoadScene(SceneName.SUB_RUT_TIEN, SceneName.SUB_RUT_TIEN, () => {
-				//if (players[0].getFolowMoney() < BaseInfo.gI().currentMinMoney) {
-				//	PanelRutTien.instance.show(BaseInfo.gI().currentMinMoney,
-				//			BaseInfo.gI().currentMaxMoney, 2, 0, 0, 0, BaseInfo.gI().typetableLogin);
-				//} else {
-				//	PanelRutTien.instance.show(BaseInfo.gI().currentMinMoney,
-				//		  BaseInfo.gI().currentMaxMoney, 3, 0, 0, 0, BaseInfo.gI().typetableLogin);
-
-				//}
+				
 			});
 		}
+	}
+	#endregion
+	public void OnTo(long moneyTo) {
+		SendData.onCuocXT(-99, moneyTo);
 	}
 
 	internal override void OnTimeAuToStart(int time) {
@@ -494,8 +505,8 @@ public class PokerControl : BaseCasino {
 			cardTableManager.AddCard(cards);
 
 			if (plMe.IsPlaying) {
-							int type = PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(list_my_card.ToArray(), cardTableManager.list_card.ToArray()));
-plMe.SetTypeCard(type);
+				int type = PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(list_my_card.ToArray(), cardTableManager.list_card.ToArray()));
+				plMe.SetTypeCard(type);
 			}
 		} catch (Exception ex) {
 			Debug.LogException(ex);

@@ -828,6 +828,7 @@ public class SendData {
         //NetworkUtil.GI().sendMessage(msg);
         ClientConfig.UserInfo.UNAME = username;
         ClientConfig.UserInfo.PASSWORD = pass;
+		Debug.LogError("Login nao");
     }
 
     public static void onUpdateAvata(int idAvata) {
@@ -1162,6 +1163,7 @@ public class SendData {
 			m.writer().WriteUTF(series);
 			NetworkUtil.GI().sendMessage(m);
 		} catch (Exception e) {
+			Debug.LogException(e);
 		}
 	}
 }

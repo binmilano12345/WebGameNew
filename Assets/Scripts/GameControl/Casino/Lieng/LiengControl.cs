@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Us.Mobile.Utilites;
 using AppConfig;
+using Beebyte.Obfuscator;
 
 public class LiengControl : BaseCasino {
 	public static LiengControl instance;
@@ -95,6 +96,7 @@ public class LiengControl : BaseCasino {
 		SumChipControl.MoneyChip = tongMoney;
 		SetActiveButton(false, false, false, false);
 	}
+
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
@@ -102,6 +104,7 @@ public class LiengControl : BaseCasino {
 
 		SetActiveButton(false, false, false, false);
 	}
+
 	internal override void OnJoinTableSuccess(string master) {
 		plMe = (LiengPlayer)playerMe;
 		for (int i = 0; i < ListPlayer.Count; i++) {
@@ -114,26 +117,10 @@ public class LiengControl : BaseCasino {
 	internal override void SetTurn(string nick, Message message) {
 		base.SetTurn(nick, message);
 		try {
-			long moneyCc = message.reader().ReadLong();
-			Debug.LogError("-=-=-====SetTurn:  " + moneyCc);
+			MoneyCuoc = message.reader().ReadLong();
+			Debug.LogError("-=-=-====SetTurn:  " + MoneyCuoc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (plMe.MoneyFollow == 0) {
-					SendData.onAccepFollow();
-				} else {
-					//	} else {
-					//		baseSetturn(moneyCuoc);
-					//	}
-					//} else {
-					//	if (plMe.IsPlaying) {
-					//		showAllButton(true, true, true);
-					//	} else {
-					//		showAllButton(true, false, false);
-					//	}
-					//             enableAllButton(false);
-					//	setMoneyCuoc(moneyCuoc);
-					SetActiveButton();
-					SetEnableButton(true, true, false, true);
-				}
+				baseSetTurn();
 			} else {
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
@@ -183,7 +170,6 @@ public class LiengControl : BaseCasino {
 
 	internal override void OnNickSkip(string nick, Message msg) {
 		try {
-
 			string nick_turn = msg.reader().ReadUTF();
 			LiengPlayer pl = (LiengPlayer)GetPlayerWithName(nick);
 			if (pl != null) {
@@ -201,18 +187,11 @@ public class LiengControl : BaseCasino {
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 
 				SetActiveButton();
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
-
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+				baseSetTurn();
+			} else {
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			Debug.LogException(e);
@@ -238,7 +217,7 @@ public class LiengControl : BaseCasino {
 				pl.SetEffect("Tố");
 				pl.MoveChip(moneyBoRa + pl.MoneyChip, SumChipControl.transform.position);
 				pl.MoneyChip += moneyBoRa;
-				//gameControl.sound.startToAudio();
+
 				tongMoney += MoneyCuoc;
 				SumChipControl.MoneyChip = tongMoney;
 			}
@@ -246,20 +225,13 @@ public class LiengControl : BaseCasino {
 			SetTurn(nick_turn, message);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				hideThanhTo();
-
 				SetActiveButton(false, false, false, false);
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
+			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+				baseSetTurn();
+			} else {
 
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			Debug.LogException(e);
@@ -286,43 +258,53 @@ public class LiengControl : BaseCasino {
 			SetTurn(nick_turn, message);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				SetActiveButton(false, false, false, false);
-			}
-			if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (MoneyCuoc <= plMe.MoneyFollow) {
-					SetActiveButton();
-					SetEnableButton(true, false, true, true);
-				} else {
-					MoneyCuoc = plMe.MoneyFollow;
-					SetActiveButton();
-					SetEnableButton(true, false, true, false);
-				}
-
-				txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+				baseSetTurn();
+			} else {
+				hideThanhTo();
+				SetActiveButton(false, false, false, false);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			Debug.LogException(e);
 		}
+	}
 
-
-	}
-	public void clickButtonBo() {
-		SendData.onSendSkipTurn();
-	}
-	public void clickButtonXem() {
-		SendData.onAccepFollow();
-	}
-	public void clickButtonTheo() {
-		SendData.onAccepFollow();
-	}
-	public void clickButtonTo() {
-		groupMoneyTo.OnShow(MinToMoney, MaxToMoney);
+	void baseSetTurn() {
+		SetActiveButton();
+		if (MoneyCuoc <= 0) {
+			SetEnableButton(true, true, false, true);
+		} else if (MoneyCuoc < plMe.MoneyFollow) {
+			SetEnableButton(true, false, true, false);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
+		} else {
+			SetEnableButton(true, false, true, false);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(plMe.MoneyFollow);
+		}
 	}
 
 	public void OnTo(long moneyTo) {
 		SendData.onCuocXT(-99, moneyTo);
 	}
+	#region CLICK
+	[SkipRename]
+	public void clickButtonBo() {
+		SendData.onSendSkipTurn();
+	}
+	[SkipRename]
+	public void clickButtonXem() {
+		SendData.onAccepFollow();
+	}
+	[SkipRename]
+	public void clickButtonTheo() {
+		SendData.onAccepFollow();
+	}
+	[SkipRename]
+	public void clickButtonTo() {
+		groupMoneyTo.OnShow(MinToMoney, MaxToMoney);
+	}
 
+	[SkipRename]
 	public void clickButtnRutTien() {
 		if (ClientConfig.UserInfo.CASH_FREE < GameConfig.BetMoney * 10) {
 			PopupAndLoadingScript.instance.messageSytem.OnShow("Không đủ tiền để rút, bạn có muốn nạp thêm?");
@@ -342,7 +324,7 @@ public class LiengControl : BaseCasino {
 			});
 		}
 	}
-
+#endregion
 	internal override void OnTimeAuToStart(int time) {
 		base.OnTimeAuToStart(time);
 		timeCountDown.SetTime(time);

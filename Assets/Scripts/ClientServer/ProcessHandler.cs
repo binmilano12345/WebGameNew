@@ -170,7 +170,7 @@ public class ProcessHandler : MessageHandler {
 					listenner.OnSetNewMaster(message.reader().ReadUTF());
 				break;
 			case CMDClient.CMD_GAMEOVER:
-				Debug.LogError("-=-=-=-====CMDClient.CMD_GAMEOVER");
+				//Debug.LogError("-=-=-=-====CMDClient.CMD_GAMEOVER");
 				if (GameControl.instance.CurrentCasino == null) {
 					GameControl.instance.ListCMDID.Add(messageId);
 					GameControl.instance.ListMsg.Add(message);
@@ -219,6 +219,9 @@ public class ProcessHandler : MessageHandler {
 			case CMDClient.CMD_SET_MONEY:
 				listenner.OnSetMoneyTable(message);
 				break;
+			case CMDClient.CMD_GET_CARD:
+				listenner.OnGetCardNocSuccess(message);
+				break;
 			#region To
 			case CMDClient.CMD_THEO:
 				listenner.OnNickTheo(message);
@@ -243,6 +246,15 @@ public class ProcessHandler : MessageHandler {
 				break;
 			case CMDClient.CMD_ADDCARDTABLE_POCKER:
 				listenner.OnAddCardTbl(message);
+				break;
+			case CMDClient.CMD_START_FLIP:
+				listenner.StartFlip(message);
+				break;
+			case CMDClient.CMD_FLIP_CARD:
+				listenner.OnCardFlip(message);
+				break;
+			case CMDClient.CMD_INFO_WINPLAYER:
+				listenner.OnInfoWin(message);
 				break;
 			#endregion
 			#region TAI XIU

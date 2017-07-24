@@ -526,7 +526,7 @@ public class PhomControl : BaseCasino, IHasChanged
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			PhomPlayer pl = (PhomPlayer)ListPlayer [i];
 			if (pl.IsPlaying) {
-				pl.cardTaLaManager.ArrayCardHand.SetCardWithId53 ();
+				pl.cardTaLaManager.ArrayCardHand.SetCardWithId52 ();
 			}
 		}
 	}

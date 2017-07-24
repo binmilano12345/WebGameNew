@@ -173,7 +173,7 @@ public class TLMNSoloControl : BaseCasino
 					for (int j = 0; j < temp.Length; j++) {
 						temp [j] = 52;
 					}
-					pl.CardHand.SetCardWithId53 ();
+					pl.CardHand.SetCardWithId52 ();
 					pl.CardHand.SetActiveCardHand (true);
 					pl.SetNumCard (numCard);
 				}
@@ -325,7 +325,7 @@ public class TLMNSoloControl : BaseCasino
 		SetActiveButton (false, false, false, false);
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			if (ListPlayer [i].IsPlaying) {
-				((TLMNPlayer)ListPlayer [i]).CardHand.SetCardWithId53 ();
+				((TLMNPlayer)ListPlayer [i]).CardHand.SetCardWithId52 ();
 				((TLMNPlayer)ListPlayer [i]).CardHand.SetActiveCardHand (true);
 			}
 		}

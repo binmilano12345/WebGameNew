@@ -54,7 +54,7 @@ public class ArrayCard : MonoBehaviour {
 					obj.transform.localScale = Vector3.one;
 					obj.transform.localPosition = Vector3.zero;
 					Card card = obj.GetComponent<Card>();
-					card.SetCardWithId(53);
+					card.SetCardWithId(52);
 					card.setSmall(isSmall);
 					card.SetTouched(isTouched);
 					card.SetIsCardMauBinh();
@@ -116,7 +116,7 @@ public class ArrayCard : MonoBehaviour {
 				obj.transform.localScale = Vector3.one;
 				obj.transform.localPosition = Vector3.zero;
 				Card card = obj.GetComponent<Card>();
-				card.SetCardWithId(53);
+				card.SetCardWithId(52);
 				card.setSmall(isSmall);
 				card.SetTouched(isTouched);
 				if (i == 0) {
@@ -135,7 +135,7 @@ public class ArrayCard : MonoBehaviour {
 		obj.transform.localScale = Vector3.one;
 		obj.transform.localPosition = Vector3.zero;
 		Card card = obj.GetComponent<Card>();
-		card.SetCardWithId(53);
+		card.SetCardWithId(52);
 		card.setSmall(isSmall);
 		card.SetTouched(isTouched);
 		card.SetIsCardMauBinh();
@@ -168,23 +168,23 @@ public class ArrayCard : MonoBehaviour {
 					for (int k = i; k < listCardHand.Count; k++) {
 						Card c = listCardHand[k];
 						if (c == listCardHand[listCardHand.Count - 1]) {
-							c.SetCardWithId(53);
+							c.SetCardWithId(52);
 							c.IsChoose = false;
 							c.SetVisible(false);
 						} else {
-							if (listCardHand[k + 1].ID != 53) {
+							if (listCardHand[k + 1].ID != 52) {
 								c.SetCardWithId(listCardHand[k + 1].ID);
 								c.SetVisible(true);
-								listCardHand[k + 1].SetCardWithId(53);
+								listCardHand[k + 1].SetCardWithId(52);
 								//listCardHand[k + 1].SetActiveBorder(false);
 								listCardHand[k + 1].IsChoose = false;
 								listCardHand[k + 1].SetVisible(false);
 							} else {
 								for (int l = k + 1; l < listCardHand.Count; l++) {
-									if (listCardHand[l].ID != 53) {
+									if (listCardHand[l].ID != 52) {
 										c.SetCardWithId(listCardHand[l].ID);
 										c.SetVisible(true);
-										listCardHand[l].SetCardWithId(53);
+										listCardHand[l].SetCardWithId(52);
 										//listCardHand[l].SetActiveBorder(false);
 										listCardHand[l].IsChoose = false;
 										listCardHand[l].SetVisible(false);
@@ -192,33 +192,33 @@ public class ArrayCard : MonoBehaviour {
 									}
 
 								}
-								if (c.ID == 53)
+								if (c.ID == 52)
 									c.SetVisible(false);
 							}
 						}
 					}
 				} else {
-					if (card.ID == 53) {
+					if (card.ID == 52) {
 						for (int k = i; k < listCardHand.Count; k++) {
 							Card c = listCardHand[k];
 							if (c == listCardHand[listCardHand.Count - 1]) {
-								c.SetCardWithId(53);
+								c.SetCardWithId(52);
 								c.IsChoose = false;
 								c.SetVisible(false);
 							} else {
-								if (listCardHand[k + 1].ID != 53) {
+								if (listCardHand[k + 1].ID != 52) {
 									c.SetCardWithId(listCardHand[k + 1].ID);
 									c.SetVisible(true);
-									listCardHand[k + 1].SetCardWithId(53);
+									listCardHand[k + 1].SetCardWithId(52);
 									//listCardHand[k + 1].SetActiveBorder(false);
 									listCardHand[k + 1].SetVisible(false);
 
 								} else {
 									for (int l = k + 1; l < listCardHand.Count; l++) {
-										if (listCardHand[l].ID != 53) {
+										if (listCardHand[l].ID != 52) {
 											c.SetCardWithId(listCardHand[l].ID);
 											c.SetVisible(true);
-											listCardHand[l].SetCardWithId(53);
+											listCardHand[l].SetCardWithId(52);
 											//listCardHand[l].SetActiveBorder(false);
 											listCardHand[l].SetVisible(false);
 											break;
@@ -444,7 +444,7 @@ public class ArrayCard : MonoBehaviour {
 	//                listCardHand[i].SetActiveBorder(false);
 	//                listCardHand[i].LatBaiLen(arrcard[i]);
 	//            } else {
-	//                listCardHand[i].SetCardWithId(53);
+	//                listCardHand[i].SetCardWithId(52);
 	//                listCardHand[i].setSmall(true);
 	//                listCardHand[i].SetVisible(false);
 	//                listCardHand[i].SetActiveBorder(false);
@@ -475,7 +475,7 @@ public class ArrayCard : MonoBehaviour {
 					listCardHand[i].name = "" + i;
 					listCardHand[i].SetCardWithId(arrcard[i]);
 				} else {
-					listCardHand[i].SetCardWithId(53);
+					listCardHand[i].SetCardWithId(52);
 					listCardHand[i].setSmall(true);
 				}
 				if (i < arrcard.Length - 1)
@@ -497,7 +497,7 @@ public class ArrayCard : MonoBehaviour {
 		yield return new WaitForSeconds(listCardHand.Count * 0.1f + 1);
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card card = listCardHand[i];
-			if (card.ID != 53) {
+			if (card.ID < 52) {
 				card.SetVisible(true);
 			}
 		}
@@ -674,9 +674,9 @@ public class ArrayCard : MonoBehaviour {
 		}
 	}
 
-	public void SetCardWithId53() {
+	public void SetCardWithId52() {
 		for (int i = 0; i < listCardHand.Count; i++) {
-			listCardHand[i].SetCardWithId(53);
+			listCardHand[i].SetCardWithId(52);
 		}
 	}
 
@@ -779,6 +779,34 @@ public class ArrayCard : MonoBehaviour {
 		}
 	}
 
+	public void ClickCardXiTo() {
+		for (int i = 0; i < listCardHand.Count; i++) {
+			Card c = listCardHand[i];
+			c.setListenerClick(delegate {
+				SendChooseCardXiTo(listCardHand, c);
+			});
+			c.IsChoose = false;
+			c.isAuto = true;
+		}
+	}
+
+	void SendChooseCardXiTo(List<Card> cardHandInput, Card card) {
+		for (int i = 0; i < cardHandInput.Count; i++) {
+			Card c = cardHandInput[i];
+			if (c.ID == card.ID && c.ID < 52) {
+				if (i == 0) {
+					SendData.onFlipCard((byte)0);
+
+					Debug.LogError("0====================ID: " + c.ID);
+				} else if (i == 1) {
+					SendData.onFlipCard((byte)1);
+					Debug.LogError("1====================ID: " + c.ID);
+				}
+
+			}
+ 		}
+	}
+
 	public void SetAutoChooseCard(bool isAuto) {
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card c = listCardHand[i];
@@ -822,7 +850,7 @@ public class ArrayCard : MonoBehaviour {
 	public void ResetForTala(bool isTouched = false) {
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card c = listCardHand[i];
-			c.SetCardWithId(53);
+			c.SetCardWithId(52);
 			c.SetDarkCard(false);
 			c.SetTouched(isTouched);
 			c.IsChoose = false;
@@ -850,12 +878,13 @@ public class ArrayCard : MonoBehaviour {
 			//Card c = listCardHand[i];
 			listCardHand[i].SetVisible(false);
 			listCardHand[i].IsChoose = false;
+			listCardHand[i].SetDarkCard(false);
 			if (i < arrcard.Length) {
 				if (isTao) {
 					listCardHand[i].SetActiveBorder(false);
 					listCardHand[i].LatBaiLen(arrcard[i], 0.5f + playerCount * i * 0.1f + i * 0.1f);
 				} else {
-					listCardHand[i].SetCardWithId(53);
+					listCardHand[i].SetCardWithId(52);
 					listCardHand[i].SetVisible(false);
 					listCardHand[i].SetActiveBorder(false);
 				}
@@ -874,7 +903,7 @@ public class ArrayCard : MonoBehaviour {
 					listCardHand[i].transform.rotation = Quaternion.Euler(0f, 0f, -6f);
 				}
 			} else {
-				listCardHand[i].SetCardWithId(53);
+				listCardHand[i].SetCardWithId(52);
 				listCardHand[i].SetVisible(false);
 			}
 		}
@@ -886,7 +915,7 @@ public class ArrayCard : MonoBehaviour {
 		yield return new WaitForSeconds(listCardHand.Count * 0.1f + 1);
 		for (int i = 0; i < listCardHand.Count; i++) {
 			Card card = listCardHand[i];
-			if (card.ID != 53) {
+			if (card.ID != 52) {
 				card.SetVisible(true);
 			}
 		}

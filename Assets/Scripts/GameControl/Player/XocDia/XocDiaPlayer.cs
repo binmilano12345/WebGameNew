@@ -25,9 +25,10 @@ public class XocDiaPlayer : BasePlayer
 //	private List<GameObject> CacheChipDatCua_4 = new List<GameObject> ();
 //	private List<GameObject> CacheChipDatCua_5 = new List<GameObject> ();
 
-	public void	ActionChipDatCuoc (int cua, Vector3 pos, GameObject objPre)
+	public void	ActionChipDatCuoc (int cua, Vector3 pos, GameObject objPre, long money)
 	{
 		GameObject obj = GetObjChipHide (objPre);
+		obj.GetComponent<ChipXocDia>().SetChip(money);
 		switch (cua) {
 		case 0:
 			CurrentChipCua_0.Add (obj);

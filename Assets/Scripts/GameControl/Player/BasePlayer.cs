@@ -116,6 +116,7 @@ public class BasePlayer : MonoBehaviour {
         objXoay.SetActive(false);
         imgEffectRank.gameObject.SetActive(false);
     }
+	
     public void SetTextBao() {
         txt_ready.text = "Báo";
     }

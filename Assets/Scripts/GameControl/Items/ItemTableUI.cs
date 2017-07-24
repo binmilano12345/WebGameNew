@@ -25,6 +25,7 @@ public class ItemTableUI : MonoBehaviour {
     }
 
     public void OnClick() {
+		PopupAndLoadingScript.instance.ShowLoading();
         SendData.onJoinTablePlay(itemData.Id, -1);
     }
 }

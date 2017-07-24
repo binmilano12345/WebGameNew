@@ -57,8 +57,8 @@ public class BetGroupTaiXiu : MonoBehaviour {
 	void OnClickBet(GameObject obj) {
 		int index = int.Parse(obj.name);
 		current_bet += GameControl.instance.ListBetTaiXiu[index];
-		if (current_bet >= TaiXiuViewScript.instance.moneyKhaDung) {
-			current_bet = TaiXiuViewScript.instance.moneyKhaDung;
+		if (current_bet >= ClientConfig.UserInfo.CASH_FREE) {
+			current_bet = ClientConfig.UserInfo.CASH_FREE;
 		}
 		txt_money.text = MoneyHelper.FormatMoneyNormal(current_bet);
 		if (!obj_arrow.activeSelf)

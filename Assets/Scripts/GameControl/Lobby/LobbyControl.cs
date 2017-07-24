@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Us.Mobile.Utilites;
 using UnityEngine.SceneManagement;
+using Beebyte.Obfuscator;
 
 public class LobbyControl : MonoBehaviour {
     public static LobbyControl instance;
@@ -115,6 +116,7 @@ public class LobbyControl : MonoBehaviour {
 		}
 		Destroy (objPre);
     }
+
     void OnClickGame(GameObject obj) {
         int index = int.Parse(obj.name);
 
@@ -122,42 +124,64 @@ public class LobbyControl : MonoBehaviour {
         PopupAndLoadingScript.instance.ShowLoading();
     }
     #region Click
+
+[SkipRename]
     public void OnClickBack() {
         PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("popup_quitgame_thoatgame"), delegate {
             NetworkUtil.GI().close();
             LoadAssetBundle.LoadScene(SceneName.SCENE_MAIN, SceneName.SCENE_MAIN);
         });
     }
+
+[SkipRename]
     public void OnClickRank() {
         LoadAssetBundle.LoadScene(SceneName.SUB_RANK, SceneName.SUB_RANK);
     }
+
+[SkipRename]
     public void OnClickNap() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_PAYMENT, SceneName.SUB_PAYMENT);
     }
+
+[SkipRename]
     public void OnClickMail() {
         LoadAssetBundle.LoadScene(SceneName.SUB_MAIL, SceneName.SUB_MAIL);
     }
+
+[SkipRename]
     public void OnClickHelp() {
         LoadAssetBundle.LoadScene(SceneName.SUB_HELP, SceneName.SUB_HELP);
     }
+
+[SkipRename]
     public void OnClickNoti() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_NOTI, SceneName.SUB_NOTI);
     }
+
+[SkipRename]
 	public void OnClickSetting() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_SETTING, SceneName.SUB_SETTING);
-	}   
+	}  
+
+[SkipRename]
 	public void OnClickFanpage() {
 		Application.OpenURL (GameConfig.FANPAGE);
 	}
+
+[SkipRename]
 	public void OnClickInfoPlayer() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_INFO_PLAYER, SceneName.SUB_INFO_PLAYER);
 	}
+
+[SkipRename]
 	public void OnClickWithdrawalMoney() {//rut tien
 		if(!SceneManager.GetSceneByName ("").isLoaded){
 			SendData.onGetInfoGift ();
 		}
 		LoadAssetBundle.LoadScene(SceneName.SUB_WITHDRAWAL_MONEY, SceneName.SUB_WITHDRAWAL_MONEY);
 	}
+
+[SkipRename]
 	public void OnClickEvent() {
 		LoadAssetBundle.LoadScene(SceneName.SUB_EVENT, SceneName.SUB_EVENT);
 	}

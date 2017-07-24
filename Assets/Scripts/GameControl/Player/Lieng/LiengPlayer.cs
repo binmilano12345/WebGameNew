@@ -17,6 +17,7 @@ public class LiengPlayer : BasePlayer {
 	public override void SetInfo(DataBase.PlayerData playerData) {
 		base.SetInfo(playerData);
 		MoneyFollow = playerData.FolowMoney;
+		Debug.LogError("Tien theo! " + MoneyFollow);
 	}
 
 	public long MoneyFollow { get; set; }
@@ -25,7 +26,7 @@ public class LiengPlayer : BasePlayer {
 		get { return _moneyChip; }
 		set {
 			_moneyChip = value;
-			Debug.LogError("Tien ng choi:   " + _moneyChip);
+			//Debug.LogError("Tien ng choi:   " + _moneyChip);
 			chipControl.MoneyChip = _moneyChip;
 		}
 	}
