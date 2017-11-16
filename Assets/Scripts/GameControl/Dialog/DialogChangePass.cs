@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using AppConfig;
 using System.Text.RegularExpressions;
+using Beebyte.Obfuscator;
 
 public class DialogChangePass : MonoBehaviour {
 	[SerializeField]
 	InputField ip_old_pass, ip_new_pass, ip_again_pass;
 
+[SkipRename]
 	public void OnClickChangePass(){
 		string old_pass = ip_old_pass.text.Trim ();
 		string new_pass = ip_new_pass.text.Trim ();

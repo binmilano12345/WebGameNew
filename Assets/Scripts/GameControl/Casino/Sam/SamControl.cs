@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Beebyte.Obfuscator;
 
 public class SamControl : BaseCasino {
     public static SamControl instace;
@@ -32,6 +33,8 @@ public class SamControl : BaseCasino {
     }
 
     #region Click
+
+[SkipRename]
     public void OnClickBatDau() {
         bool isAllReady = true;
         for (int i = 0; i < ListPlayer.Count; i++) {
@@ -47,9 +50,13 @@ public class SamControl : BaseCasino {
             PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("popup_con_ng_san_sang"));
         }
     }
+
+[SkipRename]
     public void OnClickSanSang() {
         SendData.onReady(1);
     }
+
+[SkipRename]
     public void OnClickDanh() {
         int[] card = ((SamPlayer)playerMe).CardHand.GetCardChoose();
         if (card == null || card.Length < 1) {
@@ -67,12 +74,18 @@ public class SamControl : BaseCasino {
             Debug.LogError("Danh " + str + "\n" + str1);
         }
     }
+
+[SkipRename]
     public void OnClickBoLuot() {
         SendData.onSendSkipTurn();
     }
+
+[SkipRename]
     public void OnClickBaoSam() {
         SendData.baoxam(1);
     }
+
+[SkipRename]
     public void OnClickBoSam() {
         SendData.baoxam(0);
 		objBoSam.SetActive(false);

@@ -13,14 +13,14 @@ public class GameControl : MonoBehaviour {
 	Transform tf_parent;
 
 	public BaseCasino CurrentCasino { get; set; }
-	public GameObject objPlayerTLMN { get; set; }
-	public GameObject objPlayerSam { get; set; }
-	public GameObject objPlayerPhom { get; set; }
-	public GameObject objPlayerMauBinh { get; set; }
-	public GameObject objPlayerXocDia { get; set; }
-	public GameObject objPlayerLieng { get; set; }
+	//public GameObject objPlayerTLMN { get; set; }
+	//public GameObject objPlayerSam { get; set; }
+	//public GameObject objPlayerPhom { get; set; }
+	//public GameObject objPlayerMauBinh { get; set; }
+	//public GameObject objPlayerXocDia { get; set; }
+	//public GameObject objPlayerLieng { get; set; }
 	public GameObject objCard { get; set; }
-	public GameObject objPlayer;
+	//public GameObject objPlayer;
 
 	[HideInInspector]
 	public List<int> ListCMDID = new List<int>();
@@ -47,55 +47,55 @@ public class GameControl : MonoBehaviour {
 		new ListernerServer();
 		SendData.onGetPhoneCSKH();
 		PopupAndLoadingScript.instance.LoadPopupAndLoading();
-		if (objPlayerTLMN == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_TLMN, (obj) => {
-				objPlayerTLMN = obj;
-				objPlayerTLMN.transform.SetParent(tf_parent.transform);
-				objPlayerTLMN.transform.localScale = Vector3.one;
-				objPlayerTLMN.gameObject.SetActive(false);
-			});
-		}
-		if (objPlayerSam == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_SAM, (obj) => {
-				objPlayerSam = obj;
-				objPlayerSam.transform.SetParent(tf_parent.transform);
-				objPlayerSam.transform.localScale = Vector3.one;
-				objPlayerSam.gameObject.SetActive(false);
-			});
-		}
-		if (objPlayerPhom == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_PHOM, (obj) => {
-				objPlayerPhom = obj;
-				objPlayerPhom.transform.SetParent(tf_parent.transform);
-				objPlayerPhom.transform.localScale = Vector3.one;
-				objPlayerPhom.gameObject.SetActive(false);
-			});
-		}
-		if (objPlayerMauBinh == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_MAU_BINH, (obj) => {
-				objPlayerMauBinh = obj;
-				objPlayerMauBinh.transform.SetParent(tf_parent.transform);
-				objPlayerMauBinh.transform.localScale = Vector3.one;
-				objPlayerMauBinh.gameObject.SetActive(false);
-			});
-		}
-		if (objPlayerXocDia == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_XOC_DIA, (obj) => {
-				objPlayerXocDia = obj;
-				objPlayerXocDia.transform.SetParent(tf_parent.transform);
-				objPlayerXocDia.transform.localScale = Vector3.one;
-				objPlayerXocDia.gameObject.SetActive(false);
-			});
-		}
+		//if (objPlayerTLMN == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_TLMN, (obj) => {
+		//		objPlayerTLMN = obj;
+		//		objPlayerTLMN.transform.SetParent(tf_parent.transform);
+		//		objPlayerTLMN.transform.localScale = Vector3.one;
+		//		objPlayerTLMN.gameObject.SetActive(false);
+		//	});
+		//}
+		//if (objPlayerSam == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_SAM, (obj) => {
+		//		objPlayerSam = obj;
+		//		objPlayerSam.transform.SetParent(tf_parent.transform);
+		//		objPlayerSam.transform.localScale = Vector3.one;
+		//		objPlayerSam.gameObject.SetActive(false);
+		//	});
+		//}
+		//if (objPlayerPhom == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_PHOM, (obj) => {
+		//		objPlayerPhom = obj;
+		//		objPlayerPhom.transform.SetParent(tf_parent.transform);
+		//		objPlayerPhom.transform.localScale = Vector3.one;
+		//		objPlayerPhom.gameObject.SetActive(false);
+		//	});
+		//}
+		//if (objPlayerMauBinh == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_MAU_BINH, (obj) => {
+		//		objPlayerMauBinh = obj;
+		//		objPlayerMauBinh.transform.SetParent(tf_parent.transform);
+		//		objPlayerMauBinh.transform.localScale = Vector3.one;
+		//		objPlayerMauBinh.gameObject.SetActive(false);
+		//	});
+		//}
+		//if (objPlayerXocDia == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_XOC_DIA, (obj) => {
+		//		objPlayerXocDia = obj;
+		//		objPlayerXocDia.transform.SetParent(tf_parent.transform);
+		//		objPlayerXocDia.transform.localScale = Vector3.one;
+		//		objPlayerXocDia.gameObject.SetActive(false);
+		//	});
+		//}
 
-		if (objPlayerLieng == null) {
-			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_LIENG, (obj) => {
-				objPlayerLieng = obj;
-				objPlayerLieng.transform.SetParent(tf_parent.transform);
-				objPlayerLieng.transform.localScale = Vector3.one;
-				objPlayerLieng.gameObject.SetActive(false);
-			});
-		}
+		//if (objPlayerLieng == null) {
+		//	LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_PLAYER_LIENG, (obj) => {
+		//		objPlayerLieng = obj;
+		//		objPlayerLieng.transform.SetParent(tf_parent.transform);
+		//		objPlayerLieng.transform.localScale = Vector3.one;
+		//		objPlayerLieng.gameObject.SetActive(false);
+		//	});
+		//}
 
 		if (objCard == null) {
 			LoadAssetBundle.LoadPrefab(BundleName.PREFAPS, PrefabsName.PRE_CARD, (obj) => {
@@ -174,7 +174,7 @@ public class GameControl : MonoBehaviour {
 			#region TLMN
 			case GameID.TLMN:
 				Card.setCardType(1);
-				objPlayer = objPlayerTLMN;
+				//objPlayer = objPlayerTLMN;
 				ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_TLMN, SceneName.GAME_TLMN, () => {
 					TLMNControl.instance.UnloadAllSubScene();
@@ -196,7 +196,7 @@ public class GameControl : MonoBehaviour {
 			#region TLMN SL
 			case GameID.TLMNSL:
 				Card.setCardType(1);
-				objPlayer = objPlayerTLMN;
+				//objPlayer = objPlayerTLMN;
 				ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_TLMN_SOLO, SceneName.GAME_TLMN_SOLO, () => {
 					CurrentCasino = (TLMNSoloControl.instace);
@@ -216,7 +216,7 @@ public class GameControl : MonoBehaviour {
 			#endregion
 			#region SAM
 			case GameID.SAM:
-				objPlayer = objPlayerSam;
+				//objPlayer = objPlayerSam;
 				Card.setCardType(1);
 				ProcessHandler.setSecondHandler(TLMNHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_SAM, SceneName.GAME_SAM, () => {
@@ -238,7 +238,7 @@ public class GameControl : MonoBehaviour {
 			#region PHOM
 			case GameID.PHOM:
 				Card.setCardType(0);
-				objPlayer = objPlayerPhom;
+				//objPlayer = objPlayerPhom;
 				ProcessHandler.setSecondHandler(PHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_PHOM, SceneName.GAME_PHOM, () => {
 					CurrentCasino = (PhomControl.instace);
@@ -259,7 +259,7 @@ public class GameControl : MonoBehaviour {
 			#region MAU BINH
 			case GameID.MAUBINH:
 				Card.setCardType(1);
-				objPlayer = objPlayerMauBinh;
+				//objPlayer = objPlayerMauBinh;
 				LoadAssetBundle.LoadScene(SceneName.GAME_MAU_BINH, SceneName.GAME_MAU_BINH, () => {
 					CurrentCasino = (MauBinhControl.instace);
 					try {
@@ -278,7 +278,7 @@ public class GameControl : MonoBehaviour {
 			#endregion
 			#region XOC DIA
 			case GameID.XOCDIA:
-				objPlayer = objPlayerXocDia;
+				//objPlayer = objPlayerXocDia;
 
 				ProcessHandler.setSecondHandler(XocDiaHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_XOC_DIA, SceneName.GAME_XOC_DIA, () => {
@@ -302,7 +302,7 @@ public class GameControl : MonoBehaviour {
 			#region LIENG
 			case GameID.LIENG:
 				Card.setCardType(0);
-				objPlayer = objPlayerLieng;
+				//objPlayer = objPlayerLieng;
 				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_LIENG, SceneName.GAME_LIENG, () => {
 					LiengControl.instance.UnloadAllSubScene();
@@ -310,11 +310,13 @@ public class GameControl : MonoBehaviour {
 					try {
 						if (callback != null)
 							callback.Invoke();
-						for (int i = 0; i < ListMsg.Count; i++) {
-							ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
-						}
-						ListCMDID.Clear();
-						ListMsg.Clear();
+						Debug.LogError("====so luong:  " + ListMsg.Count);
+						//for (int i = 0; i < ListMsg.Count; i++) {
+						//	ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+						//}
+						//ListCMDID.Clear();
+						//ListMsg.Clear();
+						//StartCoroutine(runCMD());
 					} catch (Exception e) {
 						Debug.LogException(e);
 					}
@@ -324,7 +326,7 @@ public class GameControl : MonoBehaviour {
 			#region BA CAY
 			case GameID.BACAY:
 				Card.setCardType(0);
-				objPlayer = objPlayerLieng;
+				//objPlayer = objPlayerLieng;
 				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_BA_CAY, SceneName.GAME_BA_CAY, () => {
 					BaCayControl.instance.UnloadAllSubScene();
@@ -346,7 +348,7 @@ public class GameControl : MonoBehaviour {
 			#region POKER
 			case GameID.POKER:
 				Card.setCardType(1);
-				objPlayer = objPlayerLieng;
+				//objPlayer = objPlayerLieng;
 				ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_POKER, SceneName.GAME_POKER, () => {
 					PokerControl.instance.UnloadAllSubScene();
@@ -368,7 +370,7 @@ public class GameControl : MonoBehaviour {
 			#region XI TO
 			case GameID.XITO:
 				Card.setCardType(0);
-				objPlayer = objPlayerLieng;
+				//objPlayer = objPlayerLieng;
 				//ProcessHandler.setSecondHandler(LiengHandler.getInstance());
 				LoadAssetBundle.LoadScene(SceneName.GAME_XI_TO, SceneName.GAME_XI_TO, () => {
 					XiToControl.instance.UnloadAllSubScene();
@@ -388,6 +390,16 @@ public class GameControl : MonoBehaviour {
 				break;
 				#endregion
 		}
+	}
+
+	IEnumerator runCMD() {
+		yield return new WaitForEndOfFrame();
+		for (int i = 0; i < ListMsg.Count; i++) {
+			ProcessHandler.getInstance().processMessage(ListCMDID[i], ListMsg[i]);
+			yield return new WaitForSeconds(0.02f);
+		}
+		ListCMDID.Clear();
+		ListMsg.Clear();
 	}
 
 	#region Other

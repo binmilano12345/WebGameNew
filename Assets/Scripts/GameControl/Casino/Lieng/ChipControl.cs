@@ -26,7 +26,7 @@ public class ChipControl : MonoBehaviour {
 			OnShow();
 			SetImageChip(moneyChip, EffectZoom);
 			txt_chip.text = MoneyHelper.FormatMoneyNormal(moneyChip);
-			Debug.LogError("Tien tien tien:   " + moneyChip);
+			//Debug.LogError("Tien tien tien:   " + moneyChip);
 		}
 	}
 

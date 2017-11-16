@@ -105,6 +105,8 @@ public class ArrayCard : MonoBehaviour {
 	}
 
 	public void InitKhiVaoBanDangDanh() {
+		if (IsInit) return;
+		IsInit = true;
 		listCardHand = new List<Card>();
 		listIdCardHand = new List<int>();
 
@@ -866,30 +868,50 @@ public class ArrayCard : MonoBehaviour {
 		}
 	}
 
-	public void ChiaBaiPoker(int[] arrcard, bool isTao, Transform dealerPos, int playerCount, UnityAction callBack = null) {
-		if (isTao) {
-			SetPositionCardInArray();
-			//SoundControl.instance.PlaySound(SoundControl.CHIABAI2);
-		} else
-			SetPositionCardInArray();
-		// SetLaiHetCardVeToaDo0();
+public void ChiaBaiPoker(int[] arrcard, Transform dealerPos, int playerCount, bool isTao, UnityAction callBack = null) {
+	SetPositionCardInArray();
+	SetListIDCard(arrcard);
+	for (int i = 0; i < listCardHand.Count; i++) {
+		Card c = listCardHand[i];
+		c.SetVisible(false);
+		c.IsChoose = false;
+		c.SetDarkCard(false);
+		c.SetActiveBorder(false);
+		c.SetCardWithId(52);
+		if (i < arrcard.Length) {
+			if (isTao) {
+				c.LatBaiLen(arrcard[i], 0.5f + playerCount * i * 0.1f + i * 0.1f);
+			}
+
+			StartCoroutine(c.MoveWorldFrom(dealerPos, this.transform, 0.5f, playerCount * i * 0.1f + i * 0.1f, () => {
+				if (i >= arrcard.Length - 1) {
+					if (callBack != null) {
+						callBack.Invoke();
+						callBack = null;
+					}
+				}
+			}));
+			if (i == 0) {
+				c.transform.rotation = Quaternion.Euler(0f, 0f, 6f);
+			} else if (i == arrcard.Length - 1) {
+				c.transform.rotation = Quaternion.Euler(0f, 0f, -6f);
+			}
+		}
+	}
+	}
+
+	public void ChiaBaiBaCay(int[] arrcard, Transform dealerPos, int playerCount, UnityAction callBack = null) {
+		SetPositionCardInArray();
 		SetListIDCard(arrcard);
 		for (int i = 0; i < listCardHand.Count; i++) {
-			//Card c = listCardHand[i];
-			listCardHand[i].SetVisible(false);
-			listCardHand[i].IsChoose = false;
-			listCardHand[i].SetDarkCard(false);
+			Card c = listCardHand[i];
+			c.SetVisible(false);
+			c.IsChoose = false;
+			c.SetDarkCard(false);
+			c.SetActiveBorder(false);
+			c.SetCardWithId(52);
 			if (i < arrcard.Length) {
-				if (isTao) {
-					listCardHand[i].SetActiveBorder(false);
-					listCardHand[i].LatBaiLen(arrcard[i], 0.5f + playerCount * i * 0.1f + i * 0.1f);
-				} else {
-					listCardHand[i].SetCardWithId(52);
-					listCardHand[i].SetVisible(false);
-					listCardHand[i].SetActiveBorder(false);
-				}
-
-				StartCoroutine(listCardHand[i].MoveWorldFrom(dealerPos, this.transform, 0.5f, playerCount * i * 0.1f + i * 0.1f, () => {
+				StartCoroutine(c.MoveWorldFrom(dealerPos, this.transform, 0.5f, playerCount * i * 0.1f + i * 0.1f, () => {
 					if (i >= arrcard.Length - 1) {
 						if (callBack != null) {
 							callBack.Invoke();
@@ -898,17 +920,14 @@ public class ArrayCard : MonoBehaviour {
 					}
 				}));
 				if (i == 0) {
-					listCardHand[i].transform.rotation = Quaternion.Euler(0f, 0f, 6f);
+					c.transform.rotation = Quaternion.Euler(0f, 0f, 6f);
 				} else if (i == arrcard.Length - 1) {
-					listCardHand[i].transform.rotation = Quaternion.Euler(0f, 0f, -6f);
+					c.transform.rotation = Quaternion.Euler(0f, 0f, -6f);
 				}
-			} else {
-				listCardHand[i].SetCardWithId(52);
-				listCardHand[i].SetVisible(false);
 			}
 		}
 
-		StartCoroutine(ShowCardKhiChiaXongPoker());
+		//StartCoroutine(ShowCardKhiChiaXongPoker());
 	}
 
 	IEnumerator ShowCardKhiChiaXongPoker() {

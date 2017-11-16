@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using AppConfig;
 using Us.Mobile.Utilites;
 using System;
+using Beebyte.Obfuscator;
 
 public class DialogInfoPlayer : MonoBehaviour {
 	[SerializeField]
@@ -57,14 +58,19 @@ public class DialogInfoPlayer : MonoBehaviour {
 		}
 	}
 
+[SkipRename]
 	public void OnClickChangeName(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_NAME, SceneName.SUB_CHANGE_NAME);
 		OnHide();
 	}	
+
+[SkipRename]
 	public void OnClickChangePass(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_PASS, SceneName.SUB_CHANGE_PASS);
 		OnHide();
 	}	
+
+	[SkipRename]
 	public void OnClickChangeAvatar(){
 		LoadAssetBundle.LoadScene (SceneName.SUB_CHANGE_AVATAR, SceneName.SUB_CHANGE_AVATAR);
 		OnHide();

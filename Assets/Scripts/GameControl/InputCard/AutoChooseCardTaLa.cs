@@ -385,7 +385,7 @@ public class AutoChooseCardTaLa
 		var result = arr.GroupBy (x => GetValue (x));
 
 		foreach (var item in result) {
-			if (item.ToList ().Count == arr.Length) {
+			if (item.ToList ().Count >= 3) {
 				return true;
 			}
 		}
@@ -398,7 +398,7 @@ public class AutoChooseCardTaLa
 
 		foreach (var item in result2) {
 			foreach (var item2 in item) {
-				if (item2.ToList ().Count == arr.Length) {
+				if (item2.ToList ().Count >= 3) {
 					return true;
 				}
 			}
@@ -407,4 +407,136 @@ public class AutoChooseCardTaLa
 
 		return false;
 	}
+
+	/*
+
+Vector<Card*> LogicManager::getArrCardTuQuy(Vector<Card*> list, Card* card) {
+Vector<Card*> vtTemp;
+for (int i = 0; i < list.size(); i++) {
+if (card->N == list.at(i)->N) {
+vtTemp.pushBack(list.at(i));
+}
+}
+
+return vtTemp;
+}
+
+Vector<Card*> LogicManager::getArrCardLieng(Vector<Card*> list, Card* card) {
+Vector<Card*> vtTemp;
+Vector<Card*> vtTemp2;
+
+int i = 0;
+for (i = 0; i < list.size(); i++) {
+if (card->S == list.at(i)->S) {
+vtTemp.pushBack(list.at(i));
+}
+}
+
+vtTemp.pushBack(card);
+//    vtTemp2.pushBack(card);
+
+std::sort(vtTemp.begin(), vtTemp.end(), ComparisionTalaForN);
+
+int index = 0;
+for (i = 0; i < vtTemp.size(); i++) {
+if (card == vtTemp.at(i)) {
+index = i;
+break;
+}
+}
+int nTemp = card->N;
+for (i = index - 1; i >= 0; i--) {
+if (nTemp == vtTemp.at(i)->N + 1) {
+nTemp = vtTemp.at(i)->N;
+vtTemp2.pushBack(vtTemp.at(i));
+} else {
+break;
+}
+}
+nTemp = card->N;
+for (i = index + 1; i < vtTemp.size(); i++) {
+if (nTemp == vtTemp.at(i)->N - 1) {
+nTemp = vtTemp.at(i)->N;
+vtTemp2.pushBack(vtTemp.at(i));
+} else {
+break;
+}
+}
+vtTemp.eraseObject(card);
+if (vtTemp2.size() < 2) vtTemp2.clear();
+return vtTemp2;
+}
+
+void LogicManager::showCardAnDuocTala(Vector<Card*> arrH, Card* card, Vector<Card*> arrE) {
+for (auto c : arrH) {
+c->setDark(true);
+}
+Vector<Card*> vtTemp = getArrCardTuQuy(arrH, card);
+if (vtTemp.size() >= 2) {
+for (int i = 0; i < arrE.size(); i++) {
+if (checkCardInVectorCard(arrE.at(i)->code, vtTemp)) {
+vtTemp.clear();
+break;
+}
+}
+
+for (int i = 0; i < vtTemp.size(); i++) {
+vtTemp.at(i)->setDark(false);
+}
+}
+
+vtTemp.clear();
+
+vtTemp = getArrCardLieng(arrH, card);
+if (vtTemp.size() >= 2) {
+for (int i = 0; i < arrE.size(); i++) {
+if (checkCardInVectorCard(arrE.at(i)->code, vtTemp)) {
+vtTemp.clear();
+break;
+}
+}
+
+for (int i = 0; i < vtTemp.size(); i++) {
+vtTemp.at(i)->setDark(false);
+}
+}
+}
+
+bool LogicManager::isHavePhom(Vector<Card*> arrH) {
+for (int i = 0; i < arrH.size(); i++) {
+auto ca = arrH.at(i);
+Vector<Card*> arrH2 = arrH;
+
+arrH2.eraseObject(ca);
+if (getArrCardTuQuy(arrH2, ca).size() >= 2 || getArrCardLieng(arrH2, ca).size() >= 2) {
+return true;
+}
+}
+
+return false;
+}
+
+std::vector<std::vector<int>> LogicManager::getArrayInArrayP(Vector<Card*> arrH) {
+	std::vector<std::vector<int>> vtResult;
+
+	for (int i = 0; i < arrH.size(); i++) {
+		auto ca = arrH.at(i);
+		Vector<Card*> arrH2 = arrH;
+
+		arrH2.eraseObject(ca);
+		Vector<Card*> arrTQ = getArrCardTuQuy(arrH2, ca);
+		Vector<Card*> arrL = getArrCardLieng(arrH2, ca);
+		if (arrTQ.size() >= 2 || arrL.size() >= 2) {
+			vector<int> vtTemp;
+			vtTemp.push_back(ca->code);
+			for (auto c : arrTQ.size() >= 2 ? arrTQ : arrL) {
+				vtTemp.push_back(c->code);
+			}
+			vtResult.push_back(vtTemp);
+		}
+	}
+
+	return vtResult;
+}
+	 */
 }

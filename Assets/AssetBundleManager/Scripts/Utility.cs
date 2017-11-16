@@ -1,24 +1,29 @@
 using UnityEngine;
-#if UNITY_EDITOR	
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace AssetBundles
-{
-	public class Utility
-	{
+namespace AssetBundles {
+	public class Utility {
 		public const string AssetBundlesOutputPath = "AssetBundles";
-	
-		public static string GetPlatformName()
-		{
-	#if UNITY_EDITOR
+
+		public static string GetPlatformName() {
+#if UNITY_EDITOR
+		#if OBFUSCATOR
+			return GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget) + "_OBFUSCATOR";
+		#else
 			return GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
-	#else
+		#endif
+#else
+		#if OBFUSCATOR
+			return GetPlatformForAssetBundles(Application.platform) + "_OBFUSCATOR";
+		#else
 			return GetPlatformForAssetBundles(Application.platform);
-	#endif
+		#endif
+#endif
 		}
 	
-	#if UNITY_EDITOR
+#if UNITY_EDITOR
 		private static string GetPlatformForAssetBundles(BuildTarget target)
 		{
 			switch(target)
@@ -44,7 +49,7 @@ namespace AssetBundles
 				return null;
 			}
 		}
-	#endif
+#endif
 	
 		private static string GetPlatformForAssetBundles(RuntimePlatform platform)
 		{

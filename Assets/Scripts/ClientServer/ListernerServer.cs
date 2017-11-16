@@ -672,6 +672,7 @@ public class ListernerServer : IChatListener {
 		//listTable.OrderBy(r => r.Money);
 		if (!SceneManager.GetSceneByName(SceneName.SCENE_ROOM).isLoaded) {
 			LoadAssetBundle.LoadScene(SceneName.SCENE_ROOM, SceneName.SCENE_ROOM, () => {
+			if (RoomControl.instance != null)
 				RoomControl.instance.CreateTable(listTable);
 			});
 		} else {
@@ -1087,18 +1088,18 @@ public class ListernerServer : IChatListener {
 			sbyte len2 = message.reader().ReadByte();
 			infoW.arrCard = new int[len2];
 
-			Debug.LogError("Name:  " + infoW.name 
-			               + "\nRank: " + infoW.rank 
-			               + "\nMoney: " + infoW.money 
-			               + "\nType: " + infoW.type
-			               + "\nTypeCard: " + infoW.typeCard);
+			//Debug.LogError("Name:  " + infoW.name 
+			//               + "\nRank: " + infoW.rank 
+			//               + "\nMoney: " + infoW.money 
+			//               + "\nType: " + infoW.type
+			//               + "\nTypeCard: " + infoW.typeCard);
 
 			string str = "";
 			for (int j = 0; j < len2; j++) {
 				infoW.arrCard[j] = message.reader().ReadByte();
 				str += infoW.arrCard[j] + " ";
 			}
-			Debug.LogError("Card: " + str);
+			//Debug.LogError("Card: " + str);
 			if (infoW.money > 0) {
 				listInfoWin.Add(infoW);
 				int l = listInfoWin.Count - 1;

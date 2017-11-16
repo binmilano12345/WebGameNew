@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
 using AppConfig;
+using Beebyte.Obfuscator;
 
 public class PanelMessageSytem : MonoBehaviour {
     public bool isShow { get; set; }
@@ -83,6 +84,7 @@ public class PanelMessageSytem : MonoBehaviour {
         OnShow();
     }
 
+[SkipRename]
     public void onClickButtonOK() {
         uipopup.dialogPopup.transform.DOScale(0, 0.1f).OnComplete(delegate {
             if (onClickOK != null) {
@@ -93,6 +95,7 @@ public class PanelMessageSytem : MonoBehaviour {
         });
     }
 
+[SkipRename]
     public void ClickCancel() {
         uipopup.dialogPopup.transform.DOScale(0, 0.1f).OnComplete(delegate {
             if (onClickQuit != null) {
@@ -119,6 +122,7 @@ public class PanelMessageSytem : MonoBehaviour {
         uipopup.ShowDialog();
     }
 
+[SkipRename]
     public void OnClickCancelAll() {
 		SettingConfig.IsInvite = false;
         onHide();

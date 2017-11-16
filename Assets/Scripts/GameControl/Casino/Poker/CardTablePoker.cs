@@ -29,6 +29,8 @@ public class CardTablePoker : MonoBehaviour {
 				carddanh.IsChoose = false;
 			}
 		}
+
+		Debug.LogError("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		ArrayCardTable.SortCardActive();
 	}
 
@@ -60,21 +62,37 @@ public class CardTablePoker : MonoBehaviour {
 			}
 		}
 
+		Debug.LogError("=========================Tao moi roi!");
 		return arr.AddAndGetCardOnArray();
 	}
 
-	public void showCardFinish(int[] arrC) {
-		string str = "";
-		for (int i = 0; i < arrC.Length; i++) {
-			Card c = ArrayCardTable.GetCardbyIDCard(arrC[i]);
-			if (c != null && list_card.Contains(arrC[i])) {
-				c.SetDarkCard(false);
-				c.IsChoose = true;
-				str += i + ": " + arrC[i] + "\n";
+	public void showCardFinish(int[] arrC, int index) {
+		//string str = "";
+		//setAllDark();
+		//for (int i = index; i < arrC.Length; i++) {
+		//	Card c = ArrayCardTable.GetCardbyIDCard(arrC[i]);
+		//	Debug.LogError("idididdiddddd    " + arrC[i]);
+		//	if (c != null) {
+		//		c.SetDarkCard(false);
+		//		c.IsChoose = true;
+		//		Debug.LogError(i + "  :  " + arrC[i]);
+		//	}
+		//}
+
+		//Debug.LogError("-=-=: " + str);
+		for (int i = 0; i < ArrayCardTable.listCardHand.Count; i++) {
+			Card c = ArrayCardTable.listCardHand[i];
+			c.SetDarkCard(true);
+			c.IsChoose = false;
+			for (int j = index; j < arrC.Length; j++) {
+				if (c.ID == arrC[j]) {
+					c.SetDarkCard(false);
+					c.IsChoose = true;
+					Debug.LogError(j + "  Id C:   " + arrC[j]);
+					break;
+				}
 			}
 		}
-
-		Debug.LogError("-=-=: " + str);
 	}
 
 	public void setAllDark() {

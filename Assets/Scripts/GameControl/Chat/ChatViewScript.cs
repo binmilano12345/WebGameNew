@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Beebyte.Obfuscator;
 
 public class ChatViewScript : MonoBehaviour {
 	const int NUM_SMILE = 12;
@@ -59,6 +60,8 @@ public class ChatViewScript : MonoBehaviour {
     }
     #endregion
     #region SEND TEXT
+
+[SkipRename]
     public void OnClickSendText() {
         string msg = ip_chat.text.Trim();
         if (string.IsNullOrEmpty(msg)) return;

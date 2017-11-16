@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using Beebyte.Obfuscator;
 
 public class DialogInvite : MonoBehaviour {
     public static DialogInvite instance;
@@ -49,6 +50,7 @@ public class DialogInvite : MonoBehaviour {
         }
     }
 
+[SkipRename]
     public void OnClickInviteAll() {
         for (int i = 0; i < listUI.Count; i++) {
             SendData.onInviteFriend(listUI[i].item.Name);

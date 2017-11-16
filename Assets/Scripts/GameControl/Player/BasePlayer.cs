@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Us.Mobile.Utilites;
+using Beebyte.Obfuscator;
 
 public class BasePlayer : MonoBehaviour {
     [SerializeField]
@@ -112,6 +113,7 @@ public class BasePlayer : MonoBehaviour {
         Invoke("SetDisableEffectRank", 3);
     }
 
+[SkipRename]
     public void SetDisableEffectRank() {
         objXoay.SetActive(false);
         imgEffectRank.gameObject.SetActive(false);

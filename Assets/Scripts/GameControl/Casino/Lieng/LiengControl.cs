@@ -19,7 +19,7 @@ public class LiengControl : BaseCasino {
 	long MoneyCuoc = 0;
 	long MinToMoney = 0, MaxToMoney = 0;
 	long tongMoney = 0;
-	LiengPlayer plMe;
+	//LiengPlayer plMe;
 
 	[SerializeField]
 	ChipControl SumChipControl;
@@ -51,6 +51,9 @@ public class LiengControl : BaseCasino {
 
 	internal override void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
 		base.StartTableOk(cardHand, msg, nickPlay);
+		//if (plMe == null) {
+		//	plMe = (LiengPlayer)playerMe;
+		//}
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			((LiengPlayer)ListPlayer[i]).MoneyChip = 0;
 		}
@@ -60,17 +63,20 @@ public class LiengControl : BaseCasino {
 
 		SumChipControl.MoneyChip = 0;
 		tongMoney = 0;
-		for (int i = 0; i < ListPlayer.Count; i++) {
-			LiengPlayer player = (LiengPlayer)ListPlayer[i];
+		//for (int i = 0; i < ListPlayer.Count; i++) {
+		//	LiengPlayer player = (LiengPlayer)ListPlayer[i];
+
+		for (int i = 0; i<nickPlay.Length; i++) {
+			LiengPlayer player = (LiengPlayer)GetPlayerWithName(nickPlay[i]);
 			if (player != null) {
 				player.MoneyChip = GameConfig.BetMoney;
 				player.MoveChip(GameConfig.BetMoney, SumChipControl.transform.position);
 				if (player.SitOnClient == 0) {
 					player.CardHand.SetAllDark(false);
 				}
-				player.CardHand.ChiaBaiPoker(cardHand, player.SitOnClient == 0, dealerPos, i, () => {
+				player.CardHand.ChiaBaiPoker(cardHand, dealerPos, i, player.SitOnClient == 0, () => {
 					if (player.SitOnClient == 0) {
-						plMe.SetDiemLieng(true, cardHand);
+						((LiengPlayer)playerMe).SetDiemLieng(true, cardHand);
 					}
 				});
 			}
@@ -79,6 +85,7 @@ public class LiengControl : BaseCasino {
 		SumChipControl.OnShow();
 		SumChipControl.MoneyChip = tongMoney;
 	}
+
 	internal override void OnStartForView(string[] nickPlay, Message msg) {
 		base.OnStartForView(nickPlay, msg);
 		tongMoney = 0;
@@ -88,7 +95,7 @@ public class LiengControl : BaseCasino {
 				player.MoneyChip = GameConfig.BetMoney;
 				tongMoney += GameConfig.BetMoney;
 				if (player.SitOnClient != 0)
-					player.CardHand.ChiaBaiPoker(new int[] { 52, 52, 52 }, false, dealerPos, i);
+					player.CardHand.ChiaBaiPoker(new int[] { 52, 52, 52 }, dealerPos, i, false);
 			}
 		}
 
@@ -100,25 +107,31 @@ public class LiengControl : BaseCasino {
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 
 		SetActiveButton(false, false, false, false);
 	}
 
 	internal override void OnJoinTableSuccess(string master) {
-		plMe = (LiengPlayer)playerMe;
-		for (int i = 0; i < ListPlayer.Count; i++) {
-			((LiengPlayer)ListPlayer[i]).SetDiemLieng(false, null);
-		}
+		try {
+			Debug.LogError("=======OnJoinTableSuccess");
+			//plMe = (LiengPlayer)playerMe;
 
-		SetActiveButton(false, false, false, false);
+			//for (int i = 0; i < ListPlayer.Count; i++) {
+			//	((LiengPlayer)ListPlayer[i]).SetDiemLieng(false, null);
+			//}
+
+			//SetActiveButton(false, false, false, false);
+		} catch (Exception e) {
+			Debug.LogException(e);
+		}
 	}
 
 	internal override void SetTurn(string nick, Message message) {
 		base.SetTurn(nick, message);
 		try {
 			MoneyCuoc = message.reader().ReadLong();
-			Debug.LogError("-=-=-====SetTurn:  " + MoneyCuoc);
+			//Debug.LogError("-=-=-====SetTurn:  " + MoneyCuoc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				baseSetTurn();
 			} else {
@@ -185,9 +198,9 @@ public class LiengControl : BaseCasino {
 
 			SetTurn(nick_turn, msg);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-
 				SetActiveButton();
 			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton();
 				baseSetTurn();
 			} else {
 				hideThanhTo();
@@ -203,8 +216,8 @@ public class LiengControl : BaseCasino {
 			long moneyInPot = message.reader().ReadLong();
 			MoneyCuoc = message.reader().ReadLong();
 			long moneyBoRa = message.reader().ReadLong();
-			Debug.LogError("So tien to: " + MoneyCuoc);
-			Debug.LogError("So tien bo ra: " + moneyBoRa);
+			//Debug.LogError("So tien to: " + MoneyCuoc);
+			//Debug.LogError("So tien bo ra: " + moneyBoRa);
 			string nick = message.reader().ReadUTF();
 			string nick_turn = message.reader().ReadUTF();
 			if (GameConfig.BetMoney * 2 >= MoneyCuoc) {
@@ -227,9 +240,9 @@ public class LiengControl : BaseCasino {
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
 			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+                SetActiveButton();
 				baseSetTurn();
 			} else {
-
 				hideThanhTo();
 				SetActiveButton(false, false, false, false);
 			}
@@ -259,6 +272,7 @@ public class LiengControl : BaseCasino {
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
 				SetActiveButton(false, false, false, false);
 			} else if (nick_turn.Equals(ClientConfig.UserInfo.UNAME)) {
+				SetActiveButton();
 				baseSetTurn();
 			} else {
 				hideThanhTo();
@@ -274,12 +288,12 @@ public class LiengControl : BaseCasino {
 		SetActiveButton();
 		if (MoneyCuoc <= 0) {
 			SetEnableButton(true, true, false, true);
-		} else if (MoneyCuoc < plMe.MoneyFollow) {
+		} else if (MoneyCuoc < ((LiengPlayer)playerMe).MoneyFollow) {
 			SetEnableButton(true, false, true, false);
 			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
 		} else {
 			SetEnableButton(true, false, true, false);
-			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(plMe.MoneyFollow);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(((LiengPlayer)playerMe).MoneyFollow);
 		}
 	}
 
@@ -334,7 +348,7 @@ public class LiengControl : BaseCasino {
 	internal override void InfoCardPlayerInTbl(Message message, string turnName, int time, sbyte numP) {
 		base.InfoCardPlayerInTbl(message, turnName, time, numP);
 		try {
-			Debug.LogError("numP " + numP);
+			Debug.LogError("InfoCardPlayerInTbl numP " + numP);
 			for (int i = 0; i < numP; i++) {
 				string nick = message.reader().ReadUTF();
 				sbyte isSkip = message.reader().ReadByte(); // = 0 Skip.
@@ -367,24 +381,24 @@ public class LiengControl : BaseCasino {
 		base.OnInfome(message);
 		try {
 			isStart = true;
-			plMe.IsPlaying = true;
+			((LiengPlayer)playerMe).IsPlaying = true;
 			int sizeCardHand = message.reader().ReadByte();
 			int[] cardHand = new int[sizeCardHand];
 			for (int j = 0; j < sizeCardHand; j++) {
 				cardHand[j] = message.reader().ReadByte();
 			}
-			plMe.CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
+			((LiengPlayer)playerMe).CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
 
 			bool upBai = message.reader().ReadBoolean();
 			if (upBai) {
-				plMe.CardHand.SetAllDark(true);
+				((LiengPlayer)playerMe).CardHand.SetAllDark(true);
 			}
 			string turnvName = message.reader().ReadUTF();
 			int turnvTime = message.reader().ReadInt();
 			long money = message.reader().ReadLong();
 			long moneyC = message.reader().ReadLong();
 			long mIP = message.reader().ReadLong();
-			plMe.MoneyChip = moneyC;
+			((LiengPlayer)playerMe).MoneyChip = moneyC;
 			tongMoney += moneyC;
 			SetTurn(turnvName, message);
 			if (turnvName.Equals(ClientConfig.UserInfo.UNAME)) {

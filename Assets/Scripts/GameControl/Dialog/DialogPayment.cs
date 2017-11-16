@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Us.Mobile.Utilites;
 using AppConfig;
 using System;
+using Beebyte.Obfuscator;
 
 public class DialogPayment : MonoBehaviour
 {
@@ -31,8 +32,8 @@ public class DialogPayment : MonoBehaviour
 
 	#endregion
 
-	[Header ("SMS")]
-	#region THE CAO
+	[Header ("SOMOSO")]
+	#region SOMOSO
 	[SerializeField]
 	Text sms_10;
 	[SerializeField]
@@ -41,7 +42,7 @@ public class DialogPayment : MonoBehaviour
 	#endregion
 
 	[Header ("CHUYEN TIEN")]
-	#region THE CAO
+	#region BANH
 	[SerializeField]
 	InputField ip_id;
 	[SerializeField]
@@ -69,6 +70,7 @@ public class DialogPayment : MonoBehaviour
 
 	#region Click
 
+[SkipRename]
 	public void OnClickNapThe ()
 	{
 		string str_mathe = ip_mathe.text.Trim ();	
@@ -100,18 +102,13 @@ public class DialogPayment : MonoBehaviour
 		case 4:
 			typeNet = FPT;
 			break;
-//		case 5:
-//			typeNet = VIETTEL;
-//			break;
-//		case 6:
-//			typeNet = VIETTEL;
-//			break;
 		}
 
 		SendData.doRequestPayment (typeNet, str_mathe, str_seri);
 		PopupAndLoadingScript.instance.messageSytem.OnShow (ClientConfig.Language.GetText ("payment_hethong_xuli"));
 	}
 
+[SkipRename]
 	public void OnClickSMS10 ()
 	{
 		PopupAndLoadingScript.instance.messageSytem.OnShow (
@@ -120,6 +117,7 @@ public class DialogPayment : MonoBehaviour
 		});
 	}
 
+[SkipRename]
 	public void OnClickSMS15 ()
 	{
 		PopupAndLoadingScript.instance.messageSytem.OnShow (
@@ -128,11 +126,13 @@ public class DialogPayment : MonoBehaviour
 		});
 	}
 
+[SkipRename]
 	public void OnClickHistoryChuyenTien ()
 	{
 		SendData.onHistoryTranfer ();
 	}
 
+[SkipRename]
 	public void OnClickChuyenTien ()
 	{
 		string str_id = ip_id.text.Trim ();
@@ -148,6 +148,7 @@ public class DialogPayment : MonoBehaviour
 		SendData.onTranferMoney (u_id, money);
 	}
 
+[SkipRename]
 	public void OnClickHuyChuyenTien ()
 	{
 		ip_id.text = "";

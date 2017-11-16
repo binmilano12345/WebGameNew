@@ -69,14 +69,17 @@ public class LiengPlayer : BasePlayer {
 
 	public void SetDiemLieng(bool isActive, int[] array_int) {
 		txt_diem.gameObject.SetActive(isActive);
-		if (isActive)
-			txt_diem.text = GameControl.TinhDiemLieng(array_int);
+		if (isActive) {
+			if(array_int != null)
+				txt_diem.text = GameControl.TinhDiemLieng(array_int);
+		}
 	}
 
 	public void SetDiemBaCay(bool isActive, int[] array_int) {
 		txt_diem.gameObject.SetActive(isActive);
 		if (isActive)
-			txt_diem.text = GameControl.TinhDiemBaCay(array_int);
+			if(array_int != null)
+				txt_diem.text = GameControl.TinhDiemBaCay(array_int);
 	}
 
 	public void SetDiemBaCay(string str_score) {

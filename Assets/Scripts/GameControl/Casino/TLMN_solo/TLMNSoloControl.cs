@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Beebyte.Obfuscator;
 
 public class TLMNSoloControl : BaseCasino
 {
@@ -35,6 +36,7 @@ public class TLMNSoloControl : BaseCasino
 
 	#region Click
 
+[SkipRename]
 	public void OnClickBatDau ()
 	{
 		bool isAllReady = true;
@@ -52,11 +54,13 @@ public class TLMNSoloControl : BaseCasino
 		}
 	}
 
+[SkipRename]
 	public void OnClickSanSang ()
 	{
 		SendData.onReady (1);
 	}
 
+[SkipRename]
 	public void OnClickDanh ()
 	{
 		try {
@@ -80,6 +84,7 @@ public class TLMNSoloControl : BaseCasino
 		}
 	}
 
+[SkipRename]
 	public void OnClickBoLuot ()
 	{
 		SendData.onSendSkipTurn ();

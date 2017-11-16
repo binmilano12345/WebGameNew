@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Beebyte.Obfuscator;
 
 public class ChatActionViewScript : MonoBehaviour {
     [SerializeField]
@@ -125,6 +126,7 @@ public class ChatActionViewScript : MonoBehaviour {
         }
     }
 
+[SkipRename]
     public void OnClickKick() {
         //Controller.OnHandleUIEvent("SendKickPlayer", new object[] { namePlayer });
         SendData.onKick(NamePlayer);

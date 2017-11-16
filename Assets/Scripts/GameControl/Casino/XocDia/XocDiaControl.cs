@@ -10,6 +10,7 @@ using DataBase;
 using System.Linq;
 using Us.Mobile.Utilites;
 using UnityEngine.Events;
+using Beebyte.Obfuscator;
 
 public class XocDiaControl : BaseCasino {
 	public static XocDiaControl instance;
@@ -140,6 +141,7 @@ public class XocDiaControl : BaseCasino {
 		Debug.LogError("==========>CurrentBetMoney  " + CurrentBetMoney);
 	}
 
+[SkipRename]
 	void OnClickDatCuoc(GameObject obj) {
 		//		Debug.LogError ("OnClickDatCuoc==========>  " + obj.name);
 		int cua = int.Parse(obj.name);
@@ -149,25 +151,31 @@ public class XocDiaControl : BaseCasino {
 		}
 	}
 
+[SkipRename]
 	public void OnClickDatX2() {
 		SendData.onsendGapDoi();
 	}
 
+[SkipRename]
 	public void OnClickDatLai() {
 		SendData.onsendDatLai();
 	}
 
+[SkipRename]
 	public void OnClickHuyCuoc() {
 		SendData.onsendHuyCuoc();
 	}
 
+[SkipRename]
 	public void OnClickLamCai() {
 		SendData.onsendLamCai();
 	}
 
+[SkipRename]
 	public void OnClickHuyCai() {
 	}
 
+[SkipRename]
 	public void OnClickShowHistory() {
 		if (!isRunShow)
 			return;

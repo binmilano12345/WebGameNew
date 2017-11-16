@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Us.Mobile.Utilites;
+using Beebyte.Obfuscator;
 
 public class MauBinhControl : BaseCasino, IHasChanged
 {
@@ -36,6 +37,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 
 	#region Click
 
+[SkipRename]
 	public void OnClickSoBai ()
 	{
 //        ((MauBinhPlayer)playerMe).cardMauBinh.SetSoBai(true);
@@ -43,6 +45,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		SendData.onFinalMauBinh (cardFinal);
 	}
 
+[SkipRename]
 	public void OnClickDoiChi ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.DoiChi ();
@@ -51,6 +54,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		SetLoaiBai (cardFinal);
 	}
 
+[SkipRename]
 	public void OnClickXepBai ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.XepBai ();
@@ -58,6 +62,7 @@ public class MauBinhControl : BaseCasino, IHasChanged
 		SetLoaiBai (cardFinal);
 	}
 
+[SkipRename]
 	public void OnClickXepLai ()
 	{
 		((MauBinhPlayer)playerMe).cardMauBinh.SetXepLai (true);

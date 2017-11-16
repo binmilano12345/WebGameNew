@@ -70,16 +70,16 @@ public abstract class BaseCasino : MonoBehaviour {
 	}
 
 	internal virtual void OnJoinTablePlaySuccess(Message message) {
-		short idTable = message.reader().ReadShort();
-		GameConfig.BetMoney = message.reader().ReadLong();
-		long needMoney = message.reader().ReadLong();
-		long maxMoney = message.reader().ReadLong();
-
-		txt_id_table.text = "Bàn " + idTable;
-		txt_bet_table.text = "Mức cược " + "<color=yellow>" + GameConfig.BetMoney + "</color>";
-		txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
-
 		try {
+			short idTable = message.reader().ReadShort();
+			GameConfig.BetMoney = message.reader().ReadLong();
+			long needMoney = message.reader().ReadLong();
+			long maxMoney = message.reader().ReadLong();
+
+			txt_id_table.text = "Bàn " + idTable;
+			txt_bet_table.text = "Mức cược " + "<color=yellow>" + GameConfig.BetMoney + "</color>";
+			txt_game_name.text = GameConfig.GameName[GameConfig.CurrentGameID];
+
 			int luatPhom = message.reader().ReadByte();
 			SetLuatChoi(luatPhom);
 			string master = message.reader().ReadUTF();
@@ -100,7 +100,7 @@ public abstract class BaseCasino : MonoBehaviour {
 				if (IsPlaying) {
 					pl.IsReady = false;
 				}
-				GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
+				GameObject objPlayer = Instantiate(player_prefab);
 				objPlayer.transform.SetParent(tf_parent_player);
 				objPlayer.transform.localScale = Vector3.one;
 				BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
@@ -136,6 +136,7 @@ public abstract class BaseCasino : MonoBehaviour {
 	}
 
 	internal virtual void OnFinishGame(Message message) {
+		try{
 		IsPlaying = false;
 		int total = message.reader().ReadByte();
 		for (int i = 0; i < total; i++) {
@@ -154,6 +155,9 @@ public abstract class BaseCasino : MonoBehaviour {
 				pl.SetRank(rank);
 				pl.IsReady = false;
 			}
+		}
+			} catch (Exception e) {
+			Debug.LogException(e);
 		}
 	}
 
@@ -192,7 +196,7 @@ public abstract class BaseCasino : MonoBehaviour {
 				if (IsPlaying) {
 					pl.IsReady = false;
 				}
-				GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
+				GameObject objPlayer = Instantiate(player_prefab);
 				objPlayer.transform.SetParent(GetParentPlayer());
 				objPlayer.transform.localScale = Vector3.one;
 				BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
@@ -219,11 +223,7 @@ public abstract class BaseCasino : MonoBehaviour {
 
 	internal virtual void OnJoinView(Message message) {
 		try {
-			//    BaseInfo.gI().isView = true;
-			//    resetData();
-			//    for (int i = 0; i < players.length; i++) {
-			//        players[i].setExit();
-			//    }
+			    isView = true;
 
 			int rule = message.reader().ReadByte();
 			SetLuatChoi(rule);
@@ -247,7 +247,7 @@ public abstract class BaseCasino : MonoBehaviour {
 					pl.IsReady = false;
 				}
 
-				GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
+				GameObject objPlayer = Instantiate(player_prefab);
 				objPlayer.transform.SetParent(tf_parent_player);
 				objPlayer.transform.localScale = Vector3.one;
 				BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
@@ -317,7 +317,7 @@ public abstract class BaseCasino : MonoBehaviour {
 		pl.IsMaster = false;
 		pl.IsReady = false;
 
-		GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
+		GameObject objPlayer = Instantiate(player_prefab);
 		objPlayer.transform.SetParent(tf_parent_player);
 		objPlayer.transform.localScale = Vector3.one;
 		BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
@@ -365,6 +365,7 @@ public abstract class BaseCasino : MonoBehaviour {
 
 	internal virtual void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
 		GameControl.instance.TimerTurnInGame = 20;
+		isView = false;
 		for (int i = 0; i < nickPlay.Length; i++) {
 			BasePlayer pl = GetPlayerWithName(nickPlay[i]);
 			if (pl != null) {
@@ -545,6 +546,7 @@ public abstract class BaseCasino : MonoBehaviour {
 			ListPlayer[i].name = ListPlayer[i].NamePlayer;
 			j--;
 		}
+		Debug.LogError("Ngoi dc roi!");
 		switch (GameConfig.CurrentGameID) {
 			case GameID.TLMN:
 			case GameID.TLMNSL:
@@ -775,6 +777,7 @@ public abstract class BaseCasino : MonoBehaviour {
 	#region Init Player Lieng Ba Cay
 
 	void InitPlayerLieng() {
+		Debug.LogError("Init player lieng!");
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			LiengPlayer pl = (LiengPlayer)ListPlayer[i];
 			pl.CardHand.CardCount = 3;
@@ -961,7 +964,7 @@ public abstract class BaseCasino : MonoBehaviour {
 		pl.IsReady = true;
 		pl.FolowMoney = 9999;
 
-		GameObject objPlayer = Instantiate(GameControl.instance.objPlayer);
+		GameObject objPlayer = Instantiate(player_prefab);
 		objPlayer.transform.SetParent(tf_parent_player);
 		BasePlayer plUI = objPlayer.GetComponent<BasePlayer>();
 		plUI.SetInfo(pl);

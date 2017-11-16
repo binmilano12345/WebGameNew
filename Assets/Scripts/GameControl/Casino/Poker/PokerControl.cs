@@ -20,7 +20,7 @@ public class PokerControl : BaseCasino {
 	long MoneyCuoc = 0;
 	long MinToMoney = 0, MaxToMoney = 0;
 	long tongMoney = 0;
-	LiengPlayer plMe;
+	//LiengPlayer plMe;
 
 	[SerializeField]
 	ChipControl SumChipControl;
@@ -77,7 +77,7 @@ public class PokerControl : BaseCasino {
 				if (player.SitOnClient == 0) {
 					player.CardHand.SetAllDark(false);
 				}
-				player.CardHand.ChiaBaiPoker(cardHand, player.SitOnClient == 0, dealerPos, i);
+				player.CardHand.ChiaBaiPoker(cardHand, dealerPos, i,  player.SitOnClient == 0);
 			}
 		}
 	}
@@ -88,7 +88,7 @@ public class PokerControl : BaseCasino {
 			LiengPlayer player = (LiengPlayer)GetPlayerWithName(nickPlay[i]);
 			if (player != null) {
 				if (player.SitOnClient != 0)
-					player.CardHand.ChiaBaiPoker(new int[] { 52, 52 }, false, dealerPos, i);
+					player.CardHand.ChiaBaiPoker(new int[] { 52, 52 }, dealerPos, i, false);
 			}
 		}
 
@@ -97,13 +97,13 @@ public class PokerControl : BaseCasino {
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 
 		cardTableManager.Init();
 		SetActiveButton(false, false, false, false);
 	}
 	internal override void OnJoinTableSuccess(string master) {
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 		cardTableManager.Init();
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			((LiengPlayer)ListPlayer[i]).SetDiemLieng(false, null);
@@ -149,7 +149,7 @@ public class PokerControl : BaseCasino {
 					pl.IsReady = false;
 					pl.SetShowReady(false);
 					pl.MoneyChip = 0;
-					pl.SetDiemLieng(true, pl.CardHand.GetArrayIDCard());
+					//pl.SetDiemLieng(true, pl.CardHand.GetArrayIDCard());
 				}
 			}
 			SetActiveButton(false, false, false, false);
@@ -168,25 +168,27 @@ public class PokerControl : BaseCasino {
 
 	internal override void OnInfoWinPlayer(InfoWin infoWin) {
 		base.OnInfoWinPlayer(infoWin);
-		Debug.LogError("Vao day roi ma!  " + infoWin.name);
+		//Debug.LogError("Vao day roi ma!  " + infoWin.name);
 		LiengPlayer player = (LiengPlayer)GetPlayerWithName(infoWin.name);
 		if (player != null) {
 			player.CardHand.SetAllDark(true);
 
-		int k = infoWin.arrCard.Length - 5;
-		if (k <= 0) {
+			int k = infoWin.arrCard.Length - 5;
+			//Debug.LogError("kkkkkkkkkkkk     "+ k);
+			if (k <= 0) {
 				player.CardHand.SetAllDark(false);
-			return;
-		}
-		if (infoWin.typeCard >= 0 && infoWin.typeCard <= 8) {
-		}
-			cardTableManager.setAllDark();
-			cardTableManager.showCardFinish(infoWin.arrCard);
+				return;
+			}
+			if (infoWin.typeCard >= 0 && infoWin.typeCard <= 8) {
+			}
 
-			for (int i = 0; i < infoWin.arrCard.Length; i++) {
+			cardTableManager.showCardFinish(infoWin.arrCard, k);
+
+			for (int i = k; i < infoWin.arrCard.Length; i++) {
 				Card c = player.CardHand.GetCardbyIDCard(infoWin.arrCard[i]);
 				if (c != null) {
 					c.SetDarkCard(false);
+					c.IsChoose = true;
 				}
 			}
 		}
@@ -228,8 +230,8 @@ public class PokerControl : BaseCasino {
 			long moneyInPot = message.reader().ReadLong();
 			MoneyCuoc = message.reader().ReadLong();
 			long moneyBoRa = message.reader().ReadLong();
-			Debug.LogError("So tien to: " + MoneyCuoc);
-			Debug.LogError("So tien bo ra: " + moneyBoRa);
+			//Debug.LogError("So tien to: " + MoneyCuoc);
+			//Debug.LogError("So tien bo ra: " + moneyBoRa);
 			string nick = message.reader().ReadUTF();
 			string nick_turn = message.reader().ReadUTF();
 			if (GameConfig.BetMoney * 2 >= MoneyCuoc) {
@@ -300,15 +302,15 @@ public class PokerControl : BaseCasino {
 		SetActiveButton();
 		if (MoneyCuoc <= 0) {
 			SetEnableButton(true, true, false, true);
-		} else if (MoneyCuoc < plMe.MoneyFollow) {
+		} else if (MoneyCuoc < ((LiengPlayer)playerMe).MoneyFollow) {
 			SetEnableButton(true, false, true, false);
 			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
 		} else {
 			SetEnableButton(true, false, true, false);
-			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(plMe.MoneyFollow);
+			txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(((LiengPlayer)playerMe).MoneyFollow);
 		}
 	}
-	#region
+	#region Click
 	[SkipRename]
 	public void clickButtonBo() {
 		SendData.onSendSkipTurn();
@@ -401,24 +403,24 @@ public class PokerControl : BaseCasino {
 		base.OnInfome(message);
 		try {
 			isStart = true;
-			plMe.IsPlaying = true;
+			((LiengPlayer)playerMe).IsPlaying = true;
 			int sizeCardHand = message.reader().ReadByte();
 			int[] cardHand = new int[sizeCardHand];
 			for (int j = 0; j < sizeCardHand; j++) {
 				cardHand[j] = message.reader().ReadByte();
 			}
-			plMe.CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
+			((LiengPlayer)playerMe).CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
 
 			bool upBai = message.reader().ReadBoolean();
 			if (upBai) {
-				plMe.CardHand.SetAllDark(true);
+				((LiengPlayer)playerMe).CardHand.SetAllDark(true);
 			}
 			string turnvName = message.reader().ReadUTF();
 			int turnvTime = message.reader().ReadInt();
 			long money = message.reader().ReadLong();
 			long moneyC = message.reader().ReadLong();
 			long mIP = message.reader().ReadLong();
-			plMe.MoneyChip = moneyC;
+			((LiengPlayer)playerMe).MoneyChip = moneyC;
 			tongMoney += moneyC;
 			SetTurn(turnvName, message);
 			if (turnvName.Equals(ClientConfig.UserInfo.UNAME)) {
@@ -436,11 +438,11 @@ public class PokerControl : BaseCasino {
 			string nicksb = msg.reader().ReadUTF();
 			string nickbb = msg.reader().ReadUTF();
 			long moneyInPot = msg.reader().ReadLong();
-			if (plMe.IsPlaying) {
+			if (((LiengPlayer)playerMe).IsPlaying) {
 				//players[0].setLoaiBai(PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(
 				//		players[0].cardHand.getArrCardAll(), cardTable.getArrCardAll())));
 				int type = PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(list_my_card.ToArray(), cardTableManager.list_card.ToArray()));
-				plMe.SetTypeCard(type);
+				((LiengPlayer)playerMe).SetTypeCard(type);
 			}
 			Debug.LogError("nicksb " + nicksb
 						  + "\nnickbb " + nickbb
@@ -484,43 +486,15 @@ public class PokerControl : BaseCasino {
 			for (int i = 0; i < size; i++) {
 				cards[i] = message.reader().ReadByte();
 			}
-			//if (size >= 3) {
-			//	flyMoney();
-			//}
 
-			//BaseInfo.gI().startchiabaiAudio();
-			//if (size == 3) {
-			//cardTable.setArrCard(card, false, false, false);
-			//for (int i = 0; i < cardTable.getSize(); i++) {
-			//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-			//}
-			//cardTableManager.AddCard(cards);
-			//} else {
-			//for (int i = cardTable.getSize(); i < size; i++) {
-			//	cardTable.addCard(card[i]);
-			//	onMoCard(cardTable.getCardbyPos(i), cardTable.getCardbyPos(i).getId());
-			//}
-
-			//}
 			cardTableManager.AddCard(cards);
 
-			if (plMe.IsPlaying) {
+			if (((LiengPlayer)playerMe).IsPlaying) {
 				int type = PokerCard.getTypeOfCardsPoker(PokerCard.add2ArrayCard(list_my_card.ToArray(), cardTableManager.list_card.ToArray()));
-				plMe.SetTypeCard(type);
+				((LiengPlayer)playerMe).SetTypeCard(type);
 			}
 		} catch (Exception ex) {
 			Debug.LogException(ex);
 		}
-		//	this.addAction(Actions.sequence(Actions.delay(1f), new Action() {
-		//			@Override
-		//			public boolean act(float arg0) {
-		//	chip_tong.image_chip1.setVisible(true);
-
-		//	if (luot % 2 == 0) {
-		//		chip_tong.image_chip2.setVisible(true);
-		//	}
-		//	return true;
-		//}
-		//		}));
 	}
 }

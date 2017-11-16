@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using AppConfig;
+using Beebyte.Obfuscator;
 
 public class BaCayControl : BaseCasino {
 	public static BaCayControl instance;
@@ -11,7 +12,7 @@ public class BaCayControl : BaseCasino {
 	long MoneyCuoc = 0;
 	long MinToMoney = 0, MaxToMoney = 0;
 	long tongMoney = 0;
-	LiengPlayer plMe;
+	//LiengPlayer plMe;
 
 	[SerializeField]
 	ChipControl SumChipControl;
@@ -32,15 +33,16 @@ public class BaCayControl : BaseCasino {
 		btn_to.gameObject.SetActive(is_to);
 	}
 
+[SkipRename]
 	public void clickBtnCuoc() {
 		MinToMoney = GameConfig.BetMoney * 2;
 		if (MaxToMoney > GameConfig.BetMoney * 10) {
 			MaxToMoney = GameConfig.BetMoney * 10;
-			if (MaxToMoney >= plMe.Money) {
-				MaxToMoney = plMe.Money;
+			if (MaxToMoney >= ((LiengPlayer)playerMe).Money) {
+				MaxToMoney = ((LiengPlayer)playerMe).Money;
 			}
 		} else {
-			MaxToMoney = plMe.Money;
+			MaxToMoney = ((LiengPlayer)playerMe).Money;
 		}
 
 		showDatcuoc(MinToMoney, MaxToMoney);
@@ -49,6 +51,7 @@ public class BaCayControl : BaseCasino {
 	private void showDatcuoc(long min, long max) {
 		groupMoneyTo.OnShow(min, max);
 	}
+	[SkipRename]
 	public void clickBtnBoCuoc() {
 		SendData.onSendCuocBC(0);
 	}
@@ -80,7 +83,7 @@ public class BaCayControl : BaseCasino {
 			//	players[i].resetData();
 			//}
 
-				plMe.IsPlaying = false;
+				((LiengPlayer)playerMe).IsPlaying = false;
 			if (turntimeBC == -1) {
 				turntimeBC = message.reader().ReadByte();
 
@@ -99,7 +102,7 @@ public class BaCayControl : BaseCasino {
 				//		MainInfo.setPlayingUser(true);
 				//	}
 				//	timeReceiveTurnBC = System.currentTimeMillis();
-				if (!plMe.IsMaster) {
+				if (!((LiengPlayer)playerMe).IsMaster) {
 					SetActiveButton();
 				}
 			}
@@ -145,7 +148,7 @@ public class BaCayControl : BaseCasino {
 			Debug.LogException(e);
 		}
 	}
-
+	bool isOnCall = true;
 	internal override void StartTableOk(int[] cardHand, Message msg, string[] nickPlay) {
 		base.StartTableOk(cardHand, msg, nickPlay);
 		//for (int i = 0; i < ListPlayer.Count; i++) {
@@ -155,27 +158,47 @@ public class BaCayControl : BaseCasino {
 		MinToMoney = GameConfig.BetMoney * 2;
 		MaxToMoney = ClientConfig.UserInfo.CASH_FREE - MinToMoney;
 		SetActiveButton(false, false);
-		//SumChipControl.MoneyChip = 0;
-		//tongMoney = 0;
-		for (int i = 0; i < ListPlayer.Count; i++) {
-			LiengPlayer player = (LiengPlayer)ListPlayer[i];
-			if (player != null) {
-				//player.MoneyChip = GameConfig.BetMoney;
-				//player.MoveChip(GameConfig.BetMoney, SumChipControl.transform.position);
-				//if (player.SitOnClient == 0) {
-				player.CardHand.SetAllDark(false);
-				//}
-				player.CardHand.ChiaBaiPoker(cardHand, player.SitOnClient == 0, dealerPos, i, () => {
-					if (player.SitOnClient == 0) {
-						player.SetDiemBaCay(true, cardHand);
-						Debug.LogError("========> vao xet diem "+ cardHand.Length);
+		countOpenCard = 0;
+		CardMe = cardHand;
+		timeCountDown.Settext("Nặn bài");
+		timeCountDown.SetTime(10);
+		if (isOnCall) {
+			isOnCall = false;
+			for (int i = 0; i < ((LiengPlayer)playerMe).CardHand.listCardHand.Count; i++) {
+Card c = ((LiengPlayer)playerMe).CardHand.listCardHand[i];
+				c.isAuto = true;
+				c.setListenerClick(() => {
+					if (countOpenCard >= 3) return;
+					c.SetCardWithId_Flip(CardMe[countOpenCard]);
+					countOpenCard++;
+					if (countOpenCard >= 3) {
+						((LiengPlayer)playerMe).SetDiemBaCay(true, CardMe);
 					}
 				});
 			}
-			//tongMoney += GameConfig.BetMoney;
 		}
-		//SumChipControl.OnShow();
-		//SumChipControl.MoneyChip = tongMoney;
+		SumChipControl.MoneyChip = 0;
+		tongMoney = 0;
+		for (int i = 0; i < ListPlayer.Count; i++) {
+			LiengPlayer player = (LiengPlayer)ListPlayer[i];
+			if (player != null) {
+				player.CardHand.SetAllDark(false);
+				player.MoneyChip = GameConfig.BetMoney;
+				tongMoney += GameConfig.BetMoney;
+				player.MoveChip(GameConfig.BetMoney, SumChipControl.transform.position);
+				//}
+				//player.CardHand.ChiaBaiPoker(cardHand, player.SitOnClient == 0, dealerPos, i, () => {
+				//	if (player.SitOnClient == 0) {
+				//		player.SetDiemBaCay(true, cardHand);
+				//		Debug.LogError("========> vao xet diem "+ cardHand.Length);
+				//	}
+				//});
+
+				player.CardHand.ChiaBaiBaCay(new int[] { 52, 52, 52 }, dealerPos, i);
+			}
+		}
+		SumChipControl.OnShow();
+		SumChipControl.MoneyChip = tongMoney;
 
 	}
 	internal override void OnStartForView(string[] nickPlay, Message msg) {
@@ -187,7 +210,7 @@ public class BaCayControl : BaseCasino {
 				//player.MoneyChip = GameConfig.BetMoney;
 				//tongMoney += GameConfig.BetMoney;
 				if (player.SitOnClient != 0)
-					player.CardHand.ChiaBaiPoker(new int[] { 52, 52, 52 }, false, dealerPos, i);
+					player.CardHand.ChiaBaiPoker(new int[] { 52, 52, 52 }, dealerPos, i, true);
 			}
 		}
 
@@ -198,12 +221,14 @@ public class BaCayControl : BaseCasino {
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 
 		SetActiveButton(false, false);
 	}
+	int countOpenCard = 0;
+	int[] CardMe;
 	internal override void OnJoinTableSuccess(string master) {
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 		for (int i = 0; i < ListPlayer.Count; i++) {
 			((LiengPlayer)ListPlayer[i]).SetDiemBaCay(false, null);
 		}
@@ -217,7 +242,7 @@ public class BaCayControl : BaseCasino {
 			long moneyCc = message.reader().ReadLong();
 			Debug.LogError("-=-=-====SetTurn:  " + moneyCc);
 			if (nick.Equals(ClientConfig.UserInfo.UNAME)) {
-				if (plMe.MoneyFollow == 0) {
+				if (((LiengPlayer)playerMe).MoneyFollow == 0) {
 					SendData.onAccepFollow();
 				} else {
 					//	} else {
@@ -259,6 +284,7 @@ public class BaCayControl : BaseCasino {
 				int score = message.reader().ReadInt();
 				LiengPlayer pl = (LiengPlayer)GetPlayerWithName(nick);
 				if (pl != null) {
+					pl.SetTurn(0, false);
 					pl.SetRank(rank);
 					pl.IsReady = false;
 					pl.SetShowReady(false);
@@ -270,14 +296,14 @@ public class BaCayControl : BaseCasino {
 					} else {
 						pl.SetDiemBaCay(score+"");
 					}
+
+					//for (int j = 0; j < pl.CardHand.listCardHand.Count; j++) {
+						
+					//}
 				}
 			}
 			SetActiveButton(false, false);
 			OnJoinTableSuccess(masterID);
-			for (int j = 0; j < ListPlayer.Count; j++) {
-				ListPlayer[j].SetShowReady(false);
-				ListPlayer[j].SetTurn(0, false);
-			}
 
 			tongMoney = 0;
 			SumChipControl.MoneyChip = tongMoney;
@@ -287,6 +313,7 @@ public class BaCayControl : BaseCasino {
 		}
 	}
 
+[SkipRename]
 	public void clickButtnRutTien() {
 		if (ClientConfig.UserInfo.CASH_FREE < GameConfig.BetMoney * 10) {
 			PopupAndLoadingScript.instance.messageSytem.OnShow("Không đủ tiền để rút, bạn có muốn nạp thêm?");
@@ -349,24 +376,24 @@ public class BaCayControl : BaseCasino {
 		base.OnInfome(message);
 		try {
 			isStart = true;
-			plMe.IsPlaying = true;
+			((LiengPlayer)playerMe).IsPlaying = true;
 			int sizeCardHand = message.reader().ReadByte();
 			int[] cardHand = new int[sizeCardHand];
 			for (int j = 0; j < sizeCardHand; j++) {
 				cardHand[j] = message.reader().ReadByte();
 			}
-			plMe.CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
+			((LiengPlayer)playerMe).CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
 
 			bool upBai = message.reader().ReadBoolean();
 			if (upBai) {
-				plMe.CardHand.SetAllDark(true);
+				((LiengPlayer)playerMe).CardHand.SetAllDark(true);
 			}
 			string turnvName = message.reader().ReadUTF();
 			int turnvTime = message.reader().ReadInt();
 			long money = message.reader().ReadLong();
 			long moneyC = message.reader().ReadLong();
 			long mIP = message.reader().ReadLong();
-			plMe.MoneyChip = moneyC;
+			((LiengPlayer)playerMe).MoneyChip = moneyC;
 			tongMoney += moneyC;
 			SetTurn(turnvName, message);
 			if (turnvName.Equals(ClientConfig.UserInfo.UNAME)) {

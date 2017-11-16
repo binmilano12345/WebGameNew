@@ -23,7 +23,7 @@ public class XiToControl : BaseCasino {
 	long MoneyCuoc = 0;
 	long MinToMoney = 0, MaxToMoney = 0;
 	long tongMoney = 0;
-	LiengPlayer plMe;
+	//LiengPlayer plMe;
 
 	[SerializeField]
 	ChipControl SumChipControl;
@@ -129,12 +129,12 @@ public class XiToControl : BaseCasino {
 	internal override void OnJoinView(Message message) {
 		// TODO Auto-generated method stub
 		base.OnJoinView(message);
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 
 		SetActiveButton(false, false, false, false);
 	}
 	internal override void OnJoinTableSuccess(string master) {
-		plMe = (LiengPlayer)playerMe;
+		//plMe = (LiengPlayer)playerMe;
 		SetActiveButton(false, false, false, false);
 	}
 
@@ -301,12 +301,12 @@ void baseSetTurn() {
 	SetActiveButton();
 	if (MoneyCuoc <= 0) {
 		SetEnableButton(true, true, false, true);
-	} else if (MoneyCuoc < plMe.MoneyFollow) {
+		} else if (MoneyCuoc < ((LiengPlayer)playerMe).MoneyFollow) {
 		SetEnableButton(true, false, true, false);
 		txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(MoneyCuoc);
 	} else {
 		SetEnableButton(true, false, true, false);
-		txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(plMe.MoneyFollow);
+		txt_theo.text = "Theo " + MoneyHelper.FormatMoneyNormal(((LiengPlayer)playerMe).MoneyFollow);
 	}
 }
 
@@ -412,24 +412,24 @@ public void OnTo(long moneyTo) {
 		base.OnInfome(message);
 		try {
 			isStart = true;
-			plMe.IsPlaying = true;
+			((LiengPlayer)playerMe).IsPlaying = true;
 			int sizeCardHand = message.reader().ReadByte();
 			int[] cardHand = new int[sizeCardHand];
 			for (int j = 0; j < sizeCardHand; j++) {
 				cardHand[j] = message.reader().ReadByte();
 			}
-			plMe.CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
+			((LiengPlayer)playerMe).CardHand.SetBaiKhiKetNoiLaiGamePoker(cardHand, true);
 
 			bool upBai = message.reader().ReadBoolean();
 			if (upBai) {
-				plMe.CardHand.SetAllDark(true);
+				((LiengPlayer)playerMe).CardHand.SetAllDark(true);
 			}
 			string turnvName = message.reader().ReadUTF();
 			int turnvTime = message.reader().ReadInt();
 			long money = message.reader().ReadLong();
 			long moneyC = message.reader().ReadLong();
 			long mIP = message.reader().ReadLong();
-			plMe.MoneyChip = moneyC;
+			((LiengPlayer)playerMe).MoneyChip = moneyC;
 			tongMoney += moneyC;
 			SetTurn(turnvName, message);
 			if (turnvName.Equals(ClientConfig.UserInfo.UNAME)) {
@@ -453,14 +453,21 @@ public void OnTo(long moneyTo) {
 		sbyte a = message.reader().ReadByte();
 		Debug.LogError("aaaaaaaaaaaaa    " + a);
 		if (a == 0) {
-			int temp1 = plMe.CardHand.listCardHand[0].ID;
+int temp1 = ((LiengPlayer)playerMe).CardHand.listCardHand[0].ID;
+int temp2 = ((LiengPlayer)playerMe).CardHand.listCardHand[1].ID;
 
-			plMe.CardHand.listCardHand[0].SetCardWithId(plMe.CardHand.listCardHand[1].ID);
-			plMe.CardHand.listCardHand[1].SetCardWithId(temp1);
+			Debug.LogError("111 ID 1 :  " + temp1 + "ID 2 :  " +temp2);
+			((LiengPlayer)playerMe).CardHand.listCardHand[0].SetCardWithId(temp2);
+			((LiengPlayer)playerMe).CardHand.listCardHand[1].SetCardWithId(temp1);
+
+int temp3 = ((LiengPlayer)playerMe).CardHand.listCardHand[0].ID;
+int temp4 = ((LiengPlayer)playerMe).CardHand.listCardHand[1].ID;
+
+			Debug.LogError("222 ID 1 :  " + temp3 + "ID 2 :  " +temp4);
 		}
-		plMe.CardHand.listCardHand[0].SetDarkCard(true);
-		plMe.CardHand.listCardHand[1].SetDarkCard(false);
-		plMe.CardHand.SetTouchCardHand(false);
+		((LiengPlayer)playerMe).CardHand.listCardHand[0].SetDarkCard(true);
+		((LiengPlayer)playerMe).CardHand.listCardHand[1].SetDarkCard(false);
+		((LiengPlayer)playerMe).CardHand.SetTouchCardHand(false);
 		txt_chon_bai.SetActive(false);
 	}
 

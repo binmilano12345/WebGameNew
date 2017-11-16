@@ -39,7 +39,7 @@ public class MainControl : MonoBehaviour {
 	}
 
 	public void SetHotline(){
-		txt_hotline.text = "Hotline: " + GameConfig.HOT_LINE;
+		txt_hotline.text = "Hotline: " + (GameConfig.HOT_LINE == "" ? "0966668247" : GameConfig.HOT_LINE);
 	}
 	[SkipRename]
     public void OnClick_LoginFacebook() {

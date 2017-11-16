@@ -83,6 +83,21 @@ public class Card : MonoBehaviour {
 		LoadAssetBundle.LoadSprite(img_card, BundleName.CARDS, "bai" + cardPaint[_id]);
 	}
 
+	public void SetCardWithId_Flip(int _id) {
+		if (_id > 52 || _id < 0) {
+			_id = 52;
+		}
+		ID = _id;
+
+		Sequence seq = DOTween.Sequence();
+		seq.Append(transform.DOScaleX(0, .2f));
+		seq.AppendCallback(() => {
+			LoadAssetBundle.LoadSprite(img_card, BundleName.CARDS, "bai" + cardPaint[_id]);	
+		});
+		seq.Append(transform.DOScaleX(1, .2f));
+		seq.Play();
+	}
+	
 	public void SetTouched(bool istouched) {
 		isTouched = istouched;
 		img_card.raycastTarget = istouched;
@@ -101,7 +116,6 @@ public class Card : MonoBehaviour {
 		gameObject.SetActive(isVisible);
 	}
 
-
 	public void setSmall(bool isSmall) {
 		if (isSmall) {
 			W_Card = WIDTH * RATE_SMALL;
@@ -119,7 +133,7 @@ public class Card : MonoBehaviour {
 		set {
 			isChoose = value;
 			if (!isChoose) {
-				Vector3 vt = transform.localPosition;
+				//Vector3 vt = transform.localPosition;
 				transform.DOLocalMoveY(0, 0.2f);
 			} else {
 				Vector3 vt = transform.localPosition;
@@ -228,12 +242,12 @@ IEnumerator LatBai(int idC, float delayDuration) {
 	//SoundControl.instance.PlaySound(SoundControl.SHOW_CARD);
 	img_card.enabled = true;
 	SetVisible(true);
-	for (float i = -10; i < 0; i++) {
+	for (int i = -10; i < 0; i++) {
 		gameObject.transform.localScale = new Vector3(0.1f * i, 1f, 0f);
 		yield return new WaitForSeconds(0.01f);
 	}
 	SetCardWithId(idC);
-	for (float i = 0; i < 10; i++) {
+	for (int i = 0; i < 10; i++) {
 		gameObject.transform.localScale = new Vector3(0.1f * i, 1f, 0f);
 		yield return new WaitForSeconds(0.01f);
 	}
@@ -255,7 +269,6 @@ public IEnumerator MoveWorldFrom(Transform dealer, Transform cardHand, float dur
 	transform.localScale = Vector3.one;
 	transform.DOScale(1, dur);
 	transform.DOLocalMove(vt, dur).OnComplete(delegate {
-
 		if (callback != null) {
 			callback();
 		}

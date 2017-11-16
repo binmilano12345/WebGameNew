@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Us.Mobile.Utilites;
 using DG.Tweening;
 using System;
+using Beebyte.Obfuscator;
 
 public class TaiXiuViewScript : MonoBehaviour {
 	public static TaiXiuViewScript instance;
@@ -111,7 +112,7 @@ public class TaiXiuViewScript : MonoBehaviour {
 
 	#region Click
 
-	////[SkipRename]
+	[SkipRename]
 	public void OnClickTai() {
 		if (money_me_xiu > 0) {
 			PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("tai_xiu_chi_dat_cua"));
@@ -124,7 +125,7 @@ public class TaiXiuViewScript : MonoBehaviour {
 		}
 	}
 
-	//[SkipRename]
+	[SkipRename]
 	public void OnClickXiu() {
 		if (money_me_tai > 0) {
 			PopupAndLoadingScript.instance.messageSytem.OnShow(ClientConfig.Language.GetText("tai_xiu_chi_dat_cua"));
@@ -137,23 +138,24 @@ public class TaiXiuViewScript : MonoBehaviour {
 		}
 	}
 
-	//[SkipRename]
+	[SkipRename]
 	public void OnClickHistory() {
 		//PopupAndLoadingScript.instance.ShowLoading();
 		////Controller.OnHandleUIEvent("SendHistoryRequest", new object[] { });
 	}
 
-	//[SkipRename]
+	[SkipRename]
 	public void OnClickRank() {
 		//RankRequest(0);
 	}
 
+[SkipRename]
 	public void RankRequest(int type) {
 		//PopupAndLoadingScript.instance.ShowLoading();
 		////Controller.OnHandleUIEvent("SendRankRequest", new object[] { type });
 	}
 
-	//[SkipRename]
+	[SkipRename]
 	public void OnClickHelp() {
 
 	}

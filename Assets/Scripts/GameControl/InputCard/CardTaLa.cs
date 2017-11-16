@@ -165,7 +165,7 @@ public class CardTaLa : MonoBehaviour {
 			c.transform.localPosition = ArrayCardHand.GetPositonCardActive();
 		} else
 			c.SetCardWithId(53);
-		Vector3 vt = ArrayCardHand.POS_CENTER;//ArrayCardHand.transform.InverseTransformPoint(ArrayCardHand.vtPosCenter);
+		Vector3 vt = ArrayCardHand.transform.InverseTransformPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 		StartCoroutine(c.MoveFrom(vt, CONST_DUR, 0, () => {
 			if (isTao) {
 				c.ResetCard(true,true);

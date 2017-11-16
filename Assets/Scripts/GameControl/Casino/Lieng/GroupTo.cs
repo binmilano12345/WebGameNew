@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using AppConfig;
+using Beebyte.Obfuscator;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -44,6 +45,7 @@ public class GroupTo : MonoBehaviour {
 		uiPopUp.HideDialog();
 	}
 
+[SkipRename]
 	public void OnClick() {
 		if(SceneManager.GetSceneByName(SceneName.GAME_LIENG).isLoaded)
 			LiengControl.instance.OnTo(CurrentMoney);
